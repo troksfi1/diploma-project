@@ -1,0 +1,131 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsCompose)
+}
+
+kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
+    
+    jvm("desktop")
+    
+    sourceSets {
+        val desktopMain by getting
+        
+        androidMain.dependencies {
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.androidx.activity.compose)
+        }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.tab.navigator)
+            implementation(libs.voyager.transitions)
+            implementation (libs.androidx.material.icons.extended)
+            ///implementation (libs.maps.compose)
+            implementation(libs.androidx.ui.tooling.preview.v154)
+
+/*                implementation ("com.google.maps.android:maps-compose:4.3.2")
+
+                // Optionally, you can include the Compose utils library for Clustering,
+                // Street View metadata checks, etc.
+                implementation ("com.google.maps.android:maps-compose-utils:4.3.2")
+
+                // Optionally, you can include the widgets library for ScaleBar, etc.
+                implementation ("com.google.maps.android:maps-compose-widgets:4.3.2")*/
+
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
+}
+
+android {
+    namespace = "cz.cvut.fit.nidip.troksfil"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+
+    defaultConfig {
+        applicationId = "cz.cvut.fit.nidip.troksfil"
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = 1
+        versionName = "1.0"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    dependencies {
+        debugImplementation(libs.compose.ui.tooling)
+    }
+}
+dependencies {
+    implementation(libs.androidx.material3)
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "cz.cvut.fit.nidip.troksfil"
+            packageVersion = "1.0.0"
+        }
+    }
+}
+
+/*dependencies {
+    commonMainApi("dev.icerock.moko:maps:0.6.0")
+    commonMainApi("dev.icerock.moko:maps-google:0.6.0")
+    commonMainApi("dev.icerock.moko:maps-mapbox:0.6.0")
+}
+
+kotlin.targets
+    .matching { it is org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget }
+    .configureEach {
+        val target = this as org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
+        target.binaries
+            .matching { it is org.jetbrains.kotlin.gradle.plugin.mpp.Framework }
+            .configureEach {
+                val framework = this as org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+                val frameworks = listOf("Base", "Maps").map { frameworkPath ->
+                    project.file("../ios-app/Pods/GoogleMaps/$frameworkPath/Frameworks").path.let { "-F$it" }
+                }.plus(
+                    project.file("../ios-app/Pods/Mapbox-iOS-SDK/dynamic").path.let { "-F$it" }
+                )
+
+                framework.linkerOpts(frameworks)
+            }
+    }*/
