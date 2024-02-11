@@ -2,7 +2,7 @@ package data.model
 
 import java.sql.Blob
 
-data class EventItem(
+data class Event(
     val category: String,
     val place: String,
     val title: String,

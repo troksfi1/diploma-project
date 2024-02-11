@@ -1,7 +1,7 @@
 package ui.composables
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,27 +20,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.model.News
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun NewsItem() {
+fun NewsItem(news: News, onItemClick: (News) -> Unit) {
+
     Row(
         Modifier
             .fillMaxWidth()
             .height(100.dp)
             .padding(6.dp)
-        /*.clickable(onClick =
-        Navigator(screen = EventsScreen()) { navigator ->
-            SlideTransition(navigator = navigator)
-        }) { }*/,
-
+            .clickable { onItemClick(news) },
         horizontalArrangement = Arrangement.Start
+
     ) {
-        //Spacer(Modifier.width(6.dp))
         Image(
-            painter = painterResource("drawable/img_news_1.jpg"),
+            painter = painterResource(news.coverPhotoPath),
             contentDescription = "Sample",
             contentScale = ContentScale.Crop,
 
@@ -51,14 +49,14 @@ fun NewsItem() {
         Spacer(Modifier.width(6.dp))
         Column {
             Text(
-                "Lávka ve Špitálské je dokončena, další se budou realizovat na jaře",
+                news.title,
                 modifier = Modifier
                     .align(Alignment.Start),
                 fontSize = 15.sp,
                 lineHeight = 15.sp,
             )
             Text(
-                "st 14.1.2024 20:00",
+                news.dateTime,
                 modifier = Modifier
                     .align(Alignment.Start),
                 fontSize = 12.sp,
@@ -67,7 +65,7 @@ fun NewsItem() {
             )
             Spacer(Modifier.height(10.dp))
             Text(
-                "Na konci srpna byla zahájena přestavba mostu v ulici Pod Kovárnami a lávky ve Špitálské ulici.",
+                news.text,
                 modifier = Modifier
                     .align(Alignment.Start),
                 fontSize = 11.sp,

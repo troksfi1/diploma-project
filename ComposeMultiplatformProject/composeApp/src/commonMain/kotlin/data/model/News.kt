@@ -1,11 +1,11 @@
 package data.model
 
-import java.sql.Blob
-
-data class NewsItem(
+data class News(
+    val id: Int,
     val dateTime: String,
     val title: String,
     val text: String,
     val author: String,
-    val photos: List<Blob>
+    val coverPhotoPath: String, //Blob
+    //val photosPaths:  String// List<Blob>
 )
