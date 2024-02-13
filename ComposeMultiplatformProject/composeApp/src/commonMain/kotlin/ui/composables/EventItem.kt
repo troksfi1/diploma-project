@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import data.model.Event
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -51,15 +50,14 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
                 modifier = Modifier
                     .padding(5.dp)
                     .align(Alignment.Start),
-                fontSize = 15.sp
+                style = MaterialTheme.typography.titleSmall
             )
             Text(
                 event.category + event.dateTime + event.place,
                 modifier = Modifier
                     .padding(5.dp)
                     .align(Alignment.Start),
-                fontSize = 10.sp,
-                lineHeight = 10.sp
+                style = MaterialTheme.typography.labelSmall,
             )
         }
     }

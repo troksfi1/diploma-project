@@ -17,6 +17,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -29,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import data.model.EventCategory
 import ui.composables.EventLazyRow
@@ -141,7 +141,7 @@ class EventsScreen : Screen {
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.Start),
-                fontSize = 20.sp
+                style = MaterialTheme.typography.titleLarge
             )
             EventLazyRow(EventCategory.MUSIC)
             Text(
@@ -149,7 +149,7 @@ class EventsScreen : Screen {
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.Start),
-                fontSize = 20.sp
+                style = MaterialTheme.typography.titleLarge
             )
             EventLazyRow(EventCategory.MUSIC)
             Text(
@@ -157,7 +157,7 @@ class EventsScreen : Screen {
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.Start),
-                fontSize = 20.sp
+                style = MaterialTheme.typography.titleLarge
             )
             EventLazyRow(EventCategory.MUSIC)
         }

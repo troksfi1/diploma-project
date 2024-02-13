@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -16,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
@@ -36,7 +36,7 @@ class NewsDetailScreen(private var news: News) : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(news.title, fontSize = 15.sp) },
+                    title = { /*Text(news.title, fontSize = 15.sp)*/ },
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
@@ -61,19 +61,19 @@ class NewsDetailScreen(private var news: News) : Screen {
                 )
                 Text(
                     text = news.title,
-                    //fontSize =
+                    style = MaterialTheme.typography.headlineMedium
                 )
                 Text(
                     text = news.author,
-                    //fontSize =
+                    style = MaterialTheme.typography.labelMedium
                 )
                 Text(
                     text = news.dateTime,
-                    //fontSize =
+                    style = MaterialTheme.typography.labelMedium
                 )
                 Text(
                     text = news.text,
-                    //fontSize =
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
