@@ -21,11 +21,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import data.model.News
+import data.model.Event
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-class NewsDetailScreen(private var news: News) : Screen {
+class EventDetailScreen(private var event: Event) : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
     @Composable
@@ -36,7 +36,7 @@ class NewsDetailScreen(private var news: News) : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(news.title, fontSize = 15.sp) },
+                    title = { Text(event.title, fontSize = 15.sp) },
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
@@ -55,24 +55,20 @@ class NewsDetailScreen(private var news: News) : Screen {
             ) {
                 Image(
                     modifier = Modifier.height(300.dp).fillMaxWidth(),
-                    painter = painterResource(news.coverPhotoPath),
+                    painter = painterResource(event.coverPhotoPath),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = news.title,
+                    text = event.title,
                     //fontSize =
                 )
                 Text(
-                    text = news.author,
+                    text = event.dateTime,
                     //fontSize =
                 )
                 Text(
-                    text = news.dateTime,
-                    //fontSize =
-                )
-                Text(
-                    text = news.text,
+                    text = event.description,
                     //fontSize =
                 )
             }

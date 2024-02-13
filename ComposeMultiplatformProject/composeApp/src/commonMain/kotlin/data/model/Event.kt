@@ -1,12 +1,10 @@
 package data.model
 
-import java.sql.Blob
-
 data class Event(
     val category: String,
     val place: String,
     val title: String,
     val dateTime: String,
-    val text: String,
-    val photos: List<Blob>
+    val description: String,
+    val coverPhotoPath: String
 )

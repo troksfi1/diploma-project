@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +24,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import data.model.EventCategory
 import data.model.News
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -46,10 +48,14 @@ class HomeScreen : Screen {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
         ) {
-            Image(
-                painter = painterResource("drawable/img_pribram_znak.jpg"),
-                contentDescription = "Sample",
-            )
+            Surface {
+                Image(
+                    painter = painterResource("drawable/pribram-logo-white.png"),
+                    contentDescription = "Sample",
+                    //colorFilter =
+                )
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
@@ -70,7 +76,7 @@ class HomeScreen : Screen {
                     .align(Alignment.Start),
                 fontSize = 20.sp
             )
-            EventLazyRow()
+            EventLazyRow(EventCategory.MUSIC)
             Text(
                 "Aktuality",
                 modifier = Modifier

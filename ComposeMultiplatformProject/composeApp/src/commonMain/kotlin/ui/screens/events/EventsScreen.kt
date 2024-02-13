@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import data.model.EventCategory
 import ui.composables.EventLazyRow
 import java.util.Calendar
 
@@ -136,21 +137,21 @@ class EventsScreen : Screen {
             }
 
             Text(
-                "Polulární",
+                "Populární",
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.Start),
                 fontSize = 20.sp
             )
-            EventLazyRow()
+            EventLazyRow(EventCategory.MUSIC)
             Text(
-                "Koncerty",
+                EventCategory.MUSIC.category,
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.Start),
                 fontSize = 20.sp
             )
-            EventLazyRow()
+            EventLazyRow(EventCategory.MUSIC)
             Text(
                 "Divadlo",
                 modifier = Modifier
@@ -158,7 +159,7 @@ class EventsScreen : Screen {
                     .align(Alignment.Start),
                 fontSize = 20.sp
             )
-            EventLazyRow()
+            EventLazyRow(EventCategory.MUSIC)
         }
     }
 }
