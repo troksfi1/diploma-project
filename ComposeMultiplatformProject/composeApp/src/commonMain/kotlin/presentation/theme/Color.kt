@@ -1,4 +1,4 @@
-package ui.theme
+package presentation.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFFBC004C)

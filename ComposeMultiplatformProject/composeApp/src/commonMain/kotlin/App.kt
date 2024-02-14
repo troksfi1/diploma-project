@@ -12,11 +12,11 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import ui.composables.tabs.EventsTab
-import ui.composables.tabs.HomeTab
-import ui.composables.tabs.ParkingTab
-import ui.composables.tabs.MoreTab
-import ui.theme.AppTheme
+import presentation.composables.tabs.EventsTab
+import presentation.composables.tabs.HomeTab
+import presentation.composables.tabs.MoreTab
+import presentation.composables.tabs.ParkingTab
+import presentation.theme.AppTheme
 
 @Composable
 fun App() {
