@@ -5,6 +5,14 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+
+    kotlin("plugin.serialization").version("1.9.22")
+    id("app.cash.sqldelight") version "2.0.1"
+}
+
+repositories {
+    google()
+    mavenCentral()
 }
 
 kotlin {
@@ -20,11 +28,7 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
-        
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -36,23 +40,44 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.transitions)
-            implementation (libs.androidx.material.icons.extended)
+            implementation(libs.androidx.material.icons.extended)
             ///implementation (libs.maps.compose)
             implementation(libs.androidx.ui.tooling.preview.v154)
 
-/*                implementation ("com.google.maps.android:maps-compose:4.3.2")
+            /*                implementation ("com.google.maps.android:maps-compose:4.3.2")
 
-                // Optionally, you can include the Compose utils library for Clustering,
-                // Street View metadata checks, etc.
-                implementation ("com.google.maps.android:maps-compose-utils:4.3.2")
+                            // Optionally, you can include the Compose utils library for Clustering,
+                            // Street View metadata checks, etc.
+                            implementation ("com.google.maps.android:maps-compose-utils:4.3.2")
 
-                // Optionally, you can include the widgets library for ScaleBar, etc.
-                implementation ("com.google.maps.android:maps-compose-widgets:4.3.2")*/
+                            // Optionally, you can include the widgets library for ScaleBar, etc.
+                            implementation ("com.google.maps.android:maps-compose-widgets:4.3.2")*/
 
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.datetime)
         }
+
+        androidMain.dependencies {
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.android)
+            implementation(libs.sqldelight.android.driver)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.sqldelight.sqlite.driver)
         }
+
+        /*iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+        }*/
+
+
     }
 }
 
@@ -91,18 +116,12 @@ android {
 }
 dependencies {
     implementation(libs.androidx.material3)
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "cz.cvut.fit.nidip.troksfil"
-            packageVersion = "1.0.0"
-        }
-    }
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.core)
+    commonMainApi(libs.mvvm.core)
+    commonMainApi(libs.mvvm.compose)
+    commonMainApi(libs.mvvm.flow)
+    commonMainApi(libs.mvvm.flow.compose)
 }
 
 /*dependencies {
@@ -129,3 +148,35 @@ kotlin.targets
                 framework.linkerOpts(frameworks)
             }
     }*/
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "cz.cvut.fit.nidip.troksfil"
+            packageVersion = "1.0.0"
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("cz.cvut.fit.nidip.troksfil.database")
+        }
+    }
+}
+
+
+// because of expect-actual-classes https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-connect-to-apis.html#expected-and-actual-functions-and-properties
+kotlin {
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
+}
+
