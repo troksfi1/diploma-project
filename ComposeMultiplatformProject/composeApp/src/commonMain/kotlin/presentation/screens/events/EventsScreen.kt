@@ -31,7 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import domain.model.EventCategory
+import domain.EventCategory
 import presentation.composables.EventLazyRow
 import java.util.Calendar
 
@@ -41,6 +41,12 @@ class EventsScreen : Screen {
     override fun Content() {
 
         val scrollState = rememberScrollState()
+
+        //val dao = EventsDao()
+
+        //val rep = EventsRepositoryImpl()
+
+        //val viewModel = viewModelFactory {  }EventsViewModel()
 
         Column(
             modifier = Modifier
@@ -80,7 +86,7 @@ class EventsScreen : Screen {
 
                 )
 
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
 
                 FilterChip(
                     onClick = { selectedItem = itemsList[1] },
@@ -90,7 +96,7 @@ class EventsScreen : Screen {
                     selected = itemsList[1] == selectedItem
                 )
 
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
 
                 FilterChip(
                     onClick = { selectedItem = itemsList[2] },
@@ -133,33 +139,27 @@ class EventsScreen : Screen {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
-                ) {
+            ) {
             }
 
             Text(
                 "Populární",
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.Start),
+                modifier = Modifier.align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
             EventLazyRow(EventCategory.MUSIC)
             Text(
                 EventCategory.MUSIC.category,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.Start),
+                modifier = Modifier.align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
             EventLazyRow(EventCategory.MUSIC)
             Text(
-                "Divadlo",
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.Start),
+                EventCategory.THEATRE.category,
+                modifier = Modifier.align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
-            EventLazyRow(EventCategory.MUSIC)
+            EventLazyRow(EventCategory.THEATRE)
         }
     }
 }

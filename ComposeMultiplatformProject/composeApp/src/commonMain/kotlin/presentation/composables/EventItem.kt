@@ -3,12 +3,12 @@ package presentation.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
 
-    Box(
+    Surface(
         modifier = Modifier
             .size(height = 200.dp, width = 175.dp)
             .padding(6.dp)
@@ -32,9 +32,7 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
             .shadow(10.dp)
             .clickable { onItemClick(event) }
     ) {
-        Column(
-            modifier = Modifier.padding(10.dp)
-        ) {
+        Column {
             Image(
                 painter = painterResource(event.coverPhotoPath),
                 contentDescription = "coverPhoto",
@@ -43,21 +41,21 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
                     .align(alignment = Alignment.CenterHorizontally)
                     .aspectRatio(4f / 3f)
             )
-            Text(
-                event.title,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .padding(5.dp)
-                    .align(Alignment.Start),
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                event.category + event.dateTime + event.place,
-                modifier = Modifier
-                    .padding(5.dp)
-                    .align(Alignment.Start),
-                style = MaterialTheme.typography.labelSmall,
-            )
+            Column(modifier = Modifier.padding(6.dp)) {
+                Text(
+                    event.title,
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Text(
+                    /*event.category + */  event.dateTime,
+                    style = MaterialTheme.typography.labelSmall,
+                )
+                Text(
+                    event.place,
+                    style = MaterialTheme.typography.labelSmall,
+                )
+            }
         }
     }
 }

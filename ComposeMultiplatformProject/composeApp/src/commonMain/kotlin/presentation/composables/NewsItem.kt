@@ -29,7 +29,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(100.dp)
             .padding(6.dp)
             .clickable { onItemClick(news) },
         horizontalArrangement = Arrangement.Start
@@ -58,7 +58,6 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary
             )
-            Spacer(Modifier.height(10.dp))
             Text(
                 news.text,
                 modifier = Modifier

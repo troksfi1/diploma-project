@@ -64,6 +64,7 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
             Text(
                 text = tab.options.title,
                 color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+
             )
         }
     )

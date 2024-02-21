@@ -25,7 +25,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import data.repository.FakeRepositoryImpl
-import domain.model.EventCategory
+import domain.EventCategory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import presentation.composables.EventLazyRow
@@ -49,7 +49,7 @@ class HomeScreen : Screen {
         ) {
             Surface {
                 Image(
-                    painter = painterResource("drawable/pribram-logo-white.png"),
+                    painter = painterResource("drawable/img_pribram_znak.jpg"),
                     contentDescription = "pribramLogo",
                     //colorFilter =
                 )

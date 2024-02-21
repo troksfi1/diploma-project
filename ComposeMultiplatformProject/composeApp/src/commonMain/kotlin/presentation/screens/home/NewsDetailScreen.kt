@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -48,8 +50,10 @@ class NewsDetailScreen(private var news: News) : Screen {
                 )
             }
         ) { innerPadding ->
+            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
+                    .verticalScroll(state = scrollState),
                 //.padding(6.dp)
                 //.padding(innerPadding)
             ) {

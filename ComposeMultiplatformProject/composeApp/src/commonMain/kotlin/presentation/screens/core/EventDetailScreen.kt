@@ -2,8 +2,12 @@ package presentation.screens.core
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -46,10 +50,15 @@ class EventDetailScreen(private var event: Event) : Screen {
                         }
                     }
                 )
+            },
+            bottomBar = {
+
             }
         ) { innerPadding ->
+            val scrollState = rememberScrollState()
             Column(
-                modifier = Modifier
+                modifier = Modifier.verticalScroll(state = scrollState)
+
                 //.padding(6.dp)
                 //.padding(innerPadding)
             ) {
@@ -59,18 +68,25 @@ class EventDetailScreen(private var event: Event) : Screen {
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
                 )
-                Text(
-                    text = event.title,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Text(
-                    text = event.dateTime,
-                    style = MaterialTheme.typography.labelMedium
-                )
-                Text(
-                    text = event.description,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column(
+                    modifier = Modifier
+                        .padding(10.dp)
+                ) {
+                    Text(
+                        text = event.title,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = event.dateTime,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = event.description,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
