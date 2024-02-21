@@ -1,7 +1,7 @@
 package data.repository
 
+import domain.EventCategory
 import domain.model.Event
-import domain.model.EventCategory
 import domain.model.News
 
 class FakeRepositoryImpl {
@@ -49,6 +49,7 @@ class FakeRepositoryImpl {
 
             return listOf(
                 Event(
+                    1,
                     EventCategory.MUSIC.category,
                     "Q-klub",
                     "Jamaron",
@@ -57,6 +58,7 @@ class FakeRepositoryImpl {
                     "drawable/img_Jamaron.jpg"
                 ),
                 Event(
+                    2,
                     EventCategory.THEATRE.category,
                     "Divadlo Příbram - Velká scéna",
                     "Jistě, pane ministře",
@@ -65,6 +67,7 @@ class FakeRepositoryImpl {
                     "drawable/img_theatreEvent.png"
                 ),
                 Event(
+                    3,
                     EventCategory.CINEMA.category,
                     "Divadlo Příbram - Kino",
                     "Bob Marley: One Love",

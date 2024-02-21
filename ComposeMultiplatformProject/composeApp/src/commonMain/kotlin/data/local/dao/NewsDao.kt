@@ -5,9 +5,9 @@ import cz.cvut.fit.nidip.troksfil.database.DatabaseDriverFactory
 import domain.model.News
 import domain.repository.NewsRepository
 
-class AppDao(databaseDriverFactory: DatabaseDriverFactory) : NewsRepository {
+class NewsDao(databaseDriverFactory: DatabaseDriverFactory) : NewsRepository {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
-    private val dbQuery = database.appDatabaseQueries
+    private val dbQuery = database.newsQueries
 
     override fun removeAllNews() {
         dbQuery.transaction {

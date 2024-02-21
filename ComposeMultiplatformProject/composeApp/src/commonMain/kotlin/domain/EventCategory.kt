@@ -1,4 +1,4 @@
-package domain.model
+package domain
 
 enum class EventCategory(val category: String) {
     MUSIC("Hudba"),

@@ -1,0 +1,24 @@
+CREATE TABLE Events (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    category TEXT NOT NULL,
+    place TEXT NOT NULL,
+    title TEXT NOT NULL,
+    dateTime TEXT NOT NULL,
+    description TEXT NOT NULL,
+    coverPhotoPath TEXT NOT NULL
+);
+
+INSERT INTO Events(id, category, place, title, dateTime, description, coverPhotoPath)
+VALUES(1, "hudba", "Q-klub", "Jamaron", "st 15.11.", "Stálice Junioru, sázka na toho nejlep..", "drawable/img_Jamaron.jpg");
+
+removeAllEvents:
+DELETE FROM Events;
+
+selectAllEvents:
+SELECT Events.*
+FROM Events;
+
+selectEventsById:
+SELECT *
+FROM Events
+WHERE id = :id;
