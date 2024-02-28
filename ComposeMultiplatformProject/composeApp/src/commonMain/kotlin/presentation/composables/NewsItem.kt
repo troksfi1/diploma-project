@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import domain.model.News
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -36,7 +37,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
 
     ) {
         Image(
-            painter = painterResource(news.coverPhotoPath),
+            painter = painterResource(news.coverPhotoURI),
             contentDescription = "Sample",
             contentScale = ContentScale.Crop,
 
@@ -50,19 +51,25 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.titleSmall,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
             )
             Text(
                 news.dateTime,
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             Text(
                 news.text,
                 modifier = Modifier
                     .align(Alignment.Start),
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
             )
         }
     }
