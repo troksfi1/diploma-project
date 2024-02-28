@@ -2,8 +2,10 @@ package presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -42,7 +45,7 @@ class NewsDetailScreen(private var news: News) : Screen {
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back",
                             )
                         }
@@ -58,27 +61,33 @@ class NewsDetailScreen(private var news: News) : Screen {
                 //.padding(innerPadding)
             ) {
                 Image(
-                    modifier = Modifier.height(300.dp).fillMaxWidth(),
-                    painter = painterResource(news.coverPhotoPath),
+                    modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),
+                    painter = painterResource(news.coverPhotoURI),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
                 )
-                Text(
-                    text = news.title,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Text(
-                    text = news.author,
-                    style = MaterialTheme.typography.labelMedium
-                )
-                Text(
-                    text = news.dateTime,
-                    style = MaterialTheme.typography.labelMedium
-                )
-                Text(
-                    text = news.text,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column(modifier = Modifier.padding(10.dp)) {
+                    Text(
+                        text = news.title,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = news.author,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        text = news.dateTime,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = news.text,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+
             }
         }
     }

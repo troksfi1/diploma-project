@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -44,7 +45,7 @@ class EventDetailScreen(private var event: Event) : Screen {
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back",
                             )
                         }
@@ -58,12 +59,11 @@ class EventDetailScreen(private var event: Event) : Screen {
             val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier.verticalScroll(state = scrollState)
-
                 //.padding(6.dp)
                 //.padding(innerPadding)
             ) {
                 Image(
-                    modifier = Modifier.height(300.dp).fillMaxWidth(),
+                    modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),
                     painter = painterResource(event.coverPhotoPath),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
