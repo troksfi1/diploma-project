@@ -14,7 +14,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import data.repository.FakeRepositoryImpl
-import domain.model.EventCategory
+import domain.EventCategory
 import kotlinx.coroutines.launch
 import presentation.screens.core.EventDetailScreen
 
@@ -38,7 +38,8 @@ fun EventLazyRow(category: EventCategory) {
                 },
             )
     ) {
-        val eventList = FakeRepositoryImpl.getAllEvents()   //todo replace by viewModel
+        val eventList = FakeRepositoryImpl.getAllEvents()
+            .filter { p -> p.category == category.category }   //todo replace by viewModel
 
         items(eventList) { event ->
             EventItem(event = event, onItemClick = { selectedEvent ->
