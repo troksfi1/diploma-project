@@ -1,7 +1,9 @@
 package presentation.screens.more
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -26,17 +28,21 @@ class MoreScreen : Screen {
 
             //todo extract icon, set font, set background color
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 140.dp)
+                columns = GridCells.Adaptive(minSize = 140.dp),
+
+                //contentPadding = PaddingValues(10.dp)
             ) {
                 items(18) { photo ->
-                    ImageButton("gg",
-                        "drawable/img_municipal_authority.png",
-                        200
-                    )
+                    Box(modifier = Modifier.padding(10.dp)) {
+                        ImageButton("Popis", "drawable/img_municipal_authority.png",
+                            imageSize = 150,
+                            onClick = {}
+                        )
+                    }
+
                     //PhotoItem(photo)
                 }
             }
-
         }
     }
 }
