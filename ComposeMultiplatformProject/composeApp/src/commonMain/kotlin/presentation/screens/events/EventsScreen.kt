@@ -22,31 +22,29 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import data.repository.FakeEventsDataSourceImpl
 import domain.EventCategory
-import presentation.composables.EventLazyRow
-import java.util.Calendar
+import domain.FilterOption
+import presentation.components.EventLazyRow
 
 class EventsScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
+        val screenModel = rememberScreenModel {
+            EventsScreenModel(eventsDataSource = FakeEventsDataSourceImpl())
+        }
+        val state by screenModel.state.collectAsState()
 
         val scrollState = rememberScrollState()
-
-        //val dao = EventsDao()
-
-        //val rep = EventsRepositoryImpl()
-
-        //val viewModel = viewModelFactory {  }EventsViewModel()
 
         Column(
             modifier = Modifier
@@ -61,79 +59,72 @@ class EventsScreen : Screen {
 
                 ) {
 
-                val itemsList = listOf("Dnes", "Zítra", "Datum", "")
-
-                var selectedItem by remember {
-                    mutableStateOf(itemsList[0]) // initially, first item is selected
-                }
-
-                val calendar = Calendar.getInstance()
-
                 // set the initial date
-                val datePickerState =
-                    rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
+                val datePickerState = rememberDatePickerState()   //todo
 
-                //var showDatePicker by remember { mutableStateOf(false) }
-
-                var selectedDate by remember { mutableLongStateOf(calendar.timeInMillis) }
 
                 FilterChip(
-                    onClick = { selectedItem = itemsList[0] },
+                    onClick = { screenModel.onEvent(EventsEvent.OnFilterTodayIsSelected) },
                     label = {
-                        Text(text = itemsList[0])
+                        Text(text = FilterOption.TODAY.filterName)
                     },
-                    selected = itemsList[0] == selectedItem
+                    selected = FilterOption.TODAY == state.selectedFilterOption
 
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
 
                 FilterChip(
-                    onClick = { selectedItem = itemsList[1] },
+                    onClick = { screenModel.onEvent(EventsEvent.OnFilterTomorrowIsSelected) },
                     label = {
-                        Text(text = itemsList[1])
+                        Text(text = FilterOption.TOMORROW.filterName)
                     },
-                    selected = itemsList[1] == selectedItem
+                    selected = FilterOption.TOMORROW == state.selectedFilterOption
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
 
                 FilterChip(
-                    onClick = { selectedItem = itemsList[2] },
+                    onClick = { screenModel.onEvent(EventsEvent.OnFilterDateIsSelected) },
                     label = {
-                        Icon(Icons.Outlined.CalendarMonth, contentDescription = "")
+                        Icon(
+                            Icons.Outlined.CalendarMonth,
+                            contentDescription = "calendar icon"
+                        )
                     },
-                    selected = itemsList[2] == selectedItem
+                    selected = FilterOption.SELECTED_DATE == state.selectedFilterOption
                 )
 
-                if (itemsList[2] == selectedItem) {
+                if (state.isDatePickerOpen) {
                     DatePickerDialog(
+                        properties = DialogProperties(),
                         onDismissRequest = {
-                            selectedItem = itemsList[3]
+                            screenModel.onEvent(EventsEvent.OnDatePickerDismissRequest)
                         },
                         confirmButton = {
                             TextButton(onClick = {
-                                selectedItem = itemsList[3]
-                                selectedDate = datePickerState.selectedDateMillis!!
+                                screenModel.onEvent(EventsEvent.OnDateSelected)
                             }) {
                                 Text(text = "Potvdit")
                             }
                         },
                         dismissButton = {
                             TextButton(onClick = {
-                                selectedItem = itemsList[3]
-                                //showDatePicker = false
+                                screenModel.onEvent(EventsEvent.OnDatePickerDismissRequest)
                             }) {
                                 Text(text = "Zrušit")
                             }
                         }
                     ) {
                         DatePicker(
-                            state = datePickerState
+                            state = datePickerState,//state.selectedDate,    //todo
+                            showModeToggle = false
                         )
                     }
                 }
             }
+
+            Text(state.selectedDate.toString())
 
             //todo category dropdown menu
             Row(
@@ -147,7 +138,7 @@ class EventsScreen : Screen {
                 modifier = Modifier.align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
-            EventLazyRow(EventCategory.MUSIC)
+            EventLazyRow(EventCategory.TOP_EVENTS)
             Text(
                 EventCategory.MUSIC.category,
                 modifier = Modifier.align(Alignment.Start),
