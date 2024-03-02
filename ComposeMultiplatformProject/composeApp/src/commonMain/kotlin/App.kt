@@ -12,10 +12,10 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import presentation.composables.tabs.EventsTab
-import presentation.composables.tabs.HomeTab
-import presentation.composables.tabs.MoreTab
-import presentation.composables.tabs.ParkingTab
+import presentation.components.tabs.EventsTab
+import presentation.components.tabs.HomeTab
+import presentation.components.tabs.MoreTab
+import presentation.components.tabs.ParkingTab
 import presentation.theme.AppTheme
 
 @Composable

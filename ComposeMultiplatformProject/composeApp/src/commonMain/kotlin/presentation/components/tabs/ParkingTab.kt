@@ -1,10 +1,10 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package presentation.composables.tabs
+package presentation.components.tabs
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.DirectionsCar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -12,15 +12,15 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import cafe.adriel.voyager.transitions.SlideTransition
-import presentation.screens.home.HomeScreen
+import presentation.screens.parking.ParkingScreen
 
-object HomeTab : Tab {
+object ParkingTab : Tab {
 
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Domů"
-            val icon = rememberVectorPainter(Icons.Outlined.Home)
+            val title = "Parkování"
+            val icon = rememberVectorPainter(Icons.Outlined.DirectionsCar)
 
             return remember {
                 TabOptions(
@@ -33,7 +33,7 @@ object HomeTab : Tab {
 
     @Composable
     override fun Content() {
-        Navigator(screen = HomeScreen()) { navigator ->
+        Navigator(screen = ParkingScreen()) { navigator ->
             SlideTransition(navigator = navigator)
         }
     }

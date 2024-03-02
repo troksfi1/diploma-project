@@ -1,4 +1,4 @@
-package presentation.screens.core
+package presentation.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

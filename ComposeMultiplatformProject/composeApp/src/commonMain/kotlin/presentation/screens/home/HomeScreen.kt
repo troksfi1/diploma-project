@@ -38,10 +38,9 @@ import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.serialization.XML
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import presentation.composables.EventLazyRow
-import presentation.composables.ImageButton
-import presentation.composables.NewsItem
-import presentation.screens.core.DefectScreen
+import presentation.components.EventLazyRow
+import presentation.components.ImageButton
+import presentation.components.NewsItem
 
 class HomeScreen : Screen {
 

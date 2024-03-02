@@ -14,7 +14,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import presentation.composables.ImageButton
+import presentation.components.ImageButton
 
 class MoreScreen : Screen {
 
