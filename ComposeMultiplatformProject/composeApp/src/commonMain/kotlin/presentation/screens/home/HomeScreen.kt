@@ -25,7 +25,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import data.repository.FakeRepositoryImpl
+import data.repository.FakeNewsRepositoryImpl
 import domain.EventCategory
 import domain.model.News
 import io.ktor.client.HttpClient
@@ -144,7 +144,8 @@ class HomeScreen : Screen {
 
             LazyColumn {
 
-                val newsList = FakeRepositoryImpl.getAllNews()    // todo replace by viewModel impl
+                val newsList =
+                    FakeNewsRepositoryImpl().getAllNews()   // todo replace by viewModel impl
 
                 items(newsList) { news ->
                     NewsItem(news = news, onItemClick = { selectedNews ->

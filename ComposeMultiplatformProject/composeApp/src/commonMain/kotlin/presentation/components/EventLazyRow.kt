@@ -1,4 +1,4 @@
-package presentation.composables
+package presentation.components
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import data.repository.FakeRepositoryImpl
+import data.repository.FakeEventsDataSourceImpl
 import domain.EventCategory
 import kotlinx.coroutines.launch
 import presentation.screens.core.EventDetailScreen
@@ -23,8 +23,6 @@ fun EventLazyRow(category: EventCategory) {
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     val navigator: Navigator = LocalNavigator.currentOrThrow
-
-    //val viewModel = EventsViewModel(NewsRepositoryImpl)
 
     LazyRow(
         state = scrollState,
@@ -38,7 +36,7 @@ fun EventLazyRow(category: EventCategory) {
                 },
             )
     ) {
-        val eventList = FakeRepositoryImpl.getAllEvents()
+        val eventList = FakeEventsDataSourceImpl().getAllEvents()
             .filter { p -> p.category == category.category }   //todo replace by viewModel
 
         items(eventList) { event ->
