@@ -1,7 +1,15 @@
 package domain
 
 enum class EventCategory(val category: String) {
-    MUSIC("Hudba"),
+    ALL("Vše"),
     THEATRE("Divadlo"),
-    CINEMA("Kino")
+    EXHIBITIONS("Výstavy"),
+    FESTIVALS("Festivaly"),
+    CINEMA("Kino"),
+    MUSIC("Hudba"),
+    LECTURE("Přednášky"),
+    SPORT("Sport"),
+    FOR_KIDS("Pro děti"),
+    OTHER("Ostatní"),
+    TOP_EVENTS("TOP Akce"),
 }
