@@ -17,25 +17,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import data.repository.FakeNewsRepositoryImpl
 import domain.EventCategory
-import domain.model.News
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
-import io.ktor.http.ContentType
-import io.ktor.serialization.kotlinx.xml.xml
-import nl.adaptivity.xmlutil.XmlDeclMode
-import nl.adaptivity.xmlutil.serialization.XML
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import presentation.components.EventLazyRow
@@ -48,6 +41,10 @@ class HomeScreen : Screen {
     //@Preview
     @Composable
     override fun Content() {
+        val screenModel = rememberScreenModel {
+            HomeScreenModel(FakeNewsRepositoryImpl())
+        }
+        val state by screenModel.state.collectAsState()
         val scrollState = rememberScrollState()
         val navigator: Navigator = LocalNavigator.currentOrThrow
         Column(
@@ -61,7 +58,7 @@ class HomeScreen : Screen {
                 modifier = Modifier.fillMaxWidth().size(200.dp)
             ) {
                 Image(
-                    painter = painterResource("drawable/imgpribram-logo-white.png"),
+                    painter = painterResource("drawable/img_pribram_znak.jpg"), //img_pribram-logo-white.png
                     contentDescription = "pribramLogo",
                     //colorFilter =
                 )
@@ -72,53 +69,22 @@ class HomeScreen : Screen {
                 horizontalArrangement = Arrangement.SpaceEvenly,
 
                 ) {
-
-                /*Button(onClick = {}, content = {}) {
-                    Image(
-                        painter = painterResource("drawable/img_municipal_authority.png"),
-                        contentDescription = "Favorite",
-                    )
-                }*/
-
-                val uriHandler = LocalUriHandler.current
-
                 ImageButton(name = "Úřad", imagePath = "drawable/img_municipal_authority.png",
                     onClick = {
-
+                        //todo replace by VM impl?
                     }
                 )
                 ImageButton(name = "Závady", imagePath = "drawable/img_defect.png",
-                    onClick = { navigator.push(DefectScreen()) }
+                    onClick = { navigator.push(DefectScreen()) } //todo replace by VM impl?
                 )
-
-                val client = HttpClient {
-                    install(ContentNegotiation) {
-                        xml(
-                            contentType = ContentType.Application.Xml,
-                            format = XML { //ContentType.Application.Rss  // XML = DefaultXml
-                                xmlDeclMode = XmlDeclMode.Auto
-                            })
-                    }
-                }
-
-                suspend fun vdo(): News {
-                    val news: News = client.get("https://pribram.eu/xmldata/aktuality/").body()
-                    print(news)
-                    return news
-                }
 
 
                 ImageButton(name = "Služby", imagePath = "drawable/img_service.png",
-                    onClick = {
-                        suspend {
-                            val news = vdo()
-                            val n = news
-                        }
-                    }
+                    onClick = { } //todo replace by VM impl?
                 )
                 ImageButton(name = "YouTube", imagePath = "drawable/img_youtube.png",
                     onClick = {
-                        uriHandler.openUri("https://www.youtube.com/@mestopribram1671")
+                        screenModel.onEvent(HomeEvent.OnButtonYouTubeClicked)
                     }
                 )
             }
@@ -132,7 +98,7 @@ class HomeScreen : Screen {
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
-            EventLazyRow(EventCategory.MUSIC)
+            EventLazyRow(EventCategory.TOP_EVENTS)
             Text(
                 "Aktuality",
                 modifier = Modifier
@@ -142,11 +108,7 @@ class HomeScreen : Screen {
             )
 
             LazyColumn {
-
-                val newsList =
-                    FakeNewsRepositoryImpl().getAllNews()   // todo replace by viewModel impl
-
-                items(newsList) { news ->
+                items(state.news) { news ->
                     NewsItem(news = news, onItemClick = { selectedNews ->
                         navigator.push(NewsDetailScreen(news))
                     })
