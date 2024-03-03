@@ -9,5 +9,5 @@ sealed interface EventsEvent {
 
     object OnDatePickerDismissRequest : EventsEvent
 
-    object OnDateSelected : EventsEvent
+    data class OnDateIsPicked(val startDate: Long, val endDate: Long) : EventsEvent
 }

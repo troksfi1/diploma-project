@@ -2,25 +2,27 @@ package presentation.screens.events
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,12 +33,11 @@ import androidx.compose.ui.window.DialogProperties
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import data.repository.FakeEventsDataSourceImpl
-import domain.EventCategory
 import domain.FilterOption
 import presentation.components.EventLazyRow
 
 class EventsScreen : Screen {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel {
@@ -58,10 +59,6 @@ class EventsScreen : Screen {
                 horizontalArrangement = Arrangement.Center,
 
                 ) {
-
-                // set the initial date
-                val datePickerState = rememberDatePickerState()   //todo
-
 
                 FilterChip(
                     onClick = { screenModel.onEvent(EventsEvent.OnFilterTodayIsSelected) },
@@ -94,7 +91,12 @@ class EventsScreen : Screen {
                     selected = FilterOption.SELECTED_DATE == state.selectedFilterOption
                 )
 
+                // set the initial date
+                val dateRangePickerState =
+                    rememberDateRangePickerState()  //todo move state to state class
+
                 if (state.isDatePickerOpen) {
+
                     DatePickerDialog(
                         properties = DialogProperties(),
                         onDismissRequest = {
@@ -102,7 +104,13 @@ class EventsScreen : Screen {
                         },
                         confirmButton = {
                             TextButton(onClick = {
-                                screenModel.onEvent(EventsEvent.OnDateSelected)
+                                screenModel.onEvent(
+                                    EventsEvent.OnDateIsPicked
+                                        (
+                                        dateRangePickerState.selectedStartDateMillis!!,
+                                        dateRangePickerState.selectedEndDateMillis!!
+                                    )
+                                )      //todo move state to state class
                             }) {
                                 Text(text = "Potvdit")
                             }
@@ -115,15 +123,16 @@ class EventsScreen : Screen {
                             }
                         }
                     ) {
-                        DatePicker(
-                            state = datePickerState,//state.selectedDate,    //todo
+                        DateRangePicker(
+                            modifier = Modifier.height(500.dp).padding(0.dp, 20.dp, 0.dp, 0.dp),
+                            state = dateRangePickerState,    //todo move state to state class
                             showModeToggle = false
                         )
                     }
                 }
             }
 
-            Text(state.selectedDate.toString())
+            Text("Od: ${state.selectedDateStart} do: ${state.selectedDateEnd}")
 
             //todo category dropdown menu
 
