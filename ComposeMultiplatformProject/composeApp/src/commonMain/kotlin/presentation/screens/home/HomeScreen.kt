@@ -98,7 +98,7 @@ class HomeScreen : Screen {
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.titleLarge
             )
-            EventLazyRow(EventCategory.TOP_EVENTS)
+            //EventLazyRow(EventCategory.TOP_EVENTS, EventsState())
             Text(
                 "Aktuality",
                 modifier = Modifier

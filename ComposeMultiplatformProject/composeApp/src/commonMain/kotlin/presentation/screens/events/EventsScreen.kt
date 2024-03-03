@@ -69,7 +69,6 @@ class EventsScreen : Screen {
                         Text(text = FilterOption.TODAY.filterName)
                     },
                     selected = FilterOption.TODAY == state.selectedFilterOption
-
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
@@ -127,30 +126,12 @@ class EventsScreen : Screen {
             Text(state.selectedDate.toString())
 
             //todo category dropdown menu
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-            ) {
-            }
 
-            Text(
-                "Populární",
-                modifier = Modifier.align(Alignment.Start),
-                style = MaterialTheme.typography.titleLarge
-            )
-            EventLazyRow(EventCategory.TOP_EVENTS)
-            Text(
-                EventCategory.MUSIC.category,
-                modifier = Modifier.align(Alignment.Start),
-                style = MaterialTheme.typography.titleLarge
-            )
-            EventLazyRow(EventCategory.MUSIC)
-            Text(
-                EventCategory.THEATRE.category,
-                modifier = Modifier.align(Alignment.Start),
-                style = MaterialTheme.typography.titleLarge
-            )
-            EventLazyRow(EventCategory.THEATRE)
+            FlowColumn {
+                state.filteredEventsCategories.forEach {
+                    EventLazyRow(it, state)
+                }
+            }
         }
     }
 }
