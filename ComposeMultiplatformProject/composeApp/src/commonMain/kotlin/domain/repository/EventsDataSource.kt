@@ -3,7 +3,7 @@ package domain.repository
 import domain.model.Event
 
 //interface for all data sources (database, cache, api)
-interface EventsRepository {
+interface EventsDataSource {
 
     fun getAllEvents(): List<Event>    //Flow<> ??? or suspend
 

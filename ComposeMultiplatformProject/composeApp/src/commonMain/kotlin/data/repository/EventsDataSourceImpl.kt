@@ -2,11 +2,11 @@ package data.repository
 
 import data.local.dao.EventsDao
 import domain.model.Event
-import domain.repository.EventsRepository
+import domain.repository.EventsDataSource
 
-class EventsRepositoryImpl(
+class EventsDataSourceImpl(
     private val dao: EventsDao
-) : EventsRepository {
+) : EventsDataSource {
 
     override fun getAllEvents(): List<Event> {
         return dao.getAllEvents()

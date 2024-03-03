@@ -1,6 +1,6 @@
 package domain
 
-enum class EventCategory(val category: String) {
+enum class EventCategory(val categoryName: String) {
     ALL("Vše"),
     THEATRE("Divadlo"),
     EXHIBITIONS("Výstavy"),

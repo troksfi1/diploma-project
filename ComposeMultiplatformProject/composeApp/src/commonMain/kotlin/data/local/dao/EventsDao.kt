@@ -2,10 +2,12 @@ package data.local.dao
 
 import cz.cvut.fit.nidip.troksfil.database.AppDatabase
 import cz.cvut.fit.nidip.troksfil.database.DatabaseDriverFactory
+import domain.EventCategory
 import domain.model.Event
-import domain.repository.EventsRepository
+import domain.repository.EventsDataSource
+import kotlinx.datetime.LocalDateTime
 
-class EventsDao(databaseDriverFactory: DatabaseDriverFactory) : EventsRepository {
+class EventsDao(databaseDriverFactory: DatabaseDriverFactory) : EventsDataSource {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
     private val dbQuery = database.eventsQueries
 
@@ -28,10 +30,10 @@ class EventsDao(databaseDriverFactory: DatabaseDriverFactory) : EventsRepository
     ): Event {
         return Event(
             id = id.toInt(),
-            category = category,
+            category = EventCategory.valueOf(category),
             place = place,
             title = title,
-            dateTime = dateTime,
+            dateTime = LocalDateTime.parse(dateTime),       //add second parameter formatter?
             description = description,
             coverPhotoPath = coverPhotoPath
         )

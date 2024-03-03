@@ -48,7 +48,7 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    /*event.category + */  event.dateTime,
+                    /*event.category + */  event.dateTime.toString(),
                     style = MaterialTheme.typography.labelSmall,
                 )
                 Text(

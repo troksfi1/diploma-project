@@ -78,7 +78,7 @@ class EventDetailScreen(private var event: Event) : Screen {
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = event.dateTime,
+                        text = event.dateTime.toString(),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))

@@ -17,6 +17,6 @@ data class News(
     @SerialName("author")
     val author: String,
     @SerialName("cover_photo_path")
-    val coverPhotoPath: String, //Blob
+    val coverPhotoURI: String, //Blob
     //val photosPaths:  String// List<Blob>
 )

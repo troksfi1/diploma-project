@@ -1,5 +1,7 @@
 package domain.model
 
+import domain.EventCategory
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,13 +11,13 @@ data class Event(
     @SerialName("id")
     val id: Int,
     @SerialName("category")
-    val category: String,
+    val category: EventCategory,
     @SerialName("place")
     val place: String,
     @SerialName("title")
     val title: String,
     @SerialName("date_time")
-    val dateTime: String,
+    val dateTime: LocalDateTime,
     @SerialName("description")
     val description: String,
     @SerialName("cover_photo_path")

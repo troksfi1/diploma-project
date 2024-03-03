@@ -37,7 +37,7 @@ class NewsDao(databaseDriverFactory: DatabaseDriverFactory) : NewsRepository {
             title = title,
             text = text,
             author = author,
-            coverPhotoPath = coverPhotoPath
+            coverPhotoURI = coverPhotoPath
         )
     }
 }
