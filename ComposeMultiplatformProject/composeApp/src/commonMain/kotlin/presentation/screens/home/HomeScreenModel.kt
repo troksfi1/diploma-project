@@ -37,7 +37,10 @@ class HomeScreenModel(
 
             else -> Unit
         }
+    }
 
+    init {
+        suspend { getNews() }
     }
 
     val client = HttpClient {
@@ -50,7 +53,12 @@ class HomeScreenModel(
         }
     }
 
-    suspend fun getNews(): News {
+    suspend fun getNews(): List<News> {
         return client.get("https://pribram.eu/xmldata/aktuality/").body()
+    }
+
+    override fun onDispose() {
+        super.onDispose()
+        client.close()
     }
 }
