@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import domain.EventCategory
+import cz.cvut.fit.nidip.troksfil.domain.EventCategory
+import cz.cvut.fit.nidip.troksfil.presentation.screens.core.EventDetailScreen
+import cz.cvut.fit.nidip.troksfil.presentation.screens.events.EventsState
 import kotlinx.coroutines.launch
-import presentation.screens.core.EventDetailScreen
-import presentation.screens.events.EventsState
 
 @Composable
 fun EventLazyRow(category: EventCategory, state: EventsState) {
@@ -49,13 +49,12 @@ fun EventLazyRow(category: EventCategory, state: EventsState) {
                 )
         ) {
 
+            val predicate: (EventCategory) -> Boolean = { it == category }
             val eventList =
-                state.filteredEvents.filter { event -> event.category == category }   //todo replace by viewModel
-
-            //eventList = eventList.filter { event -> event.dateTime == state.selectedDateStart.toString()}   //todo replace by viewModel
+                state.filteredEvents.filter { event -> event.categories.any(predicate) }   //todo replace by viewModel impl
 
             items(eventList) { event ->  //state.filteredEvents
-                EventItem(event = event, onItemClick = { selectedEvent ->
+                EventItem(event = event, onItemClick = {
                     navigator.push(EventDetailScreen(event))
                 })
             }

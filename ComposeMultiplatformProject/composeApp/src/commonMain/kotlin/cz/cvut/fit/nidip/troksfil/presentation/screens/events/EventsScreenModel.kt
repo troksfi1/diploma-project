@@ -1,19 +1,22 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.events
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import domain.EventCategory
-import domain.FilterOption
-import domain.model.Event
-import domain.repository.EventsDataSource
+import cafe.adriel.voyager.core.model.screenModelScope
+import cz.cvut.fit.nidip.troksfil.domain.EventCategory
+import cz.cvut.fit.nidip.troksfil.domain.FilterOption
+import cz.cvut.fit.nidip.troksfil.domain.model.Event
+import cz.cvut.fit.nidip.troksfil.domain.repository.EventsRepository
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.xml.xml
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
@@ -26,7 +29,7 @@ import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.serialization.XML
 
 class EventsScreenModel(
-    private val eventsDataSource: EventsDataSource
+    private val eventsRepository: EventsRepository
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(EventsState())
@@ -46,39 +49,47 @@ class EventsScreenModel(
                 val myRange = startDateTime..endDateTime
 
                 val filteredEvents =
-                    state.value.events.filter { event -> event.dateTime in myRange }
+                    state.value.events.filter { it.startDateTime in myRange }
 
-                _state.update {
-                    it.copy(
-                        filteredEvents = filteredEvents,
-                        selectedFilterOption = FilterOption.TODAY,
-                        selectedDateStart = startDateTime,
-                        selectedDateEnd = endDateTime,
-                        filteredEventsCategories = filteredEventsCategories
-                    )
+                screenModelScope.launch {
+
+                    _state.update {
+                        it.copy(
+                            filteredEvents = filteredEvents,
+                            selectedFilterOption = FilterOption.TODAY,
+                            selectedDateStart = startDateTime,
+                            selectedDateEnd = endDateTime,
+                            filteredEventsCategories = filteredEventsCategories
+                        )
+                    }
                 }
             }
 
             EventsEvent.OnFilterTomorrowIsSelected -> {
-                val filteredEventsCategories = getFilteredEventsCategories()
-                val tomorrow: LocalDate =
-                    Clock.System.todayIn(TimeZone.currentSystemDefault()).plus(1, DateTimeUnit.DAY)
+                screenModelScope.launch {
+                    val filteredEventsCategories = getFilteredEventsCategories()
+                    val tomorrow: LocalDate =
+                        Clock.System.todayIn(TimeZone.currentSystemDefault())
+                            .plus(1, DateTimeUnit.DAY)
 
-                val startDateTime = LocalDateTime(tomorrow, LocalTime(0, 0))
-                val endDateTime = LocalDateTime(tomorrow, LocalTime(23, 59))
+                    val startDateTime = LocalDateTime(
+                        tomorrow,
+                        LocalTime(0, 0)
+                    )        //todo replace by model attributes
+                    val endDateTime = LocalDateTime(tomorrow, LocalTime(23, 59))
 
-                val myRange = startDateTime..endDateTime
+                    val myRange = startDateTime..endDateTime
 
-                _state.update {
-                    it.copy(
-                        filteredEvents = it.events.filter { event -> event.dateTime in myRange },
-                        selectedFilterOption = FilterOption.TOMORROW,       //todo it nebo _state
-                        selectedDateStart = startDateTime,
-                        selectedDateEnd = endDateTime,
-                        filteredEventsCategories = filteredEventsCategories
-                    )
+                    _state.update {
+                        it.copy(
+                            filteredEvents = it.events.filter { event -> event.startDateTime in myRange },
+                            selectedFilterOption = FilterOption.TOMORROW,       //todo it nebo _state
+                            selectedDateStart = startDateTime,
+                            selectedDateEnd = endDateTime,
+                            filteredEventsCategories = filteredEventsCategories
+                        )
+                    }
                 }
-
             }
 
             is EventsEvent.OnDateIsPicked -> {
@@ -95,7 +106,7 @@ class EventsScreenModel(
 
                 _state.update {
                     it.copy(
-                        filteredEvents = it.events.filter { event -> event.dateTime in myRange },
+                        filteredEvents = it.events.filter { event -> event.startDateTime in myRange },
                         isDatePickerOpen = false,
                         selectedDateStart = startDateTime,
                         selectedDateEnd = endDateTime,
@@ -122,6 +133,17 @@ class EventsScreenModel(
                 }
             }
 
+            EventsEvent.OnInit -> {
+                screenModelScope.launch {
+                    _state.update { state ->
+                        state.copy(
+                            //news = repository.getAllNews(),
+                            events = eventsRepository.getAllEvents()
+                        )
+                    }
+                }
+            }
+
             else -> Unit
 
         }
@@ -129,11 +151,14 @@ class EventsScreenModel(
     }
 
     private fun getFilteredEventsCategories(): List<EventCategory> {
-        val categoryList = _state.value.filteredEvents.map { it.category }
-        return categoryList.distinctBy { it }
+        val allCategories = mutableListOf<EventCategory>()
+        _state.value.filteredEvents.forEach {
+            allCategories.addAll(it.categories)
+        }
+        return allCategories.distinctBy { eventCategory -> eventCategory }
     }
 
-    private val client = HttpClient {
+    val client = HttpClient {
         install(ContentNegotiation) {
             xml(
                 contentType = ContentType.Application.Xml,
@@ -141,29 +166,25 @@ class EventsScreenModel(
                     xmlDeclMode = XmlDeclMode.Auto
                 })
         }
+
+        install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    co.touchlab.kermit.Logger.d { message }
+                }
+            }
+            level = LogLevel.INFO
+        }
     }
 
     init {
-        //suspend { getEvents() }
+        EventsEvent.OnInit
         EventsEvent.OnFilterTodayIsSelected  //todo don't call if wasn't selected
     }
 
 
-    override fun onDispose() {
-        super.onDispose()
-        client.close()
-    }
-
-    private suspend fun getEvents(): List<Event> {
-        return client.get("https://kalendar.pribram.eu/xmldata/akce/").body()
-    }
-
-    fun getAllEvents(): List<Event> {
-        return eventsDataSource.getAllEvents()
-    }
-
-    fun getEventsByCategory(category: EventCategory): List<Event> {
-        return eventsDataSource.getAllEvents().filter { p -> p.category == category }
+    suspend fun getEvents(): List<Event> {
+        return eventsRepository.getAllEvents()
     }
 
     /*fun getEventsByDate(date: DatePeriod): List<Event> {

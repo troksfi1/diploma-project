@@ -6,4 +6,6 @@ sealed interface EventsEvent {
     object OnFilterDateIsSelected : EventsEvent
     object OnDatePickerDismissRequest : EventsEvent
     data class OnDateIsPicked(val startDate: Long, val endDate: Long) : EventsEvent
+
+    object OnInit : EventsEvent
 }
