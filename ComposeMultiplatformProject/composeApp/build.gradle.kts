@@ -174,7 +174,8 @@ compose.desktop {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("cz.cvut.fit.nidip.troksfil.database")
+            packageName.set("cz.cvut.fit.nidip.troksfil.data.local")
+            generateAsync.set(true)
         }
     }
 }

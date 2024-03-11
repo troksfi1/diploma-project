@@ -1,0 +1,24 @@
+CREATE TABLE News (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    dateTime TEXT NOT NULL,
+    title TEXT NOT NULL,
+    text TEXT NOT NULL,
+    thumbnailUri TEXT NOT NULL,
+    imageUri TEXT NOT NULL
+);
+
+insertNews:
+INSERT INTO News
+VALUES(1, "2024-03-08T12:49:00", "Lávka ve Špitálské je dokončena, další se budou realizovat na jaře", "Na konci srpna byla zahájena přestavba mostu v ulici Pod Kovárnami a lávky ve Špitálské ulici.", "https://pribram.eu/galerie_clanky/104990_med.jpg", "https://pribram.eu/galerie_clanky/104990_med.jpg");
+
+removeAllNews:
+DELETE FROM News;
+
+selectAllNews:
+SELECT News.*
+FROM News;
+
+selectNewsById:
+SELECT *
+FROM News
+WHERE id = :id;
