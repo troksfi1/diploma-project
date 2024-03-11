@@ -1,6 +1,5 @@
 package cz.cvut.fit.nidip.troksfil.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,11 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import domain.model.Event
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import coil3.compose.AsyncImage
+import cz.cvut.fit.nidip.troksfil.domain.model.Event
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
 
@@ -33,9 +30,9 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
             .clickable { onItemClick(event) }
     ) {
         Column {
-            Image(
-                painter = painterResource(event.coverPhotoPath),
-                contentDescription = "coverPhoto",
+            AsyncImage(
+                model = event.thumbnailUri,
+                contentDescription = "thumbnailImage",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)

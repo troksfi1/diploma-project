@@ -1,6 +1,5 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.core
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -28,9 +27,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import domain.model.Event
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import coil3.compose.AsyncImage
+import com.multiplatform.webview.web.WebView
+import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
+import cz.cvut.fit.nidip.troksfil.domain.model.Event
 
 class EventDetailScreen(private var event: Event) : Screen {
 
@@ -62,9 +62,9 @@ class EventDetailScreen(private var event: Event) : Screen {
                     .verticalScroll(state = scrollState)
                     .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
             ) {
-                Image(
+                AsyncImage(
+                    model = event.imageUri, // replace with working URL
                     modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),
-                    painter = painterResource(event.coverPhotoPath),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
                 )
@@ -86,7 +86,14 @@ class EventDetailScreen(private var event: Event) : Screen {
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
-                    Text(
+
+                    WebView(
+                        rememberWebViewStateWithHTMLData(
+                            data = event.description.trimIndent()
+                        )
+                    )
+
+                    /*Text(
                         text = event.description,
                         style = MaterialTheme.typography.bodyMedium
                     )*/

@@ -1,6 +1,5 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -28,9 +27,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import domain.model.News
+import coil3.compose.AsyncImage
+import com.multiplatform.webview.web.WebView
+import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
+import cz.cvut.fit.nidip.troksfil.domain.model.News
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 class NewsDetailScreen(private var news: News) : Screen {
 
@@ -64,9 +65,9 @@ class NewsDetailScreen(private var news: News) : Screen {
                 //.padding(6.dp)
                 //.padding(innerPadding)
             ) {
-                Image(
+                AsyncImage(
+                    model = news.imageUri,
                     modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),
-                    painter = painterResource(news.coverPhotoURI),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
                 )
@@ -89,6 +90,11 @@ class NewsDetailScreen(private var news: News) : Screen {
                     /*Text(
                         text = news.text,
                         style = MaterialTheme.typography.bodyMedium
+                    )*/
+                    WebView(
+                        rememberWebViewStateWithHTMLData(
+                            data = news.text.trimIndent()
+                        )
                     )
                 }
 
