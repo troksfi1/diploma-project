@@ -2,14 +2,16 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.core
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -52,15 +54,13 @@ class EventDetailScreen(private var event: Event) : Screen {
                     }
                 )
             },
-            bottomBar = {
-
-            }
+            bottomBar = { BottomNavigation {} }
         ) { innerPadding ->
             val scrollState = rememberScrollState()
             Column(
-                modifier = Modifier.verticalScroll(state = scrollState)
-                //.padding(6.dp)
-                //.padding(innerPadding)
+                modifier = Modifier
+                    .verticalScroll(state = scrollState)
+                    .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
             ) {
                 Image(
                     modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),

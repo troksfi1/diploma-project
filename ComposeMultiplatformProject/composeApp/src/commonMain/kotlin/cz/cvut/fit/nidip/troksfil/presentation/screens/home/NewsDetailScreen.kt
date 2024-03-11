@@ -2,14 +2,16 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -51,12 +53,14 @@ class NewsDetailScreen(private var news: News) : Screen {
                         }
                     }
                 )
-            }
+            },
+            bottomBar = { BottomNavigation {} }
         ) { innerPadding ->
             val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
-                    .verticalScroll(state = scrollState),
+                    .verticalScroll(state = scrollState)
+                    .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding())),
                 //.padding(6.dp)
                 //.padding(innerPadding)
             ) {

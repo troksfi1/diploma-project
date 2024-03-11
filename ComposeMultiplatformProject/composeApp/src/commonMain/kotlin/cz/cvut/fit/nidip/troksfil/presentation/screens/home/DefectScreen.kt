@@ -2,14 +2,16 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
@@ -61,10 +63,8 @@ class DefectScreen : Screen {
                     }
                 )
             },
-            bottomBar = {
-
-            }
-        ) {
+            bottomBar = { BottomNavigation { } }
+        ) { innerPadding ->
             var defectTitle by remember { mutableStateOf("") }
             var defectDescription by remember { mutableStateOf("") }
             val scrollState = rememberScrollState()
@@ -72,6 +72,7 @@ class DefectScreen : Screen {
                 modifier = Modifier
                     .verticalScroll(state = scrollState)
                     .background(MaterialTheme.colorScheme.surface)
+                    .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
             ) {
                 FilledIconButton(onClick = {/* open image picker*/ }, content = {})
 
