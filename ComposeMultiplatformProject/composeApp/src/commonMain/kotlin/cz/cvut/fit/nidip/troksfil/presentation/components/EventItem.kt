@@ -44,17 +44,18 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
             Column(modifier = Modifier.padding(6.dp)) {
                 Text(
                     event.title,
+                    maxLines = 2,
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    /*event.category + */  event.dateTime.toString(),
+                    event.startDateTime.toString(),
                     style = MaterialTheme.typography.labelSmall,
                 )
-                Text(
+                /*Text(
                     event.place,
                     style = MaterialTheme.typography.labelSmall,
-                )
+                )*/
             }
         }
     }

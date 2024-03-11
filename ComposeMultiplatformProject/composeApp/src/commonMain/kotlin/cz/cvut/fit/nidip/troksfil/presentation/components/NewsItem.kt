@@ -55,7 +55,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 maxLines = 2
             )
             Text(
-                news.dateTime,
+                news.pubDateTime.toString(),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.labelSmall,

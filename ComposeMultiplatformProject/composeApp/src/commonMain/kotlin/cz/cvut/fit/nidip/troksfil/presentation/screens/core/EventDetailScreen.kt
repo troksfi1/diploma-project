@@ -32,7 +32,7 @@ import org.jetbrains.compose.resources.painterResource
 
 class EventDetailScreen(private var event: Event) : Screen {
 
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
 
@@ -78,14 +78,18 @@ class EventDetailScreen(private var event: Event) : Screen {
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = event.dateTime.toString(),
+                        text = "Od: " + event.startDateTime.toString(),
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Text(
+                        text = "Do: " + event.endDateTime.toString(),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
                         text = event.description,
                         style = MaterialTheme.typography.bodyMedium
-                    )
+                    )*/
                 }
             }
         }

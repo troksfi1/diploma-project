@@ -1,21 +1,22 @@
-package data.local.dao
+package cz.cvut.fit.nidip.troksfil.data.local.dao
 
-import cz.cvut.fit.nidip.troksfil.database.AppDatabase
-import cz.cvut.fit.nidip.troksfil.database.DatabaseDriverFactory
-import domain.model.News
-import domain.repository.NewsRepository
+import cz.cvut.fit.nidip.troksfil.data.local.AppDatabase
+import cz.cvut.fit.nidip.troksfil.data.local.DatabaseDriverFactory
+import cz.cvut.fit.nidip.troksfil.domain.model.News
+import cz.cvut.fit.nidip.troksfil.domain.repository.NewsRepository
+import kotlinx.datetime.LocalDateTime
 
 class NewsDao(databaseDriverFactory: DatabaseDriverFactory) : NewsRepository {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
     private val dbQuery = database.newsQueries
 
     override fun removeAllNews() {
-        dbQuery.transaction {
+        /*dbQuery.transaction {
             dbQuery.removeAllNews()
-        }
+        }*/
     }
 
-    override fun getAllNews(): List<News> {
+    override suspend fun getAllNews(): List<News> {
         return dbQuery.selectAllNews(::mapNewsSelecting).executeAsList()
     }
 
@@ -28,16 +29,16 @@ class NewsDao(databaseDriverFactory: DatabaseDriverFactory) : NewsRepository {
         dateTime: String,
         title: String,
         text: String,
-        author: String,
-        coverPhotoPath: String
+        thumbnailUri: String,
+        imageUri: String
     ): News {
         return News(
             id = id.toInt(),
-            dateTime = dateTime,
+            pubDateTime = LocalDateTime.parse(dateTime),    // todo kdyz budu ukladat rss po mapperu tak se nic nezmeni
             title = title,
             text = text,
-            author = author,
-            coverPhotoURI = coverPhotoPath
+            thumbnailUri = thumbnailUri,
+            imageUri = imageUri
         )
     }
 }

@@ -72,17 +72,17 @@ class NewsDetailScreen(private var news: News) : Screen {
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Spacer(Modifier.height(2.dp))
-                    Text(
+                    /*Text(
                         text = news.author,
                         style = MaterialTheme.typography.labelMedium
-                    )
+                    )*/
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = news.dateTime,
+                        text = news.pubDateTime.toString(),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
-                    Text(
+                    /*Text(
                         text = news.text,
                         style = MaterialTheme.typography.bodyMedium
                     )

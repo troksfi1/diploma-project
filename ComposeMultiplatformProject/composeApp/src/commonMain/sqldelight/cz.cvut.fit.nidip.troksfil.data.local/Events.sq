@@ -1,0 +1,25 @@
+CREATE TABLE Events (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    categories TEXT NOT NULL,
+    place TEXT NOT NULL,
+    title TEXT NOT NULL,
+    startDateTime TEXT NOT NULL,
+    endDateTime TEXT NOT NULL,
+    description TEXT NOT NULL,
+    imageUri TEXT NOT NULL,
+    thumbnailUri TEXT NOT NULL
+);
+-- TODO replace by imageUri and thubnailUri by uri
+INSERT INTO Events (id, categories, place, title, startDateTime, endDateTime, description, imageUri, thumbnailUri)
+VALUES(1, "Hudba", "todo", "Jamaron", "2024-03-08T12:49:00", "2024-03-08T12:49:00", "Stálice Junioru, sázka na toho nejlep..", "https://static.goout.cloud/musicbarcz/2023/06/56d212ce-jamaron-1920x1080.jpg" , "https://static.goout.cloud/musicbarcz/2023/06/56d212ce-jamaron-1920x1080.jpg");
+removeAllEvents:
+DELETE FROM Events;
+
+selectAllEvents:
+SELECT Events.*
+FROM Events;
+
+selectEventsById:
+SELECT *
+FROM Events
+WHERE id = :id;
