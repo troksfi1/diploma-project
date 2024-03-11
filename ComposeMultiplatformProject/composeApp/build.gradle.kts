@@ -58,8 +58,16 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.serialization.kotlinx.xml)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.kermit)
+            implementation("com.prof18.rssparser:rssparser:6.0.6")
+            api("io.github.kevinnzou:compose-webview-multiplatform:1.8.8")
+            implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+            implementation("io.insert-koin:koin-core:3.5.3")
         }
 
         androidMain.dependencies {
@@ -67,6 +75,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
             implementation(libs.sqldelight.android.driver)
+            implementation(libs.ktor.client.okhttp)
         }
 
         desktopMain.dependencies {
