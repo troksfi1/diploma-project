@@ -14,32 +14,41 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cz.cvut.fit.nidip.troksfil.di.appModule
+import cz.cvut.fit.nidip.troksfil.di.commonModule
+import cz.cvut.fit.nidip.troksfil.di.viewModel
 import cz.cvut.fit.nidip.troksfil.presentation.components.tabs.EventsTab
 import cz.cvut.fit.nidip.troksfil.presentation.components.tabs.HomeTab
 import cz.cvut.fit.nidip.troksfil.presentation.components.tabs.MoreTab
 import cz.cvut.fit.nidip.troksfil.presentation.components.tabs.ParkingTab
 import cz.cvut.fit.nidip.troksfil.presentation.theme.AppTheme
+import org.koin.compose.KoinApplication
+import org.koin.core.module.Module
 
 @Composable
 fun App() {
-    AppTheme {
-        TabNavigator(
-            tab = HomeTab
-        ) {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                bottomBar = {
-                    BottomNavigation(
-                        backgroundColor = MaterialTheme.colorScheme.background
-                    ) {
-                        TabNavigationItem(HomeTab)
-                        TabNavigationItem(EventsTab)
-                        TabNavigationItem(ParkingTab)
-                        TabNavigationItem(MoreTab)
-                    }
-                },
-                content = { CurrentTab() },
-            )
+    KoinApplication(application = {
+        modules(appModule())
+    }) {
+        AppTheme {
+            TabNavigator(
+                tab = HomeTab
+            ) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = {
+                        BottomNavigation(
+                            backgroundColor = MaterialTheme.colorScheme.background
+                        ) {
+                            TabNavigationItem(HomeTab)
+                            TabNavigationItem(EventsTab)
+                            TabNavigationItem(ParkingTab)
+                            TabNavigationItem(MoreTab)
+                        }
+                    },
+                    content = { CurrentTab() },
+                )
+            }
         }
     }
 }
@@ -65,8 +74,8 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
         label = {
             Text(
                 text = tab.options.title,
-                color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-
+                color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.labelLarge
             )
         }
     )

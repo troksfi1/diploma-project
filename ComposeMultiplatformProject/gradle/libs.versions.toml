@@ -5,6 +5,7 @@ android-minSdk = "24"
 android-targetSdk = "34"
 coil = "3.0.0-alpha06"
 kermit = "2.0.3"
+koinCore = "3.5.3"
 mvvmCore = "0.16.1"
 sqldelight-drivers = "2.0.1"
 androidx-activityCompose = "1.8.2"
@@ -26,12 +27,15 @@ material3 = "1.2.0"
 uiToolingPreview = "1.6.2"
 voyagerVersion = "1.0.0"
 lifecycleViewmodelKtx = "2.7.0"
+koin-version = "1.1.0"
 
 [libraries]
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core-ktx" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorVersion" }
 mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "mvvmCore" }
 mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mvvmCore" }
@@ -65,11 +69,13 @@ ktor-serialization-kotlinx-xml = { module = "io.ktor:ktor-serialization-kotlinx-
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 sqldelight-sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight-drivers" }
 voyager-core = { module = "cafe.adriel.voyager:voyager-core", version.ref = "voyagerVersion" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
 voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyagerVersion" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-tab-navigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyagerVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin-version" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

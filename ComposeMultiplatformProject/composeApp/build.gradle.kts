@@ -67,7 +67,8 @@ kotlin {
             implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-            implementation("io.insert-koin:koin-core:3.5.3")
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
         }
 
         androidMain.dependencies {
@@ -76,6 +77,8 @@ kotlin {
             implementation(libs.ktor.client.android)
             implementation(libs.sqldelight.android.driver)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
+            implementation(libs.voyager.koin)
         }
 
         desktopMain.dependencies {

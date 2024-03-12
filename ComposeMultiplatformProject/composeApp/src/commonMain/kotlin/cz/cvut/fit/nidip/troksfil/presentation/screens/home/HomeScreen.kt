@@ -30,18 +30,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cz.cvut.fit.nidip.troksfil.data.remote.rss.RssFeed
-import cz.cvut.fit.nidip.troksfil.data.repository.RepositoryImpl
+import cz.cvut.fit.nidip.troksfil.di.getScreenModel
 import cz.cvut.fit.nidip.troksfil.domain.EventCategory
-import cz.cvut.fit.nidip.troksfil.domain.mappers.EventItemXmlToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.EventItemsDtoToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemXmlToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemsDtoToModel
 import cz.cvut.fit.nidip.troksfil.presentation.components.EventLazyRow
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 import cz.cvut.fit.nidip.troksfil.presentation.components.NewsItem
@@ -56,15 +50,7 @@ class HomeScreen : Screen {
     //@Preview
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel {
-            HomeScreenModel(
-                RepositoryImpl(
-                    remoteDataSource = RssFeed(),
-                    eventsDataMapper = EventItemsDtoToModel(EventItemXmlToModel()),
-                    newsDataMapper = NewsItemsDtoToModel(NewsItemXmlToModel()),
-                )
-            )
-        }
+        val screenModel = getScreenModel<HomeScreenModel>()
         val state by screenModel.state.collectAsState()
         val scrollState = rememberScrollState()
         val navigator: Navigator = LocalNavigator.currentOrThrow

@@ -1,6 +1,7 @@
 package cz.cvut.fit.nidip.troksfil.data.repository
 
 import cz.cvut.fit.nidip.troksfil.common.NullableInputListMapper
+import cz.cvut.fit.nidip.troksfil.data.local.DatabaseDaoImpl
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.RssFeed
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.EventItem
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.NewsItem
@@ -13,7 +14,7 @@ class RepositoryImpl(
     private val remoteDataSource: RssFeed?, // ala dao
     private val eventsDataMapper: NullableInputListMapper<EventItem, Event>,
     private val newsDataMapper: NullableInputListMapper<NewsItem, News>,
-    //private val databaseDaoImpl: DatabaseDaoImpl
+    private val databaseDaoImpl: DatabaseDaoImpl
     //private val eventLocalDataSource: EventsDao,        //todo refactor?
     //private val newsLocalDataSource: NewsDao,
 ) : EventsRepository, NewsRepository {      // todo divide to news and events rep?

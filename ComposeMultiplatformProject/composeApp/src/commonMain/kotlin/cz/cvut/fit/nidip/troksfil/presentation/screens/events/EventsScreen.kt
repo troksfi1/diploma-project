@@ -38,15 +38,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
-import cz.cvut.fit.nidip.troksfil.data.remote.rss.RssFeed
-import cz.cvut.fit.nidip.troksfil.data.repository.RepositoryImpl
+import cz.cvut.fit.nidip.troksfil.di.getScreenModel
 import cz.cvut.fit.nidip.troksfil.domain.FilterOption
-import cz.cvut.fit.nidip.troksfil.domain.mappers.EventItemXmlToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.EventItemsDtoToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemXmlToModel
-import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemsDtoToModel
 import cz.cvut.fit.nidip.troksfil.presentation.components.EventLazyRow
 import kotlinx.coroutines.launch
 
@@ -54,16 +48,7 @@ class EventsScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
     @Composable
     override fun Content() {
-        val screenModel = rememberScreenModel {
-            EventsScreenModel(
-                RepositoryImpl(
-                    remoteDataSource = RssFeed(),
-                    eventsDataMapper = EventItemsDtoToModel(EventItemXmlToModel()),
-                    newsDataMapper = NewsItemsDtoToModel(NewsItemXmlToModel()),
-                    //databaseDaoImpl = DatabaseDaoImpl()
-                )
-            )
-        }
+        val screenModel = getScreenModel<EventsScreenModel>()
         val state by screenModel.state.collectAsState()
 
         val scrollState = rememberScrollState()
