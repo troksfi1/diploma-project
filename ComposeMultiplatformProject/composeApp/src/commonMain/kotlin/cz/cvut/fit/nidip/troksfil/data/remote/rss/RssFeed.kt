@@ -4,14 +4,36 @@ import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.EventsXmlDto
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.NewsXmlDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import kotlinx.serialization.decodeFromString
 import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.core.XmlVersion
 import nl.adaptivity.xmlutil.serialization.XML
 
+/*sealed interface Result {
+    object Loading : Result
+    data class Success(val lst: List<Int>) : Result
+    data class Error(val err: Throwable) : Result
+}*/
+
 class RssFeed { //todo divide to event ana news?
-    private val client = HttpClient()
+    private val client = HttpClient {
+        install(HttpTimeout) {
+            requestTimeoutMillis = 40000
+        }
+        install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    co.touchlab.kermit.Logger.d { message }
+                }
+            }
+            level = LogLevel.INFO
+        }
+    }
 
     private val format = XML {
         xmlVersion = XmlVersion.XML10
