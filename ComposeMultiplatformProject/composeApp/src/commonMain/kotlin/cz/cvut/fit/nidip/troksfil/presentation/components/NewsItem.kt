@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.News
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -54,7 +54,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 maxLines = 2
             )
             Text(
-                news.pubDateTime.toString(),
+                DateTimeUtil.toReadableFormat(news.pubDateTime),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.labelSmall,

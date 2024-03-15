@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.Event
+import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 
 @Composable
 fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
@@ -46,11 +47,7 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
-                    event.startDateTime.toString(),
-                    style = MaterialTheme.typography.labelSmall,
-                )
-                /*Text(
-                    event.place,
+                    DateTimeUtil.toReadableFormat(event.startDateTime),
                     style = MaterialTheme.typography.labelSmall,
                 )*/
             }

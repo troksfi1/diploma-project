@@ -78,11 +78,11 @@ class EventDetailScreen(private var event: Event) : Screen {
                     )
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = "Od: " + event.startDateTime.toString(),
+                        text = "Od: " + DateTimeUtil.toReadableFormat(event.startDateTime),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Text(
-                        text = "Do: " + event.endDateTime.toString(),
+                        text = "Do: " + DateTimeUtil.toReadableFormat(event.endDateTime),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))

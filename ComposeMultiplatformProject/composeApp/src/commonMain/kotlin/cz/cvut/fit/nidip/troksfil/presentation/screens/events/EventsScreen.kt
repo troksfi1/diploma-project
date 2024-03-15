@@ -41,6 +41,7 @@ import androidx.compose.ui.window.DialogProperties
 import cafe.adriel.voyager.core.screen.Screen
 import cz.cvut.fit.nidip.troksfil.di.getScreenModel
 import cz.cvut.fit.nidip.troksfil.domain.FilterOption
+import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 import cz.cvut.fit.nidip.troksfil.presentation.components.EventLazyRow
 import kotlinx.coroutines.launch
 
@@ -142,33 +143,12 @@ class EventsScreen : Screen {
                     }
                 }
 
-                Text("Od: ${state.selectedDateStart} do: ${state.selectedDateEnd}")
+                Text(
+                    "Od: ${DateTimeUtil.toReadableFormat(state.selectedDateStart)} " +
+                            "do: ${DateTimeUtil.toReadableFormat(state.selectedDateEnd)}"
+                )
 
                 //todo category dropdown menu
-                val scope = rememberCoroutineScope()
-                var text by remember { mutableStateOf("Loading") }
-
-                LaunchedEffect(true) {
-                    scope.launch {
-
-                        screenModel.onEvent(EventsEvent.OnInit)
-
-                        /*text = try {
-
-
-
-                        } catch (e: Exception) {
-                            e.localizedMessage?.let { Logger.e(it) }
-                            e.localizedMessage ?: "error"
-                        }*/
-                    }
-                }
-                Text(state.events.toString(), maxLines = 3)
-
-                Text(
-                    state.filteredEvents.toString(),
-                    maxLines = 5
-                )
 
                 FlowColumn {
                     state.filteredEventsCategories.forEach {

@@ -31,6 +31,7 @@ import coil3.compose.AsyncImage
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
 import cz.cvut.fit.nidip.troksfil.domain.model.News
+import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 class NewsDetailScreen(private var news: News) : Screen {
@@ -83,7 +84,7 @@ class NewsDetailScreen(private var news: News) : Screen {
                     )*/
                     Spacer(Modifier.height(2.dp))
                     Text(
-                        text = news.pubDateTime.toString(),
+                        text = DateTimeUtil.toReadableFormat(news.pubDateTime),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
