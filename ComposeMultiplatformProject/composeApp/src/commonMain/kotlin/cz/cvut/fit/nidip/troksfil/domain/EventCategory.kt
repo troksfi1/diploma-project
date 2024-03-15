@@ -11,6 +11,5 @@ enum class EventCategory(val categoryName: String) {
     SPORT("Sport"),
     FOR_KIDS("Pro děti"),
     OTHER("Ostatní"),
-    ALL_DAY("celodenní akce"),
-    TOP_EVENTS("TOP Akce"),
+    ALL_DAY("celodenní akce")
 }

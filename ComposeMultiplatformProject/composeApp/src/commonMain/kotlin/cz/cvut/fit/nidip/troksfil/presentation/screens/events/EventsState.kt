@@ -4,13 +4,25 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.events
 import cz.cvut.fit.nidip.troksfil.domain.EventCategory
 import cz.cvut.fit.nidip.troksfil.domain.FilterOption
 import cz.cvut.fit.nidip.troksfil.domain.model.Event
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 
 data class EventsState(
-    val filteredEvents: List<Event> = emptyList(),
-    val events: List<Event> = emptyList(),
-    val selectedDateStart: LocalDateTime = LocalDateTime(1999, 2, 27, 20, 0),   //todo
-    val selectedDateEnd: LocalDateTime = LocalDateTime(1999, 2, 27, 20, 0),   //todo
+    val timeFilteredEvents: List<Event> = emptyList(),
+    val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
+    val selectedDateStart: LocalDateTime = LocalDateTime(
+        Clock.System.todayIn(TimeZone.currentSystemDefault()),
+        LocalTime(0, 0)
+    ),
+    val selectedDateEnd: LocalDateTime = LocalDateTime(
+        Clock.System.todayIn(TimeZone.currentSystemDefault()),
+        LocalTime(23, 59)
+    ),
     val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val isDatePickerOpen: Boolean = false,
     val filteredEventsCategories: List<EventCategory> = emptyList()

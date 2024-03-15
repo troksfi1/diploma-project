@@ -51,7 +51,9 @@ fun EventLazyRow(category: EventCategory, state: EventsState) {
 
             val predicate: (EventCategory) -> Boolean = { it == category }
             val eventList =
-                state.filteredEvents.filter { event -> event.categories.any(predicate) }   //todo replace by viewModel impl
+                state.timeFilteredEvents.filter { event -> event.categories.any(predicate) }   //todo replace by viewModel impl
+
+            //EventsEvent.getEventsByCategory(category)
 
             items(eventList) { event ->  //state.filteredEvents
                 EventItem(event = event, onItemClick = {

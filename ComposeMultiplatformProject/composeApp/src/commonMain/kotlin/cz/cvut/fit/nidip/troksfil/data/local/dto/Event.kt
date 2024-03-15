@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Event(
+data class Event(       //todo aktualne databaze tyto DTO nevyuziva
     @SerialName("id")
     val id: Int,
     @SerialName("category")
