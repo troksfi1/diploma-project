@@ -31,6 +31,7 @@ import coil3.compose.AsyncImage
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
 import cz.cvut.fit.nidip.troksfil.domain.model.Event
+import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 
 class EventDetailScreen(private var event: Event) : Screen {
 
@@ -48,7 +49,7 @@ class EventDetailScreen(private var event: Event) : Screen {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = "ArrowBack",
                             )
                         }
                     }
@@ -92,11 +93,6 @@ class EventDetailScreen(private var event: Event) : Screen {
                             data = event.description.trimIndent()
                         )
                     )
-
-                    /*Text(
-                        text = event.description,
-                        style = MaterialTheme.typography.bodyMedium
-                    )*/
                 }
             }
         }

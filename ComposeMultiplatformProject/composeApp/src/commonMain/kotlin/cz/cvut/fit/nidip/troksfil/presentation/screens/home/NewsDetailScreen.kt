@@ -63,8 +63,6 @@ class NewsDetailScreen(private var news: News) : Screen {
                 modifier = Modifier
                     .verticalScroll(state = scrollState)
                     .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding())),
-                //.padding(6.dp)
-                //.padding(innerPadding)
             ) {
                 AsyncImage(
                     model = news.imageUri,
@@ -78,20 +76,11 @@ class NewsDetailScreen(private var news: News) : Screen {
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Spacer(Modifier.height(2.dp))
-                    /*Text(
-                        text = news.author,
-                        style = MaterialTheme.typography.labelMedium
-                    )*/
-                    Spacer(Modifier.height(2.dp))
                     Text(
                         text = DateTimeUtil.toReadableFormat(news.pubDateTime),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
-                    /*Text(
-                        text = news.text,
-                        style = MaterialTheme.typography.bodyMedium
-                    )*/
                     WebView(
                         rememberWebViewStateWithHTMLData(
                             data = news.text.trimIndent()

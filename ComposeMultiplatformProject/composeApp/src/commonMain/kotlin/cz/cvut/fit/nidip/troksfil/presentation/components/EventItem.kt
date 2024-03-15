@@ -49,7 +49,7 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
                 Text(
                     DateTimeUtil.toReadableFormat(event.startDateTime),
                     style = MaterialTheme.typography.labelSmall,
-                )*/
+                )
             }
         }
     }

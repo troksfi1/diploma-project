@@ -103,39 +103,28 @@ class HomeScreen : Screen {
                     )
                 }
 
-
-                LaunchedEffect(true) {
-                    scope.launch {
-
-                        screenModel.onEvent(HomeEvent.OnInit)
-
-
-                        /*text = try {
-
-
-                            //Greeting().greeting()
-                        } catch (e: Exception) {
-                            e.localizedMessage?.let { Logger.e(it.toString()) }
-                            e.localizedMessage ?: "error"
-                        }*/
-                    }
-                }
-
-                Text(
-                    state.news.toString(),
-                    maxLines = 3
-                )
-
                 Spacer(modifier = Modifier.size(10.dp))
 
                 Text(
-                    "Události",
+                    "Populární události",
                     modifier = Modifier
                         .padding(10.dp)
                         .align(Alignment.Start),
                     style = MaterialTheme.typography.titleLarge
                 )
-                EventLazyRow(EventCategory.TOP_EVENTS, EventsState())
+
+                //todo refactor
+                val events = state.events.collectAsState()
+                val predicate: (EventCategory) -> Boolean = { it == EventCategory.MUSIC }
+                val eventsList = events.value.filter { event -> event.categories.any(predicate) }
+                LazyRow {
+                    items(eventsList) { event ->  //state.filteredEvents
+                        EventItem(event = event, onItemClick = {
+                            navigator.push(EventDetailScreen(event))
+                        })
+                    }
+                }
+
                 Text(
                     "Aktuality",
                     modifier = Modifier

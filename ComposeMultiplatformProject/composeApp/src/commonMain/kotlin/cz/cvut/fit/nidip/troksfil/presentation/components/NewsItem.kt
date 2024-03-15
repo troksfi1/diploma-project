@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.core.text.HtmlCompat
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun NewsItem(news: News, onItemClick: (News) -> Unit) {
 
@@ -63,7 +63,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 maxLines = 1
             )
             Text(
-                news.text,
+                HtmlCompat.fromHtml(news.text, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.bodySmall,
