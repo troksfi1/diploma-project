@@ -1,8 +1,10 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
+import co.touchlab.kermit.Logger
 import cz.cvut.fit.nidip.troksfil.data.repository.RepositoryImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +15,7 @@ class HomeScreenModel(
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(HomeState())
-    val state = _state.asStateFlow()
+    val state = _state.asStateFlow()    //ala _uiState?
     //private val uriHandler = LocalUriHandler.current
 
     fun onEvent(event: HomeEvent) {
@@ -29,22 +31,24 @@ class HomeScreenModel(
             }*/
 
             HomeEvent.OnInit -> {
-                screenModelScope.launch {
-                    _state.update { state ->
-                        state.copy(
-                            news = repository.getAllNews(),
-                            events = repository.getAllEvents()
-                        )
+                GlobalScope.launch(Dispatchers.IO) {
+                    val news = repository.getAllNews()
+                    val events = repository.getAllEvents()
+                    news.collect {
+                        _state.update { state ->
+                            state.copy(
+                                news = news,
+                                events = events
+                            )
+                        }
+                        Logger.d("OnInit News list changed")
                     }
                 }
             }
-
-            else -> Unit
         }
     }
 
     init {
-        HomeEvent.OnInit
+        onEvent(HomeEvent.OnInit)
     }
-
 }

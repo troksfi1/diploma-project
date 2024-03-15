@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.BottomNavigation
@@ -20,7 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +29,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -36,11 +37,10 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cz.cvut.fit.nidip.troksfil.di.getScreenModel
 import cz.cvut.fit.nidip.troksfil.domain.EventCategory
-import cz.cvut.fit.nidip.troksfil.presentation.components.EventLazyRow
+import cz.cvut.fit.nidip.troksfil.presentation.components.EventItem
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 import cz.cvut.fit.nidip.troksfil.presentation.components.NewsItem
-import cz.cvut.fit.nidip.troksfil.presentation.screens.events.EventsState
-import kotlinx.coroutines.launch
+import cz.cvut.fit.nidip.troksfil.presentation.screens.core.EventDetailScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -58,9 +58,11 @@ class HomeScreen : Screen {
         val scope = rememberCoroutineScope()
         var text by remember { mutableStateOf("Loading") }
 
+        val uriHandler = LocalUriHandler.current
+
         Scaffold(
             bottomBar = { BottomNavigation {} }
-        ) {
+        ) { it ->
             Column(
                 modifier = Modifier
                     .fillMaxSize().padding(PaddingValues(bottom = it.calculateBottomPadding())),
@@ -98,6 +100,7 @@ class HomeScreen : Screen {
                     )
                     ImageButton(name = "YouTube", imagePath = "drawable/img_youtube.png",
                         onClick = {
+                            uriHandler.openUri("https://www.youtube.com/@mestopribram1671")
                             //screenModel.onEvent(HomeEvent.OnButtonYouTubeClicked(LocalUriHandler.current))
                         }
                     )
@@ -133,8 +136,9 @@ class HomeScreen : Screen {
                     style = MaterialTheme.typography.titleLarge
                 )
 
+                val news = state.news.collectAsState()
                 LazyColumn {
-                    items(state.news) { news ->
+                    items(news.value) { news ->
                         NewsItem(news = news, onItemClick = {
                             navigator.push(NewsDetailScreen(news))
                         })
