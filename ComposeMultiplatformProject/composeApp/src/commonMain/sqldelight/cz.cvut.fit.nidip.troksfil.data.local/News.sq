@@ -8,8 +8,8 @@ CREATE TABLE News (
 );
 
 insertNews:
-INSERT INTO News
-VALUES(1, "2024-03-08T12:49:00", "Lávka ve Špitálské je dokončena, další se budou realizovat na jaře", "Na konci srpna byla zahájena přestavba mostu v ulici Pod Kovárnami a lávky ve Špitálské ulici.", "https://pribram.eu/galerie_clanky/104990_med.jpg", "https://pribram.eu/galerie_clanky/104990_med.jpg");
+INSERT OR REPLACE INTO News
+VALUES(3, "2024-03-08T12:49:00", "Lávka ve Špitálské je dokončena, další se budou realizovat na jaře", "Na konci srpna byla zahájena přestavba mostu v ulici Pod Kovárnami a lávky ve Špitálské ulici.", "https://pribram.eu/galerie_clanky/104990_med.jpg", "https://pribram.eu/galerie_clanky/104990_med.jpg");
 
 removeAllNews:
 DELETE FROM News;
@@ -22,3 +22,7 @@ selectNewsById:
 SELECT *
 FROM News
 WHERE id = :id;
+
+insertNewsObject:
+INSERT OR REPLACE INTO News(id,dateTime, title, text, thumbnailUri, imageUri)
+VALUES ?;

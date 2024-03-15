@@ -16,7 +16,7 @@ val commonModule = /*networkModule() +*/ module {
             remoteDataSource = RssFeed(),
             eventsDataMapper = EventItemsDtoToModel(EventItemXmlToModel()),
             newsDataMapper = NewsItemsDtoToModel(NewsItemXmlToModel()),
-            databaseDaoImpl = get()
+            localDataSource = get()
         )
     }
 
