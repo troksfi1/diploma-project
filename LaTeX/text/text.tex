@@ -13,8 +13,14 @@
 
 %\section{Motivace}
 \section{Cíle práce}
-Cílem práce je prozkoumat použitelnost nově 
+Prvním důležitým cílem práce je analyzovat použitelnost nově nastupující technologie na poli vývoje multiplatformního UI a otestovat, jaké
+nové principy přináší. Dále tuto technologii porovnat s ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
+rozebrat důležité principy na, kterých jsou tyto technologie postaveny. 
 
+Další podstatným cílem je vytvoření aplikace, která tuto technologii používá a zaměření se při tom na slabé stránky, 
+které aktuálně multiplatformní UI provází.
+
+Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v praxi.
 
 \section{Stručný přehled obsahu práce}
 
@@ -26,7 +32,9 @@ Obecně něco o multiplatformním vývoji.
 
 \section{Definice multiplatformního vývoje UI}
 
-
+Technologie sloužících k tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelské rozhraní, 
+která mohou být nasazena na různé platformy, jako jsou mobilní zařízení, webové prohlížeče nebo desktopové aplikace. 
+Cílem je dosáhnout jednotného uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu.
 
 
 \section{Význam multiplatformního vývoje a sdíleného UI}
@@ -38,49 +46,180 @@ na různých platformách nebo například možnost znovu používat komponenty 
 Mezi další důvody může například patřit možnost rychlejších aktualizací, jelikož nové funkce mohou být 
 implementovány jednotně a rychle na všech platformách. 
 
+
+
 %Větší dosah jelikož díky sdílení UI lze dosáhnout většího dosahu, protože aplikace mohou být dostupné 
 
 \chapter{Analýza}
 
 \section{Přehled existujících frameworků}
+Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně patří Flutter a React Native. \cite{crossPlatformFrameworksStats}
+V následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobněji rozebrány a u každého z nich jsou vybrány 
+důležité vlastnosti, které jsou pro tyto frameworky typické. Jednotlivé frameworky jsou seřazeny postupně od 
+pro tvorbu multiplatformního UI existují, jak se postupem času vyvíjely a jaké mají společné rysy.
 
-Mezi nejpopulárnější multiplatformní frameworky jednoznačně patří Flutter a React Native. \cite{crossPlatformFrameworksStats}
 %---------------------------------------------------------------
-\section{Flutter}
+\subsection{React Native}
+%---------------------------------------------------------------
+React Native byl jedním z prvních frameworků pro tvorbu multiplatformního UI a do jisté míry ovlivnil i ostatní popisované
+frameworky. Jeho vývoj započal ve společnosti Facebook během interního hackaton projektu a první jeho oficiálně publikovaná
+verze vyšla začátkem roku 2015. \cite{reactNativeHistory}
+Nyní se jedná o open-source framework, kde jeho hlavním cílem je umožnit vývojářům vytvářet nativní mobilní aplikace 
+pro platformy Android a iOS z jednoho společného kódu napsaného v jazyce JavaScript nebo TypeScript.
+
+\section*{Klíčové vlastnosti React Native}
+
+\myparagraph{Komponentní architektura} 
+React Native využívá komponentní architekturu, která vývojářům umožňuje 
+vytvářet znovupoužitelné komponenty. \cite{reactNativeComponents} Tato architektura je jednak založena na obecných
+React komponentách, ale zároveň také na React Native specifických komponentách, které se dále dělí na takzvané core
+komponenty, komponenty vytvořené komunitou či vlastní nativní komponenty. \cite{reactNativeComponents}
+    
+\myparagraph{Deklarativní zápis UI}
+React Native stejně jako React pro webové aplikace využívá pro zápis UI deklarativní způsob, 
+při kterém využívá JSX (JavaScript XML) syntaxe k popisu struktury UI komponent. \cite{reactNativeJSX}
+Takto zapsané UI lépe reflektovalo aktuální stav aplikace.
+Tento způsob zápisu začal na mobilních platformách růst popularitě právě díky Reactu Native, který po svém uvolnění v roce 2013 
+defacto nastartoval éru deklarativního zápisu UI na mobilních platformách. \cite{declarativeUIHistory}
+
+\myparagraph{Fast Refresh} 
+Fast Refresh je v funkce, která vývojářům umožňuje okamžitě vidět výsledky provedených 
+změn v kódu bez nutnosti znovu sestavení aplikace. \cite{reactNativeFastRefresh}
+
+\myparagraph{JavaScript/TypeScript} 
+Aplikační logika v React Native se píše v jazyce JavaScript nebo TypeScript, 
+což usnadňuje snadnou integraci s existujícími webovými technologiemi. \cite{reactNativeFundamentals}
+
+\myparagraph{Rozsáhlá komunita} 
+React Native má rozsáhlou komunitu vývojářů, což vede k bohatému ekosystému 
+třetích stran, včetně mnoha dostupných knihoven a modulů. \cite{reactNativeComunity}
+
+\myparagraph{Expo framework} 
+Pro ještě snazší start vývoje poskytuje React Native Expo framework, který 
+zjednodušuje proces vývoje a umožňuje rychlé prototypování. \cite{reactNativeExpo}
+
+\subsection*{Architektura frameworku React Native}
+
+React native do roku 2022 využíval architekturu založenou na návrhového vzoru Bridge, který spojoval kód napsaný v JavaScriptu s nativní kódem určeným pro danou platformu. 
+Tyto dva celky byly spuštěny na souběžných vláknech a komunikovaly spolu pomocí zasílání serializovaných zpráv. Časem se ale ukázalo, že se tato komunikace
+a další její charakteristiky stávají úzkým hrdlem celého systému a byla proto od verze 0.68 nahrazena JavaScriptovým rozhraním zvaným JSI. \cite{reactNativeAboutNewArch}
+
+JSI nově JavaScriptu umožňuje držet referenci na C++ objekty a volat nad nimi potřebné metody. \cite{reactNativeAboutNewArch} Toho využívá nový renderovací systém zvaný \textit{Fabric}, který 
+frameworku napomáhá sjednotit renderovací logiku prováděnou v C++ a zlepšit tak interoperabilitu s nativními platformami.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{react-natice-xplat-implementation-diagram.png}
+  \caption{React Native }
+  \label{fig:react-natice-xplat-implementation-diagram}
+\end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.55\textwidth]{react-native-data-flow.jpg}
+%   \caption{React Native tok dat}
+%   \label{fig:react-natice-data-flow}
+% \end{figure}
+
+
+% I přes tyto změny React Native stále využívá systém dvou typů vláken označovaných jako \textit{JavaScript Thread} a \textit{UI Thread} (známé taktéž pod názvem \textit{Main Thread}) 
+% mezi které rozděluje práci.
+
+
+Jak je vidět na obrázku \ref{fig:react-natice-xplat-implementation-diagram}, tak Fabric de facto plní funkci prostředníka, který převádí React 
+komponenty na nativní komponenty pro každou platformu. 
+
+Pro lepší představu jak dané komponenty vypadají slouží následující ukázka kódu \ref{lst:reactNativeJSX}.
+
+\begin{lstlisting}[caption={Popis UI komponent pomoci JSX}, label={lst:reactNativeJSX}, language=XML]
+function MyComponent() {
+  return (
+    <View>
+      <View
+        style={{backgroundColor: 'red', height: 20, width: 20}}
+      />
+      <View
+        style={{backgroundColor: 'blue', height: 20, width: 20}}
+      />
+    </View>
+  );
+}
+// <MyComponent />
+\end{lstlisting}
+
+Na ukázce kódu \ref{lst:reactNativeJSX} jsou použity některé z nejpoužívanějších core komponent, které se při psaní React
+Native aplikací používají. \cite{reactNativeComponents} Jak již bylo zmíněno dříve, tak tyto komponenty jsou následně převedeny 
+na nativní komponenty pro každou platformu a to jakým způsobem Fabric dané komponenty převádí se dá rozdělit do následujících tří
+na sebe navazujících fází: \cite{reactNativeRenderCommitMount}
+ 
+%Na této ukázce je zároveň vidět použití deklarativního zápisu, které bude podrobněji probráno v následující kapitole.
+
+\smallskip
+
+\myparagraph{Render}
+Během této fáze se z jednotlivých komponent (React Elementů) sestaví strom elementů v JavaScriptu (viz levá část obrázku \ref{fig:react-native-render-pipeline}) a nad tímto stromem se 
+následně spustí rekurzivní redukce, při které dojde k vytvoření nového stromu takzvaného React Shadow Tree. (viz prostřední část obrázku \ref{fig:react-native-render-pipeline})
+\cite{reactNativeRenderCommitMount} Ten se skládá z jednotlivých React Shadow Nodes, které reprezentují objekty v C++ a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
+
+\myparagraph{Commit}
+V rámci této fáze je pro každý React Shadow Node vypočítána jeho pozice a velikost na koncovém zařízení a díky tomu může renderovací systém
+přejít k poslední fázi zvané Mount. \cite{reactNativeRenderCommitMount}
+
+\myparagraph{Mount}
+Během této poslední fáze dojde k transformaci \textit{React Shadow Tree} na \textit{Host View Tree} (viz pravá část obrázku \ref{fig:react-native-render-pipeline}) a to tak, že každý \textit{React Shadow Node}
+se transformuje na jeho ekvivalent v nativní podobě. \cite{reactNativeRenderCommitMount} Čili například na platformě Android se $<ViewShadowNode>$ přetransformuje na android.view.ViewGroup. \cite{reactNativeRenderCommitMount}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth]{react-native-render-pipeline.png}
+  \caption{React Native vykreslovací fáze}
+  \label{fig:react-native-render-pipeline}
+\end{figure}
+
+%---------------------------------------------------------------
+\subsection{Flutter}
 %---------------------------------------------------------------
 Flutter je open-source softwarový toolkit pro vývoj uživatelských rozhraní (UI). \cite{flutterfaq} Za vývojem stojí společnost Google a je určený k vytváření nativně kompilovaných 
 aplikací pro mobilní zařízení, web a desktop z jednoho zdrojového kódu. \cite{flutterfaq}
 Byl vydán v roce 2017 a získal značnou popularitu mezi vývojáři díky svému snadnému použití, flexibilitě a schopnostem tvorby UI.
 
-\section*{Klíčové vlastnosti Flutteru}
+\subsection*{Klíčové vlastnosti Flutteru}
 
-\begin{itemize}
-    \item \textbf{Architektura založená na widgetech:} Flutter využívá reaktivní a deklarativní architekturu založenou na widgetech. Widgety jsou základními stavebními bloky Flutter aplikací, představující vše od strukturálních prvků po stylistické komponenty.
+\myparagraph{UI založené na widgetech} 
+Flutter využívá reaktivně deklarativní UI založené na widgetech. \cite{flutterUI} Widgety jsou základními stavebními 
+bloky Flutter aplikací, představující vše od strukturálních prvků po stylistické komponenty. \cite{flutterWidgets}
 
-    \item \textbf{Hot Reload:} Jednou z výrazných funkcí Flutteru je možnost "Hot Reload". Vývojáři mohou provádět změny v kódu a okamžitě vidět výsledky bez restartování aplikace. To zrychluje vývojový proces a zvyšuje produktivitu.
-
-    \item \textbf{Jeden zdrojový kód pro více platforem:} S Flutterem mohou vývojáři psát jeden zdrojový kód pro obě platformy Android a iOS, což snižuje dobu vývoje a úsilí vynakládané na údržbu. Flutter také rozšířil svou podporu pro cílení webových a desktopových aplikací, umožňující širší dosah s minimálními změnami kódu.
-
-    \item \textbf{Rozsáhlá sada widgetů:} Flutter poskytuje komplexní sadu přizpůsobitelných widgetů, které usnadňují vytváření složitých a vizuálně atraktivních uživatelských rozhraní. Tyto widgety zahrnují vše od základních tlačítek a textových polí až po pokročilé komponenty jako jsou grafy a animace.
-
-    \item \textbf{Programovací jazyk Dart:} Aplikace vytvořené ve Flutteru jsou psány v jazyce Dart, moderním objektově orientovaném programovacím jazyce vyvinutém společností Google. Dart je navržen pro optimální výkon a produktivitu, což ho činí vhodným pro mobilní a webový vývoj.
-
-    %\item \textbf{Výkon:} Flutter se kompiluje do nativního ARM kódu, což vede k vysokému výkonu aplikací. Vrstvená architektura frameworku umožňuje detailní kontrolu nad vzhledem a chováním aplikací.
-
-\end{itemize}
-
-\section*{Architektura Flutteru} 
-
-Během vývoje běží Flutter aplikace na virtuálním počítači, který nabízí takzvaný stateful Hot Reload umožňující zobrazit provedené změny
-v kódu bez nutnosti úplné rekompilace aplikace. Teprve pro vydání jsou Flutter aplikace kompilovány přímo do strojového kódu, 
+\myparagraph{Hot Reload} 
+Další z významných funkcí Flutteru, která významně zrychluje vývojový proces a zvyšuje produktivitu je funkce "Hot Reload". 
+Během vývoje běží Flutter aplikace na virtuálním počítači (Dart VM), který díky této funkci umožňuje okamžitě vidět provedené změny
+v kódu bez nutnosti úplné rekompilace aplikace. \cite{flutterHotReload} Teprve pro vydání jsou Flutter aplikace kompilovány přímo do strojového kódu, 
 ať už jde o instrukce Intel x64 nebo ARM, případně do JavaScriptu pokud jsou cíleny na web. \cite{flutterArchOverview}
 
-\medskip
 
-Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev.
+\myparagraph{Jeden zdrojový kód pro více platforem} 
+S Flutterem mohou vývojáři psát jeden zdrojový kód pro obě platformy Android a iOS, což snižuje dobu vývoje a úsilí 
+vynakládané na údržbu. Flutter také rozšířil svou podporu pro cílení webových a desktopových aplikací, umožňující širší dosah s minimálními změnami kódu. \cite{flutter}
+
+\myparagraph{Rozsáhlá sada widgetů}
+Flutter poskytuje komplexní sadu přizpůsobitelných widgetů, které usnadňují vytváření složitých a vizuálně 
+atraktivních uživatelských rozhraní. Tyto widgety zahrnují vše od základních tlačítek a textových polí až po 
+pokročilé komponenty jako jsou grafy a animace.
+
+\myparagraph{Programovací jazyk Dart}
+Aplikace vytvořené ve Flutteru jsou psány v jazyce Dart, moderním objektově orientovaném programovacím jazyce 
+vyvinutém společností Google. Dart je navržen pro optimální výkon a produktivitu, což ho činí vhodným pro mobilní a
+webový vývoj. \cite{dart}
+
+\myparagraph{Způsob renderovaní UI}
+Narozdíl od Reactu Native Flutter nepoužívá platformě specifické komponenty koncových zařízení, ale veškeré UI komponenty (widgety)
+renderuje pomocí vlastního renderovacího enginu. \cite{flutterRenderingModel}
+
+
+\subsection*{Architektura frameworku Flutter} 
+Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev. \cite{flutterArchOverview}
 Embedder je vrstva, která umožnuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
 Každý embedder obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
-Engine je vrstva starající se o vykreslování grafiky, kdykoli kdy je potřeba vykreslit nový snímek. \cite*{flutterArchOverview} 
+Engine je vrstva starající se o vykreslování grafiky, kdykoli kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
 Framework je vrstva, která je používána vývojáři k vytváření uživatelských rozhraní a definování chování aplikace. 
 Obsahuje hotové widgety, funkce pro manipulaci s UI a další nástroje pro vývojáře. \cite{flutterArchOverview} 
 
@@ -99,11 +238,11 @@ jsou následně využívány widgety k implementaci konkrétního design systém
 
 Z pohledu UI je důležitým prvkem právě Flutter framework, který zároveň definuje jak spolu jednotlivé widgety interagují.
 
-Widget je ve Flutteru základní stavební blok pro tvorbu uživatelského rozhraní. V následující ukázce kódu je pro příklad použito několik 
-základních widgetů jako je \emph{Image} nebo \emph{Text} a taktéž layout widgety zvané \emph{Container} a \emph{Row} pro organizaci a 
+Widget je ve Flutteru základní stavební blok pro tvorbu uživatelského rozhraní. \cite{flutterWidgets} V následující ukázce kódu \ref{lst:flutterCode} je pro příklad použito několik 
+základních widgetů jako je \emph{Image} nebo \emph{Text} a taktéž layout widget zvaný \emph{Container} a \emph{Row} pro organizaci a 
 rozložení vnořených widgetů na obrazovce.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Dart}, label={lst:flutterCode}, language=Kotlin]
   Container(
   color: Colors.blue,
   child: Row(
@@ -118,7 +257,7 @@ rozložení vnořených widgetů na obrazovce.
 Když Flutter potřebuje vykreslit tento blok, zavolá metodu \emph{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
 rozhraní na základě aktuálního stavu aplikace. \cite*{flutterArchOverview}
 
-Během fáze sestavování překládá Flutter widgety vyjádřené v kódu do odpovídajícího stromu elementů, přičemž každý widget má jeden element a 
+Během fáze sestavování překládá Flutter widgety vyjádřené v kódu (například kód \ref{lst:flutterCode}) do odpovídajícího stromu elementů viz obrázek \ref{fig:flutter_trees}, přičemž každý widget má jeden element a 
 každý prvek představuje určitou instanci widgetu v daném umístění stromové hierarchie. \cite*{flutterArchOverview}
 
 
@@ -131,62 +270,52 @@ každý prvek představuje určitou instanci widgetu v daném umístění stromo
 
 
 
-
-
-%---------------------------------------------------------------
-\section{React Native}
-%---------------------------------------------------------------
-
-React Native je open-source framework pro vývoj mobilních aplikací, vyvinutý společností Facebook. Jeho hlavním cílem je umožnit vývojářům vytvářet nativní mobilní aplikace pro platformy Android a iOS z jednoho společného kódu napsaného v jazyce JavaScript nebo TypeScript.
-
-\section*{Klíčové vlastnosti React Native}
-
-\begin{itemize}
-    \item \textbf{Komponentní architektura:} React Native využívá komponentní architekturu, která umožňuje vytvářet znovupoužitelné a modulární komponenty. 
-
-    \item \textbf{Hot Reload:} Podobně jako u Flutteru, React Native nabízí funkci "Hot Reload," což umožňuje vývojářům okamžitě vidět výsledky svých změn v kódu bez nutnosti restartování aplikace.
-
-    \item \textbf{Jednotný kód pro Android a iOS:} React Native umožňuje vývojářům sdílet většinu kódu mezi Androidem a iOS, což snižuje náklady na vývoj a usnadňuje správu projektu.
-
-    \item \textbf{JavaScript/TypeScript:} Aplikační logika v React Native se píše v jazyce JavaScript nebo TypeScript, což usnadňuje integraci s existujícími webovými technologiemi.
-
-    \item \textbf{Rozsáhlá komunita:} React Native má rozsáhlou komunitu vývojářů, což vede k bohatému ekosystému třetích stran, včetně mnoha dostupných knihoven a modulů.
-
-    \item \textbf{Expo framework:} Pro ještě snazší start vývoje poskytuje React Native Expo framework, který zjednodušuje proces vývoje a umožňuje rychlé prototypování.
-
-\end{itemize}
-
-\section*{Flutter vs React Native vs Compose Multiplatform}
-
-
-
-
-\section{Compose Multiplatform Framework}
+\subsection{Compose Multiplatform}
 
 Compose Multiplatform je framework sloužící k tvorbě uživatelských rozhraní použitelných na vícero platformách za 
 jehož vývojem stojí společnost JetBrains. \cite{composeMultiplatform} Je založen na toolkitu zvaném Jetpack Compose, který je aktuálně 
 doporučovaný k tvorbě nativních uživatelských rozhraních na platformě Android. \cite{jetpack}
 
+Podporuje platformy jako Android, iOS (Alpha), Windows, MacOS, Linux a Web (experimentální). \cite{composeMultiplatform}
+
 \medskip
 
-Mezi klíčové vlastnosti tohoto frameworku patří:
+\subsection*{Klíčové vlastnosti Compose Multiplatform}
 
-\begin{itemize}
-    \item \textbf{Deklarativní syntaxe:} Používá deklarativní syntaxi pro popis uživatelského rozhraní.
-    \item \textbf{Jednotný kód pro různé platformy:} Možnost sdílet kód pro Android, iOS, Desktop i Web.
-    \item \textbf{Programovací jazyk Kotlin:} Frontendová i backendová část aplikace jsou psány v jazyce Kotlin pro bezproblémovou integraci se serverovou částí.
-    \item \textbf{Podpora od JetBrains:} Poskytuje stabilní podporu od vývojářského týmu JetBrains.
-\end{itemize}
+\myparagraph{Deklarativní zápis UI} 
+Používá deklarativní syntaxi pro popis uživatelského rozhraní. \cite{KMPUseCases}
 
-\subsection{Kotlin Multiplatform}
+\myparagraph{Jednotný kód pro různé platformy} 
+Možnost sdílet kód pro Android, iOS, web i Desktop.
+
+\myparagraph{Snadné migrace díky postupné integraci} 
+Díky KMP je možné postupně implementovat jednotlivé částí aplikace i do již existujících aplikací s minimálním rizikem oproti
+ostatním multiplatformním technologiím. \cite{KMP}
+
+\myparagraph{Znovupoužitelnost Kotlin kódu} 
+Díky KMP je možné použít některé části kódu z již existujících Android aplikací i na ostatních platformách.
+
+\myparagraph{Programovací jazyk Kotlin} 
+Frontendová i backendová část aplikace jsou psány v jazyce Kotlin pro bezproblémovou integraci se serverovou částí.
+
+\myparagraph{Podpora od JetBrains}
+Poskytuje stabilní podporu od vývojářského týmu JetBrains.
+
+\subsubsection{Kotlin Multiplatform}
 
 
 %https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/#use-the-power-of-the-growing-kotlin-multiplatform-ecosystem
 
-Kotlin Multiplatform je často základním kamenem pro tvorbu multiplatformních aplikací založených na Compose Multiplatform. Jelikož se jedná o SDK, 
-tak umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat v Kotlinu celé vrstvy aplikací. 
-
+Kotlin Multiplatform je často základním kamenem pro tvorbu multiplatformních aplikací založených na Compose Multiplatform.
 Od listopadu 2023 má svoji stabilní verzi, která je stoprocentně připravena na produkční nasazení. \cite{KMPstable}
+
+Jelikož se jedná o SDK, tak umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat 
+v Kotlinu celé vrstvy aplikací. Díky tomu dává vývojářům možnost sdílet napříč platformami je ty části kódu, které mají největších
+smysl implementovat pro veškeré platformy a zbylé části kódu psát v nativním jazyce pro danou platformu. \cite{KMP}
+
+Na obrázku \ref{fig:KMP_vrstvy} jsou vidět různé možnosti, jakými může být KMP na daných platformách implementován. 
+
+%Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
 
 \begin{figure}[H]
   \centering
@@ -204,7 +333,12 @@ Od listopadu 2023 má svoji stabilní verzi, která je stoprocentně připravena
   \label{fig:KMP_struktura}
 \end{figure}
 
-\subsubsection{Aktuální použití KMP v praxi}
+\subsubsection*{Expected a actual deklarace}
+Deklarace Expected a actual umožňují přistupovat k platformě specifickým API z Kotlin Multiplatform modulů.
+
+
+\subsubsection*{Aktuální použití KMP v praxi}
+% Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
 
 
 \emph{"Od této doby jsme vyvinuli a v produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme sdílet cca 60–70 \% kódu na platformu. V případě vývoje na dvě platformy to znamená, že v součtu dokážeme ušetřit minimálně třetinu nákladů na vývoj, plus s tím související další náklady na věci typu testování (v tomto případě snížení až na polovinu)."}
@@ -216,17 +350,37 @@ Od listopadu 2023 má svoji stabilní verzi, která je stoprocentně připravena
   \label{fig:KMP_vs_native}
 \end{figure}
 
-\section{Omezení výkonu}
+\section{Flutter vs React Native vs Compose Multiplatform}
 
 
-\section{Ukázková aplikace}
+\subsection{Porovnání výkonu}
 
-Aplikace obsahovala jednu obrazovku, načetla obrázky z veřejného API a zobrazila je v horizontálním seznamu. 
+Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří jednoznačně výkon
+nativních aplikací. Z toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů s
+nativními verzemi aplikací. 
+
+
+\subsection*{Ukázková aplikace}
+
+Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace, která obsahovala jednu obrazovku, 
+načetla obrázky z veřejného API a zobrazila je v horizontálním seznamu. 
 Na každý obrázek šlo kliknout a zobrazit jej přiblížený pod seznamem. 
-Pro testování byly použity nativní toolkity Jetpack Compose a SwiftUI, dále Compose Multiplatform a framework Flutter.  
+Pro testování byly použity toolkity pro tvorbu nativního UI pro platformu Android (Jetpack Compose) a iOS (SwiftUI)
+v porovnání s multiplatformními technologiemi Compose Multiplatform a Flutter.
 
+Mezi hlavní testované parametry patřil čas nastartování testované aplikace a její velikost.
 
-Na obrázku \ref*{fig:chart_app_sizes} je vidět ja 
+\myparagraph{Velikost aplikace}
+
+Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform je identická
+s velikostí nativní aplikace pro Android. Je tomu tak z toho důvodu, že výsledná aplikace pro Android neobsahuje kód 
+pro jiné platformy. Kdežto u velikosti iOS aplikace je situace výrazně jiná. Samotná aplikace pro iOS je v porovnání
+s její nativní aplikací o 23,1 MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
+která je na platformě Android dostupná, kdežto na platformě iOS ne a proto tam musí být spolu s aplikací dodána.
+
+Zajímavé je následně porovnání s velikostí aplikace založené na frameworku Flutter, jelikož ta, stejně jako Compose
+Multiplatform využívá knihovnu Skia, ale i přesto je o něco menší než Compose Multiplatform aplikace na platformě iOS.
+Flutter Engine je součástí aplikace spolu s kódem Dart a zvětšuje velikost (asi 3–4 MB pro Android a 10 MB pro iOS).t
 
 \begin{figure}[H]
   \centering
@@ -234,6 +388,18 @@ Na obrázku \ref*{fig:chart_app_sizes} je vidět ja
   \caption{APK/IPA size in megabytes}
   \label{fig:chart_app_sizes}
 \end{figure}
+
+\myparagraph{Rychlost spuštění aplikace}
+
+Při porovnání rychlosti spuštění Compose Multiplatform aplikace na platformě Android není mezi rychlostmi téměř žádný
+rozdíl stejně tak jako tomu při porovnání velikosti aplikací v předchozí kapitole. O něco delší dobu spuštění měla
+aplikace napsaná pomocí frameworku Flutter, která se spouštěla v průměru o 221 ms déle než Compose Multiplatform aplikace. 
+Toto zpomalení je s nejvyšší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s oficiální
+Flutter dokumentací. \cite{flutterPerformance}
+
+U posledního porovnání na platformě iOS se doba spuštění aplikací založených na Compose Multiplatform a frameworku 
+Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití těchto multiplatformních technologií v budoucnu.
+% // TODO posledni cast porovnani
 
 \begin{figure}[H]
   \centering
@@ -243,7 +409,13 @@ Na obrázku \ref*{fig:chart_app_sizes} je vidět ja
 \end{figure}
 
 \section{Náročnost implementace}
-\section{Omezení možností UI designu}
+\section{Limitace Compose Multiplatform oproti nativnímu řešení} 
+Jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
+
+Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
+aktuálně spjata s UI se týká především plynulosti a nebo použití nativně vypadajících komponent na platformě iOS.
+Ta v její nativní podobě používá styl zvaný Cupertino, který aktuálně není oficiálně podporován. 
+
 
 \begin{figure}[H]
     \centering
@@ -257,10 +429,16 @@ Na obrázku \ref*{fig:chart_app_sizes} je vidět ja
 
 
 \section{Výběr aplikace pro implementaci}
-Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, které by bylo možné použít napříč různými platformami.
-Mezi další požadavky patřilo například využití  
+Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, 
+které by bylo možné použít napříč různými platformami.
+Mezi další požadavky patřilo zaměření se na kritické problémy související s multiplatformním vývojem. 
+například využití 
 
-Z těchto důvodů byla k iplemenci vybrána aplikace sloužící pro občany měst či obcí, která by sloužila jako p
+Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční
+požadavky které plynou ze zadání.
+
+Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo jim umožňovala
+zaplatit parkovné.
 
 
 
