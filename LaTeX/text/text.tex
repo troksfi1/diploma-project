@@ -74,6 +74,8 @@ React Native využívá komponentní architekturu, která vývojářům umožňu
 vytvářet znovupoužitelné komponenty. \cite{reactNativeComponents} Tato architektura je jednak založena na obecných
 React komponentách, ale zároveň také na React Native specifických komponentách, které se dále dělí na takzvané core
 komponenty, komponenty vytvořené komunitou či vlastní nativní komponenty. \cite{reactNativeComponents}
+
+% // todo komponenty prekladane na nativni 
     
 \myparagraph{Deklarativní zápis UI}
 React Native stejně jako React pro webové aplikace využívá pro zápis UI deklarativní způsob, 
@@ -301,21 +303,49 @@ Frontendová i backendová část aplikace jsou psány v jazyce Kotlin pro bezpr
 \myparagraph{Podpora od JetBrains}
 Poskytuje stabilní podporu od vývojářského týmu JetBrains.
 
+\subsection*{Architektura frameworku Compose Multiplatform}
+Jelikož je framework Compose Multiplatform z velké části založen na frameworku Jetpack Compose, tak v této kapitole bude probírána
+právě architektura toho frameworku, která bude doplněna o drobné rozdíli mezi těmito dvěma frameworky. 
+
+Renderovací část UI se skládá z následující tří fází:
+
+\myparagraph{Composition}
+Během této fáze Jetpack Compose vytvoří stromovou strukturu reprezentující UI komponenty, které mají být vykresleny.\cite{jetpackPhases}
+
+\myparagraph{Layout}
+Během této fáze se jednotlivým komponentám určí na jaké pozice se dané komponenty vykreslí a jakou budou mít šířku a výšku.
+Compose během této fáze prochází UI strom komponent tak, že nejprve měří své potomky pokud existují. Následně se na základě těchto
+měření rozhodně o vlastní velikosti a nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
+
+Díky použití tohoto algoritmu je k prostupu celého stromu zapotřebí navštívit každý uzel pouze jednou, což je výhodné jelikož
+s přibývajícími uzly roste pouze lineárně. \cite{jetpackPhases}
+
+\myparagraph{Drawing}
+V rámci poslední fáze dochází s samotnému vykreslení komponent na obrazovku koncového zařízení. \cite{jetpackPhases}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{composeIOS.png}
+  \caption{Compose Multiplatform iOS}
+  \label{fig:composeIOS}
+\end{figure}
+
 \subsubsection{Kotlin Multiplatform}
 
 
 %https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/#use-the-power-of-the-growing-kotlin-multiplatform-ecosystem
 
-Kotlin Multiplatform je často základním kamenem pro tvorbu multiplatformních aplikací založených na Compose Multiplatform.
-Od listopadu 2023 má svoji stabilní verzi, která je stoprocentně připravena na produkční nasazení. \cite{KMPstable}
+Kotlin Multiplatform je často základním kamenem pro tvorbu multiplatformních aplikací založených na Compose Multiplatform a to
+z toho důvodu, že díky KMP je možné implementovat multiplatformní aplikační logiku, která může doplňovat multiplatformní UI 
+poskytované frameworkem Compose Multiplatform. \cite{KMPUseCases} Důležitým rozdílem oproti ostatním multiplatformním frameworkům 
+je právě ta možnost, kterou KMP případně Compose Multiplatform vývojářům poskytuje. 
 
 Jelikož se jedná o SDK, tak umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat 
 v Kotlinu celé vrstvy aplikací. Díky tomu dává vývojářům možnost sdílet napříč platformami je ty části kódu, které mají největších
 smysl implementovat pro veškeré platformy a zbylé části kódu psát v nativním jazyce pro danou platformu. \cite{KMP}
-
-Na obrázku \ref{fig:KMP_vrstvy} jsou vidět různé možnosti, jakými může být KMP na daných platformách implementován. 
-
-%Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
+Lépe je tato skutečnost ilustrována na následujícím obrázku \ref{fig:KMP_vrstvy}, na kterém jsou vidět různé možnosti, 
+jakými může být KMP na daných platformách implementován.
 
 \begin{figure}[H]
   \centering
@@ -324,6 +354,19 @@ Na obrázku \ref{fig:KMP_vrstvy} jsou vidět různé možnosti, jakými může b
   \label{fig:KMP_vrstvy}
 \end{figure}
 
+Zároveň je tento obrázek možnou ukázkou toho, jak může probíhat migrace z již naimplementované nativní aplikace na aplikaci
+multiplatformní. Nejprve je tedy možné implementovat jen malou část aplikační logiky pro víro platforem a postupem času přesouvat
+do multiplatformní části aplikace například celé vrstvy starající se o prezentační, datovou nebo jinou aplikační logiku. \cite{KMPUseCases}
+
+Aby ale k takové migraci mohlo dojít, tak je zapotřebí aby pro technologie používané v původní nativní aplikaci existovali multiplatformní
+knihovny nebo alespoň jejich ekvivalent.
+
+\subsubsection*{Multiplatformní knihovny}
+Společnost JetBrains ve svém článku z konce roku 2023 zmiňuje, že existuje již přes 1500 KMP knihoven s tím, že ještě v roce 2020
+jich bylo pouze několik málo desítek. \cite{KMPstable}
+
+%Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
+právě počet a vyspělost se podle společností, které již KMP používají ukazuje jako zatim jedna z nejslabších stránek (viz kapitola \ref{kmpInPractise}).
 
 
 \begin{figure}[H]
@@ -333,13 +376,26 @@ Na obrázku \ref{fig:KMP_vrstvy} jsou vidět různé možnosti, jakými může b
   \label{fig:KMP_struktura}
 \end{figure}
 
+V případě, že žádná vhodná knihovna není k dispozici, tak je zde stále možnost čehož je možné docílit díky funkcionalitě jazyka Kotlina
+zvané Expected a actual deklarace.
+
 \subsubsection*{Expected a actual deklarace}
 Deklarace Expected a actual umožňují přistupovat k platformě specifickým API z Kotlin Multiplatform modulů.
+Nejprve je ve společné části potřeba například třídu, funkci  
 
 
-\subsubsection*{Aktuální použití KMP v praxi}
+\subsubsection*{Aktuální použití KMP v praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
 
+I přesto, že je KMP ve stabilní verzi teprve od listopadu 2023 \cite{KMPstable}, tak tuto technologii používá již několik světově 
+známých firem v produkčním nasazení jako je například Forbes či McDonald's. Forbes uvádí, že právě díky KMP dokáží sdílet až 80 \%
+aplikační logiky napříč platformami Android a iOS. \cite{KMPinForbes} 
+Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší testování \cite{KMPinMcDonalds}
+
+Naopak mezi největší výzvy, které obě společnosti ve svých souhrnech uvádějí patří adaptace na KMP prostředí (především iOS vývojářů) nebo
+nedostatečné množství potřebných multiplatformních knihoven (případně jejich nedostatečná vyspělost). \cite{KMPinForbes} \cite{KMPinMcDonalds}
+
+Pro porovnání 
 
 \emph{"Od této doby jsme vyvinuli a v produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme sdílet cca 60–70 \% kódu na platformu. V případě vývoje na dvě platformy to znamená, že v součtu dokážeme ušetřit minimálně třetinu nákladů na vývoj, plus s tím související další náklady na věci typu testování (v tomto případě snížení až na polovinu)."}
 
@@ -349,6 +405,9 @@ Deklarace Expected a actual umožňují přistupovat k platformě specifickým A
   \caption{Množství kódu KMP vs native}
   \label{fig:KMP_vs_native}
 \end{figure}
+
+Pro upřesnění je ještě potřeba zmínit, že veškeré vyjmenované společnosti, využili pouze možnosti sdílení logiky a nepoužívají
+tak sdílené UI pomocí Compose Multiplatform.
 
 \section{Flutter vs React Native vs Compose Multiplatform}
 
@@ -410,19 +469,16 @@ Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití tě
 
 \section{Náročnost implementace}
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
-Jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
+% to se tyka KMP ne compose Multipltfrom
+Jak již bylo zmíněno v kapitole KMP, tak jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
 aktuálně spjata s UI se týká především plynulosti a nebo použití nativně vypadajících komponent na platformě iOS.
-Ta v její nativní podobě používá styl zvaný Cupertino, který aktuálně není oficiálně podporován. 
+Ta v její nativní podobě používá styl zvaný Cupertino, který aktuálně není oficiálně podporován. Co se týče plynulosti UI
+na platformě iOS, tak aktuálně se řeší problém s
 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\textwidth]{composeIOS.png}
-    \caption{Compose Multiplatform iOS}
-    \label{fig:composeIOS}
-\end{figure}
+Většina výše zmíněných problémů se již řeší a je zmíněna v Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap}
+V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je dostání frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
 
 \chapter{Návrh}
 
@@ -506,6 +562,8 @@ zaplatit parkovné.
 \section{Zhodnocení výsledků testování}
 
 \section{Zhodnocení použitelnosti}
+
+android already in production with hell a lot of features now If you want to share code among these and have single code base, going with flutter is bad idea .. Since its take nativity out. So hence you want both the teams to have a common business logic and networking thing then KMM is the way to go 
 
 \chapter{Závěr}
 
