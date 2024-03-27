@@ -62,7 +62,6 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.logging)
             implementation(libs.kermit)
-            implementation("com.prof18.rssparser:rssparser:6.0.6")
             api("io.github.kevinnzou:compose-webview-multiplatform:1.8.8")
             implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
             implementation(libs.coil.compose)
@@ -79,6 +78,13 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
             implementation(libs.voyager.koin)
+            implementation(libs.google.maps.compose)
+            implementation("com.google.android.gms:play-services-maps:18.0.2")
+            // Optionally, you can include the Compose utils library for Clustering,
+            // Street View metadata checks, etc.
+            implementation(libs.google.maps.compose.utils)
+            implementation("com.google.android.gms:play-services-location:21.2.0")
+            implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
         }
 
         desktopMain.dependencies {

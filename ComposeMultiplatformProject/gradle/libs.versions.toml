@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.2"
+agp = "8.3.1"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -14,17 +14,17 @@ androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.12.0"
 androidx-espresso-core = "3.5.1"
 androidx-test-junit = "1.1.5"
-compose = "1.6.2"
+compose = "1.6.4"
 compose-compiler = "1.5.6"
-compose-plugin = "1.5.11"
-coroutinesVersion = "1.7.3"
-dateTimeVersion = "0.4.1"
+compose-plugin = "1.6.0"
+coroutinesVersion = "1.8.0"
+dateTimeVersion = "0.5.0"
 junit = "4.13.2"
-kotlin = "1.9.21"
-ktorVersion = "2.3.7"
+kotlin = "1.9.22"
+ktorVersion = "2.3.8"
 mapsCompose = "4.3.2"
-material3 = "1.2.0"
-uiToolingPreview = "1.6.2"
+material3 = "1.2.1"
+uiToolingPreview = "1.6.4"
 voyagerVersion = "1.0.0"
 lifecycleViewmodelKtx = "2.7.0"
 koin-version = "1.1.0"
@@ -64,9 +64,7 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-xml = { module = "io.ktor:ktor-serialization-kotlinx-xml", version.ref = "ktorVersion" }
-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 sqldelight-sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight-drivers" }
 voyager-core = { module = "cafe.adriel.voyager:voyager-core", version.ref = "voyagerVersion" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
