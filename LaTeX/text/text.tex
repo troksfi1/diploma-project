@@ -55,8 +55,11 @@ implementovány jednotně a rychle na všech platformách.
 \section{Přehled existujících frameworků}
 Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně patří Flutter a React Native. \cite{crossPlatformFrameworksStats}
 V následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobněji rozebrány a u každého z nich jsou vybrány 
-důležité vlastnosti, které jsou pro tyto frameworky typické. Jednotlivé frameworky jsou seřazeny postupně od 
-pro tvorbu multiplatformního UI existují, jak se postupem času vyvíjely a jaké mají společné rysy.
+důležité vlastnosti, které jsou pro tyto frameworky typické. 
+
+Jednotlivé frameworky jsou seřazeny postupně od nejstaršího
+po nejmladší, což umožňuje lepší náhled na to, jak se jednotlivé frameworky v čase vyvíjely. Pro lepší ilustraci byla také zvolena 
+i podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společnými rysům napříč frameworky.
 
 %---------------------------------------------------------------
 \subsection{React Native}
@@ -305,9 +308,41 @@ Poskytuje stabilní podporu od vývojářského týmu JetBrains.
 
 \subsection*{Architektura frameworku Compose Multiplatform}
 Jelikož je framework Compose Multiplatform z velké části založen na frameworku Jetpack Compose, tak v této kapitole bude probírána
-právě architektura toho frameworku, která bude doplněna o drobné rozdíli mezi těmito dvěma frameworky. 
+právě architektura toho frameworku, která bude doplněna o drobné rozdíly mezi těmito dvěma frameworky.
 
-Renderovací část UI se skládá z následující tří fází:
+V porovnání s ostatními dříve zmíněnými frameworky slouží tento framework pouze k tvorbě multiplatformního UI a z toto důvodu je převážně 
+používán s toolkitem Kotlin Multiplatform, který dané aplikaci poskytuje i multiplatformní aplikační logiku. Jelikož se jedná o základní 
+komponentu bez které by Compose Multiplatform nevznikl, tak je tomuto toolkitu věnována celá kapitola. \ref{kmpSection}
+
+Pro lepší ukázku toho z jakých částí se typická multiplatformní mobilní aplikace skládá slouží následující obrázek \ref{fig:composeIOS}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{composeIOS.png}
+  \caption{Compose Multiplatform iOS}
+  \label{fig:composeIOS}
+\end{figure}
+
+Jak již bylo zmíněno tak 
+
+
+
+Co se týče samotného UI kódu, tak ten se skládá z jednotlivým funkcí označených anotací \code{@Composable}, která k těle obsahuje další
+\textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro výpis
+textu na obrazovku. 
+
+
+\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ComposeCode}, language=Kotlin]
+@Composable
+fun MyComposable() {
+    Column {
+        Text("Hello")
+        Text("World")
+    }
+}
+\end{lstlisting}
+
+Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku zařízení v těchto třech následujících fázích:
 
 \myparagraph{Composition}
 Během této fáze Jetpack Compose vytvoří stromovou strukturu reprezentující UI komponenty, které mají být vykresleny.\cite{jetpackPhases}
@@ -322,16 +357,10 @@ s přibývajícími uzly roste pouze lineárně. \cite{jetpackPhases}
 
 \myparagraph{Drawing}
 V rámci poslední fáze dochází s samotnému vykreslení komponent na obrazovku koncového zařízení. \cite{jetpackPhases}
+Compose během této fáze znovu postupně prochází strom UI elementů od kořene až do listů a každý element tohoto stromu vykreslí sám sebe 
+na pozici určenou během Layout fáze. \cite{jetpackPhases}
 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.7\textwidth]{composeIOS.png}
-  \caption{Compose Multiplatform iOS}
-  \label{fig:composeIOS}
-\end{figure}
-
-\subsubsection{Kotlin Multiplatform}
+\subsubsection{Kotlin Multiplatform} \label{kmpSection}
 
 
 %https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/#use-the-power-of-the-growing-kotlin-multiplatform-ecosystem
@@ -344,7 +373,7 @@ je právě ta možnost, kterou KMP případně Compose Multiplatform vývojář�
 Jelikož se jedná o SDK, tak umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat 
 v Kotlinu celé vrstvy aplikací. Díky tomu dává vývojářům možnost sdílet napříč platformami je ty části kódu, které mají největších
 smysl implementovat pro veškeré platformy a zbylé části kódu psát v nativním jazyce pro danou platformu. \cite{KMP}
-Lépe je tato skutečnost ilustrována na následujícím obrázku \ref{fig:KMP_vrstvy}, na kterém jsou vidět různé možnosti, 
+Lépe je tato skutečnost ilustrována na následujícím obrázku \ref{fig:KMP_vrstvy}, na kterém jsou vidět různé možnosti,
 jakými může být KMP na daných platformách implementován.
 
 \begin{figure}[H]
@@ -366,7 +395,7 @@ Společnost JetBrains ve svém článku z konce roku 2023 zmiňuje, že existuje
 jich bylo pouze několik málo desítek. \cite{KMPstable}
 
 %Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
-právě počet a vyspělost se podle společností, které již KMP používají ukazuje jako zatim jedna z nejslabších stránek (viz kapitola \ref{kmpInPractise}).
+Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají jeví jako zatím jedna z nejslabších stránek KMP (viz kapitola \ref{kmpInPractise}).
 
 
 \begin{figure}[H]
@@ -380,9 +409,14 @@ V případě, že žádná vhodná knihovna není k dispozici, tak je zde stále
 zvané Expected a actual deklarace.
 
 \subsubsection*{Expected a actual deklarace}
-Deklarace Expected a actual umožňují přistupovat k platformě specifickým API z Kotlin Multiplatform modulů.
-Nejprve je ve společné části potřeba například třídu, funkci  
+Deklarace \textit{expected} a \textit{actual} umožňují přistupovat k platformě specifickým API z Kotlin Multiplatform modulů. \cite{KMPExpectActual}
+Nejprve je ve společné části potřeba vytvořit například třídu nebo funkci u které chceme aby její obsah byl implementován typicky pomocí
+platformě specifických knihoven a tuto část v rámci společného modulu označit klíčovým slovem \code{expect}. \cite{KMPExpectActual} Její implementaci následně provést v rámci
+platformě specifického kódu. Tato implementace musí být provedena pod stejným názvem a ve stejném balíku jako deklarace ve společném modulu
+a musí být označena klíčovým slovem \code{actual}. \cite{KMPExpectActual}
 
+Během kompilace pak Kotlin kompilátor každou deklaraci s klíčovým slovem \code{expect} sjednotí s příslušnou actual deklarací pro danou platformu
+a vygeneruje z ní jednu deklaraci obsahující actual implementaci. \cite{KMPExpectActual}
 
 \subsubsection*{Aktuální použití KMP v praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
@@ -470,14 +504,15 @@ Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití tě
 \section{Náročnost implementace}
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multipltfrom
-Jak již bylo zmíněno v kapitole KMP, tak jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
+Jak již bylo zmíněno v kapitole KMP , tak jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
 aktuálně spjata s UI se týká především plynulosti a nebo použití nativně vypadajících komponent na platformě iOS.
 Ta v její nativní podobě používá styl zvaný Cupertino, který aktuálně není oficiálně podporován. Co se týče plynulosti UI
 na platformě iOS, tak aktuálně se řeší problém s
 
-Většina výše zmíněných problémů se již řeší a je zmíněna v Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap}
+Většina výše zmíněných problémů se již řeší a je zmíněna v Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap} Konkrétně
+se jedná o veškeré zmíněné o problémy kromě zařazení HarmonyOS mezi podporované platformy.% // todo 
 V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je dostání frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
 
 \chapter{Návrh}
@@ -503,11 +538,11 @@ zaplatit parkovné.
 \begin{figure}[H]
     \minipage{0.4\textwidth}
       \includegraphics[width=\linewidth]{screen1.png}
-      \caption{Screen 1}\label{fig:screen1}
+      \caption{Domovská obrazovka}\label{fig:screen1}
     \endminipage\hfill
     \minipage{0.4\textwidth}
       \includegraphics[width=\linewidth]{screen2.png}
-      \caption{Screen 2}\label{fig:screen2}
+      \caption{Obrazovka akcí}\label{fig:screen2}
     \endminipage\hfill
 \end{figure}
 
@@ -523,6 +558,7 @@ zaplatit parkovné.
 \end{figure}
 
 \section{Návrh architektury}
+
 
 \begin{figure}[H]
   \centering
@@ -546,11 +582,34 @@ zaplatit parkovné.
         .3 resourses \DTcomment{}.
         .2 desktop Main \DTcomment{}.
 	}
-
-
+\section{Vrstvy}
+\subsection{Datová}
+\subsection{Doménová}
+\subsection{Prezentační}
 
 
 \chapter{Implementace}
+
+\section{Technologie - jen multiplatformní? }
+\subsection{Kotlin}
+\subsection{Coroutines}
+\subsection{Ktor}
+\subsection{SQLDelight}
+\subsection{Koin}
+\subsection{Voyager}
+
+\section{Tvorba UI obecně}
+\subsection{Navigace}
+\subsection{Design systému}
+\subsubsection{Barvy}
+\subsubsection{Typografie}
+
+\section{Tvorba UI obrazovek}
+\subsection{Domovská obrazovka}
+\subsection{Event obrazovka}
+\subsection{patkovani obrazovka}
+
+
 
 \section{Řešení problémů spojených s multiplatformním vývojem}
 \section{Navigace a lokalizace v implementaci}
