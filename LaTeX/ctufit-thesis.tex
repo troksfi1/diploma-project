@@ -102,6 +102,69 @@
 \usepackage{listings} % typesetting of sources
 %\usepackage[newfloat]{minted}\captionsetup[listing]{position=top} % typesetting of sources
 
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+
+\lstdefinelanguage{Kotlin}{
+  comment=[l]{//},
+  commentstyle={\color{gray}\ttfamily},
+  emph={filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println},
+  emphstyle={\color{OrangeRed}},
+  identifierstyle=\color{black},
+  keywords={!in, !is, abstract, actual, annotation, as, as?, break, by, catch, class, companion, const, constructor, continue, crossinline, data, delegate, do, dynamic, else, enum, expect, external, false, field, file, final, finally, for, fun, get, if, import, in, infix, init, inline, inner, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, param, private, property, protected, public, receiveris, reified, return, return@, sealed, set, setparam, super, suspend, tailrec, this, throw, true, try, typealias, typeof, val, var, vararg, when, where, while},
+  keywordstyle={\color{NavyBlue}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Deprecated,@Composable, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Any, Unit, Nothing},
+  ndkeywordstyle={\color{BurntOrange}\bfseries},
+  sensitive=true,
+  stringstyle={\color{ForestGreen}\ttfamily},
+  numbers=left,
+}
+
+\usepackage{listings}
+\usepackage{xcolor} 
+\definecolor{hellgelb}{rgb}{1,1,0.9}
+\lstdefinelanguage{JSX}{
+keywords={<View, <Image, <Text},
+  keywordstyle={\color{NavyBlue}\bfseries},
+  float=hbp,
+  identifierstyle=\color{black},
+  keywordstyle=\color{black},
+  stringstyle=\color{black},
+  commentstyle=\color{black},
+  columns=false,
+  tabsize=2,
+  frame=single,
+  extendedchars=true,
+  showspaces=false,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  %backgroundcolor=\color{hellgelb},
+  breakautoindent=false
+}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily,
+  morestring=[s]{"}{"},
+  morecomment=[s]{?}{?},
+  morecomment=[s]{!--}{--},
+  commentstyle=\color{darkgreen},
+  moredelim=[s][\color{black}]{>}{<},
+  moredelim=[s][\color{darkblue}]{\ }{=},
+  stringstyle=\color{blue},
+  identifierstyle=\color{darkblue}
+}
+
 %theorems, definitions, etc.
 \theoremstyle{plain}
 \newtheorem{theorem}{Věta}
@@ -121,6 +184,14 @@
 %%%%%%%%%%%%%%%%%%%%%%
 % DEMO CONTENTS SETTINGS END
 %%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\myparagraph}[1]{\paragraph*{#1}\mbox{}\\}
+%\newcommand{\code}[1]{\texttt{#1}}
+
+\usepackage{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+
 
 \begin{document} 
 \frontmatter\frontmatterinit % do not remove these two commands
@@ -223,6 +294,11 @@
 \chapter{Seznam zkratek}
 	
 \begin{tabular}{rl}
+KMP & Kotlin Multiplatform\\
+KMM & Kotlin Multiplatform Mobile\\
+UI & User interface\\
+JSX & JavaScript XML\\
+
 DFA & Deterministic Finite Automaton\\
 FA & Finite Automaton\\
 LPS & Labelled Prüfer Sequence\\

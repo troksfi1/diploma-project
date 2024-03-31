@@ -523,7 +523,9 @@ V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je d
 Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, 
 které by bylo možné použít napříč různými platformami.
 Mezi další požadavky patřilo zaměření se na kritické problémy související s multiplatformním vývojem. 
-například využití 
+například využití funkcí, které jsou silně spjaty s hardwarem koncových zařízení jako třeba použití jednotné navigace
+
+fotoaparátu, služeb lokalizace, 
 
 Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční
 požadavky které plynou ze zadání.
@@ -531,6 +533,8 @@ požadavky které plynou ze zadání.
 Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo jim umožňovala
 zaplatit parkovné.
 
+
+\section{Use cases}
 
 
 \section{Návrh UI}
@@ -559,6 +563,88 @@ zaplatit parkovné.
 
 \section{Návrh architektury}
 
+Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
+
+\subsection*{Důležité principy}
+
+\myparagraph{Separation of concerns}
+
+\myparagraph{Unidirectional Data Flow}
+
+\myparagraph{Separation of concerns}
+
+
+rozděluje architekturu do následujících třech vrstev:
+
+\subsection*{UI vrstva}
+The UI layer that displays application data on the screen.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{arch-ui-udf.png}
+  \caption{Architektura UI vrstvy - UDF diagram}
+  \label{fig:arch_ui_udf}
+\end{figure}
+
+\myparagraph{ViewModel}
+Statará se logiku
+na základě událostí aktualizuje UI state.
+
+\myparagraph{UI Elements}
+Na základě poskytnuteho UI state zobrazují data reprezentující aktuální stav aplikace.
+
+Na následujícím výpisu kódu je vidět jakou strukturu bude mít následná implementace.
+
+\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ConsumeUIState}, language=Kotlin]
+  @Composable
+  fun LatestNewsScreen(
+      viewModel: NewsViewModel = viewModel()
+  ) {
+      // Show UI elements based on the viewModel.uiState
+  }
+\end{lstlisting}
+
+\subsection*{Doménová vrstva}
+
+\subsection*{Datová vrstva}
+The data layer that contains the business logic of your app and exposes application data.
+
+
+\section{Vrstvy}
+\subsection{Datová}
+\subsection{Doménová}
+\subsection{Prezentační}
+
+
+Po shrnutí dosavadně zmíněních poznatků týkajících se architektury aplikace byly jednotlivé vrstvy převedeny do jednotlivých balíků s následující
+strukturou:
+
+\dirtree{%
+.1 data\DTcomment{datová vrstva}.
+  .2 model\DTcomment{}.
+  .2 repository.
+.1 ui\DTcomment{prezentační vrstva}.
+  .2 composables\DTcomment{}.
+  .2 screens\DTcomment{}.
+    .3 HomeScreen\DTcomment{}.
+}
+
+% \dirtree{%
+%         .1 src \DTcomment{}.
+%           .2 androidMain \DTcomment{}.
+%           .2 commonMain \DTcomment{je pro kód sdílený mezi všemi platformami}.
+%             .3 kotlin \DTcomment{}.
+%               .4 data\DTcomment{datová vrstva}.
+% 		            .5 model\DTcomment{}.
+% 		            .5 repository.
+% 		          .4 ui\DTcomment{prezentační vrstva}.
+% 		            .5 composables\DTcomment{}.
+% 		            .5 screens\DTcomment{}.
+% 		              .6 HomeScreen\DTcomment{}.
+%             .3 resourses \DTcomment{}.
+%           .2 desktop Main \DTcomment{}.
+% 	}
+
 
 \begin{figure}[H]
   \centering
@@ -566,27 +652,6 @@ zaplatit parkovné.
   \caption{MVVM with Clean Architecture}
   \label{fig:mvvm}
 \end{figure}
-
-\dirtree{%
-        .1 src \DTcomment{}.
-        .2 androidMain \DTcomment{}.
-        .2 commonMain \DTcomment{je pro kód sdílený mezi všemi platformami}.
-        .3 kotlin \DTcomment{}.
-        .4 data\DTcomment{datová vrstva}.
-		.5 model\DTcomment{}.
-		.5 repository.
-		.4 ui\DTcomment{prezentační vrstva}.
-		.5 composables\DTcomment{}.
-		.5 screens\DTcomment{}.
-		.6 HomeScreen\DTcomment{}.
-        .3 resourses \DTcomment{}.
-        .2 desktop Main \DTcomment{}.
-	}
-\section{Vrstvy}
-\subsection{Datová}
-\subsection{Doménová}
-\subsection{Prezentační}
-
 
 \chapter{Implementace}
 
@@ -596,10 +661,12 @@ zaplatit parkovné.
 \subsection{Ktor}
 \subsection{SQLDelight}
 \subsection{Koin}
+\subsection{Coil}
 \subsection{Voyager}
 
 \section{Tvorba UI obecně}
 \subsection{Navigace}
+%\section{Navigace a lokalizace v implementaci}
 \subsection{Design systému}
 \subsubsection{Barvy}
 \subsubsection{Typografie}
@@ -607,12 +674,11 @@ zaplatit parkovné.
 \section{Tvorba UI obrazovek}
 \subsection{Domovská obrazovka}
 \subsection{Event obrazovka}
-\subsection{patkovani obrazovka}
+\subsection{Parkování obrazovka}
 
 
 
 \section{Řešení problémů spojených s multiplatformním vývojem}
-\section{Navigace a lokalizace v implementaci}
 
 \chapter{Testování}
 
