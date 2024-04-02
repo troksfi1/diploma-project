@@ -568,16 +568,42 @@ Navržená architektura se z velké části drží architektonických principů 
 \subsection*{Důležité principy}
 
 \myparagraph{Separation of concerns}
+Separation of concerns je princip návrhu softwaru, který popisuje důležitost oddělení různých funkcionalit do samostatných, dobře definovaných a izolovaných částí.
+Hlavním cílem tohoto principu je zlepšit modularitu, udržitelnost, znovupoužitelnost a spravovatelnost kódu.
+
+Princip oddělení zájmů rozděluje systém na jednotlivé komponenty nebo moduly, přičemž každý z nich se zabývá jednou konkrétní 
+oblastí funkcionality. Každá část systému má jasně definované rozhraní, které umožňuje interakci s ostatními částmi. 
+Tímto způsobem lze snadněji spravovat a udržovat kód, protože změny v jedné části systému nemusí mít nežádoucí dopady na ostatní části.
+
+Příklady oddělení zájmů zahrnují oddělení prezentační vrstvy od logiky aplikace (Model-View-Controller), oddělení datového přístupu od 
+podnikové logiky (Repository pattern), a oddělení různých vrstev aplikace (např. vrstva uživatelského rozhraní, aplikační logika, datová vrstva). 
 
 \myparagraph{Unidirectional Data Flow}
+Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. 
+V tomto přístupu data proudí v jednom směru, což znamená, že existuje jasný a jednoznačný tok dat od zdroje až po jejich konečný cíl.
+Takovýto přístup například umožňuje efektivní aktualizaci uživatelského rozhraní v reakci na změny dat a přispívá k jednoduchosti, 
+předvídatelnosti a údržnosti softwarových aplikací.
 
-\myparagraph{Separation of concerns}
+\myparagraph{Single source of truth}
+Princip Single Source of Truth (SSOT) je koncept v softwarovém inženýrství, který zdůrazňuje, že v aplikaci by měl existovat jediný 
+zdroj dat, který obsahuje aktuální a spolehlivé informace. Tento zdroj dat je považován za „pravdivý“ a slouží jako jediný zdroj, 
+ze kterého mohou ostatní části aplikace čerpat informace. Tím se zajišťuje konzistence dat napříč aplikací a minimalizuje se riziko 
+konfliktů nebo chyb v datech.
+
+Díky SSOT jsou data v aplikaci konzistentní a snadněji spravovatelná, protože všechny komponenty a moduly aplikace pracují se stejnými 
+daty. To usnadňuje údržbu a vývoj aplikace, protože úpravy a aktualizace dat lze provádět centrálně. Z hlediska kódu přispívá tento
+princip k jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hledat relevantní data pro různé části aplikace.
+
+Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace a poskytnout spolehlivý zdroj dat pro všechny části aplikace.
 
 
+\subsection{Vrstvy architektury}
+
+Na základě těchto principů se ..., která uplatňuje výše zmíněné principy.
 rozděluje architekturu do následujících třech vrstev:
 
-\subsection*{UI vrstva}
-The UI layer that displays application data on the screen.
+\subsubsection*{UI vrstva}
+UI vrstva se stará o zobrazení dat, která odpovídají aktuálnímu stavu a zároveň se 
 
 \begin{figure}[H]
   \centering
@@ -587,11 +613,43 @@ The UI layer that displays application data on the screen.
 \end{figure}
 
 \myparagraph{ViewModel}
-Statará se logiku
-na základě událostí aktualizuje UI state.
+Stará se logiku
+
+
+Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce, a to i při změnách konfigurace zařízení 
+(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s daty, jako je načítání dat ze zdroje, 
+jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
+rozhraní.
+
+\myparagraph{UI state}
+UI state (stav uživatelského rozhraní) je koncept v softwarovém inženýrství, který popisuje aktuální stav a chování uživatelského 
+rozhraní v daném okamžiku. Tento stav může zahrnovat různé informace, jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
+ aktuální zobrazené obrazovky nebo panely, stav animací a další.
+
+UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v UI stavu mohou být způsobeny uživatelskými
+interakcemi, například kliknutím na tlačítko, zadáním textu do pole nebo rolováním seznamu, nebo mohou být vyvolány událostmi v aplikaci,
+jako je získání dat ze serveru nebo změny v interním stavu aplikace.
+
+Správa UI stavu je důležitou součástí vývoje aplikací s uživatelským rozhraním a může být implementována pomocí různých technik a nástrojů.
+Důležité je udržovat UI stav v souladu s interním stavem aplikace a zajistit jeho konzistenci a správnou aktualizaci v reakci na uživatelské 
+interakce a události v aplikaci.
 
 \myparagraph{UI Elements}
-Na základě poskytnuteho UI state zobrazují data reprezentující aktuální stav aplikace.
+Na základě poskytnuteho UI state zobrazují data reprezentující aktuální stav aplikace. Tento vztah je často d
+
+
+UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s aplikací.
+Tyto prvky zahrnují různé vizuální komponenty, jako jsou například tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd.
+
+UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob, jak manipulovat s aplikací a komunikovat s ní. Každý prvek má své 
+vlastnosti, jako jsou velikost, barva, text, stav atd., Které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
+podle určeného rozvržení (layoutu), které určuje jejich pozici a vzájemné uspořádání.
+
+UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají klíčovou roli při vytváření uživatelsky přívětivé a atraktivní aplikace. 
+Jejich vhodné použití a umístění má vliv na celkový uživatelský zážitek a efektivnost aplikace.
+
+
+\bigskip
 
 Na následujícím výpisu kódu je vidět jakou strukturu bude mít následná implementace.
 
@@ -605,16 +663,56 @@ Na následujícím výpisu kódu je vidět jakou strukturu bude mít následná 
 \end{lstlisting}
 
 \subsection*{Doménová vrstva}
+Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. 
+
+Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
+ konceptů a procesů. To zjednodušuje testování, údržbu a rozšíření aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
+ vlivu na doménovou logiku.
 
 \subsection*{Datová vrstva}
+Datová vrstva se stará o veškerá 
 The data layer that contains the business logic of your app and exposes application data.
 
 
-\section{Vrstvy}
-\subsection{Datová}
-\subsection{Doménová}
-\subsection{Prezentační}
+Datová vrstva je klíčovou součástí softwarových systémů, která se zabývá persistencí dat a komunikací s datovými úložišti, jako jsou
+ databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
+ aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{data_layer_diagram.png}
+  \caption{Architektura datové vrstvy}
+  \label{fig:arch_data_layer}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.3\textwidth]{data_layer_diagram_principle.png}
+  \caption{Architektura datové vrstvy}
+  \label{fig:arch_data_layer_principle}
+\end{figure}
+
+Mezi důležité prvky datové vrstvy patří:
+
+\myparagraph{DAOs}
+DAOs jsou zodpovědné za přímý přístup k datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. Tyto objekty 
+poskytují abstrakci nad konkrétními technologiemi datových úložišť a umožňují snadnou změnu úložišť bez vlivu na ostatní části aplikace.
+
+\myparagraph{DTOs}
+DTOs jsou objekty používané k přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k přenosu dat mezi datovou vrstvou a doménovou 
+vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci.
+
+\myparagraph{Datové entity}
+Datové entity představují strukturu a schéma dat uložených v databázi nebo jiném datovém úložišti. Tyto entity obvykle přímo odrážejí
+strukturu tabulek v relační databázi nebo dokumentů v NoSQL databázi a poskytují model, se kterým mohou pracovat ostatní vrstvy aplikace.
+
+\myparagraph{Datová úložiště}
+Datové úložiště jsou fyzická místa, kde jsou data uložena. Mohou to být relační databáze, NoSQL databáze, soubory na disku nebo externí API. 
+Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s těmito úložišti a aby byla data bezpečně uložena a získána.
+
+\bigskip
 
 Po shrnutí dosavadně zmíněních poznatků týkajících se architektury aplikace byly jednotlivé vrstvy převedeny do jednotlivých balíků s následující
 strukturou:
