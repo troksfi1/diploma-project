@@ -533,36 +533,62 @@ požadavky které plynou ze zadání.
 Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo jim umožňovala
 zaplatit parkovné.
 
+\section{Funkční požadavky}
+Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
+užitečná, efektivní a snadno použitelná.
+
+\myparagraph{Zobrazení novinek}
+Možnost přidávat, editovat a mazat novinky a oznámení.
+Zobrazení aktuálních novinek na domovské obrazovce aplikace.
+Možnost filtrovat novinky podle kategorie nebo data.
+
+\myparagraph{Zobrazení událostí}
+Zobrazení kalendáře s událostmi, akcemi a důležitými daty.
+Možnost procházet události v kalendáři dle data, místa nebo typu události.
+Možnost přidávat nové události do kalendáře.
+Možnost filtrovat události podle kategorie nebo data.
+
+\myparagraph{Platební brána pro parkovné}
+Možnost provádět platby parkovného prostřednictvím aplikace.
+Zadání informací o vozidle, parkovacím místě a délce parkování.
+Zobrazení historie plateb a možnost platit opakovaná parkování.
+
+\myparagraph{Možnost vyhledání a kontaktování místních úřadů, policie nebo zdravotního střediska}
+Zobrazení kontaktních informací a pracovní doby úřadů.
+Možnost zaslat otázku, stížnost nebo žádost přímo prostřednictvím aplikace.
+Správa uživatelského účtu:
+
+\myparagraph{Možnost vytvoření a správa uživatelského účtu}
+Přihlašování se pomocí e-mailu, telefonního čísla nebo sociálních sítí.
+Ukládání osobních preferencí a nastavení aplikace.
+
+\myparagraph{Navigace a mapy}
+Integrace mapových služeb pro zobrazení umístění událostí a místních služeb.
+Možnost vyhledávání tras a navigace v rámci města nebo obce.
+
+\myparagraph{Podpora více jazyků}
+Možnost nastavení jazyka aplikace dle uživatelských preferencí.
+Zobrazení obsahu a textů v různých jazycích.
+
+\myparagraph{Feedback a hodnocení}
+Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
+Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
 
 \section{Use cases}
 
+\myparagraph{Zobrazení aktuálních novinek} 
+Uživatelé mohou prostřednictvím aplikace získat přístup k aktuálním novinkám, událostem a důležitým oznámením ze svého města nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
 
-\section{Návrh UI}
+\myparagraph{Zobrazení aktuálních událostí} 
+Aplikace poskytne uživatelům přehled o připravovaných akcích, událostech a kulturních aktivitách v jejich městě nebo obci. Uživatelé budou moci procházet kalendář akcí, filtrovat je podle svých zájmů a získat podrobnosti o jednotlivých událostech.
 
-\begin{figure}[H]
-    \minipage{0.4\textwidth}
-      \includegraphics[width=\linewidth]{screen1.png}
-      \caption{Domovská obrazovka}\label{fig:screen1}
-    \endminipage\hfill
-    \minipage{0.4\textwidth}
-      \includegraphics[width=\linewidth]{screen2.png}
-      \caption{Obrazovka akcí}\label{fig:screen2}
-    \endminipage\hfill
-\end{figure}
+\myparagraph{Platba parkovného} 
+Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
 
-\begin{figure}[H]
-    \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen3.png}
-    \caption{Screen 3}\label{fig:screen3}
-  \endminipage\hfill
-  \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen4.png}
-    \caption{Screen 4}\label{fig:screen4}
-  \endminipage\hfill
-\end{figure}
+\myparagraph{Kontakty na místní úřady} 
+Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
 
 \section{Návrh architektury}
-
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
 
 \subsection*{Důležité principy}
@@ -684,15 +710,15 @@ Datová vrstva je klíčovou součástí softwarových systémů, která se zab�
   \centering
   \includegraphics[width=.5\textwidth]{data_layer_diagram.png}
   \caption{Architektura datové vrstvy}
-  \label{fig:arch_data_layer}
+  \label{fig:arch_data_layer}23
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.3\textwidth]{data_layer_diagram_principle.png}
-  \caption{Architektura datové vrstvy}
-  \label{fig:arch_data_layer_principle}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=.3\textwidth]{data_layer_diagram_principle.png}
+%   \caption{Architektura datové vrstvy}
+%   \label{fig:arch_data_layer_principle}
+% \end{figure}
 
 Mezi důležité prvky datové vrstvy patří:
 
@@ -744,30 +770,216 @@ strukturou:
 % 	}
 
 
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=1\textwidth]{mvvm.png}
+%   \caption{MVVM with Clean Architecture}
+%   \label{fig:mvvm}
+% \end{figure}
+
+\section{Návrh wireframes}
+Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, že ty nejdůležitější byly umístněny na domovkou
+obrazovku.
+
+Zároveň byla snaha o 
+
+Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v LazyRow a to především z důvodu, že 
+akce poutají především svým vizuálním největší část informace he uživateli předána právě pomocí titulního obrázku, názvu
+a času konání.
+
+Oproti tomu pro seznam novinek byl vybrán takzvaný LazyColum, který lépe umožňuje vyžít celou šíři obrazovky pro často delší
+titulek a text události.
+
+Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
+nebo událostí.
+
+Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují proklik na YouTube kanál města,
+nahlášení závady, zobrazení uředních hodin a kontaktů 
+
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{mvvm.png}
-  \caption{MVVM with Clean Architecture}
-  \label{fig:mvvm}
+    \minipage{0.38\textwidth}
+      \includegraphics[width=\linewidth]{home_wireframe.png}
+      \caption{Domovská obrazovka}\label{fig:screen1}
+    \endminipage\hfill
+    \minipage{0.4\textwidth}
+      \includegraphics[width=\linewidth]{events_wireframe.png}
+      \caption{Obrazovka akcí}\label{fig:screen2}
+    \endminipage\hfill
+\end{figure}
+
+\begin{figure}[H]
+    \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{parking_wireframe.png}
+    \caption{Screen 3}\label{fig:screen3}
+  \endminipage\hfill
+  \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{more_wireframe.png}
+    \caption{Screen 4}\label{fig:screen4}
+  \endminipage\hfill
+\end{figure}
+
+\section{Návrh grafické podoby UI}
+mockup
+
+\begin{figure}[H]
+    \minipage{0.4\textwidth}
+      \includegraphics[width=\linewidth]{screen1.png}
+      \caption{Domovská obrazovka}\label{fig:screen1}
+    \endminipage\hfill
+    \minipage{0.4\textwidth}
+      \includegraphics[width=\linewidth]{screen2.png}
+      \caption{Obrazovka akcí}\label{fig:screen2}
+    \endminipage\hfill
+\end{figure}
+
+\begin{figure}[H]
+    \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{screen3.png}
+    \caption{Screen 3}\label{fig:screen3}
+  \endminipage\hfill
+  \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{screen4.png}
+    \caption{Screen 4}\label{fig:screen4}
+  \endminipage\hfill
 \end{figure}
 
 \chapter{Implementace}
+
+comose jak je integrovan do aplikace
 
 \section{Technologie - jen multiplatformní? }
 \subsection{Kotlin}
 \subsection{Coroutines}
 \subsection{Ktor}
-\subsection{SQLDelight}
-\subsection{Koin}
-\subsection{Coil}
 \subsection{Voyager}
+Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
+ aplikacích. Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
+ zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+
+
+ \subsection{Koin}
+Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
+k jiným známým knihovnám, jako je například Dagger. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací 
+a zároveň zlepšuje čitelnost a údržbu kódu.
+
+Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
+jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
+ vývojářům transparentní pohled na strukturu aplikace.
+ 
+\subsection{SQLDelight}
+SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
+který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+
+Hlavní funkcionalitou SQLDelightu je automatická generace Kotlinových tříd na základě definovaných SQL schémat. To znamená, že vývojáři
+ mohou psát SQL dotazy pomocí standardního SQL syntaxe a SQLDelight se postará o generování příslušných Kotlinových tříd, které umožní 
+ snadný a bezpečný přístup k databázi.
+
+SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
+ kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
+
+
+\subsection{Coil}
+Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
+řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
+z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
+
+Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
+umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
+JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
+
+Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
+aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
+přednosti moderních technologií a frameworků při práci s obrázky.
+
+
 
 \section{Tvorba UI obecně}
 \subsection{Navigace}
 %\section{Navigace a lokalizace v implementaci}
-\subsection{Design systému}
+\subsection{Implementace design systému}
+který umožňuje konzistentní použití barev napříč aplikací.
+Tento systém definuje sadu standardizovaných barev a pravidel pro jejich použití, což usnadňuje tvorbu uživatelského rozhraní a zajišťuje konzistentní vizuální styl.
+
+Jelikož stránky města ... 
+byl v aplikaci použita nejnovější volně dostupná verze design systému od společnosti Google zvaná Material 3.
+
+loading
+
+
 \subsubsection{Barvy}
+Barvy byly zvoleny na základě vizuálního stylu města, které Příbram využívá při všech prezentaččních příležitostech.
+
+a následně byly zadefinovánovány:
+
+\begin{lstlisting}[caption={Zadefinování barev}, label={lst:ComposeCode}, language=Kotlin]
+  val md_theme_light_primary = Color(0xFFBC004C)
+  val md_theme_light_onPrimary = Color(0xFFFFFFFF)
+  val md_theme_light_primaryContainer = Color(0xFFFFD9DE)
+  val md_theme_light_onPrimaryContainer = Color(0xFF400015)
+  ...
+
+  val md_theme_dark_primary = Color(0xFFFFB2BE)
+  val md_theme_dark_onPrimary = Color(0xFF660026)
+  val md_theme_dark_primaryContainer = Color(0xFF900039)
+  val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
+  ...
+\end{lstlisting}
+
+Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů atd.
+
+Mimojiné jsou taktéž použity pro definování barevných motivů, které se definují následujícím způsobem:
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:ComposeCode}, language=Kotlin]
+  private val LightColors = lightColorScheme(
+    primary = md_theme_light_primary,
+    onPrimary = md_theme_light_onPrimary,
+    primaryContainer = md_theme_light_primaryContainer,
+    onPrimaryContainer = md_theme_light_onPrimaryContainer,
+    secondary = md_theme_light_secondary,
+    ...
+  )
+
+  private val DarkColors = darkColorScheme(
+    primary = md_theme_dark_primary,
+    onPrimary = md_theme_dark_onPrimary,
+    primaryContainer = md_theme_dark_primaryContainer,
+    ...
+  )
+\end{lstlisting}
+
+Díky takto zadefinovaným barvám je následně možné obarvit jednotlivé komponenty aplikac podle zvoleného režimu.
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
+  @Composable
+  fun AppTheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+  ) {
+    val colors = if (!useDarkTheme) {
+      LightColors
+    } else {
+      DarkColors
+    }
+  
+    MaterialTheme(
+      colorScheme = colors,
+      content = content
+    )
+  }
+\end{lstlisting}
+
 \subsubsection{Typografie}
+je používána k definování stylu písma. Využívá k tomu styly definované Material designem. ten definuje celkem 15 stylů písma,
+kde každé z nich má definovaný způsob použití. \cite{material3} Jelikož se jedná o výchozí styly písma, tak lze k těmto stylům přistupovat přes
+Composable funkci \code{MaterialTheme} popsanou v kódu \ref{lst:colorsDef} aniž by se parametr \code{typography} musel explicitně
+uvádět.
+
+\begin{lstlisting}[caption={Ukázka použití stylu písma}, label={lst:typographyExample}, language=Kotlin]
+  Text(
+    text = news.title,
+    style = MaterialTheme.typography.headlineMedium
+  )
+\end{lstlisting}
 
 \section{Tvorba UI obrazovek}
 \subsection{Domovská obrazovka}
@@ -777,10 +989,38 @@ strukturou:
 
 
 \section{Řešení problémů spojených s multiplatformním vývojem}
+\subsection{Implementace mapových podkladů}
+
 
 \chapter{Testování}
 
 \section{Možnosti testování UI v Compose Multiplatform}
+Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
+
+Implementace UI testů je možná díky 
+
+\begin{lstlisting}[caption={Integrace testů Gradle}, label={lst:testsIntegration}, language=Kotlin]
+  kotlin {  
+    //...
+    sourceSets {
+        val desktopTest by getting
+
+        // Adds common test dependencies
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+
+        // Adds the desktop test dependency
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
+  }
+\end{lstlisting}
+
 \section{Implementace testů}
 \section{Zhodnocení výsledků testování}
 
