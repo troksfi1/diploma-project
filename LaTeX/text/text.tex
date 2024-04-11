@@ -15,7 +15,7 @@
 \section{Cíle práce}
 Prvním důležitým cílem práce je analyzovat použitelnost nově nastupující technologie na poli vývoje multiplatformního UI a otestovat, jaké
 nové principy přináší. Dále tuto technologii porovnat s ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
-rozebrat důležité principy na, kterých jsou tyto technologie postaveny. 
+rozebrat důležité principy, na kterých jsou tyto technologie postaveny. 
 
 Další podstatným cílem je vytvoření aplikace, která tuto technologii používá a zaměření se při tom na slabé stránky, 
 které aktuálně multiplatformní UI provází.
@@ -23,12 +23,32 @@ které aktuálně multiplatformní UI provází.
 Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v praxi.
 
 \section{Stručný přehled obsahu práce}
+Práce se zabývá otázkou proč se zabývat multiplatformním vývojem a co to vlastně multiplatformní vývoj je a jakých typů zařízení se může týkat.
+Dále je probrána otazka kdy se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
+
+a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
+
+
+kded multipaltformí vývoj nemá smmysl (vyfocení závady)
+
+
+Jaké jsou výhody a nevýhody multiplatformních aplikací  v porovnaní s nativními
+aplikacemi.
+
+Existujícími frameworky a jich porovnáním s Compose Multiplatform.
+
+Detailně rozebrána architektura Compose Multiplatform jak framework funguje a jaké další technologie jsou potřeba k smysluplné implementaci tohoto
+frameworku.
+
+Dále je se práce zabývá návrhem a následnou tvorbou multiplatformního UI pomocí frameworku Compose Multiplatform.
+
+V v jedné z posledních části se týká možýností testování takto vytovřeného UI a následného testování UI na naimplementované aplikaci.
+
+je věnován shrnutí celého procesu implementace a vyzdvyžení naskytlých problémů a výhod oproti natinímu pripadne jinym multiplatformicm framwoerkum
+
+
 
 Obecně něco o multiplatformním vývoji.
-
-%---------------------------------------------------------------
-\section{Teoretický úvod}
-%---------------------------------------------------------------
 
 \section{Definice multiplatformního vývoje UI}
 
@@ -37,7 +57,7 @@ která mohou být nasazena na různé platformy, jako jsou mobilní zařízení,
 Cílem je dosáhnout jednotného uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu.
 
 
-\section{Význam multiplatformního vývoje a sdíleného UI}
+\section{Důvody multiplatformního vývoje a sdíleného UI}
 
 Mezi primární důvody vedoucí firmy a jednotlivce k vývoji multiplatformních aplikací patří především
 snížení nákladů na vývoj a následně také na údržbu. Jednodušší dosažení konzistentního vzhledu
@@ -46,9 +66,38 @@ na různých platformách nebo například možnost znovu používat komponenty 
 Mezi další důvody může například patřit možnost rychlejších aktualizací, jelikož nové funkce mohou být 
 implementovány jednotně a rychle na všech platformách. 
 
+\section{Uplatnění multiplatformního vývoje a sdíleného UI}
+
+I přesto že tato práce je věnováno tvorbě UI, tak nesmí být opomenuta aplikační logika, které se za ním skrývá a má UI vliv naopak. Dále zde
+hrají velkou roli případy užití, které mají na jednotlivá a UI vliv a při multiplatformním vývoji je třeba dbát na jelikož né každá aplikace
+je z tohoto pohledu vhodná pro multiplatformní
+
+
+Aktuálně největší uplatnění použití uplatnění multiplatformního UI nabízí mobilní vývoj, který díky multiplatformním frameworkům umožňuje vývoj
+aplikací na platformamy Android a iOS současně. 
+To že tomu tak je je primarně díky hlavnímu důvodu vecoucí firmy k multiplatformícmu vývojí aplikací a tím je snížení nákladu na vývoj.
+
+Výběr těchto platforem je vhodný především díky podobnostem majících na návrh multiplatformního UI vliv jako je napříkad velikost obrazovky.
+
+I přesto, že multiplatformní farmeworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platofrm jajo je Android, iOS,
+automotive, TV, wear OS, tak né vždy je těchnoto možností využít.
+
+Z pohledu UI mají ty platformi často jíné velikosti obrazovek, jine moznožnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika
+implementována konkrétně pro danou patformu nebo typ zařízení.
+
+Je proto vždy nutné vědět jaký typ aplikace bude z pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých platformách
+bude daná aplikace implementována.
+
+Obecně tedy nelze říci, že efektiva implementace multiplatformních aplikaci se může dle těchto požadavků výrazně lišit.
+
+
+
+
 
 
 %Větší dosah jelikož díky sdílení UI lze dosáhnout většího dosahu, protože aplikace mohou být dostupné 
+Tato kapitola je zaměřena na představení multiplatformních frameworků, porovnání mezi nimi. 
+
 
 \chapter{Analýza}
 
@@ -847,7 +896,20 @@ mockup
 
 comose jak je integrovan do aplikace
 
+stejně tak jako na androidu, tak pro implementaci Com  byl použit sestavovancí nástroj Gradle, který 
+
 \section{Technologie - jen multiplatformní? }
+\subsection{Gradle}
+
+
+
+
+
+Díky takzvaných \code{sourceSets} je možné pro každou platformu (balíček) implementovat platformě specifické závislosti. 
+
+
+
+
 \subsection{Kotlin}
 \subsection{Coroutines}
 \subsection{Ktor}
@@ -865,7 +927,7 @@ a zároveň zlepšuje čitelnost a údržbu kódu.
 Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
 jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
  vývojářům transparentní pohled na strukturu aplikace.
- 
+
 \subsection{SQLDelight}
 SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
 který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
@@ -995,6 +1057,16 @@ uvádět.
 \chapter{Testování}
 
 \section{Možnosti testování UI v Compose Multiplatform}
+Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena Jetpack Compose a využívá 
+proto i stejných principů. Compose Multiplatform z toto důvodů tatkéž využívá tři hlavní principy jak testovat UI, které se v Jetpack compose
+označují jako \code{Finders}, \code{Assertions} a \code{Actions}. 
+
+Finders umožnují
+
+Pomocí Assertions 
+
+A pomocí Actions je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
+
 Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
 
 Implementace UI testů je možná díky 
