@@ -17,23 +17,23 @@ Prvním důležitým cílem práce je analyzovat použitelnost nově nastupujíc
 nové principy přináší. Dále tuto technologii porovnat s ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
 rozebrat důležité principy, na kterých jsou tyto technologie postaveny. 
 
-Další podstatným cílem je vytvoření aplikace, která tuto technologii používá a zaměření se při tom na slabé stránky, 
+Další podstatným cílem je vytvoření aplikace, která tuto technologii implementuje a zaměření se při tom na slabé stránky, 
 které aktuálně multiplatformní UI provází.
 
 Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v praxi.
 
 \section{Stručný přehled obsahu práce}
-Práce se zabývá otázkou proč se zabývat multiplatformním vývojem a co to vlastně multiplatformní vývoj je a jakých typů zařízení se může týkat.
-Dále je probrána otazka kdy se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
+V rámci se práce zabývá otázkou co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých platforem se může týkat.
+Dále je probrána otázka v jakých případech se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
 
-a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
-
-
-kded multipaltformí vývoj nemá smmysl (vyfocení závady)
+%a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
 
 
-Jaké jsou výhody a nevýhody multiplatformních aplikací  v porovnaní s nativními
-aplikacemi.
+
+%kdy multiplatformí vývoj nemá smysl (vyfocení závady)
+
+
+Jaké jsou výhody a nevýhody multiplatformních aplikací  v porovnaní s nativními aplikacemi.
 
 Existujícími frameworky a jich porovnáním s Compose Multiplatform.
 
@@ -42,9 +42,9 @@ frameworku.
 
 Dále je se práce zabývá návrhem a následnou tvorbou multiplatformního UI pomocí frameworku Compose Multiplatform.
 
-V v jedné z posledních části se týká možýností testování takto vytovřeného UI a následného testování UI na naimplementované aplikaci.
+V v jedné z posledních části se týká možností testování takto vytvořeného UI a následného testování UI na naimplementované aplikaci.
 
-je věnován shrnutí celého procesu implementace a vyzdvyžení naskytlých problémů a výhod oproti natinímu pripadne jinym multiplatformicm framwoerkum
+je věnován shrnutí celého procesu implementace a vyzdvižení naskytlých problémů a výhod oproti nativnímu případně jiným multiplatformním frameworkům
 
 
 
@@ -74,21 +74,21 @@ je z tohoto pohledu vhodná pro multiplatformní
 
 
 Aktuálně největší uplatnění použití uplatnění multiplatformního UI nabízí mobilní vývoj, který díky multiplatformním frameworkům umožňuje vývoj
-aplikací na platformamy Android a iOS současně. 
-To že tomu tak je je primarně díky hlavnímu důvodu vecoucí firmy k multiplatformícmu vývojí aplikací a tím je snížení nákladu na vývoj.
+aplikací na platformami Android a iOS současně. 
+To že tomu tak je je primárně díky hlavnímu důvodu vedoucí firmy k multiplatformnímu vývoji aplikací a tím je snížení nákladu na vývoj.
 
-Výběr těchto platforem je vhodný především díky podobnostem majících na návrh multiplatformního UI vliv jako je napříkad velikost obrazovky.
+Výběr těchto platforem je vhodný především díky podobnostem majících na návrh multiplatformního UI vliv jako je například velikost obrazovky.
 
-I přesto, že multiplatformní farmeworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platofrm jajo je Android, iOS,
+I přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
 automotive, TV, wear OS, tak né vždy je těchnoto možností využít.
 
-Z pohledu UI mají ty platformi často jíné velikosti obrazovek, jine moznožnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika
-implementována konkrétně pro danou patformu nebo typ zařízení.
+Z pohledu UI mají ty platformy často jiné velikosti obrazovek, jine možnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika
+implementována konkrétně pro danou platformu nebo typ zařízení.
 
 Je proto vždy nutné vědět jaký typ aplikace bude z pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých platformách
 bude daná aplikace implementována.
 
-Obecně tedy nelze říci, že efektiva implementace multiplatformních aplikaci se může dle těchto požadavků výrazně lišit.
+Obecně tedy nelze říci, že efektivita implementace multiplatformních aplikaci se může dle těchto požadavků výrazně lišit.
 
 
 
@@ -265,13 +265,13 @@ vyvinutém společností Google. Dart je navržen pro optimální výkon a produ
 webový vývoj. \cite{dart}
 
 \myparagraph{Způsob renderovaní UI}
-Narozdíl od Reactu Native Flutter nepoužívá platformě specifické komponenty koncových zařízení, ale veškeré UI komponenty (widgety)
+Na rozdíl od Reactu Native Flutter nepoužívá platformě specifické komponenty koncových zařízení, ale veškeré UI komponenty (widgety)
 renderuje pomocí vlastního renderovacího enginu. \cite{flutterRenderingModel}
 
 
 \subsection*{Architektura frameworku Flutter} 
 Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev. \cite{flutterArchOverview}
-Embedder je vrstva, která umožnuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
+Embedder je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
 Každý embedder obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
 Engine je vrstva starající se o vykreslování grafiky, kdykoli kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
 Framework je vrstva, která je používána vývojáři k vytváření uživatelských rozhraní a definování chování aplikace. 
@@ -285,7 +285,7 @@ Obsahuje hotové widgety, funkce pro manipulaci s UI a další nástroje pro vý
   \label{fig:flutter_architectural_layers}
 \end{figure}
 
-Mezi hierarchicky poslední a neméně důležitou častí tohoto frameworku jsou platformově specifické knihovny Material and Cupertino. Tyto knihovny
+Mezi hierarchicky poslední a neméně důležitou častí tohoto frameworku jsou platformě specifické knihovny Material and Cupertino. Tyto knihovny
 jsou následně využívány widgety k implementaci konkrétního design systému. Díky tomu je možné uživateli navodit nativní pocit z dané aplikace.
 
 \medskip
@@ -457,7 +457,7 @@ Právě počet a vyspělost těchto knihoven se podle společností, které již
 V případě, že žádná vhodná knihovna není k dispozici, tak je zde stále možnost čehož je možné docílit díky funkcionalitě jazyka Kotlina
 zvané Expected a actual deklarace.
 
-\subsubsection*{Expected a actual deklarace}
+\subsubsection*{Expected a actual deklarace}\label{expectActual}
 Deklarace \textit{expected} a \textit{actual} umožňují přistupovat k platformě specifickým API z Kotlin Multiplatform modulů. \cite{KMPExpectActual}
 Nejprve je ve společné části potřeba vytvořit například třídu nebo funkci u které chceme aby její obsah byl implementován typicky pomocí
 platformě specifických knihoven a tuto část v rámci společného modulu označit klíčovým slovem \code{expect}. \cite{KMPExpectActual} Její implementaci následně provést v rámci
@@ -552,7 +552,7 @@ Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití tě
 
 \section{Náročnost implementace}
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
-% to se tyka KMP ne compose Multipltfrom
+% to se tyka KMP ne compose Multiplatform
 Jak již bylo zmíněno v kapitole KMP , tak jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
@@ -740,6 +740,9 @@ Na následujícím výpisu kódu je vidět jakou strukturu bude mít následná 
 \subsection*{Doménová vrstva}
 Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. 
 
+V tomto projektu doménovová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelou vrstvu a mapovací funkce pro pro převod
+objeků datové vrstvy na objekty používané v prezentační vrstvě a naopak.
+
 Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
  konceptů a procesů. To zjednodušuje testování, údržbu a rozšíření aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
  vlivu na doménovou logiku.
@@ -789,6 +792,17 @@ Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s těmito úlo�
 
 \bigskip
 
+Tyto vrstvy jsou spolu propojeny následujícím způsobem.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{arch_diagram.png}
+  \caption{Provázanost jednotlivých částí datové vrstvy}
+  \label{fig:arch_diagram}
+\end{figure}
+
+\bigskip
+
 Po shrnutí dosavadně zmíněních poznatků týkajících se architektury aplikace byly jednotlivé vrstvy převedeny do jednotlivých balíků s následující
 strukturou:
 
@@ -801,6 +815,9 @@ strukturou:
   .2 screens\DTcomment{}.
     .3 HomeScreen\DTcomment{}.
 }
+\bigskip
+
+
 
 % \dirtree{%
 %         .1 src \DTcomment{}.
@@ -827,8 +844,8 @@ strukturou:
 % \end{figure}
 
 \section{Návrh wireframes}
-Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, že ty nejdůležitější byly umístněny na domovkou
-obrazovku.
+Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
+umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově náročnější byli umístěny na sekundární obrazovky.
 
 Zároveň byla snaha o 
 
@@ -868,6 +885,7 @@ nahlášení závady, zobrazení uředních hodin a kontaktů
 \end{figure}
 
 \section{Návrh grafické podoby UI}
+Pro návrh grafické podoby UI byly použity prvky používané  barvy používané v rámci 
 mockup
 
 \begin{figure}[H]
@@ -893,83 +911,123 @@ mockup
 \end{figure}
 
 \chapter{Implementace}
+Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multipaltformích aplikací založených na Compose Multiplatform 
+se používá nástroj zvaný Gradle.  
 
-comose jak je integrovan do aplikace
+\section{Gradle}
+Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je to nástroj pro automatizaci sestavení 
+podobný Antu nebo Mavenu, který byl vyvinut pro zjednodušení procesu sestavení a nasazení softwaru.
 
-stejně tak jako na androidu, tak pro implementaci Com  byl použit sestavovancí nástroj Gradle, který 
+Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým umožňuje definovat sestavení a konfiguraci projektu pomocí srozumitelné
+a flexibilní syntaxe. Od verze 3.0 z roku 2016 je možné psát Gradle skripty v jazyce Kotlin DSL a od roku 2023 je Kotlin DSL primarním jazykem 
+pro jejich zápis. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v jazyku se stejnou
+syntaxí jako je používána pro ostatní části projektu.
 
-\section{Technologie - jen multiplatformní? }
-\subsection{Gradle}
+%K vytvoření projektu založeném na Compose Multiplatform je doporučeno využití právě totoho sestavovacího nástoroje. 
 
+K tomu aby bylo možné Compose Multiplatform v projektu použít, je zapotřebí do projektového souboru \code{build.gradle.kts} přidat Compose 
+Multiplatform plugin (viz výpis kódu \ref{lst:ComposePlugin}).
 
+\begin{lstlisting}[caption={Integrace Compose Multiplatform pluginu do sestavovacího scriptu}, label={lst:ComposePlugin}, language=Kotlin]
+plugins {
+  id("org.jetbrains.compose") version "1.6.0"
+}
+\end{lstlisting}
+Dále je zapotřebí vybrat platformy pro které má být aplikace určena a podle nich vytvořit příslušné balíčky viz kapitola \ref{}.
+Podle těchto balíčků se následně v příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
+pro každou platformu (balíček) implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
+sourceSets podle toho zdali se jedna o multiplatformní (commonMain) nebo nativní závislost (androidMain, iosMain, atd.).
 
+Pro ukázky jak taková multiplatformní závislost může vypadat slouží ukázka kódu \ref{lst:LibIntegration}, díky které je do projektu
+přidána knihovna umožnující implementaci multiplatformní navigace.
 
+\begin{lstlisting}[caption={Lib integration}, label={lst:LibIntegration}, language=Kotlin]
+sourceSets {
+  commonMain.dependencies {
+    implementation(libs.voyager.navigator)
+    ...
+  }
+}
+\end{lstlisting}
 
-Díky takzvaných \code{sourceSets} je možné pro každou platformu (balíček) implementovat platformě specifické závislosti. 
+Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
+například pomocí \textit{Composable} funkce, která je napsána v rámci sdílené části aplikace.
 
+Ve výpisu kódu \ref{lst:SharedIntegration} je touto funkcí funkce \code{App()}, která je volána z nativního Android kódu a stará se
+o deklaraci veškerého multiplatformního UI.
 
+\begin{lstlisting}[caption={Lib integration}, label={lst:SharedIntegration}, language=Kotlin]
+class MainActivity : ComponentActivity() {
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
 
-\subsection{Kotlin}
-\subsection{Coroutines}
-\subsection{Ktor}
-\subsection{Voyager}
-Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
- aplikacích. Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
- zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+      setContent {
+          App()
+      }
+  }
+}
+\end{lstlisting}
 
-
- \subsection{Koin}
-Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
-k jiným známým knihovnám, jako je například Dagger. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací 
-a zároveň zlepšuje čitelnost a údržbu kódu.
-
-Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
-jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
- vývojářům transparentní pohled na strukturu aplikace.
-
-\subsection{SQLDelight}
-SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
-který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
-
-Hlavní funkcionalitou SQLDelightu je automatická generace Kotlinových tříd na základě definovaných SQL schémat. To znamená, že vývojáři
- mohou psát SQL dotazy pomocí standardního SQL syntaxe a SQLDelight se postará o generování příslušných Kotlinových tříd, které umožní 
- snadný a bezpečný přístup k databázi.
-
-SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
- kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
-
-
-\subsection{Coil}
-Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
-řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
-z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
-
-Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
-umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
-JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
-
-Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
-aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
-přednosti moderních technologií a frameworků při práci s obrázky.
+Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů.
 
 
+Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
+
+\myparagraph{Gradle version catalog}
+Gradle version catalog je obyčejní soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti a pluginy ve celém projektu. 
+Místo ručního přidávání závislostí a pluginů do každého modulu zvlášť je možné shromáždit veškeré závisloti v tomto souboru a zadefinovat rovněž
+verzi, která má být pro tento modul použita napříč celým projektem. 
+
+Příklad toho jak mohou být dříve zmíněné závislosti přepsány do version
+katalogu je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
+
+\begin{lstlisting}[caption={Version katalog}, label={lst:VersionCalalog}, language=Kotlin]
+[versions]
+compose-plugin = "1.6.0"
+voyagerVersion = "1.0.0"
+
+[libraries]
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", 
+                      version.ref = "voyagerVersion" }
+[plugins]
+jetbrainsCompose = { id = "org.jetbrains.compose", 
+                     version.ref = "compose-plugin" }
+
+\end{lstlisting}
 
 \section{Tvorba UI obecně}
 \subsection{Navigace}
+Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
+částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v aplikaci. 
+
+Aktuálně však komponenta navizage ze sady knihoven Jetpack Compose není k dispozici a proto je potřeba zvolit nějakou alternativu poskytovanou
+třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multipaltformí navigace je uveden v oficiálních Kotlin 
+multiplatform dokumentaci a zahrnuje navigace Voyager, Decompose nebo Appyx. K implemnaci byl po zvážení nakonec vybrána navigace Voyager a 
+to především díky přehledné dokumentaci, intuitivní implementaci a jednoduchému principu navigace založeném na zásobníku, který pro aktuálně
+implementovanou aplikaci plně dostačuje.
+
+V budoucu by však měla být dostupná, ale do té doby je potřeba vybrat z alternativních knihoven.
+
+
+
 %\section{Navigace a lokalizace v implementaci}
 \subsection{Implementace design systému}
-který umožňuje konzistentní použití barev napříč aplikací.
-Tento systém definuje sadu standardizovaných barev a pravidel pro jejich použití, což usnadňuje tvorbu uživatelského rozhraní a zajišťuje konzistentní vizuální styl.
+Design systém je sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
+konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
+layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
+vzhledem. 
 
-Jelikož stránky města ... 
-byl v aplikaci použita nejnovější volně dostupná verze design systému od společnosti Google zvaná Material 3.
+V rámci vybraného města Příbrami není tento systém nikde expliciteně zadefinovaný a proto byl odvozen od designu webových stránek města.
+
+Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3.
+
 
 loading
 
 
 \subsubsection{Barvy}
-Barvy byly zvoleny na základě vizuálního stylu města, které Příbram využívá při všech prezentaččních příležitostech.
+Barvy byly zvoleny na základě vizuálního stylu města, které Příbram využívá při všech prezentačních příležitostech.
 
 a následně byly zadefinovánovány:
 
@@ -1043,7 +1101,85 @@ uvádět.
   )
 \end{lstlisting}
 
+Výsledek základní ukázky takto navrženého systému je na obrázku \ref{fig:design_system}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{design_system.jpg}
+  \caption{Vytvořený design systém}
+  \label{fig:design_system}
+\end{figure}
+
+\section{Technologie - jen multiplatformní? }
+Následující podkapitola je věnována konkrétním technologiím, které byli pro tvorku komponent z předchozí kapitoli použity.
+
+\subsection{Kotlin}
+\subsection{Coroutines}
+\subsection{Ktor}
+\subsection{Voyager}
+Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
+ aplikacích. \cite{voyager} Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
+ zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+
+
+\subsection{Koin}
+Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
+k jiným známým knihovnám, jako je například Dagger. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací 
+a zároveň zlepšuje čitelnost a údržbu kódu.
+
+Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
+jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
+ vývojářům transparentní pohled na strukturu aplikace.
+
+\bigskip
+
+V rámci této aplikace byl Koin použit například pro vložení databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
+Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většitna databázové logiky je napsána v rámci sdílené 
+logiky a v rámci nativní logiky, byl tak implementovám pouze databázový ovladač.
+
+\begin{lstlisting}[caption={DI databázového ovladače pomocí Koinu}, label={lst:KoinInit}, language=Kotlin]
+class MainActivity : ComponentActivity() {
+
+  private val dbDriverFactoryModule = module {
+      single { DatabaseDriverFactory(applicationContext) }
+  }
+
+  init {
+      loadKoinModules(dbDriverFactoryModule)
+  }
+  ...
+}
+\end{lstlisting}
+
+\subsection{SQLDelight}
+SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
+který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+
+Hlavní funkcionalitou SQLDelightu je automatická generace Kotlinových tříd na základě definovaných SQL schémat. To znamená, že vývojáři
+ mohou psát SQL dotazy pomocí standardního SQL syntaxe a SQLDelight se postará o generování příslušných Kotlinových tříd, které umožní 
+ snadný a bezpečný přístup k databázi.
+
+SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
+ kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
+
+
+\subsection{Coil}
+Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
+řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
+z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
+
+Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
+umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
+JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
+
+Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
+aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
+přednosti moderních technologií a frameworků při práci s obrázky.
+
+
+
 \section{Tvorba UI obrazovek}
+Obsahem následujících podkapitol bude souh použitých UI komponent
 \subsection{Domovská obrazovka}
 \subsection{Event obrazovka}
 \subsection{Parkování obrazovka}
@@ -1055,42 +1191,52 @@ uvádět.
 
 
 \chapter{Testování}
-
-\section{Možnosti testování UI v Compose Multiplatform}
-Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena Jetpack Compose a využívá 
-proto i stejných principů. Compose Multiplatform z toto důvodů tatkéž využívá tři hlavní principy jak testovat UI, které se v Jetpack compose
-označují jako \code{Finders}, \code{Assertions} a \code{Actions}. 
-
-Finders umožnují
-
-Pomocí Assertions 
-
-A pomocí Actions je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
-
 Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
 
-Implementace UI testů je možná díky 
+\section{Možnosti testování UI v Compose Multiplatform}
+Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
+proto i stejných konceptů. Mezi tyty klíčové koncepty testovaní UI se řadí následující:
+
+
+\myparagraph{Testování sémantiky}
+V rámci testování
+\myparagraph{API rozhraní}
+Compose Multiplatform z toto důvodů taktéž využívá tři hlavní principy jak testovat UI, které se v Jetpack compose
+označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}. 
+K tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenýcmi 
+komponenty umožňují provest akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provední těchto akcí se používají takzvané tvrzení 
+(Assertions), které ověří zdali určité UI prvky mají požadované atributy.
+
+\textit{Finders} umožnují najít uzel nebo uzly ve strom UI struktuře pomocí tagů, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
+
+
+Pomocí \textit{Assertions}
+
+A pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
+
+\myparagraph{Testování synchoronizace}
+\myparagraph{Testování interoperability}
 
 \begin{lstlisting}[caption={Integrace testů Gradle}, label={lst:testsIntegration}, language=Kotlin]
-  kotlin {  
-    //...
-    sourceSets {
-        val desktopTest by getting
+kotlin {  
+  //...
+  sourceSets {
+    val desktopTest by getting
 
-        // Adds common test dependencies
-        commonTest.dependencies {
-            implementation(kotlin("test"))
+    // Adds common test dependencies
+    commonTest.dependencies {
+      implementation(kotlin("test"))
 
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
-        }
+        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        implementation(compose.uiTest)
+    }
 
-        // Adds the desktop test dependency
-        desktopTest.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
+    // Adds the desktop test dependency
+    desktopTest.dependencies {
+        implementation(compose.desktop.currentOs)
     }
   }
+}
 \end{lstlisting}
 
 \section{Implementace testů}
@@ -1103,6 +1249,12 @@ android already in production with hell a lot of features now If you want to sha
 \chapter{Závěr}
 
 \section{Evaluace vlastností Compose Multiplatform ve srovnání s cíli práce}
+Veškeré cíle, které byly stanoveny v zadání bylo možné pomocí multiplatformího frameworku Compose Multiplatform dosáhnou a nebylo tak
+nutné přistupovat na kompromisy. Veškeré implem
+
+Nicméně při hlubším 
+
+
 \section{Zkušenosti z implementace na reálné aplikaci}
 \section{Závěr o použitelnosti frameworku}
 
