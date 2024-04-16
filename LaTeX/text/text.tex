@@ -696,7 +696,7 @@ Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazen
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní.
 
-\myparagraph{UI state}
+\myparagraph{UI state} \label{UIStateParagraph}
 UI state (stav uživatelského rozhraní) je koncept v softwarovém inženýrství, který popisuje aktuální stav a chování uživatelského 
 rozhraní v daném okamžiku. Tento stav může zahrnovat různé informace, jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
  aktuální zobrazené obrazovky nebo panely, stav animací a další.
@@ -991,10 +991,22 @@ voyagerVersion = "1.0.0"
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", 
                       version.ref = "voyagerVersion" }
 [plugins]
-jetbrainsCompose = { id = "org.jetbrains.compose", 
+jetbrainsCompose = { id = "org.jetbrains.compose",
                      version.ref = "compose-plugin" }
 
 \end{lstlisting}
+
+\section{Handling stavu}
+Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \ref{UIStateParagraph} v 
+kapitole \textit{Vrstvy architektury} je implemementován v rámci ukázkové aplikace.
+
+Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již smíněný ViewModel \ref{} neboli ScreenModel v rámci
+implementované aplikace. 
+Pro uchování stavu jednotlivých obrazek byl 
+
+
+
+Jak již byl zmíněno v kapitole tak konkrétně v paragrafu zabívajícím se prací s UI stavy 
 
 \section{Tvorba UI obecně}
 \subsection{Navigace}
@@ -1120,6 +1132,14 @@ Následující podkapitola je věnována konkrétním technologiím, které byli
 Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
  aplikacích. \cite{voyager} Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
  zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+
+ V rámci implementované aplikace byla Voyager navigace použita k implementaci základní navigace mezi jedlotlivými obrazovkami.
+ Příkladem takové navigace je přechod mezi 
+ 
+ takzvané \textit{Tab navigation} čili navigace aplikací
+ pomocí záložek ve spodní části displaye. 
+
+
 
 
 \subsection{Koin}
