@@ -623,7 +623,7 @@ Zobrazení obsahu a textů v různých jazycích.
 Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
 Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
 
-\section{Use cases}
+\section{Případy užití}
 
 \myparagraph{Zobrazení aktuálních novinek} 
 Uživatelé mohou prostřednictvím aplikace získat přístup k aktuálním novinkám, událostem a důležitým oznámením ze svého města nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
@@ -672,7 +672,7 @@ princip k jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hled
 Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace a poskytnout spolehlivý zdroj dat pro všechny části aplikace.
 
 
-\subsection{Vrstvy architektury}
+\subsection{Vrstvy architektury} \label{vrstvyArchitekturySection} 
 
 Na základě těchto principů se ..., která uplatňuje výše zmíněné principy.
 rozděluje architekturu do následujících třech vrstev:
@@ -969,7 +969,8 @@ class MainActivity : ComponentActivity() {
 }
 \end{lstlisting}
 
-Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů.
+Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů. 
+
 
 
 Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
@@ -997,16 +998,33 @@ jetbrainsCompose = { id = "org.jetbrains.compose",
 \end{lstlisting}
 
 \section{Handling stavu}
-Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \ref{UIStateParagraph} v 
-kapitole \textit{Vrstvy architektury} je implemementován v rámci ukázkové aplikace.
+Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
+kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
 
-Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již smíněný ViewModel \ref{} neboli ScreenModel v rámci
+Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{} neboli ScreenModel v rámci
 implementované aplikace. 
-Pro uchování stavu jednotlivých obrazek byl 
+Pro zachování stavu jednotlivých obrazek byla použita datová třída, která v sobě umožnujě uchovávat veškeré možné stavy dané obrazovky.
+Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí, která v rámci aplikace potřebuje 
+uchovávat největsí množství informací (viz \ref{lst:EventState})
 
-
-
-Jak již byl zmíněno v kapitole tak konkrétně v paragrafu zabívajícím se prací s UI stavy 
+\begin{lstlisting}[caption={Event State katalog}, label={lst:EventState}, language=Kotlin]
+data class EventsState(
+  val timeFilteredEvents: List<Event> = emptyList(),
+  val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
+  val selectedDateStart: LocalDateTime = LocalDateTime(
+      Clock.System.todayIn(TimeZone.currentSystemDefault()),  TODO replace by current impl
+      LocalTime(0, 0)
+  ),
+  val selectedDateEnd: LocalDateTime = LocalDateTime(
+      Clock.System.todayIn(TimeZone.currentSystemDefault()),
+      LocalTime(23, 59)
+  ),
+  val selectedFilterOption: FilterOption = FilterOption.TODAY,
+  val isDatePickerOpen: Boolean = false,
+  val filteredEventsCategories: List<EventCategory> = emptyList(),
+  val isFetchingEvents: Boolean = false,
+)
+\end{lstlisting}
 
 \section{Tvorba UI obecně}
 \subsection{Navigace}
@@ -1134,13 +1152,45 @@ Voyager je multiplatformní navigační knihovna, která umožňuje navigovat me
  zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
 
  V rámci implementované aplikace byla Voyager navigace použita k implementaci základní navigace mezi jedlotlivými obrazovkami.
- Příkladem takové navigace je přechod mezi 
- 
- takzvané \textit{Tab navigation} čili navigace aplikací
- pomocí záložek ve spodní části displaye. 
+ Příkladem takové navigace jsou veškeré možné přechody v rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
+ \textit{Stack API}, které jehož implementace fungguje na principu zásobníku. S tím, že pokud uživatel vstoupi na navou obrázovku 
+ (například přejde na stranku zobrazující detail vybrané udásloti), tak je do tohoto zásobníku přidán odkaz na takzvaný SnapshotState,
+ který uchává stav právě opuštěné obrazovky a je znovu obnoven v případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
+ zásobník slouží k tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v zásobníku), když uživatel provede akci zpět
+ například pomocí tlačítka zpět na platformě Android. \textit{Stack API} zároveň umožnuje použití několika funkcí jako jsou například 
+ \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed nebo funkce \code{pop}, \code{popAll}, \code{popUntil}
+  pro zpětný návrat. 
 
+ Díky této implementaci je možné používané obrazovky do sebe libovolně zanořovat a v případě, že je potřeba nějakým způsobem upravit
+ stav předchozích TODO
 
+ Nicméně tento způsob navigace není vhodné použít pro navigaci mezi jednotlivými záložkami aplikace (lišta ve spodní části displaye) 
+ a proto je tado část navigace 
+ implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje. V přípaně použití záložek se
+ průchod nezapisuje do zásobníku jako v předchozím případě jelikož jednotlivé záložky jsou na stejné urovní a implementace navigace
+ založené na zásobníku by byla pro uživatele matoucí.
 
+ TODO
+ \begin{lstlisting}[caption={Ukázka použití navigace založené na záložkách}, label={lst:tabNav}, language=Kotlin]
+TabNavigator(
+  tab = HomeTab
+) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomNavigation(
+                backgroundColor = MaterialTheme.colorScheme.background
+            ) {
+                TabNavigationItem(HomeTab)
+                TabNavigationItem(EventsTab)
+                TabNavigationItem(ParkingTab)
+                TabNavigationItem(MoreTab)
+            }
+        },
+        content = { CurrentTab() },
+    )
+}
+\end{lstlisting}
 
 \subsection{Koin}
 Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
@@ -1176,11 +1226,48 @@ SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v a
 který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
 
 Hlavní funkcionalitou SQLDelightu je automatická generace Kotlinových tříd na základě definovaných SQL schémat. To znamená, že vývojáři
- mohou psát SQL dotazy pomocí standardního SQL syntaxe a SQLDelight se postará o generování příslušných Kotlinových tříd, které umožní 
- snadný a bezpečný přístup k databázi.
+ mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o vygenerování příslušných tříd v jazyce Kotlin, které umožňují 
+ snadný a bezpečný přístup k databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
+ štítkem (viz "selectAllNews:" ve výpisu kódu \ref{SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
+
+\begin{lstlisting}[caption={SQL dotaz}, label={lst:SQLDotaz}, language=SQL]
+selectNewsById:
+SELECT *
+FROM News
+WHERE id = :id;
+\end{lstlisting}
+
+Vygenerové metody (dotazy) lze následně nalézt ve složce \code{} a pro výše uvedený dotaz vypadá takto
+
+\begin{lstlisting}[caption={SQL vygenerovaný dotaz}, label={lst:SQLGeneratedDotaz}, language=SQL]
+private inner class SelectNewsByIdQuery<out T : Any>(
+  public val id: Long,
+  mapper: (SqlCursor) -> T,
+) : Query<T>(mapper) {
+    override fun addListener(listener: Query.Listener) {
+    driver.addListener("News", listener = listener)
+  } TODO
+  \end{lstlisting}
+  
 
 SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
  kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
+
+I přesto, že většina kódu může být psána v balíčku sdílenem mezi všemi platformami, je zde i část z předchozí ukázky \ref{lst:SQLGeneratedDotaz}
+, kterou je potřeba naimplementovat nativně. Konkrétně se jedná o ovladače k jejichž implementaci jsou potřeba nativní knihovny a musí
+být proto implementovány v balíčcích jednotlivých platforem. Pro 
+
+TODO
+\begin{lstlisting}[caption={SQL vygenerovaný dotaz}, label={lst:SQLGeneratedDotaz}, language=SQL]
+  actual class DatabaseDriverFactory {
+    actual fun createDriver(): SqlDriver {
+        //val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:test.db")
+        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+        AppDatabase.Schema.create(driver)
+        return driver
+    }
+}
+\end{lstlisting}
 
 
 \subsection{Coil}
@@ -1196,6 +1283,16 @@ Další výhodou Coil je možnost efektivního cachování obrázků, což pomá
 aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
 přednosti moderních technologií a frameworků při práci s obrázky.
 
+TODO uvest coil
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
+  AsyncImage(
+    model = news.thumbnailUri,
+    contentDescription = "Sample",
+    contentScale = ContentScale.Crop,
+
+    modifier = Modifier.aspectRatio(4f / 3f)
+  )
+\end{lstlisting}
 
 
 \section{Tvorba UI obrazovek}
@@ -1276,6 +1373,9 @@ Nicméně při hlubším
 
 
 \section{Zkušenosti z implementace na reálné aplikaci}
+Preview
+Nedostatek knihoven
+Špatná nebo téměř žádna dokumentace k knihovnám třetích stran a v případě co se týče Compose Multiplatfrom
 \section{Závěr o použitelnosti frameworku}
 
 \section{Shrnutí dosažených výsledků}
