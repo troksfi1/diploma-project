@@ -1298,12 +1298,28 @@ TODO uvest coil
 \section{Tvorba UI obrazovek}
 Obsahem následujících podkapitol bude souh použitých UI komponent
 \subsection{Domovská obrazovka}
+Uživatelké rozhraní domovské obrazovky je kompletně implemetováno pomocí Compose Multiplatform a nebylo při jeho implemementaci potřeba
+přistoupit k nativímu řešení ani na platformě iOS nebo desktop. 
 \subsection{Event obrazovka}
 \subsection{Parkování obrazovka}
+Jak jž bylo zmíněno v kapitole \ref{}
 
 
 
 \section{Řešení problémů spojených s multiplatformním vývojem}
+Nedostatek knihoven
+Mezi jeden z hlavních problému patří nedostatek vhodných multiplatformních knihoven a ten se projevil i v případě implementace mapových podkladů
+do aplikace kde byla nakonec zvolena implementace nativních mapových podkladů za použití expect a actual deklarací (viz paragraf \ref{expectActual}).
+
+Preview
+Další problémem bylo nefunkční náhled UI , což se na výsledném UI nikterak neprojevilo, ale celý proces tvorby UI to značně prodloužilo.
+
+Špatná nebo téměř žádna dokumentace k knihovnám třetích stran a v případě co se týče Compose Multiplatfrom, tak zde je téměř kompletně spoléháno na
+identic. 
+Na druhou stranu Compose Multiplatform ještě není na všech platformách ve stabilní verzi a proto je možné, že po vydání stabilních verzí i pro jiné
+platformy se dokumentace od JetBrains rozříší.
+
+
 \subsection{Implementace mapových podkladů}
 
 
@@ -1335,7 +1351,7 @@ A pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jso
 \myparagraph{Testování interoperability}
 
 \begin{lstlisting}[caption={Integrace testů Gradle}, label={lst:testsIntegration}, language=Kotlin]
-kotlin {  
+kotlin {
   //...
   sourceSets {
     val desktopTest by getting
@@ -1355,6 +1371,15 @@ kotlin {
   }
 }
 \end{lstlisting}
+\section{Testovací případy}
+Testovací případ je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu s cílem ověřit, zda se chová podle očekávání a splňuje 
+požadavky. Každý testovací případ obvykle obsahuje následující prvky:
+
+Popis: Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
+Předpoklady: Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
+Kroky: Konkrétní kroky, které musí být provedeny k provedení testu.
+Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kroků.
+Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s očekávanými výsledky k určení úspěšnosti testu.
 
 \section{Implementace testů}
 \section{Zhodnocení výsledků testování}
@@ -1366,11 +1391,19 @@ android already in production with hell a lot of features now If you want to sha
 \chapter{Závěr}
 
 \section{Evaluace vlastností Compose Multiplatform ve srovnání s cíli práce}
-Veškeré cíle, které byly stanoveny v zadání bylo možné pomocí multiplatformího frameworku Compose Multiplatform dosáhnou a nebylo tak
+Vetšinu cílů, které byly stanoveny v zadání bylo možné pomocí multiplatformího frameworku Compose Multiplatform splnit a nebylo tak
 nutné přistupovat na kompromisy. Veškeré implem
 
-Nicméně při hlubším 
+Nicméně při implementacni náročnějších částech aplikace bylo již občas nutné přistoupit k použití nativních řešení a tím pádem tyto dva přístupy zkombinovat.
+Nicméně díký vhodně navrženým principům jako je Expect a actual deklarace (viz paragraf \ref{expectActual}) nebylo skombinování těchto odlišných částí nikterak
+implementačně komplikované a ne výsledku ani nepřehledné. 
 
+Fakt že v některých případech byo nutné přistoupit k nativnímu řešení nemusí být brán jakožto nevýhodu Compose Multiplatform oproti ostatním frameworkům.
+Na druhou stranu lze tatu možnost vnimat i jako vývodu, kterou ostatní frameworky neposkytují 
+
+prostor o rozříšení ostatních naticvních knihoven o mmmultipatformní API. 
+
+Čehož výsledky by v ideáním případě bylo na daném vývojáří zdali zvolí nativní či multipaltformí cetu vývoje. 
 
 \section{Zkušenosti z implementace na reálné aplikaci}
 Preview
@@ -1381,5 +1414,8 @@ Nedostatek knihoven
 \section{Shrnutí dosažených výsledků}
 \section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
+Časem se zajisté ukáží
+
+mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
 
 
