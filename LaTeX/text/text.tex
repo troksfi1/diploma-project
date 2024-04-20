@@ -585,38 +585,114 @@ zaplatit parkovné.
 Z toho popisu jsou tefy bybrany nasledujici pripady uziti.
 
 \section{Případy užití}
+Případy užití (use cases) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
+vlastnosti k dosažení svých cílů. Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy a poskytuje 
+uživateli požadovaný výstup.
+
+Každý případ užití obvykle obsahuje následující prvky:
+
+\begin{itemize}
+  \item Název: Stručný název, který popisuje, co uživatel chce dosáhnout.
+  \item Aktor: Uživatel nebo systém, který spouští případ užití.
+  \item Popis: Podrobný popis scénáře, který obsahuje kroky, které uživatel vykonává, a odpovědi systému na tyto kroky.
+  \item Předpoklady: Podmínky nebo situace, které musí být splněny, aby mohl být případ užití spuštěn.
+  \item Výsledek: Očekávaný výsledek akce provedené uživatelem.
+\end{itemize}
 
 \myparagraph{UC1 Zobrazení aktuálních novinek} 
-Uživatelé mohou prostřednictvím aplikace získat přístup k aktuálním novinkám, událostem a důležitým oznámením ze svého města nebo obce. 
-Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
+Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přístup k aktuálním novinkám a důležitým oznámením ze svého města 
+nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí aktuální seznam aktualit z webových stránek města a dalších informačních zdrojů.
+  \item Uživatel si vybere aktualitu, která ho zaujme.
+  \item Systém uživateli zobrazí detail vybrané aktuality obsahující její název, obsah, datum vytvoření, obrázek a případně odkazy na další zdroje.
+\end{enumerate}
 
 \myparagraph{UC2 Zobrazení aktuálních událostí} 
-Aplikace poskytne uživatelům přehled o připravovaných akcích, událostech a kulturních aktivitách v jejich městě nebo obci. Uživatelé budou moci 
-procházet kalendář akcí, filtrovat je podle svých zájmů a získat podrobnosti o jednotlivých událostech.
+Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přehled o aktuálně připravovaných akcích, událostech a kulturních 
+aktivitách v jejich městě nebo obci. 
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí aktuální seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů.
+  \item Uživatel si vybere událost, která ho zaujme.
+  \item Systém uživateli zobrazí detail vybrané události obsahující její název, popis, datum konání, místo konání obrázek a případně odkazy na další zdroje.
+\end{enumerate}
+
+\myparagraph{UC6 Filtrování zobrazených událostí za základě času}
+Tento případ užití popisuje jak mohou občané filtrovat zobrazené události podle na základě datu konání daných událostí.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů s nejbližším datem konání, který 
+  je rozdělen na základě kategorií jako například kino, divadlo, hudba atd..
+  \item Uživatel si vybere konkrétní den pro který chce zobrazit konané události.
+  \item Systém uživatel vrátí výpis pro vybraný den a události rozdělí na základě kategorií, do kterých vyfiltrované události spadají.
+\end{enumerate}
 
 \myparagraph{UC3 Zobrazení kontakty na místní úřady}
 Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
 
+\begin{enumerate}
+  \item Systém uživateli zobrazí seznam městských institucí.
+  \item Uživatel vybere konkrétní instituci, pro kterou chce zobrazit detailní informace.
+  \item Systém vrátí podrobné informace o vybrané instituci.  
+\end{enumerate}
+
 \myparagraph{UC4 Nahlášení závady ve městě}
 Aplikace dá občanům možnost hlásit závady, které je potřeba ve městě opravit.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí formulář pro k vyplnění městských institucí.
+  \item Uživatel vyplní název závady, nahraje fotografii závady, vyplní místo, kde se závada nachází, vybere kategorii závad do, které závada spadá a 
+  záznam o závadě odešle.
+  \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o 
+  
+  \item TODO rozdvojka spatne dobre vyplnene
+\end{enumerate}
 
 \myparagraph{UC5 Propojení s YouTube kanálem města}
 Aplikace dá občanům možnost konzumovat aktuální novinky prostřednictvím videí z městského YouTube kanálu. Díky intuitívnímu propojení...
 
-\myparagraph{UC6 Filtrování zobrazených událostí za základě času}
-opakuje se
+\begin{enumerate}
+  \item 
+  \item 
+\end{enumerate}
 
-\myparagraph{UC7 vyhledání parkovacích zón}
+\myparagraph{UC7 Vyhledání parkovacích zón}
 Aplikace umožňuje občanům města jednoduše a rychle vyhledat veškeré parkovací zóny ve městě včetně informace o provozní době parkovací zóny.
 
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
+  \item Uživatel vybere parkovací zóny pro kterou chce zobrazit detailní informace.
+  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny.
+\end{enumerate}
 
+\myparagraph{UC8 Platba parkovného}  podTask UC7
+Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, 
+délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
 
-\myparagraph{UC8 Platba parkovného} 
-Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
+  \item Uživatel vybere parkovací zóny pro kterou chce zaplatit parkování.
+  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny s odkazem na zaplacení.
+  \item Uživatel na detailu vybrané zóny vybere akci zaplatit parkovné.
+  \item Systém uživatele přesměruje na platební systém používaný daným městem pro platbu parkovného s předvyplněnou informací o vybrané parkovací zóně.
+\end{enumerate}
 
+\myparagraph{UC7 Zobrazení dopravy na mapě města}
+Tento případ užití popisuje jak mohou občané města jednoduše a rychle zobrazit vytíženost silnice ve městě.
 
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu vytíženost silnice ve městě.
+\end{enumerate}
 
-Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.
+Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrh funkcionality aplikace tak, aby co nejlépe odpovídala těmto potřebám. 
+Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože umožňují ověřit, zda systém správně reaguje na očekávané 
+uživatelské interakce. 
+
+Na jejichž základě je proto založeno koncové testování celé aplikace  čehož je využito pro tvorbě testů v kapitole \ref{testovani}
+
+Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.NEBO OBRACENE??
 
 \section{Funkční požadavky}
 Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
@@ -862,7 +938,9 @@ strukturou:
 %   \label{fig:mvvm}
 % \end{figure}
 
-\section{Návrh wireframes}
+\section{Návrh UI}
+
+\section{Tvorba drátových modelů}
 Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
 umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově náročnější byli umístěny na sekundární obrazovky.
 
@@ -903,7 +981,7 @@ nahlášení závady, zobrazení uředních hodin a kontaktů
   \endminipage\hfill
 \end{figure}
 
-\section{Návrh grafické podoby UI}
+\section{Návrh mockup modelu}
 Pro návrh grafické podoby UI byly použity prvky používané  barvy používané v rámci 
 mockup
 
