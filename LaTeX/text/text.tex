@@ -582,6 +582,42 @@ požadavky které plynou ze zadání.
 Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo jim umožňovala
 zaplatit parkovné.
 
+Z toho popisu jsou tefy bybrany nasledujici pripady uziti.
+
+\section{Případy užití}
+
+\myparagraph{UC1 Zobrazení aktuálních novinek} 
+Uživatelé mohou prostřednictvím aplikace získat přístup k aktuálním novinkám, událostem a důležitým oznámením ze svého města nebo obce. 
+Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
+
+\myparagraph{UC2 Zobrazení aktuálních událostí} 
+Aplikace poskytne uživatelům přehled o připravovaných akcích, událostech a kulturních aktivitách v jejich městě nebo obci. Uživatelé budou moci 
+procházet kalendář akcí, filtrovat je podle svých zájmů a získat podrobnosti o jednotlivých událostech.
+
+\myparagraph{UC3 Zobrazení kontakty na místní úřady}
+Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
+
+\myparagraph{UC4 Nahlášení závady ve městě}
+Aplikace dá občanům možnost hlásit závady, které je potřeba ve městě opravit.
+
+\myparagraph{UC5 Propojení s YouTube kanálem města}
+Aplikace dá občanům možnost konzumovat aktuální novinky prostřednictvím videí z městského YouTube kanálu. Díky intuitívnímu propojení...
+
+\myparagraph{UC6 Filtrování zobrazených událostí za základě času}
+opakuje se
+
+\myparagraph{UC7 vyhledání parkovacích zón}
+Aplikace umožňuje občanům města jednoduše a rychle vyhledat veškeré parkovací zóny ve městě včetně informace o provozní době parkovací zóny.
+
+
+
+\myparagraph{UC8 Platba parkovného} 
+Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
+
+
+
+Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.
+
 \section{Funkční požadavky}
 Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
 užitečná, efektivní a snadno použitelná.
@@ -605,11 +641,6 @@ Zobrazení historie plateb a možnost platit opakovaná parkování.
 \myparagraph{Možnost vyhledání a kontaktování místních úřadů, policie nebo zdravotního střediska}
 Zobrazení kontaktních informací a pracovní doby úřadů.
 Možnost zaslat otázku, stížnost nebo žádost přímo prostřednictvím aplikace.
-Správa uživatelského účtu:
-
-\myparagraph{Možnost vytvoření a správa uživatelského účtu}
-Přihlašování se pomocí e-mailu, telefonního čísla nebo sociálních sítí.
-Ukládání osobních preferencí a nastavení aplikace.
 
 \myparagraph{Navigace a mapy}
 Integrace mapových služeb pro zobrazení umístění událostí a místních služeb.
@@ -623,19 +654,7 @@ Zobrazení obsahu a textů v různých jazycích.
 Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
 Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
 
-\section{Případy užití}
-
-\myparagraph{Zobrazení aktuálních novinek} 
-Uživatelé mohou prostřednictvím aplikace získat přístup k aktuálním novinkám, událostem a důležitým oznámením ze svého města nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
-
-\myparagraph{Zobrazení aktuálních událostí} 
-Aplikace poskytne uživatelům přehled o připravovaných akcích, událostech a kulturních aktivitách v jejich městě nebo obci. Uživatelé budou moci procházet kalendář akcí, filtrovat je podle svých zájmů a získat podrobnosti o jednotlivých událostech.
-
-\myparagraph{Platba parkovného} 
-Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
-
-\myparagraph{Kontakty na místní úřady} 
-Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
+Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.  
 
 \section{Návrh architektury}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
@@ -1324,6 +1343,20 @@ platformy se dokumentace od JetBrains rozříší.
 
 
 \chapter{Testování}
+\section{Testování UI}
+UI testy se používají k ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
+interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+
+
+\section{Testování výkonu}
+
+
+\section{Testování kompatibility}
+estování aplikace na různých zařízeních s různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
+správně na široké škále zařízení.
+
+
+Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
 Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
 
 \section{Možnosti testování UI v Compose Multiplatform}
@@ -1382,6 +1415,7 @@ Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kro
 Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s očekávanými výsledky k určení úspěšnosti testu.
 
 \section{Implementace testů}
+UI testy / end to end testy
 \section{Zhodnocení výsledků testování}
 
 \section{Zhodnocení použitelnosti}
@@ -1395,11 +1429,13 @@ Vetšinu cílů, které byly stanoveny v zadání bylo možné pomocí multiplat
 nutné přistupovat na kompromisy. Veškeré implem
 
 Nicméně při implementacni náročnějších částech aplikace bylo již občas nutné přistoupit k použití nativních řešení a tím pádem tyto dva přístupy zkombinovat.
+Ve výsledku z poheledu UI, tak tato kombinace nevedla k zádným ústupkům
 Nicméně díký vhodně navrženým principům jako je Expect a actual deklarace (viz paragraf \ref{expectActual}) nebylo skombinování těchto odlišných částí nikterak
 implementačně komplikované a ne výsledku ani nepřehledné. 
 
-Fakt že v některých případech byo nutné přistoupit k nativnímu řešení nemusí být brán jakožto nevýhodu Compose Multiplatform oproti ostatním frameworkům.
-Na druhou stranu lze tatu možnost vnimat i jako vývodu, kterou ostatní frameworky neposkytují 
+Fakt že v některých případech bylo nutné přistoupit k nativnímu řešení nemusí být brán jakožto nevýhoda Compose Multiplatform oproti ostatním frameworkům.
+Na druhou stranu lze tatu možnost vnimat i jako výhodu, kterou ostatní frameworky neposkytují a dělá takz compose Multiplatform z tohoto pohledu flexibilnější
+framework.
 
 prostor o rozříšení ostatních naticvních knihoven o mmmultipatformní API. 
 
@@ -1415,6 +1451,8 @@ Nedostatek knihoven
 \section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
 Časem se zajisté ukáží
+
+\bigskip
 
 mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
 
