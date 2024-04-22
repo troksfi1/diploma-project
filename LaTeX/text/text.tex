@@ -566,6 +566,15 @@ V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je d
 
 \chapter{Návrh}
 
+Návrh se zaměřuje na navržení jednat grafické podoby aplikace tak techničtější části, které je pro správné fungování UI nezbytná.
+
+
+skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou  usílí.
+což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
+
+Navržení Use casu je doležite jednaz pohledu jaci uživatele budou danou aplikaci pouzivat tak z pohledu na jakých zařízení případně 
+platform ji budou využívat.
+
 
 
 \section{Výběr aplikace pro implementaci}
@@ -686,6 +695,27 @@ Tento případ užití popisuje jak mohou občané města jednoduše a rychle zo
   \item Systém uživateli zobrazí mapu vytíženost silnice ve městě.
 \end{enumerate}
 
+
+
+Pro dotvoření představy o tom jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{}, na který zároveň 
+obasuje i typy uživatelů pracujících s navrženou aplikací.
+
+Co se týče vzájemných vazeb, tak zde je věno
+
+Use case diagram
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{Use case diagram.png}
+  \caption{Use case diagram}
+  \label{fig:use_case_diagram}
+\end{figure}
+
+\section{Role}
+
+TODO jaci uzivatel budou aplikaci použivat
+
+
+
 Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrh funkcionality aplikace tak, aby co nejlépe odpovídala těmto potřebám. 
 Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože umožňují ověřit, zda systém správně reaguje na očekávané 
 uživatelské interakce. 
@@ -803,6 +833,13 @@ jako je získání dat ze serveru nebo změny v interním stavu aplikace.
 Správa UI stavu je důležitou součástí vývoje aplikací s uživatelským rozhraním a může být implementována pomocí různých technik a nástrojů.
 Důležité je udržovat UI stav v souladu s interním stavem aplikace a zajistit jeho konzistenci a správnou aktualizaci v reakci na uživatelské 
 interakce a události v aplikaci.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{ui-equals-function-of-state.png}
+  \caption{Reprezentace vztahu UI a stavu aplikace}
+  \label{fig:arch_diagram}
+\end{figure}
 
 \myparagraph{UI Elements}
 Na základě poskytnuteho UI state zobrazují data reprezentující aktuální stav aplikace. Tento vztah je často d
@@ -941,23 +978,59 @@ strukturou:
 \section{Návrh UI}
 
 \section{Tvorba drátových modelů}
+K tomu aby bylo výsledné UI pro uživatele přívětivé bylo přístupováno tak aby co nejvíce  s pravidly dobrého návhu UI.
+
+Mezi takoví pravidla patří:
+TODO
+
 Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
 umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově náročnější byli umístěny na sekundární obrazovky.
 
 Zároveň byla snaha o 
 
-Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v LazyRow a to především z důvodu, že 
-akce poutají především svým vizuálním největší část informace he uživateli předána právě pomocí titulního obrázku, názvu
+Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v postupně skrolovacím řádku a to především z důvodu,
+ že akce poutají především svým vizuálním největší část informace he uživateli předána právě pomocí titulního obrázku, názvu
 a času konání.
 
-Oproti tomu pro seznam novinek byl vybrán takzvaný LazyColum, který lépe umožňuje vyžít celou šíři obrazovky pro často delší
-titulek a text události.
+Oproti tomu pro seznam novinek byl vybráno uspořádnaní novinek do scrolovancího sloupe, který lépe umožňuje vyžít celou šíři 
+obrazovky k zobrazení delšěích titulků a textů událostí.
 
-Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
-nebo událostí.
-
-Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují proklik na YouTube kanál města,
+Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
 nahlášení závady, zobrazení uředních hodin a kontaktů 
+
+\myparagraph{Domovská obrazovka}
+V horní části se nachzí sekce umožňující přidání vlastní 
+
+další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
+
+\myparagraph{Obrazovka událostí}
+
+V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního radku
+
+Oproti domovské stránce jsou zde zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehlednou jsou udáslosti rozděleny 
+do kategorií 
+
+
+Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
+
+filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umuštěno kvůli malému počtu kategorií.
+
+byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrzí jen ty kategorie, které obsahují alespoň jednu událost.
+
+veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
+
+\myparagraph{Obrazovka parkování}
+Dále zde byl umplentován bottom sheet který je zobrazen pouze v případě, že uživatel vyberere pro o jakém parkovaním místě chce zobrazit
+podrobné informace. Nezmenšuje tak uživateli prostor pro rychlé vyhlání parkovanící zóny.
+
+\myparagraph{Obrazovka více}
+Představuje rychlo naviga
+
+Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
+
+Jelikož je ale aplikce cílena pro široké spektrum lidí, byl zde přidám, který uživatelům umožňuje přízpůsobení domovské obrazovky.
+při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
+které mohou být přidány na uvodní obrzovku
 
 \begin{figure}[H]
     \minipage{0.38\textwidth}
@@ -981,9 +1054,45 @@ nahlášení závady, zobrazení uředních hodin a kontaktů
   \endminipage\hfill
 \end{figure}
 
-\section{Návrh mockup modelu}
+\section{Návrh design systému}
+
+
+
+Design systém je sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
+konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
+layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
+vzhledem. 
+
+Jelikož město, které bylo vybráno pro implementaci aplikace nikde expliciteně nedefinovalo používaný design systém,
+byl proto vytvořen na základě. 
+TODO NEBO 
+V rámci vybraného města Příbrami není tento systém nikde expliciteně zadefinovaný a proto byl odvozen od designu webových stránek města.
+pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
+
+Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
+na mobilních platformách.
+
+S ohledem na to, že aplikce je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návr samotné design systému, který
+specifikuje především prvky použitelné na mobilních platformách a zbylé prvky mohou být případně v budoucnu rozšířený o další prvky 
+používané na jiných platformách.
+
+Compose multiplatform je přípraven na implementaci design systému. 
+
+Navržení se proto týká především těmto částém,
+které mohou být v budoucnu rozšířený o další prvky používané na jiných platformách.
+
+
+jehož byla aplicace designována ne
+
+byl celý návrh designován nemá nikde explicitně definovaný design systém. byl proto navržen vlastní a jeho tvorba 
+
 Pro návrh grafické podoby UI byly použity prvky používané  barvy používané v rámci 
-mockup
+
+\section{Návrh mockup modelu}
+
+Po zadefinování použitelných komponet v navženém design systému \ref{} jež samotný návrh grafické podoby UI zjednodušen nezbytné minimum.
+
+
 
 \begin{figure}[H]
     \minipage{0.4\textwidth}
@@ -1005,6 +1114,20 @@ mockup
     \includegraphics[width=\linewidth]{screen4.png}
     \caption{Screen 4}\label{fig:screen4}
   \endminipage\hfill
+\end{figure}
+
+
+Výsledek základní ukázky takto navrženého systému je na obrázku \ref{fig:design_system}
+
+Byl vytvořen obecný design systém pro tvorbu UI, který urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace zajistí intuitivní
+ovládání aplikace a zaručí konzitentní vzhled napříč aplikací a případně i dalšími aplikacemi města. Zároveň poslouží k tvorbě ostatních 
+aplikací města.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{design_system.jpg}
+  \caption{Vytvořený design systém}
+  \label{fig:design_system}
 \end{figure}
 
 \chapter{Implementace}
@@ -1140,14 +1263,11 @@ V budoucu by však měla být dostupná, ale do té doby je potřeba vybrat z al
 
 %\section{Navigace a lokalizace v implementaci}
 \subsection{Implementace design systému}
-Design systém je sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
-konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
-layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
-vzhledem. 
 
-V rámci vybraného města Příbrami není tento systém nikde expliciteně zadefinovaný a proto byl odvozen od designu webových stránek města.
+Při implementace design systému pomocí Compose Multiplatfom byla snaha co nejpřesněji napodobit navržený design sytém z kapitoli \ref{}
+tak aby uživateli navodil maximalní pocitu jednoty s dosavadními informačními systémy města.
 
-Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3.
+
 
 
 loading
@@ -1228,14 +1348,7 @@ uvádět.
   )
 \end{lstlisting}
 
-Výsledek základní ukázky takto navrženého systému je na obrázku \ref{fig:design_system}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.99\textwidth]{design_system.jpg}
-  \caption{Vytvořený design systém}
-  \label{fig:design_system}
-\end{figure}
+DESIGN SYSTEM IMG?
 
 \section{Technologie - jen multiplatformní? }
 Následující podkapitola je věnována konkrétním technologiím, které byli pro tvorku komponent z předchozí kapitoli použity.
@@ -1367,6 +1480,11 @@ TODO
 \end{lstlisting}
 
 
+\subsection{Full text search impl tech} \label{fulltextSearch}
+TODO
+ neco na fulltextové vyhledavani
+
+
 \subsection{Coil}
 Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
 řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
@@ -1393,13 +1511,61 @@ TODO uvest coil
 
 
 \section{Tvorba UI obrazovek}
+
 Obsahem následujících podkapitol bude souh použitých UI komponent
 \subsection{Domovská obrazovka}
 Uživatelké rozhraní domovské obrazovky je kompletně implemetováno pomocí Compose Multiplatform a nebylo při jeho implemementaci potřeba
 přistoupit k nativímu řešení ani na platformě iOS nebo desktop. 
+
+K tvorbě UI domovské obrazovky bylo přistupováno nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak aby 
+jednotlivé komponenty odpovídali prvkům vytvořeného design systému. 
+
+LAZY ROW LAZY COLLUMN , OBRZKY POCI COIL, STLOVANI POCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
+
+Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
+nebo událostí.
+
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=Kotlin]
+  @Composable
+  fun EventLazyRow(category: EventCategory, state: EventsState) {
+      val scrollState = rememberLazyListState()
+      val coroutineScope = rememberCoroutineScope()
+      val navigator: Navigator = LocalNavigator.currentOrThrow
+  
+      Column {
+          Text( ... )
+          LazyRow( ... ) 
+      {  
+        items(eventList) { event ->  //state.filteredEvents
+            EventItem(event = event, onItemClick = {
+              navigator.push(EventDetailScreen(event))
+            })
+          }
+        }
+      }
+  }
+\end{lstlisting}
+
 \subsection{Event obrazovka}
+
+V rámci obrazovky "Události" je použí vána stejená koomponanta, pro zobrazené údálostí "EventLazyRow". 
+
+LAZY ROW , DATE PICKER, SPECIAL CHIPS
+
+
 \subsection{Parkování obrazovka}
-Jak jž bylo zmíněno v kapitole \ref{}
+Jak jž bylo zmíněno v kapitole \ref{} tak implementace matových podkladů byla implementována pomocí 
+
+Bylo využito UI komponenty \code{GoogleMap} z \code{com.google.maps.android.compose}, která umpožňuje vložení mapových podkladů 
+na platdformě Android.
+
+Dále byla tato obrazovka rozšířena o vyhladvací bar, který uživateli dává možnost jednoduchého vyhledání parkovací zóny podle názvu.
+
+K tomu je použito fulltextové vyhledání ... popsané v kapitole \ref{fulltextSearch}. 
+
+
+Dále zde byl umplentován bottom sheet který je zobrazen pouze v případě, že uživatel vyberere pro o jakém parkovaním místě chce zobrazit
+podrobné informace. Nezmenšuje tak uživateli prostor pro rychlé vyhlání parkovanící zóny.
 
 
 
@@ -1418,6 +1584,24 @@ platformy se dokumentace od JetBrains rozříší.
 
 
 \subsection{Implementace mapových podkladů}
+
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
+  GoogleMap(
+    modifier = Modifier.fillMaxSize(),
+    properties = MapProperties(
+        isTrafficEnabled = true,
+        mapType = MapType.NORMAL,
+        mapStyleOptions = MapStyleOptions(MapStyle.JSON_LIGHT)
+        /*latLngBoundsForCameraTarget = LatLngBounds(
+            LatLng(49.7195186,13.9845228)) */
+    ),
+    cameraPositionState = cameraPositionState
+) {...}
+\end{lstlisting}
+
+\myparagraph{impementace map theme}
+
+\myparagraph{impementace map polygons}
 
 
 \chapter{Testování}
