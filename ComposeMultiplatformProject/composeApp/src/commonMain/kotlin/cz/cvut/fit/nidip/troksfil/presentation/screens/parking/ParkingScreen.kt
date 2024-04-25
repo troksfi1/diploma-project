@@ -1,13 +1,23 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.parking
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.LocalParking
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,57 +30,110 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewState
-import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
 
 class ParkingScreen : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
+        //val screenmodel = getScreenModel<ParkingScreenModel>()
 
         val navigator: Navigator = LocalNavigator.currentOrThrow
         var text by remember { mutableStateOf("") }
-
-        Column {
-            OutlinedTextField(
-
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 0.dp, 10.dp, 0.dp),
-                value = text,
-                label = { Text("Zadejte adresu, číslo zóny") },
-                leadingIcon = { Icon(Icons.Filled.Search, "searchIcon") },
-                onValueChange = { text = it  /* onTextChanged(it)*/ }
+        var active by remember { mutableStateOf(false) }
+        val items = remember {
+            mutableListOf(
+                "nám. T.G.M. [PB1]",
+                "Osvobození [PB2]",
+                "nám. 17. listopadu [PB3]",
+                "Václavské náměstí [PB4]",
+                "Zahradnická [PB5]",
+                "Generála Tesaříka [PB6]",
+                "Jiráskovy sady [PB7]",
+                "Hornícké náměstí [PB8]",
+                "Dvořákovo nábřeží [PB9]",
+                "Okolo Zámečku [PB10]",
+                "Jinecká na Hvězdičce [PB12]",
+                "Fibichova [PB14]",
+                "Nový Rybník [PB16]",
+                "Parkoviště u nemocnice",
+                "Parkoviště u hřbitova",
             )
+        }
+        var selectedRow by remember { mutableStateOf("") }
+        val scrollState = rememberScrollState()
 
-
-            val html = """
-                <html>
-                    <body>
-                    <iframe src ="https://www.google.com/maps/d/embed?mid=1PsJSE5YLHzz5Rgrqg5gBTyT0ADF0NKC6&ehbc=2E312F"></iframe>
-                    </body>
-                </html>
-                """.trimIndent()
-            val state3 = rememberWebViewStateWithHTMLData(
-                data = html
-            )
-            val state =
-                rememberWebViewState("https://www.google.com/maps/d/viewer?mid=1PsJSE5YLHzz5Rgrqg5gBTyT0ADF0NKC6&femb=1&ll=49.684745630467305%2C14.009664090411311&z=15")
-            val state2 =
-                rememberWebViewState("https://earth.google.com/web/data=MkYKRApCCiExUHNKU0U1WUxIeno1UmdycWc1Z0JUeVQwQURGME5LQzYSGwoZNjA2NWM5MjlfMjE3RDAwQTY0QUVBRURDMiAC://www.google.com/maps/d/viewer?mid=1PsJSE5YLHzz5Rgrqg5gBTyT0ADF0NKC6&femb=1&ll=49.684745630467305%2C14.009664090411311&z=15")
-
-            WebView(state3)
+        Scaffold(
+            bottomBar = { BottomNavigation {} }
+        ) { innerPadding ->
+            Box(
+                modifier = Modifier.padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
+            ) {
+                SearchBar(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    //.padding(10.dp, 0.dp, 10.dp, 0.dp),
+                    query = text,
+                    onQueryChange = { text = it  /* onTextChanged(it)*/ },
+                    onSearch = {
+                        active = false
+                        //text = ""
+                    },
+                    active = active,
+                    onActiveChange = {
+                        active = it
+                    },
+                    placeholder = {
+                        Text(text = "Zadejte název nebo číslo zóny")
+                    },
+                    leadingIcon = { Icon(Icons.Filled.Search, "Search Icon") },
+                    trailingIcon = {
+                        if (active) {
+                            Icon(
+                                modifier = Modifier.clickable {
+                                    if (text.isNotEmpty()) {
+                                        text = ""
+                                    } else {
+                                        active = false
+                                    }
+                                },
+                                imageVector = Icons.Filled.Close,
+                                contentDescription = "Close Icon"
+                            )
+                        }
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier.verticalScroll(scrollState, enabled = true)
+                    ) {
+                        items.forEach {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        selectedRow = it
+                                        text = it
+                                        active = false
+                                    }
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .padding(all = 15.dp)
+                                ) {
+                                    Icon(
+                                        modifier = Modifier.padding(end = 10.dp),
+                                        imageVector = Icons.Default.LocalParking,
+                                        contentDescription = "Parking zone icon"
+                                    )
+                                    Text(text = it)
+                                }
+                            }
+                        }
+                    }
+                }
+                MapView()
+            }
         }
     }
-    /*val singapore = LatLng(1.35, 103.87)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 10f)
-    }
-    GoogleMap(
-    modifier = Modifier.fillMaxSize(),
-    cameraPositionState = cameraPositionState
-    )*/
 }
 
