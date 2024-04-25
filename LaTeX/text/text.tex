@@ -12,7 +12,7 @@
 %\end{chapterabstract}
 
 %\section{Motivace}
-\section{Cíle práce}
+\section{Cíle práce} \label{goals}
 Prvním důležitým cílem práce je analyzovat použitelnost nově nastupující technologie na poli vývoje multiplatformního UI a otestovat, jaké
 nové principy přináší. Dále tuto technologii porovnat s ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
 rozebrat důležité principy, na kterých jsou tyto technologie postaveny. 
@@ -23,7 +23,7 @@ které aktuálně multiplatformní UI provází.
 Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v praxi.
 
 \section{Stručný přehled obsahu práce}
-V rámci se práce zabývá otázkou co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých platforem se může týkat.
+V úvodu se práce zabývá otázkou co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
 Dále je probrána otázka v jakých případech se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
 
 %a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
@@ -52,10 +52,28 @@ Obecně něco o multiplatformním vývoji.
 
 \section{Definice multiplatformního vývoje UI}
 
-Technologie sloužících k tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelské rozhraní, 
-která mohou být nasazena na různé platformy, jako jsou mobilní zařízení, webové prohlížeče nebo desktopové aplikace. 
-Cílem je dosáhnout jednotného uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu.
+Technologie sloužících k tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelská rozhraní, 
+která mohou být nasazena na různá zařízení jako jsou mobilní zařízení, tablety, televize, hodinky, obrazovky aut či 
+klasické počítače a to buďto v podobě desktopové nebo webové aplikace. Cílem multiplatformního vývoje je tak dosáhnout jednotného 
+uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu. Nicméně jak je vidno z předchozího výčtu zařízení, 
+tak ne vždy má smysl multiplatformní přístup aplikovat a tomu kdy je vhodné aplikovat multiplatformní vývoj je věnována následující kapitola.  
 
+\section{Uplatnění multiplatformního vývoje a sdíleného UI}
+Aktuálně největší uplatnění multiplatformního UI nabízí mobilní vývoj, kde je díky multiplatformním frameworkům možné vyvíjet
+aplikace pro platformy Android a iOS současně. Je tomu tak z důvodu, že mobilní vývoj je aktuálně jeden TODO také díky podobnostem majících na návrh multiplatformního 
+UI vliv jako je například velikost obrazovky.
+
+I přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
+Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z pohledu UI mají ty platformy často jiné 
+velikosti obrazovek, jiné možnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika implementována konkrétně pro danou platformu
+nebo typ zařízení. Je proto vždy nutné vědět jaký typ aplikace bude z pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
+platformách bude daná aplikace implementována.
+
+Obecně lze tedy říci, že efektivita implementace multiplatformních aplikaci se může dle těchto omezeních a požadavků výrazně lišit.
+
+%I přesto, že tato práce je věnována především tvorbě UI, tak nesmí být opomenuta aplikační logika, které se za ním skrývá a má UI podstatný vliv.
+% Dále zde hrají velkou roli případy užití, které mají na jednotlivá a UI vliv a při multiplatformním vývoji je třeba dbát na jelikož né každá 
+% aplikace je z tohoto pohledu vhodná pro multiplatformní
 
 \section{Důvody multiplatformního vývoje a sdíleného UI}
 
@@ -66,49 +84,17 @@ na různých platformách nebo například možnost znovu používat komponenty 
 Mezi další důvody může například patřit možnost rychlejších aktualizací, jelikož nové funkce mohou být 
 implementovány jednotně a rychle na všech platformách. 
 
-\section{Uplatnění multiplatformního vývoje a sdíleného UI}
-
-I přesto že tato práce je věnováno tvorbě UI, tak nesmí být opomenuta aplikační logika, které se za ním skrývá a má UI vliv naopak. Dále zde
-hrají velkou roli případy užití, které mají na jednotlivá a UI vliv a při multiplatformním vývoji je třeba dbát na jelikož né každá aplikace
-je z tohoto pohledu vhodná pro multiplatformní
-
-
-Aktuálně největší uplatnění použití uplatnění multiplatformního UI nabízí mobilní vývoj, který díky multiplatformním frameworkům umožňuje vývoj
-aplikací na platformami Android a iOS současně. 
-To že tomu tak je je primárně díky hlavnímu důvodu vedoucí firmy k multiplatformnímu vývoji aplikací a tím je snížení nákladu na vývoj.
-
-Výběr těchto platforem je vhodný především díky podobnostem majících na návrh multiplatformního UI vliv jako je například velikost obrazovky.
-
-I přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
-automotive, TV, wear OS, tak né vždy je těchnoto možností využít.
-
-Z pohledu UI mají ty platformy často jiné velikosti obrazovek, jine možnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika
-implementována konkrétně pro danou platformu nebo typ zařízení.
-
-Je proto vždy nutné vědět jaký typ aplikace bude z pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých platformách
-bude daná aplikace implementována.
-
-Obecně tedy nelze říci, že efektivita implementace multiplatformních aplikaci se může dle těchto požadavků výrazně lišit.
-
-
-
-
-
-
-%Větší dosah jelikož díky sdílení UI lze dosáhnout většího dosahu, protože aplikace mohou být dostupné 
-Tato kapitola je zaměřena na představení multiplatformních frameworků, porovnání mezi nimi. 
-
-
 \chapter{Analýza}
+Tato kapitola je zaměřena na představení multiplatformních frameworků a porovnání mezi nimi. 
 
 \section{Přehled existujících frameworků}
 Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně patří Flutter a React Native. \cite{crossPlatformFrameworksStats}
-V následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobněji rozebrány a u každého z nich jsou vybrány 
-důležité vlastnosti, které jsou pro tyto frameworky typické. 
+V následujících kapitolách jsou proto tyto nejpoužívanější frameworky spolu s frameworkem Compose  Multiplatform podrobněji rozebrány a u každého z nich 
+jsou vybrány důležité vlastnosti, které jsou pro tyto frameworky typické. 
 
 Jednotlivé frameworky jsou seřazeny postupně od nejstaršího
 po nejmladší, což umožňuje lepší náhled na to, jak se jednotlivé frameworky v čase vyvíjely. Pro lepší ilustraci byla také zvolena 
-i podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společnými rysům napříč frameworky.
+podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společnými rysům napříč frameworky.
 
 %---------------------------------------------------------------
 \subsection{React Native}
@@ -180,7 +166,7 @@ frameworku napomáhá sjednotit renderovací logiku prováděnou v C++ a zlepši
 % mezi které rozděluje práci.
 
 
-Jak je vidět na obrázku \ref{fig:react-natice-xplat-implementation-diagram}, tak Fabric de facto plní funkci prostředníka, který převádí React 
+Jak je vidět na obrázku \ref{fig:react-natice-xplat-implementation-diagram}, tak \textit{Fabric} de facto plní funkci prostředníka, který převádí React 
 komponenty na nativní komponenty pro každou platformu. 
 
 Pro lepší představu jak dané komponenty vypadají slouží následující ukázka kódu \ref{lst:reactNativeJSX}.
@@ -257,10 +243,10 @@ vynakládané na údržbu. Flutter také rozšířil svou podporu pro cílení w
 \myparagraph{Rozsáhlá sada widgetů}
 Flutter poskytuje komplexní sadu přizpůsobitelných widgetů, které usnadňují vytváření složitých a vizuálně 
 atraktivních uživatelských rozhraní. Tyto widgety zahrnují vše od základních tlačítek a textových polí až po 
-pokročilé komponenty jako jsou grafy a animace.
+pokročilé komponenty jako jsou grafy a animace. \cite{flutterWidgets2}
 
 \myparagraph{Programovací jazyk Dart}
-Aplikace vytvořené ve Flutteru jsou psány v jazyce Dart, moderním objektově orientovaném programovacím jazyce 
+Aplikace vytvořené pomocí frameworku Flutter jsou psány v jazyce Dart, moderním objektově orientovaném programovacím jazyce 
 vyvinutém společností Google. Dart je navržen pro optimální výkon a produktivitu, což ho činí vhodným pro mobilní a
 webový vývoj. \cite{dart}
 
@@ -340,7 +326,7 @@ Podporuje platformy jako Android, iOS (Alpha), Windows, MacOS, Linux a Web (expe
 Používá deklarativní syntaxi pro popis uživatelského rozhraní. \cite{KMPUseCases}
 
 \myparagraph{Jednotný kód pro různé platformy} 
-Možnost sdílet kód pro Android, iOS, web i Desktop.
+Možnost sdílet kód pro Android, iOS, web i desktop. \cite{composeMultiplatform}
 
 \myparagraph{Snadné migrace díky postupné integraci} 
 Díky KMP je možné postupně implementovat jednotlivé částí aplikace i do již existujících aplikací s minimálním rizikem oproti
@@ -492,6 +478,18 @@ Pro porovnání
 Pro upřesnění je ještě potřeba zmínit, že veškeré vyjmenované společnosti, využili pouze možnosti sdílení logiky a nepoužívají
 tak sdílené UI pomocí Compose Multiplatform.
 
+To se ukázalo i na průzkumu, který provedla společnost JetBrains v roce 2021, kde pouze 3,8~\% respondentů odpovědělo, že byli schopni sdílet UI ve svých aplikacích.
+
+Pro ukázku veškerých částí, které respondenti sdíleli ve svých aplikacích napříč platformami slouží obrázek \ref{fig:KMPSurvey}, který jednoznačně ukazuje, že
+mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva.  
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{survey-results-q1-q2-22.png}
+  \caption{KMP průzkum}
+  \label{fig:KMPSurvey}
+\end{figure}
+
 \section{Flutter vs React Native vs Compose Multiplatform}
 
 
@@ -550,31 +548,44 @@ Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití tě
   \label{fig:chart_startup_times}
 \end{figure}
 
-\section{Náročnost implementace}
+\subsection{Náročnost implementace}
+I přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik málo důvodů, které mohou k porovnání 
+náročnosti implementace Compose Multiplatform s ostatními frameworky posloužit. 
+
+
+
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multiplatform
-Jak již bylo zmíněno v kapitole KMP , tak jedním z největších problému multiplatformního vývoje je především nedostatečné množství knihoven. 
+Jak již bylo zmíněno v kapitole KMP, tak jedním z největších problému multiplatformního vývoje pomocí KMP je
+především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
 aktuálně spjata s UI se týká především plynulosti a nebo použití nativně vypadajících komponent na platformě iOS.
-Ta v její nativní podobě používá styl zvaný Cupertino, který aktuálně není oficiálně podporován. Co se týče plynulosti UI
-na platformě iOS, tak aktuálně se řeší problém s
+Ta v její nativní podobě používá styl zvaný Cupertino, který frameworkem Compose Multiplatform není aktuálně oficiálně podporován. 
+Co se týče plynulosti UI na platformě iOS, tak aktuálně se nejvíce řeší problém s rychlostí vykreslování.
 
 Většina výše zmíněných problémů se již řeší a je zmíněna v Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap} Konkrétně
 se jedná o veškeré zmíněné o problémy kromě zařazení HarmonyOS mezi podporované platformy.% // todo 
 V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je dostání frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
 
 \chapter{Návrh}
+V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost Compose Multiplatform frameworku a následně
+bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní kapitoly \textit{Cíle práce \ref{goals}}.
 
-Návrh se zaměřuje na navržení jednat grafické podoby aplikace tak techničtější části, které je pro správné fungování UI nezbytná.
+Po vybrání typu aplikace následuje podkapitola věnující návrh vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
+uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
 
+Další fáze návrhu je věnována vytyčení funkčních požadavků ...
+
+Dále je v rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. 
+
+Podkapitola \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
+rozebrání jednotlivých vrstev. 
+
+jednak grafické podoby aplikace, tak 
 
 skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou  usílí.
 což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
-
-Navržení Use casu je doležite jednaz pohledu jaci uživatele budou danou aplikaci pouzivat tak z pohledu na jakých zařízení případně 
-platform ji budou využívat.
-
 
 
 \section{Výběr aplikace pro implementaci}
@@ -764,6 +775,8 @@ Pro ověření, že takto sepsané funkční požadavky pokrývají všechny př
 
 \section{Návrh architektury}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
+
+TODO možné architektury pro vyvoj mobilních aplikací
 
 \subsection*{Důležité principy}
 
@@ -988,27 +1001,48 @@ umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově n
 
 Zároveň byla snaha o 
 
-Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v postupně skrolovacím řádku a to především z důvodu,
- že akce poutají především svým vizuálním největší část informace he uživateli předána právě pomocí titulního obrázku, názvu
-a času konání.
+\pagebreak
 
-Oproti tomu pro seznam novinek byl vybráno uspořádnaní novinek do scrolovancího sloupe, který lépe umožňuje vyžít celou šíři 
-obrazovky k zobrazení delšěích titulků a textů událostí.
-
-Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
-nahlášení závady, zobrazení uředních hodin a kontaktů 
 
 \myparagraph{Domovská obrazovka}
-V horní části se nachzí sekce umožňující přidání vlastní 
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.35\textwidth]{home_wireframe.png}
+  \caption{Wireframe domovské obrazovky}
+\end{wrapfigure}
 
-další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
+Jak již bylo zmíněno v úvodu této kapitoli, tak domovská obrazovka obsahuje většinu nejdůležitější a 
+
+Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí ve skrolovacím řádku a to především z důvodu,
+ že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+a času konání.
+
+Oproti tomu pro seznam novinek ve sopdní části obrazovky bylo vybráno uspořádání novinek do scrolovancího sloupce, který lépe umožňuje 
+vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které josu pro uživatele v případě aktualit nejdůležitější.
+
+Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
+nahlášení závady, zobrazení uředních hodin a kontaktů.
+
+%V horní části se nachzí sekce umožňující přidání vlastní 
+
+%další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
 
 \myparagraph{Obrazovka událostí}
 
-V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního radku
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.35\textwidth]{events_wireframe.png}
+  \caption{PoWireframe obrazovky události}
+\end{wrapfigure}
 
-Oproti domovské stránce jsou zde zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehlednou jsou udáslosti rozděleny 
-do kategorií 
+V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního řádku jako je tomu na domovské obrazovce.
+
+Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou udáslosti rozděleny 
+do několika málo kategorií.
+
+V hoorní části aplikce je uživateli dána možnost vybrat den pro který chce zobrazit plánované udáslosti, případně zvolit požadované rozmezí.
+
+%jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
 
 
 Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
@@ -1020,114 +1054,130 @@ byl zvolen přístup, který vybrané události přiřadí do patřičné katego
 veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
 
 \myparagraph{Obrazovka parkování}
-Dále zde byl umplentován bottom sheet který je zobrazen pouze v případě, že uživatel vyberere pro o jakém parkovaním místě chce zobrazit
-podrobné informace. Nezmenšuje tak uživateli prostor pro rychlé vyhlání parkovanící zóny.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.35\textwidth]{parking_wireframe.png} 
+  \caption{Wireframe obrazovky parkování}
+\end{wrapfigure}
+
+Obrazovká parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
+
+Aby bylo docíleno co nejjednuším manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována přávě mapovému
+podkalu na němž jsou vyznačeny parkovancí zóny. 
+
+Pro usnadnění hledání parkovacích zón dává aplikace uživateli možnost vyhlenání požadovaná parkovací zóny pomocí vyhledávací pole, které 
+uživateli umožňujě vyhledat příslušnou parkovancí zónu buďto podle čísla nebo názvu zóny. 
+
+Dále zde byla implentována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v případě, že uživatel vyberere nějakou
+z nabízených parkovacích zón. Nezmenšuje tak uživateli prostor pro rychlé vyhledání parkovanící zóny, které je hlavním cílem k použití této obrazovky. 
+
+Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovancí zoně a dá uživateli možnost zaplatit parkovné.
+
+Poslední funkci, kterou tato obrazovka nabízí je zobrazení aktuálního provozu ve městě. 
+
+
 
 \myparagraph{Obrazovka více}
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.35\textwidth]{more_wireframe.png} 
+  \caption{Wireframe obrazovky více}
+\end{wrapfigure}
+
+Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých funkcí aplikace a zároveň obsahuje veškeré méně podstatné 
+časti aplikace.
+
+Jelikož je ale aplikce cílena pro široké spektrum lidí, byl zde navžena funkce, která umožnuje přidání vybraného prvku na domovskou obrazovku.
+
+
+který uživatelům umožňuje přízpůsobení domovské obrazovky.
+při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
+které mohou být přidány na uvodní obrzovku.
+
+
+v případě, že by uživatel shledal některou 
+z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje uživateli tuto funkci přidat na domovskou obrazovku.
+
 Představuje rychlo naviga
 
 Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
 
-Jelikož je ale aplikce cílena pro široké spektrum lidí, byl zde přidám, který uživatelům umožňuje přízpůsobení domovské obrazovky.
-při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
-které mohou být přidány na uvodní obrzovku
-
-\begin{figure}[H]
-    \minipage{0.38\textwidth}
-      \includegraphics[width=\linewidth]{home_wireframe.png}
-      \caption{Domovská obrazovka}\label{fig:screen1}
-    \endminipage\hfill
-    \minipage{0.4\textwidth}
-      \includegraphics[width=\linewidth]{events_wireframe.png}
-      \caption{Obrazovka akcí}\label{fig:screen2}
-    \endminipage\hfill
-\end{figure}
-
-\begin{figure}[H]
-    \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{parking_wireframe.png}
-    \caption{Screen 3}\label{fig:screen3}
-  \endminipage\hfill
-  \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{more_wireframe.png}
-    \caption{Screen 4}\label{fig:screen4}
-  \endminipage\hfill
-\end{figure}
-
-\section{Návrh design systému}
 
 
+\section{Návrh design systému} \label{designSystemSection}
+Před tím něž bylo přistoupeno ke grafickému návrhu aplikace, tak byl vytvořen obecný design systém, který poslouží k vytvoření 
+konzistentního uživatelského rozhraní. Zároveň se díky němu urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace 
+zajistí intuitivní ovládání aplikace na všech platformách. 
 
-Design systém je sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
+%Design system je obecně vzato sada komponent, pravidel, principů a návrhových postupů, které slouží k vytváření konzistentního
+%uživatelského rozhraní a uživatelského zážitku napříč různými aplikacemi a platformami. 
+
+Design systém je obecně vzato sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
 konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
 layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
 vzhledem. 
+ 
+Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje předvším uživatelskou 
+zkušenost s implementovanou aplikací. 
+%Designový systém zároveň často obsahuje sadu prvků UI, typografického stylu, barev, ikon a další informace, které 
+%pomáhají designérům a vývojářům při tvorbě aplikací.
 
-Jelikož město, které bylo vybráno pro implementaci aplikace nikde expliciteně nedefinovalo používaný design systém,
-byl proto vytvořen na základě. 
-TODO NEBO 
-V rámci vybraného města Příbrami není tento systém nikde expliciteně zadefinovaný a proto byl odvozen od designu webových stránek města.
+%V navrhovaní výslednéh design systému bylo přistupováno tak aby styl navržených UI komoponenty, typů písma, barem a dalších prvků design 
+%systému přiblině odpovídal aktuálně používanému stylu města.
+
+%Jelikož město, které bylo vybráno pro implementaci aplikace nikde expliciteně nedefinovalo používaný design systém,
+%byl proto vytvořen na základě. 
+%TODO NEBO 
+
+V rámci vybraného města Příbrami není takový systém nikde expliciteně zadefinovaný a proto byl odvozen z designu webových stránek města.
 pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
 
 Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
 na mobilních platformách.
 
-S ohledem na to, že aplikce je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návr samotné design systému, který
-specifikuje především prvky použitelné na mobilních platformách a zbylé prvky mohou být případně v budoucnu rozšířený o další prvky 
+S ohledem na to, že aplikce je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návrh samotné design systému, který
+specifikuje především prvky použitelné na mobilních platformách a zbylé části mohou být případně v budoucnu rozšířený o další prvky 
 používané na jiných platformách.
 
-Compose multiplatform je přípraven na implementaci design systému. 
-
-Navržení se proto týká především těmto částém,
-které mohou být v budoucnu rozšířený o další prvky používané na jiných platformách.
-
-
-jehož byla aplicace designována ne
-
-byl celý návrh designován nemá nikde explicitně definovaný design systém. byl proto navržen vlastní a jeho tvorba 
-
-Pro návrh grafické podoby UI byly použity prvky používané  barvy používané v rámci 
-
-\section{Návrh mockup modelu}
-
-Po zadefinování použitelných komponet v navženém design systému \ref{} jež samotný návrh grafické podoby UI zjednodušen nezbytné minimum.
-
-
-
-\begin{figure}[H]
-    \minipage{0.4\textwidth}
-      \includegraphics[width=\linewidth]{screen1.png}
-      \caption{Domovská obrazovka}\label{fig:screen1}
-    \endminipage\hfill
-    \minipage{0.4\textwidth}
-      \includegraphics[width=\linewidth]{screen2.png}
-      \caption{Obrazovka akcí}\label{fig:screen2}
-    \endminipage\hfill
-\end{figure}
-
-\begin{figure}[H]
-    \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen3.png}
-    \caption{Screen 3}\label{fig:screen3}
-  \endminipage\hfill
-  \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen4.png}
-    \caption{Screen 4}\label{fig:screen4}
-  \endminipage\hfill
-\end{figure}
-
-
-Výsledek základní ukázky takto navrženého systému je na obrázku \ref{fig:design_system}
-
-Byl vytvořen obecný design systém pro tvorbu UI, který urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace zajistí intuitivní
-ovládání aplikace a zaručí konzitentní vzhled napříč aplikací a případně i dalšími aplikacemi města. Zároveň poslouží k tvorbě ostatních 
+V tomto případě bylo navrženo pár základních UI prvků, které budou použity v rámci této aplikace a mouhou být použity i případně dalšími 
 aplikací města.
+
+Výsledek základní ukázky takto navrženého systému je k vidění na obrázku \ref{fig:design_system}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.99\textwidth]{design_system.jpg}
   \caption{Vytvořený design systém}
   \label{fig:design_system}
+\end{figure}
+
+\section{Návrh mockup modelu} \label{navrhMockupModelu}
+Po zadefinování použitelných komponet v navženém design systému \ref{designSystemSection} jež samotný návrh grafické podoby UI zjednodušen 
+na nezbytné minimum. 
+
+Vytvořené mockup modely jsou defacto výsledkem sloučení dratových modelů s navrženým design systémem.
+
+\begin{figure}[H]
+  \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{screen1.png}
+    \caption{Domovská obrazovka}
+  \endminipage\hfill
+  \minipage{0.4\textwidth}
+    \includegraphics[width=\linewidth]{screen2.png}
+    \caption{Obrazovka \textit{Události}}
+  \endminipage\hfill
+\end{figure}
+
+\begin{figure}[H]
+  \minipage{0.4\textwidth}
+  \includegraphics[width=\linewidth]{screen3.png}
+  \caption{Obrazovka \textit{Parkování}}
+\endminipage\hfill
+\minipage{0.4\textwidth}
+  \includegraphics[width=\linewidth]{screen4.png}
+  \caption{Obrazovka \textit{Více}}
+\endminipage\hfill
 \end{figure}
 
 \chapter{Implementace}
@@ -1264,19 +1314,19 @@ V budoucu by však měla být dostupná, ale do té doby je potřeba vybrat z al
 %\section{Navigace a lokalizace v implementaci}
 \subsection{Implementace design systému}
 
-Při implementace design systému pomocí Compose Multiplatfom byla snaha co nejpřesněji napodobit navržený design sytém z kapitoli \ref{}
+Při implementace design systému pomocí Compose Multiplatfom byla snaha co nejpřesněji napodobit navržený design sytém z kapitoly \ref{designSystemSection}
 tak aby uživateli navodil maximalní pocitu jednoty s dosavadními informačními systémy města.
 
 
-
+Compose multiplatform je přípraven na implementaci design systému. 
 
 loading
 
 
 \subsubsection{Barvy}
-Barvy byly zvoleny na základě vizuálního stylu města, které Příbram využívá při všech prezentačních příležitostech.
+Barvy byly zvoleny na základě vizuálního stylu města, které město Příbram využívá při všech prezentačních příležitostech.
 
-a následně byly zadefinovánovány:
+Pro použití výbraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
 
 \begin{lstlisting}[caption={Zadefinování barev}, label={lst:ComposeCode}, language=Kotlin]
   val md_theme_light_primary = Color(0xFFBC004C)
@@ -1292,7 +1342,7 @@ a následně byly zadefinovánovány:
   ...
 \end{lstlisting}
 
-Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů atd.
+Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů, ploch atd.
 
 Mimojiné jsou taktéž použity pro definování barevných motivů, které se definují následujícím způsobem:
 
@@ -1314,7 +1364,7 @@ Mimojiné jsou taktéž použity pro definování barevných motivů, které se 
   )
 \end{lstlisting}
 
-Díky takto zadefinovaným barvám je následně možné obarvit jednotlivé komponenty aplikac podle zvoleného režimu.
+Díky takto zadefinovaným motivům je následně možné obarvit veškeré komponenty aplikace podle aktuálně použivaného režimu.
 
 \begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
   @Composable
@@ -1348,14 +1398,31 @@ uvádět.
   )
 \end{lstlisting}
 
-DESIGN SYSTEM IMG?
-
-\section{Technologie - jen multiplatformní? }
+\section{Použité technologie}
 Následující podkapitola je věnována konkrétním technologiím, které byli pro tvorku komponent z předchozí kapitoli použity.
 
 \subsection{Kotlin}
 \subsection{Coroutines}
 \subsection{Ktor}
+Ktor je open-source framework vytvořený společností JetBrains pro tvorbu aplikací jak na serverové tak i klientské části pomocí programovacího 
+jazyka Kotlin.
+
+Ktor byl vyžit především kvůli tomu, že obsahuje multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat HTTP požadavky a 
+zpracovávat odpovědi. 
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
+  private val client = HttpClient {
+    install(HttpTimeout) {
+        requestTimeoutMillis = 40000
+    }
+}
+
+suspend fun getEventsXml(): EventsXmlDto {
+    val response: String = client.get("https://kalendar.pribram.eu/...").body()
+    return format.decodeFromString<EventsXmlDto>(response.cleanUpEventXml())
+}
+\end{lstlisting}
+
 \subsection{Voyager}
 Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
  aplikacích. \cite{voyager} Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
@@ -1512,15 +1579,16 @@ TODO uvest coil
 
 \section{Tvorba UI obrazovek}
 
-Obsahem následujících podkapitol bude souh použitých UI komponent
+Obsahem následujících podkapitol bude ukázka UI komponent, které byly použity k implementaci navrženého UI.
+
 \subsection{Domovská obrazovka}
 Uživatelké rozhraní domovské obrazovky je kompletně implemetováno pomocí Compose Multiplatform a nebylo při jeho implemementaci potřeba
 přistoupit k nativímu řešení ani na platformě iOS nebo desktop. 
 
 K tvorbě UI domovské obrazovky bylo přistupováno nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak aby 
-jednotlivé komponenty odpovídali prvkům vytvořeného design systému. 
+jednotlivé komponenty odpovídali navržené podobě UI z kapitoly \ref{navrhMockupModelu}
 
-LAZY ROW LAZY COLLUMN , OBRZKY POCI COIL, STLOVANI POCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
+LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
 
 Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
 nebo událostí.
@@ -1546,20 +1614,24 @@ nebo událostí.
   }
 \end{lstlisting}
 
-\subsection{Event obrazovka}
+\subsection{Obrazovka \textit{Události}}
 
-V rámci obrazovky "Události" je použí vána stejená koomponanta, pro zobrazené údálostí "EventLazyRow". 
+V rámci obrazovky "Události" je používána stejná komponanta pro zobrazování událostí jako byla použita na domovská obrazovce. 
+
+pro zobrazené údálostí "EventLazyRow". 
 
 LAZY ROW , DATE PICKER, SPECIAL CHIPS
 
 
-\subsection{Parkování obrazovka}
-Jak jž bylo zmíněno v kapitole \ref{} tak implementace matových podkladů byla implementována pomocí 
+\subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
+K implementaci mapových podkladů bylo zapotřebí použít nativího řešení. 
+
 
 Bylo využito UI komponenty \code{GoogleMap} z \code{com.google.maps.android.compose}, která umpožňuje vložení mapových podkladů 
 na platdformě Android.
 
-Dále byla tato obrazovka rozšířena o vyhladvací bar, který uživateli dává možnost jednoduchého vyhledání parkovací zóny podle názvu.
+Dále byla tato obrazovka rozšířena o vyhladvací bar, který uživateli dává možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla 
+parkovací zóny.
 
 K tomu je použito fulltextové vyhledání ... popsané v kapitole \ref{fulltextSearch}. 
 
@@ -1585,6 +1657,8 @@ platformy se dokumentace od JetBrains rozříší.
 
 \subsection{Implementace mapových podkladů}
 
+Jak jž bylo zmíněno v kapitole \ref{parkingScreenImpl} tak implementace matových podkladů byla implementována pomocí 
+
 \begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
   GoogleMap(
     modifier = Modifier.fillMaxSize(),
@@ -1605,9 +1679,16 @@ platformy se dokumentace od JetBrains rozříší.
 
 
 \chapter{Testování}
+Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
+
 \section{Testování UI}
+Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
+
 UI testy se používají k ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
 interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+
+Mezi základní typy UI testl se řadí UI testy testující ktitické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
+správnost fungování navigace v dané aplikaci.
 
 
 \section{Testování výkonu}
@@ -1618,8 +1699,7 @@ estování aplikace na různých zařízeních s různými velikostmi obrazovek,
 správně na široké škále zařízení.
 
 
-Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
-Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
+
 
 \section{Možnosti testování UI v Compose Multiplatform}
 Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
@@ -1670,14 +1750,104 @@ kotlin {
 Testovací případ je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu s cílem ověřit, zda se chová podle očekávání a splňuje 
 požadavky. Každý testovací případ obvykle obsahuje následující prvky:
 
-Popis: Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
-Předpoklady: Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
-Kroky: Konkrétní kroky, které musí být provedeny k provedení testu.
-Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kroků.
-Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s očekávanými výsledky k určení úspěšnosti testu.
+\begin{itemize}
+  \item Popis: Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
+  \item Předpoklady: Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
+  \item Kroky: Konkrétní kroky, které musí být provedeny k provedení testu.
+  \item Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kroků.
+  \item Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s očekávanými výsledky k určení úspěšnosti testu.
+\end{itemize}
+
+Na základě této struktury bylu sepsány následující testovací případy:
+
+
+\myparagraph{Testovací případ 1: Zobrazení aktuálních novinek}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující aktuální novinky.
+      \item Ověření, že systém zobrazil seznam aktuálních novinek.
+      \item Kliknutí na konkrétní novinku.
+      \item Ověření, že systém zobrazil detaily vybrané novinky.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam aktuálních novinek je zobrazen.
+      \item Po kliknutí na konkrétní novinku jsou zobrazeny její detaily.
+    \end{itemize}
+\end{enumerate}
+
+\myparagraph{Testovací případ 2: Zobrazení aktuálních událostí}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující aktuální události.
+      \item Ověření, že systém zobrazil seznam aktuálních událostí.
+      \item Kliknutí na konkrétní událost.
+      \item Ověření, že systém zobrazil detaily vybrané události.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam aktuálních událostí je zobrazen.
+      \item Po kliknutí na konkrétní událost jsou zobrazeny její detaily.
+    \end{itemize}
+\end{enumerate}
+
+\myparagraph{Testovací případ 3: Filtrování zobrazených událostí podle data}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující události.
+      \item Ověření, že systém zobrazil seznam událostí.
+      \item Zvolení konkrétního data pro filtrování událostí.
+      \item Ověření, že systém zobrazil události pouze pro vybrané datum.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam událostí je filtrován podle zvoleného data.
+      \item Události jsou rozděleny do kategorií podle typu události.
+    \end{itemize}
+\end{enumerate}
 
 \section{Implementace testů}
 UI testy / end to end testy
+
+\begin{lstlisting}[caption={Implementace UI testu}, label={lst:testImplementation}, language=Kotlin]
+  class ExampleTest {
+
+  @OptIn(ExperimentalTestApi::class)
+  @Test
+  fun myTest() = runComposeUiTest {
+      // Declares a mock UI to demonstrate API calls
+      //
+      // Replace with your own declarations to test the code of your project
+      setContent {
+
+          var text by remember { mutableStateOf("Hello") }
+          Text(
+              text = text,
+              modifier = Modifier.testTag("text")
+          )
+          Button(
+              onClick = { text = "Compose" },
+              modifier = Modifier.testTag("button")
+          ) {
+              Text("Click me")
+          }
+      }
+
+      // Tests the declared UI with assertions and actions of the Compose Multiplatform testing API
+      onNodeWithTag("text").assertTextEquals("Hello")
+      onNodeWithTag("button").performClick()
+      onNodeWithTag("text").assertTextEquals("Compose")
+  }
+}
+\end{lstlisting}
+
+
 \section{Zhodnocení výsledků testování}
 
 \section{Zhodnocení použitelnosti}
@@ -1712,6 +1882,9 @@ Nedostatek knihoven
 \section{Shrnutí dosažených výsledků}
 \section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
+Z pohledu aplikace jsou zde velké možnosti pro budoudcí vývoj nizcméně 
+
+
 Časem se zajisté ukáží
 
 \bigskip
