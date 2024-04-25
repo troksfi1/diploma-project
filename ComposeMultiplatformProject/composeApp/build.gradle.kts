@@ -1,18 +1,23 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
 
-    kotlin("plugin.serialization").version("1.9.22")
+    kotlin("plugin.serialization").version("1.9.23")
     id("app.cash.sqldelight") version "2.0.1"
 }
 
 repositories {
     google()
     mavenCentral()
+    maven {
+        setUrl("https://jitpack.io")
+    }
 }
 
 kotlin {
@@ -22,12 +27,21 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation("androidx.compose.ui:ui-test-junit4-android:1.6.4")
+                debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
+            }
+        }
     }
-    
+
     jvm("desktop")
-    
+
     sourceSets {
-        val desktopMain by getting
+        val desktopMain by getting //todo asi jiz neni potreba
 
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -68,6 +82,9 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
+            implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.1")
+            implementation("com.github.haroldadmin.lucilla:core:0.2.0")
         }
 
         androidMain.dependencies {
@@ -97,6 +114,22 @@ kotlin {
             implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
         }*/
 
+        val desktopTest by getting
+
+        // Adds common test dependencies
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlin.test.junit)
+        }
+
+        // Adds the desktop test dependency
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
 
     }
 }
@@ -115,6 +148,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
