@@ -59,6 +59,18 @@ class EventsScreen : Screen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {
+                val eventStartDate = DateTimeUtil.toReadableFormat(state.selectedDateStart)
+                val eventEndDate = DateTimeUtil.toReadableFormat(state.selectedDateEnd)
+
+                Text(
+                    modifier = Modifier.padding(top = 15.dp),
+                    text =
+                    if (eventStartDate == eventEndDate)
+                        eventStartDate
+                    else
+                        "$eventStartDate - $eventEndDate"
+                )
+
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(10.dp),
                     horizontalArrangement = Arrangement.Center,
@@ -98,7 +110,7 @@ class EventsScreen : Screen {
 
                     // set the initial date
                     val dateRangePickerState =
-                        rememberDateRangePickerState()  //todo move state to state class
+                        rememberDateRangePickerState()  //todo move state to state class // maybe not
 
                     if (state.isDatePickerOpen) {
 
@@ -136,11 +148,6 @@ class EventsScreen : Screen {
                         }
                     }
                 }
-
-                Text(
-                    "Od: ${DateTimeUtil.toReadableFormat(state.selectedDateStart)} " +
-                            "do: ${DateTimeUtil.toReadableFormat(state.selectedDateEnd)}"
-                )
 
                 //todo category dropdown menu
 
