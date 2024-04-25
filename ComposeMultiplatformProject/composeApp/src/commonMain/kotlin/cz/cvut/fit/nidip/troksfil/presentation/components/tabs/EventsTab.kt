@@ -16,7 +16,7 @@ object EventsTab : Tab {
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Akce"
+            val title = "Události"
             val icon = rememberVectorPainter(Icons.Outlined.CalendarMonth)
 
             return remember {
