@@ -12,12 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.fit.nidip.troksfil.domain.ImageButtonType
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ImageButton(name: String, imagePath: String, imageSize: Int = 40, onClick: () -> Unit) {
+    val imageButtonType = ImageButtonType.DEFECTS.imageButtonName
 
     Column {
         //todo delete image if vector icon will be available
@@ -38,7 +41,7 @@ fun ImageButton(name: String, imagePath: String, imageSize: Int = 40, onClick: (
                         .size(imageSize.dp)
                         //.padding((imageSize*0.06).dp)
                         .align(Alignment.CenterHorizontally),
-                    painter = painterResource(imagePath),
+                    painter = painterResource(DrawableResource(imagePath)),
                     contentDescription = imagePath,
                 )
                 Text(
