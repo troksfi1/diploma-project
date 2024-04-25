@@ -2,6 +2,7 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.BottomNavigation
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -23,10 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -41,6 +39,7 @@ import cz.cvut.fit.nidip.troksfil.presentation.components.EventItem
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 import cz.cvut.fit.nidip.troksfil.presentation.components.NewsItem
 import cz.cvut.fit.nidip.troksfil.presentation.screens.core.EventDetailScreen
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -54,9 +53,6 @@ class HomeScreen : Screen {
         val state by screenModel.state.collectAsState()
         val scrollState = rememberScrollState()
         val navigator: Navigator = LocalNavigator.currentOrThrow
-
-        val scope = rememberCoroutineScope()
-        var text by remember { mutableStateOf("Loading") }
 
         val uriHandler = LocalUriHandler.current
 
@@ -73,8 +69,12 @@ class HomeScreen : Screen {
                 Surface(
                     modifier = Modifier.fillMaxWidth().size(200.dp)
                 ) {
+                    var imageName = ""
+                    imageName = if (isSystemInDarkTheme()) {
+                        "img_pribram_logo_without_backgroud_dark.png"
+                    } else "img_pribram_logo_without_backgroud_light.png"
                     Image(
-                        painter = painterResource("drawable/img_pribram_znak.jpg"), //img_pribram-logo-white.png
+                        painter = painterResource(DrawableResource("drawable/$imageName")), //img_pribram-logo-white.png
                         contentDescription = "pribramLogo",
                         //colorFilter =
                     )
@@ -85,6 +85,9 @@ class HomeScreen : Screen {
                     horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
+                    /*state.usedImageButtons.forEach {
+                        ImageButton(it.name)
+                    }*/
                     ImageButton(name = "Úřad", imagePath = "drawable/img_municipal_authority.png",
                         onClick = {
                             //todo replace by VM impl?
@@ -101,20 +104,38 @@ class HomeScreen : Screen {
                     ImageButton(name = "YouTube", imagePath = "drawable/img_youtube.png",
                         onClick = {
                             uriHandler.openUri("https://www.youtube.com/@mestopribram1671")
-                            //screenModel.onEvent(HomeEvent.OnButtonYouTubeClicked(LocalUriHandler.current))
                         }
                     )
                 }
 
                 Spacer(modifier = Modifier.size(10.dp))
 
-                Text(
-                    "Populární události",
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .align(Alignment.Start),
-                    style = MaterialTheme.typography.titleLarge
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        "Populární události",
+                        modifier = Modifier
+                            .padding(10.dp),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Row(modifier = Modifier.align(Alignment.CenterVertically).padding(10.dp))
+                    {
+                        if (state.isFetchingNews) {
+                            Text(
+                                "Aktualizuji události",
+                                modifier = Modifier
+                                    .padding(5.dp),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                }
 
                 //todo refactor
                 val events = state.events.collectAsState()
@@ -128,13 +149,31 @@ class HomeScreen : Screen {
                     }
                 }
 
-                Text(
-                    "Aktuality",
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .align(Alignment.Start),
-                    style = MaterialTheme.typography.titleLarge
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        "Aktuality",
+                        modifier = Modifier
+                            .padding(10.dp),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Row(modifier = Modifier.align(Alignment.CenterVertically).padding(10.dp))
+                    {
+                        if (state.isFetchingNews) {
+                            Text(
+                                "Aktualizuji novinky",
+                                modifier = Modifier
+                                    .padding(5.dp),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
+                }
 
                 val news = state.news.collectAsState()
                 LazyColumn {

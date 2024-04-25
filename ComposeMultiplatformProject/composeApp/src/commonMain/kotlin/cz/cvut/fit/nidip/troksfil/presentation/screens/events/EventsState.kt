@@ -13,6 +13,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 data class EventsState(
+    //todo move to domain model?
     val timeFilteredEvents: List<Event> = emptyList(),
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
     val selectedDateStart: LocalDateTime = LocalDateTime(
@@ -25,7 +26,8 @@ data class EventsState(
     ),
     val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val isDatePickerOpen: Boolean = false,
-    val filteredEventsCategories: List<EventCategory> = emptyList()
+    val filteredEventsCategories: List<EventCategory> = emptyList(),
+    val isFetchingEvents: Boolean = false,
     /*val dateRangePickerState: DateRangePickerState = DateRangePickerState(
         initialSelectedStartDateMillis = null,
         initialDisplayedMonthMillis = null,
