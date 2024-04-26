@@ -495,32 +495,40 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 
 \subsection{Porovnání výkonu}
 
-Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří jednoznačně výkon
-nativních aplikací. Z toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů s
+Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří především výkon
+nativních aplikací. Z toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů multiplatformních aplikací s
 nativními verzemi aplikací. 
 
-
-\subsection*{Ukázková aplikace}
-
-Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace, která obsahovala jednu obrazovku, 
-načetla obrázky z veřejného API a zobrazila je v horizontálním seznamu. 
-Na každý obrázek šlo kliknout a zobrazit jej přiblížený pod seznamem. 
 Pro testování byly použity toolkity pro tvorbu nativního UI pro platformu Android (Jetpack Compose) a iOS (SwiftUI)
-v porovnání s multiplatformními technologiemi Compose Multiplatform a Flutter.
+v porovnání s multiplatformním frameworkem Compose Multiplatform a aktuálně nejpoužívanějším multiplatformním
+frameworkem zvaném Flutter. \cite{crossPlatformFrameworksStats} 
 
 Mezi hlavní testované parametry patřil čas nastartování testované aplikace a její velikost.
 
-\myparagraph{Velikost aplikace}
+\subsection*{Ukázková aplikace}
+Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace, která obsahovala jednu obrazovku, 
+načetla obrázky z veřejného API a zobrazila je v horizontálním seznamu. 
+Na každý obrázek šlo kliknout a zobrazit jej přiblížený pod seznamem. 
+
+Veškeré testy proběhli na zařízeních Pixel 4a a iPhone 12 Mini a byly opakovány celkem pětkrát.
+
+%Verze Compose Multiplatform 1.4
+
+% replikovat test
+
+
+\myparagraph{Velikost aplikace} 
 
 Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform je identická
 s velikostí nativní aplikace pro Android. Je tomu tak z toho důvodu, že výsledná aplikace pro Android neobsahuje kód 
-pro jiné platformy. Kdežto u velikosti iOS aplikace je situace výrazně jiná. Samotná aplikace pro iOS je v porovnání
+pro jiné platformy. \cite{} Kdežto u velikosti iOS aplikace je situace výrazně jiná. Samotná aplikace pro iOS je v porovnání
 s její nativní aplikací o 23,1 MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
-která je na platformě Android dostupná, kdežto na platformě iOS ne a proto tam musí být spolu s aplikací dodána.
+která je na platformě Android dostupná, kdežto na platformě iOS ne a proto tam musí být spolu s aplikací dodána. \cite{}
 
-Zajímavé je následně porovnání s velikostí aplikace založené na frameworku Flutter, jelikož ta, stejně jako Compose
+Zajímavé je následné porovnání s velikostí aplikace založené na frameworku Flutter, jelikož ta, stejně jako Compose
 Multiplatform využívá knihovnu Skia, ale i přesto je o něco menší než Compose Multiplatform aplikace na platformě iOS.
-Flutter Engine je součástí aplikace spolu s kódem Dart a zvětšuje velikost (asi 3–4 MB pro Android a 10 MB pro iOS).t
+Součástí aplikace Flutter ještě vlastní engine, který je součástí aplikace a zvětšuje tak velikost aplikace asi o 3–4 MB pro Android a 10 MB 
+pro iOS. \cite{flutterSize}
 
 \begin{figure}[H]
   \centering
@@ -538,18 +546,20 @@ Toto zpomalení je s nejvyšší pravděpodobností způsobeno dobou spuštění
 Flutter dokumentací. \cite{flutterPerformance}
 
 U posledního porovnání na platformě iOS se doba spuštění aplikací založených na Compose Multiplatform a frameworku 
-Flutter o tolik nelišila od nativní aplikace, což ukaje slibné použití těchto multiplatformních technologií v budoucnu.
+Flutter o tolik nelišila od nativní aplikace.
 % // TODO posledni cast porovnani
+
+% // TODO posledni tabulka pro porovnani https://github.com/jacobras/flutter-vs-native-vs-kmp
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.7\textwidth]{chart_startup_times.png}
-  \caption{App startup time on a Pixel 4a and iPhone 12 Mini in milliseconds}
+  \caption{Časy nastartování jednotlivých aplikací}
   \label{fig:chart_startup_times}
 \end{figure}
 
 \subsection{Náročnost implementace}
-I přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik málo důvodů, které mohou k porovnání 
+I přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik aspektů, které mohou k porovnání 
 náročnosti implementace Compose Multiplatform s ostatními frameworky posloužit. 
 
 
@@ -572,20 +582,23 @@ V tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je d
 V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost Compose Multiplatform frameworku a následně
 bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní kapitoly \textit{Cíle práce \ref{goals}}.
 
-Po vybrání typu aplikace následuje podkapitola věnující návrh vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
+Po vybrání typu aplikace následuje podkapitola věnující návrhu vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
 uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
+Zároveň vhodné skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou úsilí, 
+je pro správný návrh UI klíčové. 
+což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
+
 
 Další fáze návrhu je věnována vytyčení funkčních požadavků ...
 
 Dále je v rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. 
 
 Podkapitola \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
-rozebrání jednotlivých vrstev. 
+rozebrání jednotlivých vrstev vybrané architektury.
 
-jednak grafické podoby aplikace, tak 
+V poslední části návrhu je přistoupeno k samotné návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných wireframe modelů,
+následně návrhu design systému a nakonec k návrhu konečné podoby UI včetně grafických prvků.
 
-skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou  usílí.
-což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
 
 
 \section{Výběr aplikace pro implementaci}
@@ -1813,7 +1826,9 @@ Na základě této struktury bylu sepsány následující testovací případy:
 \end{enumerate}
 
 \section{Implementace testů}
-UI testy / end to end testy
+
+
+\myparagraph{Testy jednotlivých UI komponent}
 
 \begin{lstlisting}[caption={Implementace UI testu}, label={lst:testImplementation}, language=Kotlin]
   class ExampleTest {
@@ -1847,6 +1862,8 @@ UI testy / end to end testy
 }
 \end{lstlisting}
 
+\myparagraph{End-to-end testy}
+
 
 \section{Zhodnocení výsledků testování}
 
@@ -1878,6 +1895,10 @@ Preview
 Nedostatek knihoven
 Špatná nebo téměř žádna dokumentace k knihovnám třetích stran a v případě co se týče Compose Multiplatfrom
 \section{Závěr o použitelnosti frameworku}
+
+% kapitola main pains
+% https://blog.jetbrains.com/kotlin/2021/01/results-of-the-first-kotlin-multiplatform-survey/
+
 
 \section{Shrnutí dosažených výsledků}
 \section{Zhodnocení splnění cílů práce}
