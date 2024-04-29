@@ -341,21 +341,19 @@ Frontendová i backendová část aplikace jsou psány v jazyce Kotlin pro bezpr
 \myparagraph{Podpora od JetBrains}
 Poskytuje stabilní podporu od vývojářského týmu JetBrains.
 
-\subsection*{Architektura frameworku Compose Multiplatform}
+\subsection*{Architektura frameworku Compose Multiplatform} \label{ComposeArch}
 Jelikož je framework Compose Multiplatform z velké části založen na frameworku Jetpack Compose, tak v této kapitole bude probírána
 právě architektura toho frameworku, která bude doplněna o drobné rozdíly mezi těmito dvěma frameworky.
 
 V porovnání s ostatními dříve zmíněnými frameworky slouží tento framework pouze k tvorbě multiplatformního UI a z toto důvodu je převážně 
 používán s toolkitem Kotlin Multiplatform, který dané aplikaci poskytuje i multiplatformní aplikační logiku. Jelikož se jedná o základní 
-komponentu bez které by Compose Multiplatform nevznikl, tak je tomuto toolkitu věnována celá kapitola. \ref{kmpSection}
+komponentu bez které by Compose Multiplatform nevznikl, tak je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
 
-Pro lepší ukázku toho z jakých částí se typická multiplatformní mobilní aplikace skládá slouží následující obrázek \ref{fig:composeIOS}, který
-vizualizuje vzájemnou propojenost frameworku Compsose Multiplatfom s toolkitem Kotlin Multiplatfom (KMP). Dále vizualizuje 
-použití platformě specifických knihoven pro tvorbu UI (SwiftUI)
-
-Compose lze nicméně použít i s dříve používanými technologiemi pro tvorbu UI jako je UI kit v případě platformy iOS nebo
-Android views v případě platformy iOS. 
-
+Pro lepší ukázku toho, z jakých částí se typická multiplatformní mobilní aplikace skládá slouží následující obrázek \ref{fig:composeIOS}, který
+vizualizuje propojenost frameworku Compsose Multiplatfom s toolkitem Kotlin Multiplatfom (KMP). Dále vizualizuje 
+vztah platformě specifických knihoven pro tvorbu UI jako SwiftUI k frameworku Compose Multiplatform.
+Compose Multiplatform lze nicméně použít i s technologiemi pro tvorbu UI jako je UI kit pro platformu iOS nebo
+Android views  pro platformu Android, od kterých je postupně upouštěno a přechází se k deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
 
 \begin{figure}[H]
   \centering
@@ -364,14 +362,11 @@ Android views v případě platformy iOS.
   \label{fig:composeIOS}
 \end{figure}
 
-Jak již bylo zmíněno tak 
+TODO % doplnit neco o KMP a APIs
 
-
-
-Co se týče samotného UI kódu, tak ten se skládá z jednotlivým funkcí označených anotací \code{@Composable}, která k těle obsahuje další
-\textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro výpis
-textu na obrazovku. 
-
+Co se týče samotného UI kódu, tak ten se skládá z jednotlivým funkcí označených anotací \code{@Composable}, která v těle obsahuje další
+\textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro zobrazení
+textu na obrazovce. 
 
 \begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ComposeCode}, language=Kotlin]
 @Composable
@@ -383,18 +378,28 @@ fun MyComposable() {
 }
 \end{lstlisting}
 
-Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku zařízení v těchto třech následujících fázích:
+Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku k čemuž dochází v těchto třech následujících fázích:
 
 \myparagraph{Composition}
-Během této fáze Jetpack Compose vytvoří stromovou strukturu reprezentující UI komponenty, které mají být vykresleny.\cite{jetpackPhases}
+Během této fáze Jetpack Compose vytvoří stromovou strukturu reprezentující UI komponenty, které mají být vykresleny.\cite{jetpackPhases} 
+Tato stromová struktura je tvořena na základě do sebe zanořených Composable funkcí, které představují jednotlivé prvku uživatelského rozhraní.
+Lepé tutu skutečnost reprezentuje obrázek \ref{fig:semantics-ui-tree}, na kterém je vidět, že nejspodnější vrstvu UI, reprezentuje kořenový uzel
+sémantického stromu a následující vnořené prvky jsou jeho potomky.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{semantics-ui-tree.png}
+  \caption{UI struktura a její sémantický strom}
+  \label{fig:semantics-ui-tree}
+\end{figure}
 
 \myparagraph{Layout}
-Během této fáze se jednotlivým komponentám určí na jaké pozice se dané komponenty vykreslí a jakou budou mít šířku a výšku.
-Compose během této fáze prochází UI strom komponent tak, že nejprve měří své potomky pokud existují. Následně se na základě těchto
-měření rozhodně o vlastní velikosti a nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
+Během této fáze se jednotlivým komponentám určí na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
+Compose během této fáze prochází strom UI komponent tak, že nejprve změří velikost svých potomků (pokud existují) a následně se 
+na základě těchto měření rozhodně o vlastní velikosti. Nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
 
 Díky použití tohoto algoritmu je k prostupu celého stromu zapotřebí navštívit každý uzel pouze jednou, což je výhodné jelikož
-s přibývajícími uzly roste pouze lineárně. \cite{jetpackPhases}
+s přibývajícími uzly roste čas potřebný k průchodu celého stromu pouze lineárně. \cite{jetpackPhases}
 
 \myparagraph{Drawing}
 V rámci poslední fáze dochází s samotnému vykreslení komponent na obrazovku koncového zařízení. \cite{jetpackPhases}
@@ -424,7 +429,7 @@ jakými může být KMP na daných platformách implementován.
   \label{fig:KMP_vrstvy}
 \end{figure}
 
-Zároveň je tento obrázek možnou ukázkou toho, jak může probíhat migrace z již naimplementované nativní aplikace na aplikaci
+Zároveň je tento obrázek ukázkou toho, jak může probíhat migrace z již naimplementované nativní aplikace na aplikaci
 multiplatformní. Nejprve je tedy možné implementovat jen malou část aplikační logiky pro víro platforem a postupem času přesouvat
 do multiplatformní části aplikace například celé vrstvy starající se o prezentační, datovou nebo jinou aplikační logiku. \cite{KMPUseCases}
 
@@ -438,14 +443,6 @@ jich bylo pouze několik málo desítek. \cite{KMPstable}
 %Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
 Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají jeví jako zatím jedna z nejslabších stránek KMP (viz kapitola \ref{kmpInPractise}).
 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{kotlin-multiplatform-hierarchical-structure.png}
-  \caption{Hierarchická struktura KMP}
-  \label{fig:KMP_struktura}
-\end{figure}
-
 V případě, že žádná vhodná knihovna není k dispozici, tak je zde stále možnost čehož je možné docílit díky funkcionalitě jazyka Kotlina
 zvané Expected a actual deklarace.
 
@@ -458,6 +455,17 @@ a musí být označena klíčovým slovem \code{actual}. \cite{KMPExpectActual}
 
 Během kompilace pak Kotlin kompilátor každou deklaraci s klíčovým slovem \code{expect} sjednotí s příslušnou actual deklarací pro danou platformu
 a vygeneruje z ní jednu deklaraci obsahující actual implementaci. \cite{KMPExpectActual}
+
+\subsubsection*{Struktura KMP projektů}\label{projectStructure}
+TODO
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{kotlin-multiplatform-hierarchical-structure.png}
+  \caption{Hierarchická struktura KMP}
+  \label{fig:KMP_struktura}
+\end{figure}
 
 \subsubsection*{Aktuální použití KMP v praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
@@ -568,7 +576,7 @@ Flutter o tolik nelišila od nativní aplikace.
 I přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik aspektů, které mohou k porovnání 
 náročnosti implementace Compose Multiplatform s ostatními frameworky posloužit. 
 
-
+TODO
 
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multiplatform
@@ -608,25 +616,24 @@ následně návrhu design systému a nakonec k návrhu konečné podoby UI včet
 
 
 \section{Výběr aplikace pro implementaci}
-Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, 
-které by bylo možné použít napříč různými platformami.
-Mezi další požadavky patřilo zaměření se na kritické problémy související s multiplatformním vývojem. 
-například využití funkcí, které jsou silně spjaty s hardwarem koncových zařízení jako třeba použití jednotné navigace
+Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
+na různých platformách.
+%které by bylo možné použít napříč různými platformami.
+Mezi další požadavky patřilo zaměření se na kritické problémy, které aktuálně multiplatformní vývojem provází. 
+Mezi takové problémy patří například využití funkcí, které jsou silně spjaty s hardwarem koncových zařízení jako je použití jednotné navigace, fotoaparátu 
+nebo služeb lokalizace.
 
-fotoaparátu, služeb lokalizace, 
+Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky, které plynou ze zadání.
 
-Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční
-požadavky které plynou ze zadání.
+Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo by jim například umožňovala vyhledat a zaplatit parkovné.
+TODO rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsahovat
 
-Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo jim umožňovala
-zaplatit parkovné.
-
-Z toho popisu jsou tefy bybrany nasledujici pripady uziti.
+Na základě toho popisu byli vybrány následující případy užití.
 
 \section{Případy užití}
 Případy užití (use cases) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
-vlastnosti k dosažení svých cílů. Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy a poskytuje 
-uživateli požadovaný výstup.
+vlastnosti aplikace k dosažení svých cílů. \cite{} Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy od 
+uživatele. Zároveň popisují jakou zpětnou vazbu uživatel na základě provedených vstupů od systému dostává.
 
 Každý případ užití obvykle obsahuje následující prvky:
 
@@ -746,17 +753,19 @@ TODO jaci uzivatel budou aplikaci použivat
 
 
 
-Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrh funkcionality aplikace tak, aby co nejlépe odpovídala těmto potřebám. 
-Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože umožňují ověřit, zda systém správně reaguje na očekávané 
+Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrhu funkcionalit aplikace tak, aby co nejlépe odpovídaly těmto potřebám. 
+Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože je na jejich základě možné ověřit, zda systém správně reaguje na očekávané 
 uživatelské interakce. 
 
-Na jejichž základě je proto založeno koncové testování celé aplikace  čehož je využito pro tvorbě testů v kapitole \ref{testovani}
+Na jejichž základě je proto založeno koncové testování celé aplikace čehož je využito k tvorbě UI testů v kapitole \textit{Testování \ref{testsSection}}.
 
-Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.NEBO OBRACENE??
+Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.
 
 \section{Funkční požadavky}
 Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
 užitečná, efektivní a snadno použitelná.
+
+TODO
 
 \myparagraph{Zobrazení novinek}
 Možnost přidávat, editovat a mazat novinky a oznámení.
@@ -790,7 +799,32 @@ Zobrazení obsahu a textů v různých jazycích.
 Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
 Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
 
-Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.  
+
+\myparagraph{Pokrytí případů užití} 
+Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.
+
+\begin{table}[b]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+  \hline
+  %\multicolumn{9}{|c|}{Functional Requirements} \\ \hline
+   & F1 & F2 & F3 & F4 & F5 & F6 & F7 & F8  \\ \hline
+  UC1  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC2  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC3  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC4  &        & $\ast$ &        &        &        &        &        &         \\ \hline
+  UC5  &        &        &        & $\ast$ &        &        &        &         \\ \hline
+  UC6  &        &        & $\ast$ &        &        &        &        &         \\ \hline
+  UC7  &        &        &        &        & $\ast$ & $\ast$ & $\ast$ & $\ast$  \\ \hline
+  UC8  &        &        &        &        &        & $\ast$ & $\ast$ & $\ast$  \\ \hline
+  UC9  &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  UC10 &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  UC11 &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  \end{tabular}
+  \caption{Pokrytípřípadů užití funkčními požadavky aplikace}
+  \label{table:tabulkaPokryti}
+\end{table}
+  
 
 \section{Návrh architektury}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
@@ -822,7 +856,7 @@ zdroj dat, který obsahuje aktuální a spolehlivé informace. Tento zdroj dat j
 ze kterého mohou ostatní části aplikace čerpat informace. Tím se zajišťuje konzistence dat napříč aplikací a minimalizuje se riziko 
 konfliktů nebo chyb v datech.
 
-Díky SSOT jsou data v aplikaci konzistentní a snadněji spravovatelná, protože všechny komponenty a moduly aplikace pracují se stejnými 
+Díky použití principu SSOT jsou data v aplikaci konzistentní a snadněji spravovatelná, protože všechny komponenty a moduly aplikace pracují se stejnými 
 daty. To usnadňuje údržbu a vývoj aplikace, protože úpravy a aktualizace dat lze provádět centrálně. Z hlediska kódu přispívá tento
 princip k jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hledat relevantní data pro různé části aplikace.
 
@@ -830,76 +864,63 @@ Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace
 
 
 \subsection{Vrstvy architektury} \label{vrstvyArchitekturySection} 
+TODO % takzvaná architektura MVVM?  ..., která uplatňuje výše zmíněné principy.
+Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací.
 
-Na základě těchto principů se ..., která uplatňuje výše zmíněné principy.
-rozděluje architekturu do následujících třech vrstev:
+Ta se rozděluje do následujících třech vrstev:
 
-\subsubsection*{UI vrstva}
-UI vrstva se stará o zobrazení dat, která odpovídají aktuálnímu stavu a zároveň se 
+\subsubsection*{UI vrstva} \label{UILayerNavrh}
+UI vrstva se stará o zobrazení dat na obrazovce, která odpovídají aktuálnímu stavu aplikace. Zároveň se stará se logiku, která
+se při změně těchto dat stará o opětovné překreslení UI, tak aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
+dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch_ui_udf} a následně detailněji popsány pod ním.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{arch-ui-udf.png}
-  \caption{Architektura UI vrstvy - UDF diagram}
+  \caption{Architektura UI vrstvy}
   \label{fig:arch_ui_udf}
 \end{figure}
 
 \myparagraph{ViewModel}
-Stará se logiku
-
-
 Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce, a to i při změnách konfigurace zařízení 
 (například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s daty, jako je načítání dat ze zdroje, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
-rozhraní.
+rozhraní. % (UI elementů) nebo stavu 
 
 \myparagraph{UI state} \label{UIStateParagraph}
-UI state (stav uživatelského rozhraní) je koncept v softwarovém inženýrství, který popisuje aktuální stav a chování uživatelského 
+UI state (stav uživatelského rozhraní) je částí UI vrstvy, který popisuje aktuální stav a chování uživatelského 
 rozhraní v daném okamžiku. Tento stav může zahrnovat různé informace, jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
  aktuální zobrazené obrazovky nebo panely, stav animací a další.
 
 UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v UI stavu mohou být způsobeny uživatelskými
-interakcemi, například kliknutím na tlačítko, zadáním textu do pole nebo rolováním seznamu, nebo mohou být vyvolány událostmi v aplikaci,
-jako je získání dat ze serveru nebo změny v interním stavu aplikace.
+interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, rolováním seznamu nebo mohou být vyvolány událostmi v aplikaci,
+jako je získání dat ze serveru nebo jakoukoliv změnou interního stavu aplikace. 
+
+V rámci frameworků, které k tvorbě UI používají deklarativní způsob zápisu, se často k definice stavu a jeho vlivu na UI používá funkce 
+na obrázku \ref{fig:UI_function}, která zjednodušeně popisuje to, že na základě stavu je tvořeno výsledné uživatelské rozhraní.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{ui-equals-function-of-state.png}
+  \caption{Reprezentace vztahu UI a stavu aplikace}
+  \label{fig:UI_function}
+\end{figure}
 
 Správa UI stavu je důležitou součástí vývoje aplikací s uživatelským rozhraním a může být implementována pomocí různých technik a nástrojů.
 Důležité je udržovat UI stav v souladu s interním stavem aplikace a zajistit jeho konzistenci a správnou aktualizaci v reakci na uživatelské 
 interakce a události v aplikaci.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.4\textwidth]{ui-equals-function-of-state.png}
-  \caption{Reprezentace vztahu UI a stavu aplikace}
-  \label{fig:arch_diagram}
-\end{figure}
-
 \myparagraph{UI Elements}
-Na základě poskytnuteho UI state zobrazují data reprezentující aktuální stav aplikace. Tento vztah je často d
-
-
 UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s aplikací.
-Tyto prvky zahrnují různé vizuální komponenty, jako jsou například tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd.
+Tyto prvky zahrnují různé vizuální komponenty, jako jsou tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd. díky nimž
+se zobrazují data reprezentující aktuální stav aplikace nebo je pomocí nich tento stav měněn.
 
-UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob, jak manipulovat s aplikací a komunikovat s ní. Každý prvek má své 
-vlastnosti, jako jsou velikost, barva, text, stav atd., Které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
-podle určeného rozvržení (layoutu), které určuje jejich pozici a vzájemné uspořádání.
+UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob, jak s aplikací komunikovat a manipulovat. Každý prvek má své 
+vlastnosti, jako jsou velikost, barva, text, stav atd., které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
+podle určeného rozvržení (layout), které určuje jejich pozici a vzájemné uspořádání.
 
 UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají klíčovou roli při vytváření uživatelsky přívětivé a atraktivní aplikace. 
 Jejich vhodné použití a umístění má vliv na celkový uživatelský zážitek a efektivnost aplikace.
-
-
-\bigskip
-
-Na následujícím výpisu kódu je vidět jakou strukturu bude mít následná implementace.
-
-\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ConsumeUIState}, language=Kotlin]
-  @Composable
-  fun LatestNewsScreen(
-      viewModel: NewsViewModel = viewModel()
-  ) {
-      // Show UI elements based on the viewModel.uiState
-  }
-\end{lstlisting}
 
 \subsection*{Doménová vrstva}
 Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. 
@@ -1286,35 +1307,6 @@ jetbrainsCompose = { id = "org.jetbrains.compose",
 
 \end{lstlisting}
 
-\section{Handling stavu}
-Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
-kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
-
-Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{} neboli ScreenModel v rámci
-implementované aplikace. 
-Pro zachování stavu jednotlivých obrazek byla použita datová třída, která v sobě umožnujě uchovávat veškeré možné stavy dané obrazovky.
-Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí, která v rámci aplikace potřebuje 
-uchovávat největsí množství informací (viz \ref{lst:EventState})
-
-\begin{lstlisting}[caption={Event State katalog}, label={lst:EventState}, language=Kotlin]
-data class EventsState(
-  val timeFilteredEvents: List<Event> = emptyList(),
-  val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
-  val selectedDateStart: LocalDateTime = LocalDateTime(
-      Clock.System.todayIn(TimeZone.currentSystemDefault()),  TODO replace by current impl
-      LocalTime(0, 0)
-  ),
-  val selectedDateEnd: LocalDateTime = LocalDateTime(
-      Clock.System.todayIn(TimeZone.currentSystemDefault()),
-      LocalTime(23, 59)
-  ),
-  val selectedFilterOption: FilterOption = FilterOption.TODAY,
-  val isDatePickerOpen: Boolean = false,
-  val filteredEventsCategories: List<EventCategory> = emptyList(),
-  val isFetchingEvents: Boolean = false,
-)
-\end{lstlisting}
-
 \section{Tvorba UI obecně}
 \subsection{Navigace}
 Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
@@ -1595,8 +1587,87 @@ TODO uvest coil
   )
 \end{lstlisting}
 
+\section{Implemtace UI vrstvy} \label{UILayerImpl}
+V rámci této kapitoly budou ukázáno jakým způsobem byla implementována UI vrstva navržená v kapitole \ref{UILayerNavrh}, j
+
+\subsection{Implementace ViewModelů} \label{ViewModelImpl}
+TODO % odkaz na UI Layer
+V rámci implementované aplikace byl pro každou obrzovku implementovám jeden ViewModel, který se stará o logiku každé obrazovky zvlášť.
+
+
+\subsection{Implementace stavu aplikace} \label{stateHandlingImpl}
+Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
+kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
+
+Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{} neboli ScreenModel v rámci
+implementované aplikace. 
+Pro zachování stavu jednotlivých obrazek byla použita datová třída, která v sobě umožnujě uchovávat veškeré možné stavy dané obrazovky.
+Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí, která v rámci aplikace potřebuje 
+uchovávat největsí množství informací (viz \ref{lst:EventState})
+
+\begin{lstlisting}[caption={Event State katalog}, label={lst:EventState}, language=Kotlin]
+data class EventsState(
+  val timeFilteredEvents: List<Event> = emptyList(),
+  val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
+  val selectedDateStart: LocalDateTime = LocalDateTime(
+      Clock.System.todayIn(TimeZone.currentSystemDefault()),  TODO replace by current impl
+      LocalTime(0, 0)
+  ),
+  val selectedDateEnd: LocalDateTime = LocalDateTime(
+      Clock.System.todayIn(TimeZone.currentSystemDefault()),
+      LocalTime(23, 59)
+  ),
+  val selectedFilterOption: FilterOption = FilterOption.TODAY,
+  val isDatePickerOpen: Boolean = false,
+  val filteredEventsCategories: List<EventCategory> = emptyList(),
+  val isFetchingEvents: Boolean = false,
+)
+\end{lstlisting}
+
+Takto zadefinované stavy mohou být v aplikaci použity například následujícím způsobem. Kde stav udržován 
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+  val screenModel = getScreenModel<HomeScreenModel>()
+  val state by screenModel.state.collectAsState()
+
+  val news = state.news.collectAsState()
+  LazyColumn {
+      items(news.value) { news ->
+          NewsItem(news = news, onItemClick = {
+              navigator.push(NewsDetailScreen(news))
+          })
+      }
+  }
+\end{lstlisting}
+
+\subsection{Implementace událostí aplikace} \label{eventHandlingImpl}
+
 
 \section{Tvorba UI obrazovek}
+TODO %obecne ukazat jak se UI v compose tvori ze je to daklarativne
+
+Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform používají 
+takzvané Composable funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
+
+Tyto Composable funkce tak mohou představovat jednotlivá tlačítka, texty vstupní pole, seznamy, ale také celé soubory těchto prvků jako jsou 
+například celé obrazovky.
+
+Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny a tím tvoří
+takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
+
+\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ConsumeUIState}, language=Kotlin]
+  @Composable
+  fun LatestNewsScreen(
+      viewModel: NewsViewModel = viewModel()
+  ) {
+      // Show UI elements based on the viewModel.uiState
+  }
+\end{lstlisting}
+
+%Zároveň 
+
+%Z těchto Composable funkcí se skládá celé UI
+
 
 Obsahem následujících podkapitol bude ukázka UI komponent, které byly použity k implementaci navrženého UI.
 
@@ -1604,7 +1675,7 @@ Obsahem následujících podkapitol bude ukázka UI komponent, které byly použ
 Uživatelké rozhraní domovské obrazovky je kompletně implemetováno pomocí Compose Multiplatform a nebylo při jeho implemementaci potřeba
 přistoupit k nativímu řešení ani na platformě iOS nebo desktop. 
 
-K tvorbě UI domovské obrazovky bylo přistupováno nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak aby 
+K tvorbě UI domovské obrazovky bylo nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak, aby 
 jednotlivé komponenty odpovídali navržené podobě UI z kapitoly \ref{navrhMockupModelu}
 
 LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
@@ -1697,7 +1768,11 @@ Jak jž bylo zmíněno v kapitole \ref{parkingScreenImpl} tak implementace matov
 \myparagraph{impementace map polygons}
 
 
-\chapter{Testování}
+
+
+
+
+\chapter{Testování} \label{testsSection}
 Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
 
 \section{Testování UI}
