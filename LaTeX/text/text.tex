@@ -457,15 +457,60 @@ Během kompilace pak Kotlin kompilátor každou deklaraci s klíčovým slovem \
 a vygeneruje z ní jednu deklaraci obsahující actual implementaci. \cite{KMPExpectActual}
 
 \subsubsection*{Struktura KMP projektů}\label{projectStructure}
-TODO
+Jak již bylo zmíněno v úvodu, tak jedním z hlavních cílů multiplatformního vývoje je mít 
+jeden kód, který by bylo možné zkompilovat tak, aby byl spustitelný je všech požadovaných platformách. To však u KMP není vždy 
+možné, a proto je nutné, zvlášť rozdělit kód, který je určen pro všechny platformy a kód, který je platformě specifický. 
 
+\myparagraph{Společný kód}
+Jedná se o kód sdílený mezi různými platformami a měl by být seskupen v adresáři \code{commonMain}.
+
+Kotlin kompilátor na základě zdrojových kódů umístěný v tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. 
+Při kompilaci tak může z téhož kódu vygenerovat několik souborů, jako například soubory pro \textit{Java Virtual Machine (JVM)}, 
+anebo spustitelné soubory pro nativní platformu. \cite{KMPCommonCode}
+
+Nicméně i pro jednotlivé platformy existují zařízení, která například využívají specifickou architekturu, a proto je třeba pro 
+tato zařízení zkompilovat tento kód jiným způsobem.
+
+K této kompilaci KMP používá technologii Kotlin/Native, díky které
+je možné sestavovat kód napsaný v jazyce Kotlin do nativních binárních souborů a ten díky tomu může běžet i bez JVM. \cite{kotlinNative}
+
+Pro ukázku toho, jaká zařízení jsou technologií Kotlin/Native podporovaná slouží následují obrázek \ref{fig:KMP_struktura}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{kotlin-multiplatform-hierarchical-structure.png}
+  \includegraphics[width=.7\textwidth]{full-template-hierarchy.png}
   \caption{Hierarchická struktura KMP}
   \label{fig:KMP_struktura}
 \end{figure}
+
+Při této vizualizaci veškerých podporovaných zařízeních se ale ukazuje, že rozřazení kódu do vhodných balíčků je pro orientaci v 
+multiplatformním projektu založeném na KMP klíčové. Implementace kódu pro každé jednotlivé zařízení by byla zbytečná, jelikož
+velké části kódu i těchto platformě specifických kódu mohou být součástí společného kódu. Nesdílení toho kódu s ostatními platformami
+by tak zapříčinilo duplikaci velké části kódu. 
+
+Aby se tomuto zabránilo je vhodné využít dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které slouží 
+pro jakési seskupení kódů specifických pro konkrétní zařízení nebo platformy. Pro lepší představu o tom jak jsou jednotlivé
+\textit{source sets} definovány slouží obrázek \ref{fig:dependson-tree-diagram},
+který vizualizuje celkem pět zadefinovaných \textit{source sets} a to konkrétně \code{commonMain}, \code{androidMain}, 
+\code{iosMain}, \code{iosSimulatorArm64} a \code{iosArm64}. V rámci těchto zdrojových sad mohou být následně implementovány
+platformě specifické knihovny čemuž se detailněji věnuje kapitola \textit{Gradle \ref{gradleChapter}} v implementační části práce.
+
+%pro které může být například použit specifický kód nebo 
+%Díky nim je možné sdílet společný kód pouze mezi některými podporovanými platformami. \cite{KMPHierarchi}
+%%. Pomocí nich je možné sestavovat 
+%projekt pro vícero zařízení zároveň.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.9\textwidth]{dependson-tree-diagram.png}
+  \caption{Strom závislostí}
+  \label{fig:dependson-tree-diagram}
+\end{figure}
+
+Ze struktury těchto zdrojových sad zároveň vyplývá koncová struktura projektu, která se ve většině případů obsahuje adresář pro sdílený kód (\code{commonMain}), 
+který smí obsahovat pouze kód a případné knihovny, které jsou multiplatformní a pokrývají tak veškeré platformy používané v projektu.
+
+A dále na adresáře pro vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
 
 \subsubsection*{Aktuální použití KMP v praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
@@ -803,7 +848,7 @@ Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
 \myparagraph{Pokrytí případů užití} 
 Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.
 
-\begin{table}[b]
+\begin{table}[H]
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
   \hline
@@ -922,32 +967,50 @@ podle určeného rozvržení (layout), které určuje jejich pozici a vzájemné
 UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají klíčovou roli při vytváření uživatelsky přívětivé a atraktivní aplikace. 
 Jejich vhodné použití a umístění má vliv na celkový uživatelský zážitek a efektivnost aplikace.
 
-\subsection*{Doménová vrstva}
-Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. 
+\myparagraph{UI Events}
+Nejčastějším typem UI událostí jsou takzvané uživatelské události, které jsou generovány interakcí uživatele s uživatelským rozhraním aplikace. 
+Patří k nim například kliknutí myší, dotyk na obrazovce, stisknutí klávesy nebo jakékoli jiné akce prováděné uživatelem, které vyvolávají reakci v 
+UI aplikace. Tyto události jsou zpracovány aplikací pomocí metod jako je například metoda \code{onClick()} a mohou spustit různé akce, které by zároveň
+měli způsobit změny UI stavu.
 
-V tomto projektu doménovová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelou vrstvu a mapovací funkce pro pro převod
-objeků datové vrstvy na objekty používané v prezentační vrstvě a naopak.
+O zpracování uživatelských událostí se většinou stará příslušný ViewModel, který nabízí veškeré funkce, které je pomocí uživatelského rozhraní možné volat.
+Nicméně některé typy uživatelských událostí může UI zpracovat přímo, takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
+informativní zprávy pomocí takzvaných \textit{Snackbars}.
+
+\subsection*{Doménová vrstva}
+Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. Často se tímto způsobem "odlehčují" ViewModely,
+které by jinak obsahovali příliš mnoho kódu, což by vedlo k nepřehlednosti.
+
+V tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelovou vrstvu a mapovací funkce pro pro převod
+objektů datové vrstvy na objekty používané v prezentační vrstvě a naopak.
 
 Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
  konceptů a procesů. To zjednodušuje testování, údržbu a rozšíření aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
  vlivu na doménovou logiku.
 
 \subsection*{Datová vrstva}
-Datová vrstva se stará o veškerá 
-The data layer that contains the business logic of your app and exposes application data.
+%Datová vrstva se stará o správu dat, která mohou být aplikaci poskytnuta například uživatelem nebo nějakou externí službou.
+%he data layer that contains the business logic of your app and exposes application data.
 
 
-Datová vrstva je klíčovou součástí softwarových systémů, která se zabývá persistencí dat a komunikací s datovými úložišti, jako jsou
- databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
- aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
+Datová vrstva se zabývá persistencí dat a komunikací s datovými úložišti, jako jsou
+databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
+aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
+K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+ získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v indormačních systémech nachází na ... ve formatu XML, 
+
+
+ byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města) tak jak se tomu v levé části obrázku \ref{fig:arch_data_layer}. 
+
+Pro perzistenci těchto dat byla vybrána SQL databáze, která se stará poskytnutí dříve načtených dat v případech, kdy aplikace nemá přístup k internetu.
 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{data_layer_diagram.png}
   \caption{Architektura datové vrstvy}
-  \label{fig:arch_data_layer}23
+  \label{fig:arch_data_layer}
 \end{figure}
 
 % \begin{figure}[H]
@@ -1232,7 +1295,7 @@ Sytost barev byla zvolena na základě důležitosti prováděně akce  ...
 Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multipaltformích aplikací založených na Compose Multiplatform 
 se používá nástroj zvaný Gradle.  
 
-\section{Gradle}
+\section{Gradle} \label{gradleChapter}
 Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je to nástroj pro automatizaci sestavení 
 podobný Antu nebo Mavenu, který byl vyvinut pro zjednodušení procesu sestavení a nasazení softwaru.
 
@@ -1251,21 +1314,56 @@ plugins {
   id("org.jetbrains.compose") version "1.6.0"
 }
 \end{lstlisting}
-Dále je zapotřebí vybrat platformy pro které má být aplikace určena a podle nich vytvořit příslušné balíčky viz kapitola \ref{}.
-Podle těchto balíčků se následně v příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
-pro každou platformu (balíček) implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
-sourceSets podle toho zdali se jedna o multiplatformní (commonMain) nebo nativní závislost (androidMain, iosMain, atd.).
 
-Pro ukázky jak taková multiplatformní závislost může vypadat slouží ukázka kódu \ref{lst:LibIntegration}, díky které je do projektu
-přidána knihovna umožnující implementaci multiplatformní navigace.
+Dále je zapotřebí vybrat platformy pro které má být aplikace určena a podle nich vytvořit příslušné balíčky viz kapitola \ref{projectStructure}.
+V připadě implemetované aplikace se jedná o platformy Android a iOS, které bylo nutné specifikovat v projektovém souboru 
+\code{build.gradle.kts} (viz řádky 2 - 30 na výpisu kódu \ref{lst:LibIntegration}).
+Podle těchto platforem lze následně v příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
+pro každou platformu implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
+sourceSets podle toho, zdali se jedna o multiplatformní (\code{commonMain}) nebo nativní závislost (\code{androidMain}, \code{iosMain}, atd.).
+
+Pro ukázku jak taková multiplatformní závislost může vypadat slouží řádky 32 - 37 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
+kterých je do projektu přidána knihovna umožnující implementaci multiplatformní navigace.
 
 \begin{lstlisting}[caption={Lib integration}, label={lst:LibIntegration}, language=Kotlin]
-sourceSets {
-  commonMain.dependencies {
-    implementation(libs.voyager.navigator)
-    ...
+  kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation("androidx.compose.ui:ui-test-junit4-android:1.6.4")
+                debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
+            }
+        }
+    }
+
+    jvm("desktop")
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+      commonMain.dependencies {
+        implementation(libs.voyager.navigator)
+        ...
+      }
+    }
   }
-}
 \end{lstlisting}
 
 Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
@@ -1405,7 +1503,7 @@ Díky takto zadefinovaným motivům je následně možné obarvit veškeré komp
 \end{lstlisting}
 
 \subsubsection{Typografie}
-je používána k definování stylu písma. Využívá k tomu styly definované Material designem. ten definuje celkem 15 stylů písma,
+je používána k definování stylu písma. Využívá k tomu styly definované Material designem. ten definuje celkem 15 druhů písma,
 kde každé z nich má definovaný způsob použití. \cite{material3} Jelikož se jedná o výchozí styly písma, tak lze k těmto stylům přistupovat přes
 Composable funkci \code{MaterialTheme} popsanou v kódu \ref{lst:colorsDef} aniž by se parametr \code{typography} musel explicitně
 uvádět.
@@ -1430,10 +1528,10 @@ Ktor byl vyžit především kvůli tomu, že obsahuje multiplatformního asynch
 zpracovávat odpovědi. 
 
 \begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
-  private val client = HttpClient {
-    install(HttpTimeout) {
-        requestTimeoutMillis = 40000
-    }
+private val client = HttpClient {
+  install(HttpTimeout) {
+      requestTimeoutMillis = 40000
+  }
 }
 
 suspend fun getEventsXml(): EventsXmlDto {
@@ -1566,9 +1664,9 @@ TODO
 \end{lstlisting}
 
 
-\subsection{Full text search impl tech} \label{fulltextSearch}
-TODO
- neco na fulltextové vyhledavani
+%\subsection{Full text search impl tech} \label{fulltextSearch}
+%TODO
+% neco na fulltextové vyhledavani
 
 
 \subsection{Coil}
@@ -1595,19 +1693,15 @@ TODO uvest coil
   )
 \end{lstlisting}
 
+
 \section{Implemtace UI vrstvy} \label{UILayerImpl}
 V rámci této kapitoly budou ukázáno jakým způsobem byla implementována UI vrstva navržená v kapitole \ref{UILayerNavrh}, j
-
-\subsection{Implementace ViewModelů} \label{ViewModelImpl}
-TODO % odkaz na UI Layer
-V rámci implementované aplikace byl pro každou obrzovku implementovám jeden ViewModel, který se stará o logiku každé obrazovky zvlášť. 
-
 
 \subsection{Implementace stavu aplikace} \label{stateHandlingImpl}
 Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
 kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
 
-Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{} neboli ScreenModel v rámci
+Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{ViewModelImpl} neboli ScreenModel v rámci
 implementované aplikace. 
 Pro zachování stavu jednotlivých obrazek byla použita datová třída, která v sobě umožnujě uchovávat veškeré možné stavy dané obrazovky.
 Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí, která v rámci aplikace potřebuje 
@@ -1615,20 +1709,11 @@ uchovávat největsí množství informací (viz \ref{lst:EventState})
 
 \begin{lstlisting}[caption={Event State katalog}, label={lst:EventState}, language=Kotlin]
 data class EventsState(
-  val timeFilteredEvents: List<Event> = emptyList(),
   val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
-  val selectedDateStart: LocalDateTime = LocalDateTime(
-      Clock.System.todayIn(TimeZone.currentSystemDefault()),  TODO replace by current impl
-      LocalTime(0, 0)
-  ),
-  val selectedDateEnd: LocalDateTime = LocalDateTime(
-      Clock.System.todayIn(TimeZone.currentSystemDefault()),
-      LocalTime(23, 59)
-  ),
   val selectedFilterOption: FilterOption = FilterOption.TODAY,
   val isDatePickerOpen: Boolean = false,
-  val filteredEventsCategories: List<EventCategory> = emptyList(),
   val isFetchingEvents: Boolean = false,
+  ...
 )
 \end{lstlisting}
 
@@ -1649,6 +1734,51 @@ Takto zadefinované stavy mohou být v aplikaci použity například následují
 \end{lstlisting}
 
 \subsection{Implementace událostí aplikace} \label{eventHandlingImpl}
+
+V rámci viewModel jsou 
+
+
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+sealed interface EventsEvent {
+  data object OnFilterTodayIsSelected : EventsEvent
+  data object OnFilterDateIsSelected : EventsEvent
+  ...
+}
+\end{lstlisting}
+
+
+\subsection{Implementace ViewModelů} \label{ViewModelImpl}
+TODO % odkaz na UI Layer
+V rámci implementované aplikace byl pro každou obrazovku implementovám jeden ViewModel, který se stará o logiku každé obrazovky zvlášť. Tato kapitola 
+bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak 
+
+
+V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přichazející z UI a na jejich základě měnit stav 
+aplikace. V tomto duchu jsou implementovany vševhny ViewModely. 
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+  fun onEvent(event: EventsEvent) {
+    when (event) {
+        EventsEvent.OnFilterTodayIsSelected -> {
+            screenModelScope.launch {
+                val today: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                ...
+
+                _state.update {
+                    it.copy(
+                        selectedFilterOption = FilterOption.TODAY,
+                        ...
+                    )
+                }
+            }
+        }
+    }
+  }
+\end{lstlisting}
+
+, která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
+
 
 
 \section{Tvorba UI obrazovek}
@@ -1686,8 +1816,12 @@ přistoupit k nativímu řešení ani na platformě iOS nebo desktop.
 K tvorbě UI domovské obrazovky bylo nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak, aby 
 jednotlivé komponenty odpovídali navržené podobě UI z kapitoly \ref{navrhMockupModelu}
 
-K implementaci posuvného řádku použitého v kapitole \textit{Tvorba drátových modelů \ref{}} byla použita komponenta zvaná LazyRow,
-díky které bylo možné zobrazit veškeré potřebné události kompaktně a 
+K implementaci posuvného řádku použitého v kapitole \textit{Tvorba drátových modelů \ref{}} byla použita komponenta zvaná LazyRow.
+
+
+I implementaci 
+
+
 
 LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
 
