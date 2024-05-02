@@ -17,6 +17,7 @@ repositories {
     mavenCentral()
     maven {
         setUrl("https://jitpack.io")
+        setUrl("https://jogamp.org/deployment/maven")
     }
 }
 
@@ -24,7 +25,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "11"
             }
         }
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -40,8 +41,19 @@ kotlin {
 
     jvm("desktop")
 
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = false
+        }
+    }
+
     sourceSets {
-        val desktopMain by getting //todo asi jiz neni potreba
+        val desktopMain by getting
 
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -49,7 +61,6 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.voyager.core)       //runtimeOnly not needed anymore?
             implementation(libs.voyager.screenModel)
@@ -58,6 +69,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.androidx.material.icons.extended)
             ///implementation (libs.maps.compose)
+            implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.ui.tooling.preview.v154)
 
             /*                implementation ("com.google.maps.android:maps-compose:4.3.2")
@@ -70,21 +82,22 @@ kotlin {
                             implementation ("com.google.maps.android:maps-compose-widgets:4.3.2")*/
 
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.xml)
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.logging)
             implementation(libs.kermit)
-            api("io.github.kevinnzou:compose-webview-multiplatform:1.8.8")
-            implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
+            api(libs.compose.webview.multiplatform)
+            //implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.ksoup.html)
+            implementation("io.github.pdvrieze.xmlutil:serialization:0.86.3")
 
-            implementation("com.mohamedrejeb.ksoup:ksoup-html:0.3.1")
-            implementation("com.github.haroldadmin.lucilla:core:0.2.0")
         }
 
         androidMain.dependencies {
@@ -109,10 +122,10 @@ kotlin {
             implementation(libs.sqldelight.sqlite.driver)
         }
 
-        /*iosMain.dependencies {
-            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-            implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
-        }*/
+        iosMain.dependencies {
+            //implementation("io.ktor:ktor-client-darwin:$1.1.1")
+            //implementation("com.squareup.sqldelight:native-driver:$1.1.1")
+        }
 
         val desktopTest by getting
 
@@ -161,8 +174,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
@@ -172,6 +185,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.core)
+    implementation(libs.androidx.foundation.android)
     commonMainApi(libs.mvvm.core)
     commonMainApi(libs.mvvm.compose)
     commonMainApi(libs.mvvm.flow)
