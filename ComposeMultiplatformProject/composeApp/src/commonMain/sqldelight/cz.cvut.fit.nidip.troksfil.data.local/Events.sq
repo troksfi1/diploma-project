@@ -18,7 +18,14 @@ DELETE FROM Events;
 
 selectAllEvents:
 SELECT Events.*
-FROM Events;
+FROM Events
+ORDER BY startDateTime DESC;
+
+selectNewestEvents:
+SELECT Events.*
+FROM Events
+ORDER BY startDateTime DESC
+LIMIT 100;
 
 selectEventsById:
 SELECT *

@@ -72,6 +72,10 @@ class FakeRepositoryImpl : EventsRepository, NewsRepository {
         return events
     }
 
+    override suspend fun getNewestEvents(): StateFlow<List<Event>> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteAllEvents() {
         TODO("Not yet implemented")
     }

@@ -110,6 +110,10 @@ class DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory) : NewsDao, E
         return dbEventQuery.selectAllEvents(::mapEventsSelecting).executeAsList()
     }
 
+    override suspend fun getNewestEvents(): List<Event> {
+        return dbEventQuery.selectNewestEvents(::mapEventsSelecting).executeAsList()
+    }
+
     override suspend fun deleteAllEvents() {
         dbEventQuery.removeAllEvents()
     }

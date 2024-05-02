@@ -9,5 +9,6 @@ interface EventsRepository {
     suspend fun insertAllEvents(events: List<Event>)
     suspend fun insertEvent(event: Event)
     suspend fun getAllEvents(): StateFlow<List<Event>>    //Flow<> ??? or suspend
+    suspend fun getNewestEvents(): StateFlow<List<Event>>
     suspend fun deleteAllEvents()
 }

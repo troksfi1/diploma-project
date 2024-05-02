@@ -10,7 +10,7 @@ data class HomeState(
     val news: StateFlow<List<News>> = MutableStateFlow(emptyList()),
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
     val isFetchingNews: Boolean = true,
-    val isFetchingEvents: Boolean = false,
+    val isFetchingEvents: Boolean = true,
     val usedImageButtons: List<ImageButtonType> = listOf(
         ImageButtonType.DEFECTS,
         ImageButtonType.MUNICIPAL_AUTHORITY,
