@@ -16,7 +16,9 @@ DELETE FROM News;
 
 selectAllNews:
 SELECT News.*
-FROM News;
+FROM News
+ORDER BY id DESC
+LIMIT 30;
 
 selectNewsById:
 SELECT *

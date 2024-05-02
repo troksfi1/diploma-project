@@ -115,7 +115,7 @@ class HomeScreen : Screen {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        "Populární události",
+                        "Nejnovější události",
                         modifier = Modifier
                             .padding(10.dp),
                         style = MaterialTheme.typography.titleLarge
@@ -123,7 +123,7 @@ class HomeScreen : Screen {
 
                     Row(modifier = Modifier.align(Alignment.CenterVertically).padding(10.dp))
                     {
-                        if (state.isFetchingNews) {
+                        if (state.isFetchingEvents) {
                             Text(
                                 "Aktualizuji události",
                                 modifier = Modifier
@@ -137,12 +137,8 @@ class HomeScreen : Screen {
                     }
                 }
 
-                //todo refactor
-                val events = state.events.collectAsState()
-                val predicate: (EventCategory) -> Boolean = { it == EventCategory.MUSIC }
-                val eventsList = events.value.filter { event -> event.categories.any(predicate) }
                 LazyRow {
-                    items(eventsList) { event ->  //state.filteredEvents
+                    items(state.events.value) { event ->  //state.filteredEvents
                         EventItem(event = event, onItemClick = {
                             navigator.push(EventDetailScreen(event))
                         })

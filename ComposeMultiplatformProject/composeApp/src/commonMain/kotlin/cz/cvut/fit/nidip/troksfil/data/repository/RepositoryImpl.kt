@@ -10,13 +10,17 @@ import cz.cvut.fit.nidip.troksfil.domain.model.Event
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.repository.EventsRepository
 import cz.cvut.fit.nidip.troksfil.domain.repository.NewsRepository
+import io.ktor.client.plugins.ServerResponseException
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.measureTime
 
 class RepositoryImpl(
     private val remoteDataSource: RssFeed?, // ala dao
@@ -26,9 +30,6 @@ class RepositoryImpl(
     //private val eventLocalDataSource: EventsDao,        //todo refactor?
     //private val newsLocalDataSource: NewsDao,           // todo divide to news and events rep?
 ) : EventsRepository, NewsRepository {
-
-
-    //val newsRequestState = remoteDataSource?.getEventsXml()
 
     private val _events: MutableStateFlow<List<Event>> =
         MutableStateFlow(emptyList()) // private mutable state flow
@@ -40,35 +41,11 @@ class RepositoryImpl(
 
     var news = _news.asStateFlow() // publicly exposed as read-only state flow
 
+    //var newsUpToDate = .asStateFlow() // publicly exposed as read-only state flow
 
-    /*when (newsRequestState) {
-        is Result.Success -> {
-            // When success replace the local database and return the result
-            // You could also return the local data for a single source of truth pattern
-            localDataSource.updateUserInfo(newsRequestState.data)
-            return Result.Success(newsRequestState.data)
-        }
-        is Result.Error -> {
-            // If error fallback to local database
-            val localResult = localDataSource.getAllEvents()
-            when (localResult) {
-                is Result.Success -> {
-                    return Result.Success(localResult.data)
-                }
-
-                is Result.Error -> {
-                    return Result.Error(localResult.exception)
-                }
-
-                is Result.Loading -> {
-                    return Result.Loading
-                }
-            }
-        }
-        Unit -> {
-
-        }
-    }*/
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
     override suspend fun insertAllEvents(events: List<Event>) {
         localDataSource.insertAllEvents(events)
     }
@@ -77,21 +54,40 @@ class RepositoryImpl(
         localDataSource.insertEventObject(event)
     }
 
-    override suspend fun getAllEvents(): StateFlow<List<Event>> {      //todo can be replace by
-        GlobalScope.launch {
-            _events.update {
-                async { eventsDataMapper.map(remoteDataSource?.getEventsXml()?.rss?.channel) }.await()
+    override suspend fun getAllEvents(): StateFlow<List<Event>> {
+
+        val timeToLoadAllEventsFromDB = measureTime {
+            _events.update { localDataSource.getAllEvents() }
+        }
+        println("TAG Time to load all ${events.value.size} events from DB: ${timeToLoadAllEventsFromDB.inWholeMilliseconds} ")
+
+        try {
+            GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                _events.update {
+                    eventsDataMapper.map(remoteDataSource?.getEventsXml()?.rss?.channel)
+                }
+                localDataSource.insertAllEvents(events.value)
             }
+        } catch (e: ServerResponseException) {
+            Logger.d("Error getting remote items: ${e.response.status.description}")
+        }
+        return events
+    }
+
+    override suspend fun getNewestEvents(): StateFlow<List<Event>> {
+
+        _events.update { localDataSource.getNewestEvents() }
+
+        try {
+            GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                _events.update {
+                    eventsDataMapper.map(remoteDataSource?.getEventsXml()?.rss?.channel)
+                }
+            }
+        } catch (e: ServerResponseException) {
+            Logger.d("Error getting remote items: ${e.response.status.description}")
         }
 
-        //localDataSource.insertAllEvents(_events.value)
-        Logger.d("get events from local called")
-        localDataSource.deleteAllEvents()
-        localDataSource.insertAllEvents(FakeRepositoryImpl().getAllEvents().value)
-
-        _events.update { localDataSource.getAllEvents() }
-
-        Logger.d("Method get events return")
         return events
     }
 
@@ -108,19 +104,28 @@ class RepositoryImpl(
     }
 
     override suspend fun getAllNews(): StateFlow<List<News>> {
-
-        GlobalScope.launch {
-            _news.update {
-                Logger.d("get events from remote called")
-                async { newsDataMapper.map(remoteDataSource?.getNewsXml()?.rss?.channel) }.await()
-            }
+        val timeToLoadAllNewsFromDB = measureTime {
+            _news.update { localDataSource.getAllNews() }
         }
+        println("Time to load all news from DB: ${timeToLoadAllNewsFromDB.inWholeMilliseconds}")
 
-        //localDataSource.insertAllNews(_news.value)
-        localDataSource.removeAllNews()
-        localDataSource.insertAllNews(FakeRepositoryImpl().getAllNews().value)
-        _news.update { localDataSource.getAllNews() }
+        try {
+            GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                val timeOfNetworkCall = measureTime {
+                    _news.update {
+                        newsDataMapper.map(remoteDataSource?.getNewsXml()?.rss?.channel)
+                    }
+                }
+                println("News network request + DB took: ${timeOfNetworkCall.inWholeMilliseconds}")
 
+                val insertToDB = measureTime {
+                    localDataSource.insertAllNews(news.value)
+                }
+                println("load from DB after network call: ${insertToDB.inWholeMilliseconds}")
+            }
+        } catch (e: ServerResponseException) {
+            Logger.d("Error getting remote items: ${e.response.status.description}")
+        }
         return news
     }
 
