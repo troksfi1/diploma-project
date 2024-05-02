@@ -41,7 +41,7 @@ class ParkingScreen : Screen {
         val navigator: Navigator = LocalNavigator.currentOrThrow
         var text by remember { mutableStateOf("") }
         var active by remember { mutableStateOf(false) }
-        val items = remember {
+        var parkingZoneNames = remember {
             mutableListOf(
                 "nám. T.G.M. [PB1]",
                 "Osvobození [PB2]",
@@ -60,6 +60,7 @@ class ParkingScreen : Screen {
                 "Parkoviště u hřbitova",
             )
         }
+        var parkingZoneNamesToShow = parkingZoneNames
         var selectedRow by remember { mutableStateOf("") }
         val scrollState = rememberScrollState()
 
@@ -72,12 +73,18 @@ class ParkingScreen : Screen {
                 SearchBar(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    //.padding(10.dp, 0.dp, 10.dp, 0.dp),
                     query = text,
-                    onQueryChange = { text = it  /* onTextChanged(it)*/ },
+                    onQueryChange = {
+                        text = it
+                        parkingZoneNamesToShow =
+                            parkingZoneNames.filter { zone -> zone.contains(text, true) }
+                                .toMutableList()
+                    },
                     onSearch = {
                         active = false
-                        //text = ""
+                        println("find zone $text")
+                        moveMap(text) //todo
+                        //state.searchedZoneName = text
                     },
                     active = active,
                     onActiveChange = {
@@ -106,14 +113,17 @@ class ParkingScreen : Screen {
                     Column(
                         modifier = Modifier.verticalScroll(scrollState, enabled = true)
                     ) {
-                        items.forEach {
+                        parkingZoneNamesToShow.forEach { zoneName ->
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        selectedRow = it
-                                        text = it
+                                        selectedRow = zoneName
+                                        text = zoneName
                                         active = false
+                                        println("find zone $text")
+                                        moveMap(text) //todo
+                                        //state.searchedZoneName = text
                                     }
                             ) {
                                 Row(
@@ -125,7 +135,7 @@ class ParkingScreen : Screen {
                                         imageVector = Icons.Default.LocalParking,
                                         contentDescription = "Parking zone icon"
                                     )
-                                    Text(text = it)
+                                    Text(text = zoneName)
                                 }
                             }
                         }
