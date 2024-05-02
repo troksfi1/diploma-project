@@ -67,7 +67,7 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.transitions)
-            implementation(libs.androidx.material.icons.extended)
+            implementation(libs.jetbrains.material.icons.extended)
             ///implementation (libs.maps.compose)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.ui.tooling.preview.v154)

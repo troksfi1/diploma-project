@@ -38,6 +38,10 @@ class ParkingScreen : Screen {
     override fun Content() {
         //val screenmodel = getScreenModel<ParkingScreenModel>()
 
+        //val screenModel = getScreenModel<ParkingScreenModel>()
+        //val screenModel = getScreenModel<ParkingScreenModel>()
+        //val state by screenModel.state.collectAsState()
+
         val navigator: Navigator = LocalNavigator.currentOrThrow
         var text by remember { mutableStateOf("") }
         var active by remember { mutableStateOf(false) }
