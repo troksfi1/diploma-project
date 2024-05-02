@@ -28,10 +28,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
 import cz.cvut.fit.nidip.troksfil.domain.model.Event
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
 
 class EventDetailScreen(private var event: Event) : Screen {
 
@@ -87,11 +86,9 @@ class EventDetailScreen(private var event: Event) : Screen {
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
-
-                    WebView(
-                        rememberWebViewStateWithHTMLData(
-                            data = event.description.trimIndent()
-                        )
+                    Text(
+                        text = HtmlToTextUtil(event.description),
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }

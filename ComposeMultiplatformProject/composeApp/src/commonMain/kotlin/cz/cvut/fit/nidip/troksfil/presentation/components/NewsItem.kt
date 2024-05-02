@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.core.text.HtmlCompat
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
 
 @Composable
 fun NewsItem(news: News, onItemClick: (News) -> Unit) {
@@ -29,7 +29,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(95.dp)
             .padding(6.dp)
             .clickable { onItemClick(news) },
         horizontalArrangement = Arrangement.Start
@@ -46,7 +46,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
         Spacer(Modifier.width(6.dp))
         Column {
             Text(
-                news.title,
+                text = news.title,
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.titleSmall,
@@ -54,7 +54,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 maxLines = 2
             )
             Text(
-                DateTimeUtil.toReadableFormat(news.pubDateTime),
+                text = DateTimeUtil.toReadableFormat(news.pubDateTime),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.labelSmall,
@@ -62,8 +62,9 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
+            Spacer(Modifier.height(8.dp))
             Text(
-                HtmlCompat.fromHtml(news.text, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(),
+                text = HtmlToTextUtil(news.text), // HtmlCompat.fromHtml(news.text, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.bodySmall,

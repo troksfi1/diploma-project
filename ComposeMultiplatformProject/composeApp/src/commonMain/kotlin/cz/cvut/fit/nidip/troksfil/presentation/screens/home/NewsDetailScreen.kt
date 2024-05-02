@@ -28,10 +28,9 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewStateWithHTMLData
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 class NewsDetailScreen(private var news: News) : Screen {
@@ -81,13 +80,11 @@ class NewsDetailScreen(private var news: News) : Screen {
                         style = MaterialTheme.typography.labelMedium
                     )
                     Spacer(Modifier.height(10.dp))
-                    WebView(
-                        rememberWebViewStateWithHTMLData(
-                            data = news.text.trimIndent()
-                        )
+                    Text(
+                        text = HtmlToTextUtil(news.text),
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
-
             }
         }
     }
