@@ -85,15 +85,27 @@ Mezi další důvody může například patřit možnost rychlejších aktualiza
 implementovány jednotně a rychle na všech platformách. 
 
 \chapter{Analýza}
-Tato kapitola je zaměřena na představení multiplatformních frameworků a porovnání mezi nimi. 
+Tato kapitola je zaměřena na představení aktuálně používaných multiplatformních frameworků a porovnání těchto frameworků
+s technologií Compose Multiplatform. Shrnuje jejich podstatné rysy a následně slouží k
+jednoduššímu porovnání a vyhodnocení použitelnosti frameworku Compose Multiplatform. Zároveň je v této kapitole detailněji
+rozebrán samotný Compose Multiplatform a jak z pohledu implementace uživatelského rozhraní, tak i z pohledu implementace
+aplikační logiky, ke které využívá technologii Kotlin Multiplatform.
+
+Po dokončení analýzy obou těchto technologií se práce věnuje porovnáním všech těchto frameworků jednak z pohledu architektury
+a náročnosti implementace, tak z pohledu výkonu aplikací implementovaných pomocí těchto technologií. 
+
+Konec této kapitoly je věnován limitacím frameworku Compose Multiplatform oproti nativním řešením, které přímo vyplývají 
+z provedené analýzy.  
+
 
 \section{Přehled existujících frameworků}
 Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně patří Flutter a React Native. \cite{crossPlatformFrameworksStats}
-V následujících kapitolách jsou proto tyto nejpoužívanější frameworky spolu s frameworkem Compose  Multiplatform podrobněji rozebrány a u každého z nich 
+V následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobně porovnány s frameworkem Compose Multiplatform a u každého z nich 
 jsou vybrány důležité vlastnosti, které jsou pro tyto frameworky typické. 
 
 Jednotlivé frameworky jsou seřazeny postupně od nejstaršího
-po nejmladší, což umožňuje lepší náhled na to, jak se jednotlivé frameworky v čase vyvíjely. Pro lepší ilustraci byla také zvolena 
+po nejmladší, což umožňuje lepší náhled na to, jak se jednotlivé frameworky vyvíjely v čase. Pro lepší ilustraci rozdílů 
+mezi jednotlivými frameworky byla zvolena 
 podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společnými rysům napříč frameworky.
 
 %---------------------------------------------------------------
@@ -326,7 +338,7 @@ Podporuje platformy jako Android, iOS (Alpha), Windows, MacOS, Linux a Web (expe
 Používá deklarativní syntaxi pro popis uživatelského rozhraní. \cite{KMPUseCases}
 
 \myparagraph{Jednotný kód pro různé platformy} 
-Možnost sdílet kód pro Android, iOS, web i desktop. \cite{composeMultiplatform}
+Umožňuje sdílet kód pro Android, iOS, web i desktop. \cite{composeMultiplatform}
 
 \myparagraph{Snadné migrace díky postupné integraci} 
 Díky KMP je možné postupně implementovat jednotlivé částí aplikace i do již existujících aplikací s minimálním rizikem oproti
@@ -462,9 +474,9 @@ jeden kód, který by bylo možné zkompilovat tak, aby byl spustitelný je vše
 možné, a proto je nutné, zvlášť rozdělit kód, který je určen pro všechny platformy a kód, který je platformě specifický. 
 
 \myparagraph{Společný kód}
-Jedná se o kód sdílený mezi různými platformami a měl by být seskupen v adresáři \code{commonMain}.
+Jedná se o kód sdílený mezi různými platformami a měl by být seskupen v adresáři \code{commonMain}. \cite{KMPCommonCode}
 
-Kotlin kompilátor na základě zdrojových kódů umístěný v tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. 
+Kotlin kompilátor na základě zdrojových kódů umístěný v tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. \cite{KMPCommonCode}
 Při kompilaci tak může z téhož kódu vygenerovat několik souborů, jako například soubory pro \textit{Java Virtual Machine (JVM)}, 
 anebo spustitelné soubory pro nativní platformu. \cite{KMPCommonCode}
 
@@ -479,7 +491,7 @@ Pro ukázku toho, jaká zařízení jsou technologií Kotlin/Native podporovaná
 \begin{figure}[H]
   \centering
   \includegraphics[width=.7\textwidth]{full-template-hierarchy.png}
-  \caption{Hierarchická struktura KMP}
+  \caption{Hierarchická struktura KMP \cite{KMPHierarchi}}
   \label{fig:KMP_struktura}
 \end{figure}
 
@@ -523,9 +535,11 @@ Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší tes
 Naopak mezi největší výzvy, které obě společnosti ve svých souhrnech uvádějí patří adaptace na KMP prostředí (především iOS vývojářů) nebo
 nedostatečné množství potřebných multiplatformních knihoven (případně jejich nedostatečná vyspělost). \cite{KMPinForbes} \cite{KMPinMcDonalds}
 
-Pro porovnání 
+Pro porovnání s 
 
-\emph{"Od této doby jsme vyvinuli a v produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme sdílet cca 60–70 \% kódu na platformu. V případě vývoje na dvě platformy to znamená, že v součtu dokážeme ušetřit minimálně třetinu nákladů na vývoj, plus s tím související další náklady na věci typu testování (v tomto případě snížení až na polovinu)."}
+\emph{"Od této doby jsme vyvinuli a v produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme 
+sdílet cca 60–70 \% kódu na platformu. V případě vývoje na dvě platformy to znamená, že v součtu dokážeme ušetřit minimálně třetinu 
+nákladů na vývoj, plus s tím související další náklady na věci typu testování (v tomto případě snížení až na polovinu)."}
 
 \begin{figure}[H]
   \centering
@@ -544,7 +558,7 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.99\textwidth]{survey-results-q1-q2-22.png}
+  \includegraphics[width=1\textwidth]{survey-results-q1-q2-22-light.png}
   \caption{KMP průzkum}
   \label{fig:KMPSurvey}
 \end{figure}
@@ -625,7 +639,7 @@ TODO
 
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multiplatform
-Jak již bylo zmíněno v kapitole KMP, tak jedním z největších problému multiplatformního vývoje pomocí KMP je
+Jak již bylo zmíněno v kapitole \textit{Kotlin Multiplatform \ref{kmpSection}}, tak jedním z největších problému multiplatformního vývoje pomocí KMP je
 především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o něco lepší. Většina omezení, která jsou
@@ -777,10 +791,8 @@ Tento případ užití popisuje jak mohou občané města jednoduše a rychle zo
   \item Systém uživateli zobrazí mapu vytíženost silnice ve městě.
 \end{enumerate}
 
-
-
-Pro dotvoření představy o tom jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{}, na který zároveň 
-obasuje i typy uživatelů pracujících s navrženou aplikací.
+Pro dotvoření představy o tom jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{fig:use_case_diagram}, na který zároveň 
+obsahuje i typy uživatelů pracujících s navrženou aplikací.
 
 Co se týče vzájemných vazeb, tak zde je věno
 
@@ -792,11 +804,14 @@ Use case diagram
   \label{fig:use_case_diagram}
 \end{figure}
 
-\section{Role}
+\myparagraph{Aktéři}
+Hlavními uživateli systému jsou především občané příslušného města, kteří budou aplikaci využívat za účelem splnění cílů z předchozí podkapitoly.
+
+Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data.
 
 TODO jaci uzivatel budou aplikaci použivat
 
-
+\bigskip
 
 Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrhu funkcionalit aplikace tak, aby co nejlépe odpovídaly těmto potřebám. 
 Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože je na jejich základě možné ověřit, zda systém správně reaguje na očekávané 
@@ -810,7 +825,7 @@ Na základě takto sepsaných případech užití je nyní možné sepsat funkč
 Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
 užitečná, efektivní a snadno použitelná.
 
-TODO
+TODO piorita 5 slozitost viz grofetom
 
 \myparagraph{Zobrazení novinek}
 Možnost přidávat, editovat a mazat novinky a oznámení.
@@ -1092,6 +1107,7 @@ strukturou:
 % \end{figure}
 
 \section{Návrh UI}
+UI bylo navrhováno tak aby vyhovovalo 
 
 TODO pravidla stravneho navrhu UI
 
@@ -1265,9 +1281,25 @@ na nezbytné minimum.
 Vytvořené mockup modely jsou defacto výsledkem sloučení dratových modelů s navrženým design systémem.
 
 při návrhu grafické podoby UI byla proto priparně soustředěn na vyznam jedlotlivých UI komponent a na základě jejich významu byla
-přiřazovány je ba
+přiřazovány odpovídající barvy. 
 
-Sytost barev byla zvolena na základě důležitosti prováděně akce  ...
+Navržené UI se snaží respektovat zásady správného UI návrhu dle Android dokumentace a to především z pohledu přístupnosti, rozložení obsahu, 
+druhu použití UI komponent nebo vhodnosti použití barev.
+
+\myparagraph{Přístupnoust}
+Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měli vhodně zvolenou barvu z poheledu
+správného kontrasku vůči podkladu a nebo z pohledu dostatečné čitelnosti.
+
+Dále byla věnována pozornost správnénumu popisu jedlotlivých UI komponent tak, aby bylo možné aplikaci používat i s tazvanou TalkBack čtečkou, která 
+umožňuje nevidomím nebo jinak zrakově postiženým lidem používat aplikaci.
+
+\myparagraph{Barvy}
+I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během faze návhu mockup modelu byl zároveň kladen důraz na  jejich 
+vhodné použít z pohledu sémantiky barev nebo důležitosti barvených komponenta.
+
+Zároveň 
+
+ Sytost barev byla zvolena na základě
 
 \begin{figure}[H]
   \minipage{0.4\textwidth}
@@ -2155,6 +2187,17 @@ Preview
 Nedostatek knihoven
 Špatná nebo téměř žádna dokumentace k knihovnám třetích stran a v případě co se týče Compose Multiplatfrom
 \section{Závěr o použitelnosti frameworku}
+Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, tak aby bylo toto hodnocení co 
+nejobjetivnější, tak bude rozvrženno do několika částí.
+
+Nejprve bude framework porovnán na základě provedné analýzy a to jednak z pohledu architektury
+
+Následně bude porovnán z pohledu implementace 
+
+
+
+Při závěrečném hodnocení frameworku Compose Multiplatform se 
+
 
 % kapitola main pains
 % https://blog.jetbrains.com/kotlin/2021/01/results-of-the-first-kotlin-multiplatform-survey/
