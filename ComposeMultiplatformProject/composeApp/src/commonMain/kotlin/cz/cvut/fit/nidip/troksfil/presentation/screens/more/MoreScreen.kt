@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,12 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import cz.cvut.fit.nidip.troksfil.domain.ImageButtonType
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 
 class MoreScreen : Screen {
+    val listOfPages = listOf(
+        ImageButtonType.DEFECTS,
+        ImageButtonType.MUNICIPAL_AUTHORITY,
+        ImageButtonType.SERVICES,
+        ImageButtonType.FACEBOOK,
+        ImageButtonType.WEB,
+        ImageButtonType.WEBCAMS,
+    )
 
     @Composable
     override fun Content() {
@@ -31,23 +38,16 @@ class MoreScreen : Screen {
                     .padding(PaddingValues(bottom = it.calculateBottomPadding())),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val navigator: Navigator = LocalNavigator.currentOrThrow
-
-                //todo extract icon, set font, set background color
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(minSize = 140.dp),
-
-                    //contentPadding = PaddingValues(10.dp)
                 ) {
-                    items(18) { photo ->
+                    items(listOfPages) { page ->
                         Box(modifier = Modifier.padding(10.dp)) {
-                            ImageButton("Popis", "drawable/img_municipal_authority.png",
-                                imageSize = 150,
-                                onClick = {}
+                            ImageButton(
+                                page,
+                                imageSize = 150
                             )
                         }
-
-                        //PhotoItem(photo)
                     }
                 }
             }
