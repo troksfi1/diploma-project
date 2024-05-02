@@ -4,10 +4,10 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,14 +27,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cz.cvut.fit.nidip.troksfil.di.getScreenModel
-import cz.cvut.fit.nidip.troksfil.domain.EventCategory
 import cz.cvut.fit.nidip.troksfil.presentation.components.EventItem
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 import cz.cvut.fit.nidip.troksfil.presentation.components.NewsItem
@@ -54,11 +52,9 @@ class HomeScreen : Screen {
         val scrollState = rememberScrollState()
         val navigator: Navigator = LocalNavigator.currentOrThrow
 
-        val uriHandler = LocalUriHandler.current
-
         Scaffold(
             bottomBar = { BottomNavigation {} }
-        ) { it ->
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize().padding(PaddingValues(bottom = it.calculateBottomPadding())),
@@ -71,44 +67,79 @@ class HomeScreen : Screen {
                 ) {
                     var imageName = ""
                     imageName = if (isSystemInDarkTheme()) {
-                        "img_pribram_logo_without_backgroud_dark.png"
-                    } else "img_pribram_logo_without_backgroud_light.png"
+                        "dark"
+                    } else "light"
+
                     Image(
-                        painter = painterResource(DrawableResource("drawable/$imageName")), //img_pribram-logo-white.png
+                        painter = painterResource(DrawableResource("drawable/img_pribram_logo_without_background_$imageName.png")),
                         contentDescription = "pribramLogo",
-                        //colorFilter =
                     )
                 }
+                LazyRow {
+                    items(state.usedImageButtons) { page ->
+                        Box(modifier = Modifier.padding(10.dp)) {
+                            ImageButton(
+                                page,
+                            )
+                        }
+                    }
+                }
 
-                Row(
+                /*Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
-                    /*state.usedImageButtons.forEach {
-                        ImageButton(it.name)
-                    }*/
-                    ImageButton(name = "Úřad", imagePath = "drawable/img_municipal_authority.png",
-                        onClick = {
-                            //todo replace by VM impl?
+                    LazyVerticalGrid(
+                        modifier = Modifier.fillMaxWidth().size(height = 200.dp, width = 1000.dp),
+                        //rows = GridCells.Adaptive(minSize = 50.dp)
+                        columns = GridCells.Adaptive(minSize = 80.dp),
+
+                        //contentPadding = PaddingValues(10.dp)
+                    ) {
+                        *//*items(18) { photo ->
+                            ImageButton()
+                            Box(modifier = Modifier.padding(10.dp)) {
+                                ImageButton("Popis", "drawable/img_municipal_authority.png",
+                                    imageSize = 150,
+                                    onClick = {}
+                                )
+                            }
+
+                            //PhotoItem(photo)
+                        }*//*
+
+                        items(listOfPages) { page ->
+                            Box(modifier = Modifier.padding(10.dp)) {
+                                ImageButton(
+                                    page,
+                                    imageSize = 150,
+                                    onClick = {}
+                                )
+                            }
                         }
+
+                        *//*state.usedImageButtons.forEach {
+                        ImageButton(it.name)
+                    }*//*
+                        *//*ImageButton(name = "Úřad", imagePath = "drawable/img_municipal_authority.png",
+                        onClick = { navigator.push(AuthorityScreen()) }
                     )
                     ImageButton(name = "Závady", imagePath = "drawable/img_defect.png",
-                        onClick = { navigator.push(DefectScreen()) } //todo replace by VM impl?
+                        onClick = { navigator.push(DefectScreen()) }
                     )
-
-
                     ImageButton(name = "Služby", imagePath = "drawable/img_service.png",
-                        onClick = { } //todo replace by VM impl?
+                        onClick = { navigator.push(ServiceScreen()) }
                     )
                     ImageButton(name = "YouTube", imagePath = "drawable/img_youtube.png",
                         onClick = {
                             uriHandler.openUri("https://www.youtube.com/@mestopribram1671")
                         }
-                    )
-                }
+                    )*//*
+                    }*/
 
-                Spacer(modifier = Modifier.size(10.dp))
+
+                //Spacer(modifier = Modifier.size(5.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
