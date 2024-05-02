@@ -14,13 +14,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -83,7 +83,10 @@ class DefectScreen : Screen {
 
                 ) {
                     Text("Záznam o závadě", style = MaterialTheme.typography.headlineLarge)
-                    Divider(thickness = 20.dp, color = MaterialTheme.colorScheme.background)
+                    HorizontalDivider(
+                        thickness = 20.dp,
+                        color = MaterialTheme.colorScheme.background
+                    )
                     TextField(
                         value = defectTitle,
                         label = { Text("Zadejte název závady") },
@@ -91,7 +94,10 @@ class DefectScreen : Screen {
                         modifier = Modifier
                             .fillMaxSize()
                     )
-                    Divider(thickness = 20.dp, color = MaterialTheme.colorScheme.background)
+                    HorizontalDivider(
+                        thickness = 20.dp,
+                        color = MaterialTheme.colorScheme.background
+                    )
                     FilledTonalButton(
                         modifier = Modifier.size(150.dp, 150.dp),
                         onClick = {/* vyberte misto z mapy*/ }) {
@@ -103,15 +109,20 @@ class DefectScreen : Screen {
                             )
                         }
                     }
-                    Divider(thickness = 20.dp, color = MaterialTheme.colorScheme.background)
+                    HorizontalDivider(
+                        thickness = 20.dp,
+                        color = MaterialTheme.colorScheme.background
+                    )
                     TextField(
                         value = defectDescription,
                         label = { Text("Zadejte popis závady") },
                         onValueChange = { defectDescription = it  /* onTextChanged(it)*/ },
                         modifier = Modifier.fillMaxSize()
                     )
-                    Divider(thickness = 20.dp, color = MaterialTheme.colorScheme.background)
-
+                    HorizontalDivider(
+                        thickness = 20.dp,
+                        color = MaterialTheme.colorScheme.background
+                    )
                     val defectTypes =
                         arrayOf("Pozemní komunikace", "Dopravní značení")
                     var expanded by remember { mutableStateOf(false) }
@@ -147,8 +158,10 @@ class DefectScreen : Screen {
                             }
                         }
                     }
-                    Divider(thickness = 20.dp, color = MaterialTheme.colorScheme.background)
-
+                    HorizontalDivider(
+                        thickness = 20.dp,
+                        color = MaterialTheme.colorScheme.background
+                    )
                     Button(onClick = { navigator.pop() }) {
                         Text("Odeslat závadu")
                     }
@@ -156,5 +169,4 @@ class DefectScreen : Screen {
             }
         }
     }
-
 }
