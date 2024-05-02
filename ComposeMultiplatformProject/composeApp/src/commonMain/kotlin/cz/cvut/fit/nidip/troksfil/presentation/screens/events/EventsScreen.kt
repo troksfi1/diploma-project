@@ -108,9 +108,7 @@ class EventsScreen : Screen {
                         selected = FilterOption.SELECTED_DATE == state.selectedFilterOption
                     )
 
-                    // set the initial date
-                    val dateRangePickerState =
-                        rememberDateRangePickerState()  //todo move state to state class // maybe not
+                    val dateRangePickerState = rememberDateRangePickerState()
 
                     if (state.isDatePickerOpen) {
 
@@ -121,13 +119,17 @@ class EventsScreen : Screen {
                             },
                             confirmButton = {
                                 TextButton(onClick = {
-                                    screenModel.onEvent(
-                                        EventsEvent.OnDateIsPicked
-                                            (
-                                            dateRangePickerState.selectedStartDateMillis!!,
-                                            dateRangePickerState.selectedEndDateMillis!!
+                                    if (dateRangePickerState.selectedStartDateMillis != null
+                                        && dateRangePickerState.selectedEndDateMillis != null
+                                    ) {
+                                        screenModel.onEvent(
+                                            EventsEvent.OnDateIsPicked
+                                                (
+                                                dateRangePickerState.selectedStartDateMillis!!,
+                                                dateRangePickerState.selectedEndDateMillis!!
+                                            )
                                         )
-                                    )      //todo move state to state class
+                                    }
                                 }) {
                                     Text(text = "Potvdit")
                                 }
@@ -148,8 +150,6 @@ class EventsScreen : Screen {
                         }
                     }
                 }
-
-                //todo category dropdown menu
 
                 FlowColumn {
                     state.filteredEventsCategories.forEach {

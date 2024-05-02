@@ -14,25 +14,19 @@ import kotlinx.datetime.todayIn
 
 data class EventsState(
     //todo move to domain model?
-    val timeFilteredEvents: List<Event> = emptyList(),
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
+    val selectedFilterOption: FilterOption = FilterOption.TODAY,
+    val timeFilteredEvents: List<Event> = emptyList(),
+    val filteredEventsCategories: List<EventCategory> = emptyList(),
     val selectedDateStart: LocalDateTime = LocalDateTime(
         Clock.System.todayIn(TimeZone.currentSystemDefault()),
         LocalTime(0, 0)
     ),
-    val selectedDateEnd: LocalDateTime = LocalDateTime(
+    val selectedDateEnd: LocalDateTime =
+        LocalDateTime(
         Clock.System.todayIn(TimeZone.currentSystemDefault()),
         LocalTime(23, 59)
     ),
-    val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val isDatePickerOpen: Boolean = false,
-    val filteredEventsCategories: List<EventCategory> = emptyList(),
     val isFetchingEvents: Boolean = false,
-    /*val dateRangePickerState: DateRangePickerState = DateRangePickerState(
-        initialSelectedStartDateMillis = null,
-        initialDisplayedMonthMillis = null,
-        yearRange = 2023..2023,
-        initialDisplayMode = DisplayMode.Picker,
-    )*/
-    //= rememberDatePickerState(initialSelectedDateMillis = Clock.System.now().toEpochMilliseconds())
 )
