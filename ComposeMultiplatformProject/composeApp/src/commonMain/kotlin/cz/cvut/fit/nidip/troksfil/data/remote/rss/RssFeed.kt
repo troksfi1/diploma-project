@@ -19,6 +19,7 @@ class RssFeed { //todo divide to event ana news?
     private val client = HttpClient(CIO) {
         engine {
             maxConnectionsCount = 1000
+            requestTimeout = 40000
             endpoint {
                 maxConnectionsPerRoute = 100
                 pipelineMaxSize = 20

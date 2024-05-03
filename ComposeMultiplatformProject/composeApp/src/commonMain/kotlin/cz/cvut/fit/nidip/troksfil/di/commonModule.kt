@@ -9,7 +9,7 @@ import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemXmlToModel
 import cz.cvut.fit.nidip.troksfil.domain.mappers.NewsItemsDtoToModel
 import org.koin.dsl.module
 
-val commonModule = /*networkModule() +*/ module {
+val commonModule = module {
 
     single {
         RepositoryImpl(
