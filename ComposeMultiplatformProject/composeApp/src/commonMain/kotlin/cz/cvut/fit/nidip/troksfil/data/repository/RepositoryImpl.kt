@@ -83,6 +83,7 @@ class RepositoryImpl(
                 _events.update {
                     eventsDataMapper.map(remoteDataSource?.getEventsXml()?.rss?.channel)
                 }
+                localDataSource.insertAllEvents(events.value)
             }
         } catch (e: ServerResponseException) {
             Logger.d("Error getting remote items: ${e.response.status.description}")
