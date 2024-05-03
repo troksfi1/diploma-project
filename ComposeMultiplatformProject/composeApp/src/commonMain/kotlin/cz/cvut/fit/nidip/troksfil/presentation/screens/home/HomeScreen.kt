@@ -17,7 +17,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.BottomNavigation
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -65,14 +68,13 @@ class HomeScreen : Screen {
                 Surface(
                     modifier = Modifier.fillMaxWidth().size(200.dp)
                 ) {
-                    var imageName = ""
-                    imageName = if (isSystemInDarkTheme()) {
+                    val imageName = if (isSystemInDarkTheme()) {
                         "dark"
                     } else "light"
 
                     Image(
                         painter = painterResource(DrawableResource("drawable/img_pribram_logo_without_background_$imageName.png")),
-                        contentDescription = "pribramLogo",
+                        contentDescription = "pribram Logo",
                     )
                 }
                 LazyRow {
@@ -164,6 +166,17 @@ class HomeScreen : Screen {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(20.dp)
                             )
+                        } else {
+                            Text(
+                                "Aktualizováno",
+                                modifier = Modifier
+                                    .padding(5.dp),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                            Icon(
+                                Icons.Outlined.Done,
+                                contentDescription = "tick done"
+                            )
                         }
                     }
                 }
@@ -197,6 +210,17 @@ class HomeScreen : Screen {
                             )
                             CircularProgressIndicator(
                                 modifier = Modifier.size(20.dp)
+                            )
+                        } else {
+                            Text(
+                                "Aktualizováno",
+                                modifier = Modifier
+                                    .padding(5.dp),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                            Icon(
+                                Icons.Outlined.Done,
+                                contentDescription = "tick done"
                             )
                         }
                     }

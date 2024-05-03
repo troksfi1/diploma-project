@@ -66,7 +66,6 @@ class HomeScreenModel(
                         state.copy(
                             isFetchingEvents = false
                         )
-
                     }
                 }
                 _state.update { state ->

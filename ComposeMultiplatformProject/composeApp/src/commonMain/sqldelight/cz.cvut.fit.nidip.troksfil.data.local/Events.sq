@@ -25,7 +25,7 @@ selectNewestEvents:
 SELECT Events.*
 FROM Events
 ORDER BY startDateTime DESC
-LIMIT 100;
+LIMIT 30;
 
 selectEventsById:
 SELECT *
