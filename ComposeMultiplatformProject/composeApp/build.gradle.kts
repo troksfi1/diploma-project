@@ -123,6 +123,7 @@ kotlin {
         }
 
         iosMain.dependencies {
+            implementation(libs.native.driver)
             //implementation("io.ktor:ktor-client-darwin:$1.1.1")
             //implementation("com.squareup.sqldelight:native-driver:$1.1.1")
         }

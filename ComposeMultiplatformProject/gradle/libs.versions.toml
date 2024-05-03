@@ -7,7 +7,10 @@ coil = "3.0.0-alpha06"
 composeWebviewMultiplatform = "1.9.4"
 kermit = "2.0.3"
 koinCore = "3.5.3"
+googleMapsVersion = "4.4.1"
+ksoupHtml = "0.3.1"
 mvvmCore = "0.16.1"
+nativeDriver = "2.0.2"
 sqldelight-drivers = "2.0.2"
 androidx-activityCompose = "1.8.2"
 androidx-appcompat = "1.6.1"
@@ -41,10 +44,13 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 ksoup-html = { module = "com.mohamedrejeb.ksoup:ksoup-html", version.ref = "ksoupHtml" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorVersion" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "googleMapsVersion" }
+google-maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "googleMapsVersion" }
 mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "mvvmCore" }
 mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mvvmCore" }
 mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "mvvmCore" }
 mvvm-flow-compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "mvvmCore" }
+native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "nativeDriver" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight-drivers" }
 jetbrains-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-plugin" }
 androidx-ui-tooling-preview-v154 = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
