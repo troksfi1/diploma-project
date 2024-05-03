@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
 
     kotlin("plugin.serialization").version("1.9.23")
-    id("app.cash.sqldelight") version "2.0.1"
+    id("app.cash.sqldelight") version "2.0.2"
 }
 
 repositories {
@@ -69,7 +69,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.jetbrains.material.icons.extended)
             ///implementation (libs.maps.compose)
-            implementation(compose.components.uiToolingPreview)
+            //implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.ui.tooling.preview.v154)
 
             /*                implementation ("com.google.maps.android:maps-compose:4.3.2")
@@ -85,7 +85,7 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.xml)
+            //implementation(libs.ktor.serialization.kotlinx.xml)
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.logging)
             implementation(libs.kermit)
