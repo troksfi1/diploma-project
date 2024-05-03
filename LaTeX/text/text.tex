@@ -1109,6 +1109,11 @@ strukturou:
 \section{Návrh UI}
 UI bylo navrhováno tak aby vyhovovalo 
 
+v Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to jak celé UI posobí z poheledu
+uspořádání.
+
+
+
 TODO pravidla stravneho navrhu UI
 
 \section{Tvorba drátových modelů}
@@ -1123,66 +1128,63 @@ umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově n
 Zároveň byla snaha o 
 
 \pagebreak
+\begin{minipage}[t]{0.45\textwidth}
+  \myparagraph{Domovská obrazovka}
+  Jak již bylo zmíněno v úvodu této kapitoli, tak domovská obrazovka obsahuje většinu nejdůležitější a 
+  
+  Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v posuvném řádku a to především díky možnosti zobrazit
+  veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídne možnost danou událost rozkliknout a dohledat zbylé informace.
+  Z ... \ref{} totiž vyplivá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  a času konání.
+  
+  Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
+  vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které jsou pro uživatele v případě aktualit nejdůležitější.
+  
+  Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
+  nahlášení závady, zobrazení uředních hodin a kontaktů.
+  
+  %V horní části se nachzí sekce umožňující přidání vlastní 
+  
+  %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
+  
+  \bigskip
+  \myparagraph{Obrazovka událostí}  
+  V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního řádku jako je tomu na domovské obrazovce.
+  
+  Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou udáslosti rozděleny 
+  do několika málo kategorií.
+  
+  V hoorní části aplikce je uživateli dána možnost vybrat den pro který chce zobrazit plánované udáslosti, případně zvolit požadované rozmezí.
+  
+  %jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
+  
+  
+  Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
+  
+  filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umuštěno kvůli malému počtu kategorií.
+  
+  byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrzí jen ty kategorie, které obsahují alespoň jednu událost.
+  
+  veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{home_wireframe.png}
+    \caption{Wireframe obrazovky \textit{Domů}}
+    \label{fig:wireframe1}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{events_wireframe.png}
+    \caption{Obrazovka \textit{Více}}
+    \label{fig:wireframe2}
+  \end{figure}
+\end{minipage}
 
-
-\myparagraph{Domovská obrazovka}
-\begin{wrapfigure}{r}{0.4\textwidth}
-  \centering
-  \includegraphics[width=0.35\textwidth]{home_wireframe.png}
-  \caption{Wireframe domovské obrazovky}
-\end{wrapfigure}
-
-Jak již bylo zmíněno v úvodu této kapitoli, tak domovská obrazovka obsahuje většinu nejdůležitější a 
-
-Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v posuvném řádku a to především díky možnosti zobrazit
-veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídne možnost danou událost rozkliknout a dohledat zbylé informace.
-Z ... \ref{} totiž vyplivá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
-a času konání.
-
-Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
-vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které jsou pro uživatele v případě aktualit nejdůležitější.
-
-Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
-nahlášení závady, zobrazení uředních hodin a kontaktů.
-
-%V horní části se nachzí sekce umožňující přidání vlastní 
-
-%další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
-
-\myparagraph{Obrazovka událostí}
-
-\begin{wrapfigure}{r}{0.4\textwidth}
-  \centering
-  \includegraphics[width=0.35\textwidth]{events_wireframe.png}
-  \caption{PoWireframe obrazovky události}
-\end{wrapfigure}
-
-V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního řádku jako je tomu na domovské obrazovce.
-
-Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou udáslosti rozděleny 
-do několika málo kategorií.
-
-V hoorní části aplikce je uživateli dána možnost vybrat den pro který chce zobrazit plánované udáslosti, případně zvolit požadované rozmezí.
-
-%jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
-
-
-Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
-
-filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umuštěno kvůli malému počtu kategorií.
-
-byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrzí jen ty kategorie, které obsahují alespoň jednu událost.
-
-veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
-
+\begin{minipage}[t]{0.45\textwidth}
 \myparagraph{Obrazovka parkování}
-
-\begin{wrapfigure}{r}{0.4\textwidth}
-  \centering
-  \includegraphics[width=0.35\textwidth]{parking_wireframe.png} 
-  \caption{Wireframe obrazovky parkování}
-\end{wrapfigure}
-
 Obrazovká parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
 
 Aby bylo docíleno co nejjednuším manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována přávě mapovému
@@ -1199,14 +1201,8 @@ Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovan
 Poslední funkci, kterou tato obrazovka nabízí je zobrazení aktuálního provozu ve městě. 
 
 
-
+\bigskip
 \myparagraph{Obrazovka více}
-\begin{wrapfigure}{r}{0.4\textwidth}
-  \centering
-  \includegraphics[width=0.35\textwidth]{more_wireframe.png} 
-  \caption{Wireframe obrazovky více}
-\end{wrapfigure}
-
 Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých funkcí aplikace a zároveň obsahuje veškeré méně podstatné 
 časti aplikace.
 
@@ -1224,8 +1220,22 @@ z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje u�
 Představuje rychlo naviga
 
 Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
-
-
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{parking_wireframe.png}
+    \caption{Wireframe obrazovky \textit{Parkování}}
+    \label{fig:wireframe3}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{more_wireframe.png}
+    \caption{Wireframe obrazovka \textit{Více}}
+    \label{fig:wireframe4}
+  \end{figure}
+\end{minipage}
 
 \section{Návrh design systému} \label{designSystemSection}
 Před tím něž bylo přistoupeno ke grafickému návrhu aplikace, tak byl vytvořen obecný design systém, který poslouží k vytvoření 
@@ -1286,6 +1296,10 @@ přiřazovány odpovídající barvy.
 Navržené UI se snaží respektovat zásady správného UI návrhu dle Android dokumentace a to především z pohledu přístupnosti, rozložení obsahu, 
 druhu použití UI komponent nebo vhodnosti použití barev.
 
+%\pagebreak
+\begin{minipage}[t]{0.45\textwidth}
+
+\bigskip
 \myparagraph{Přístupnoust}
 Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měli vhodně zvolenou barvu z poheledu
 správného kontrasku vůči podkladu a nebo z pohledu dostatečné čitelnosti.
@@ -1293,35 +1307,68 @@ správného kontrasku vůči podkladu a nebo z pohledu dostatečné čitelnosti.
 Dále byla věnována pozornost správnénumu popisu jedlotlivých UI komponent tak, aby bylo možné aplikaci používat i s tazvanou TalkBack čtečkou, která 
 umožňuje nevidomím nebo jinak zrakově postiženým lidem používat aplikaci.
 
+\bigskip
 \myparagraph{Barvy}
 I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během faze návhu mockup modelu byl zároveň kladen důraz na  jejich 
 vhodné použít z pohledu sémantiky barev nebo důležitosti barvených komponenta.
 
+V základu \textit{Material Theme Builder} umožnuje definovat 3 základní barvy (primárním, sekundárním, ternární), kterém máji jasně vymezené role.
+a ta v případě implementovaného UI byla použita například pro potvzovancí akci "zplacení parkovného". Senkundární barva byla
+implementována například na filtrační talčítka na obrazovce "Události", jelikož hlavním předmětem pozornosti v daném zobraní 
+jsou zobrazované akce a ne filtrační možnosti.
+
+\bigskip
+
+\myparagraph{Rozložení}
+Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektorváno pár pravidel liniového zarovnání, tak aby nechozázelo
+k narušení čitelnosti.
+
+Komponety pro důležité interakce byly drženy v takzvané dosahové vzdálenosti jako primarní navigace nebo tlačítka pro vykonání
+důležitých akcí.
+
+Pro obrázky byly voleny bězné poměry jako například 4:3, tak aby nedocházelo k jejich zbytéčnému ořezávání.
+
 Zároveň 
 
  Sytost barev byla zvolena na základě
-
-\begin{figure}[H]
-  \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen1.png}
-    \caption{Domovská obrazovka}
-  \endminipage\hfill
-  \minipage{0.4\textwidth}
-    \includegraphics[width=\linewidth]{screen2.png}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\textwidth]{screen1.png}
+    \caption{Obrazovka \textit{Domů}}
+    \label{fig:mockup1}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\textwidth]{screen2.png}
     \caption{Obrazovka \textit{Události}}
-  \endminipage\hfill
-\end{figure}
+    \label{fig:mockup2}
+  \end{figure}
+\end{minipage}
 
-\begin{figure}[H]
-  \minipage{0.4\textwidth}
-  \includegraphics[width=\linewidth]{screen3.png}
-  \caption{Obrazovka \textit{Parkování}}
-\endminipage\hfill
-\minipage{0.4\textwidth}
-  \includegraphics[width=\linewidth]{screen4.png}
-  \caption{Obrazovka \textit{Více}}
-\endminipage\hfill
-\end{figure}
+\pagebreak
+
+\begin{minipage}[t]{0.45\textwidth}
+  TEXT DRUHE STANKY
+  \lipsum[1]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\textwidth]{screen3.png}
+    \caption{Obrazovka \textit{Parkování}}
+    \label{fig:mockup3}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\textwidth]{screen4.png}
+    \caption{Obrazovka \textit{Více}}
+    \label{fig:mockup4}
+  \end{figure}
+\end{minipage}
 
 \chapter{Implementace}
 Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multipaltformích aplikací založených na Compose Multiplatform 
@@ -1473,7 +1520,8 @@ loading
 
 
 \subsubsection{Barvy} \label{colorSection}
-Barvy byly zvoleny na základě vizuálního stylu města, které město Příbram využívá při všech prezentačních příležitostech.
+Barvy byly zvoleny na základě navženého design systému, který byl navžen na základě vizuálního stylu města, které město 
+Příbram využívá při všech prezentačních příležitostech.
 
 Pro použití výbraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
 
@@ -1789,6 +1837,8 @@ bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak
 V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přichazející z UI a na jejich základě měnit stav 
 aplikace. V tomto duchu jsou implementovany vševhny ViewModely. 
 
+
+
 \begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
   fun onEvent(event: EventsEvent) {
     when (event) {
@@ -1886,6 +1936,18 @@ nebo událostí.
 V rámci obrazovky "Události" je používána stejná komponanta pro zobrazování událostí jako byla použita na domovská obrazovce. 
 
 pro zobrazené údálostí "EventLazyRow". 
+
+Každý z nich obsahuje udásti z jedné katregorie. Ty jsou předem přípraveny ViewModele, který při zavolaní nějaké z filtrovacích
+událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u nich zjistí do jakých kategorií tyto
+udásloti patří. Následně pro kažfou katerorii vytvoří jeden LazyRow do kterého umístí příslušné události.
+
+Uživatel má na víběr filrobat události buďto předm zvolených časových rozmezí jako je dnes, zítra nebo může zvolit vlastní 
+rozmezí pomocí kiknutí na ikonu kalendáře. Po klidní na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
+uživateli umožnuje zvolit požadované časového rozmezí.
+
+k volbě čacového rozmezí Dnes a Zítra bylu zvoleny takzvané Chips a konkrétně FilterChips, které jsou navrženy k filtrování
+a uživatelé jsou na jich použití i z jiných aplikací, které používají Material Design.
+
 
 LAZY ROW , DATE PICKER, SPECIAL CHIPS
 
@@ -2190,13 +2252,54 @@ Nedostatek knihoven
 Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, tak aby bylo toto hodnocení co 
 nejobjetivnější, tak bude rozvrženno do několika částí.
 
-Nejprve bude framework porovnán na základě provedné analýzy a to jednak z pohledu architektury
+Nejprve bude framework porovnán na základě provedné analýzy a to jednak z pohledu architektury, 
 
-Následně bude porovnán z pohledu implementace 
+Co se pokrytí aktuálně používaných platforem týka, tak Compose Multiplatform pokrývá většinu z akluálně nejžádanějších 
+platforem pro vývoj multipaltformních aplikací a dá se tak očekávat, že po uvolnění stabilních verzí pro veškeré 
+aktuálně nabízené platformy se jeho obliba ještě zvýší. 
+
+V oblasti výkonu se Compose Multiplatform docela dobře daří a je konkurenceschopný s ostatními multiplatformními frameworky.
+V případě větších projektů by však tento rozdíl mohl být výraznější.
+
+Rychlost vývoje je také významným hlediskem. 
+Co se rychlosti vývoje týká, tak při tvorbě UI, tak V porovnání s jinými frameworky, jako je například Flutter, má Compose Multiplatform strukturu kódu s méně znaky.
+
+
+V oblasti optimalizace má však Compose Multiplatform ještě poměrně velké nedostatky a to zejména v plynulosti provozu na 
+platformě iOS.
+
+
+Pokud jde o připravenost IDE, situace je obdobná.  Při implementaci a to před
+opriti Flutteru nenebízí tolik možnonstí upravy už jako  například zanoření některých kompent do jiných, ale díky jednoduchosti
+zápisu UI jsou tyto akce o něco jednosušší.
+
+A co se výběru IDE týka, tak z otestovaných IDE Android Studio jednoznačně předčilo Fleet. Nicméně tato situace se může, 
+taktéž rychle změnit.
+
+V průběhu implementace bylo narazeno na několik problému, které byli nahlášeny a postupně se na nich začína pracovat.
+
+Z pohledu komunity se s ,
+
+
+Z pohledu dokumentace jsou zde velikoé nedostky, ale díky Jetpack Compose není potřeba a většina postupů jak jednotlivé části 
+UI tvořit je dobře dokumentovaná společností Google. 
+
+Z pohledu KMP je tato situace horší
+I přesto, že je KMP již ve stabilní verzi, tak dokumentace oproti ostatním technologiím velmi zaostává.
 
 
 
-Při závěrečném hodnocení frameworku Compose Multiplatform se 
+Následně bude porovnán z pohledu implementace  jak z pouheledu tvorby UI, tak z pohledu tvorby aplikační logiky,
+
+
+
+Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že 
+je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací, ačkoli existují oblasti, 
+ve kterých může být ještě zlepšen.
+
+
+Co se týka náročnosti implementace aplikac i na ostatních platformách, tak zde byla náročnost
+o něco zvýšena kvůli nemožnosti implemtace iOS aplikace již od začátku. jelikož je ke kompilaci potřeba 
 
 
 % kapitola main pains
@@ -2204,9 +2307,47 @@ Při závěrečném hodnocení frameworku Compose Multiplatform se
 
 
 \section{Shrnutí dosažených výsledků}
+Podařilo se navrhnou aplikaci tak aby fungovala na více platformách.  
+
+Součástí návrhu byl také obecně použitelný designový systém, který může být použit k rozšíření nebo tvorbě nových aplikací v navrženém stylu.
+
+Aplikace byla úspěšně přizpůsobena konkrétnímu městu a napojena na jeho infrastrukturu pro získávání dat o událostech, 
+aktualitách a parkovacích zónách. Díky implementaci lokální databáze je aplikace použitelná i v offline režimu.
+
+Díky navržené architektuře je možné aplikaci kdykoliv v budoucnu rozšířit o další funkce. 
+
+Poskytuje občanů rychlí přehle o aktálním dění ve městě a zároveň 
+
+Poskytuje moderní UI, které odpovídá moderním standartům společnost Google pro vývoj mobilních aplikací.
+vsetne fukci jako je vyuziti tmavého motivu.
+
+Podařilo se naimplementovat multipaltformí aplikaci, která splňuje požadavky zadání a je spusittelná na mobilních 
+platformách Android a iOS. 
+
+Zároveň shlukuje co největší množství kódu ve společné části, čím ukazuje možnosti frameworku a 
+
+zarověň ale ukazaje jak framework umožnuje implementaci navních částí, 
+
+Jedinečný design, pokocí čeho ukažu možnosti daklarativního zápisu UI pomocí Compose Multiplatform.
+
+Z pohledu UI splnňuje veškeré stanovené požadavky
+
+S podařilo naimplementovat UI testy, které testují klíčové částí uživatelského rozhraní.
+
+Ukázalo se, že i v současné fázi vývoje je možné pomocí této technologie vytvořit použitelnou aplikaci.
+
 \section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
-Z pohledu aplikace jsou zde velké možnosti pro budoudcí vývoj nizcméně 
+Z pohledu aplikace jsou zde velké možnosti pro budoudcí vývoj 
+at už z pohledu rychlosti UI, propojení s dalšími systémy města, implementaci další UI testu a unit testu
+otestovani na vize zařízeních
+
+A navhnout tak pro města intuitivní aplikace, která by díky multipaltformím vlastnostem pokryla co nejvetší množství zařízení
+a zároven by byla snadněji udržovatelná.
+
+Zároveň umožnuje snadnou imtegraci mapových prvků 
+
+nicméně 
 
 
 Časem se zajisté ukáží
@@ -2215,4 +2356,6 @@ Z pohledu aplikace jsou zde velké možnosti pro budoudcí vývoj nizcméně
 
 mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
 
+uz je prubehu psani teto prace vzniklo nekolik novych funkcionalit ktere nebyli otesovany jako napriklad moznost
+implementovat viepodely na platforme ios stejne jako je tomu na android zarizenich.
 
