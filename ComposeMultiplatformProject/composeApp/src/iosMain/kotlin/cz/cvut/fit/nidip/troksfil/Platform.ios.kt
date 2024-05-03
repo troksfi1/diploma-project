@@ -1,3 +1,5 @@
+package cz.cvut.fit.nidip.troksfil
+
 import platform.UIKit.UIDevice
 
 class IOSPlatform : Platform {
