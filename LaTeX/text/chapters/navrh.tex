@@ -1,0 +1,717 @@
+\chapter{Návrh}
+V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost Compose Multiplatform frameworku a následně
+bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní kapitoly \textit{Cíle práce \ref{goals}}.
+
+Po vybrání typu aplikace následuje podkapitola věnující návrhu vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
+uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
+Zároveň vhodné skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou úsilí, 
+je pro správný návrh UI klíčové. 
+což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
+
+
+Další fáze návrhu je věnována vytyčení funkčních požadavků ...
+
+Dále je v rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. 
+
+Podkapitola \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
+rozebrání jednotlivých vrstev vybrané architektury.
+
+V poslední části návrhu je přistoupeno k samotné návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných wireframe modelů,
+následně návrhu design systému a nakonec k návrhu konečné podoby UI včetně grafických prvků.
+
+
+
+\section{Výběr aplikace}
+Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
+na různých platformách.
+%které by bylo možné použít napříč různými platformami.
+Mezi další požadavky patřilo zaměření se na kritické problémy, které aktuálně multiplatformní vývojem provází. 
+Mezi takové problémy patří například využití funkcí, které jsou silně spjaty s hardwarem koncových zařízení jako je použití jednotné navigace, fotoaparátu 
+nebo služeb lokalizace.
+
+Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky, které plynou ze zadání.
+
+Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo by jim například umožňovala vyhledat a zaplatit parkovné.
+TODO rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsahovat
+
+Na základě toho popisu byli vybrány následující případy užití.
+
+\section{Případy užití}
+Případy užití (use cases) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
+vlastnosti aplikace k dosažení svých cílů. \cite{} Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy od 
+uživatele. Zároveň popisují jakou zpětnou vazbu uživatel na základě provedených vstupů od systému dostává.
+
+Každý případ užití obvykle obsahuje následující prvky:
+
+\begin{itemize}
+  \item Název: Stručný název, který popisuje, co uživatel chce dosáhnout.
+  \item Aktor: Uživatel nebo systém, který spouští případ užití.
+  \item Popis: Podrobný popis scénáře, který obsahuje kroky, které uživatel vykonává, a odpovědi systému na tyto kroky.
+  \item Předpoklady: Podmínky nebo situace, které musí být splněny, aby mohl být případ užití spuštěn.
+  \item Výsledek: Očekávaný výsledek akce provedené uživatelem.
+\end{itemize}
+
+\myparagraph{UC1 Zobrazení aktuálních novinek} 
+Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přístup k aktuálním novinkám a důležitým oznámením ze svého města 
+nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí aktuální seznam aktualit z webových stránek města a dalších informačních zdrojů.
+  \item Uživatel si vybere aktualitu, která ho zaujme.
+  \item Systém uživateli zobrazí detail vybrané aktuality obsahující její název, obsah, datum vytvoření, obrázek a případně odkazy na další zdroje.
+\end{enumerate}
+
+\myparagraph{UC2 Zobrazení aktuálních událostí} 
+Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přehled o aktuálně připravovaných akcích, událostech a kulturních 
+aktivitách v jejich městě nebo obci. 
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí aktuální seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů.
+  \item Uživatel si vybere událost, která ho zaujme.
+  \item Systém uživateli zobrazí detail vybrané události obsahující její název, popis, datum konání, místo konání obrázek a případně odkazy na další zdroje.
+\end{enumerate}
+
+\myparagraph{UC6 Filtrování zobrazených událostí za základě času}
+Tento případ užití popisuje jak mohou občané filtrovat zobrazené události podle na základě datu konání daných událostí.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů s nejbližším datem konání, který 
+  je rozdělen na základě kategorií jako například kino, divadlo, hudba atd..
+  \item Uživatel si vybere konkrétní den pro který chce zobrazit konané události.
+  \item Systém uživatel vrátí výpis pro vybraný den a události rozdělí na základě kategorií, do kterých vyfiltrované události spadají.
+\end{enumerate}
+
+\myparagraph{UC3 Zobrazení kontakty na místní úřady}
+Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí seznam městských institucí.
+  \item Uživatel vybere konkrétní instituci, pro kterou chce zobrazit detailní informace.
+  \item Systém vrátí podrobné informace o vybrané instituci.  
+\end{enumerate}
+
+\myparagraph{UC4 Nahlášení závady ve městě}
+Aplikace dá občanům možnost hlásit závady, které je potřeba ve městě opravit.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí formulář pro k vyplnění městských institucí.
+  \item Uživatel vyplní název závady, nahraje fotografii závady, vyplní místo, kde se závada nachází, vybere kategorii závad do, které závada spadá a 
+  záznam o závadě odešle.
+  \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o 
+  
+  \item TODO rozdvojka spatne dobre vyplnene
+\end{enumerate}
+
+\myparagraph{UC5 Propojení s YouTube kanálem města}
+Aplikace dá občanům možnost konzumovat aktuální novinky prostřednictvím videí z městského YouTube kanálu. Díky intuitívnímu propojení...
+
+\begin{enumerate}
+  \item 
+  \item 
+\end{enumerate}
+
+\myparagraph{UC7 Vyhledání parkovacích zón}
+Aplikace umožňuje občanům města jednoduše a rychle vyhledat veškeré parkovací zóny ve městě včetně informace o provozní době parkovací zóny.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
+  \item Uživatel vybere parkovací zóny pro kterou chce zobrazit detailní informace.
+  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny.
+\end{enumerate}
+
+\myparagraph{UC8 Platba parkovného}  podTask UC7
+Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, 
+délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
+  \item Uživatel vybere parkovací zóny pro kterou chce zaplatit parkování.
+  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny s odkazem na zaplacení.
+  \item Uživatel na detailu vybrané zóny vybere akci zaplatit parkovné.
+  \item Systém uživatele přesměruje na platební systém používaný daným městem pro platbu parkovného s předvyplněnou informací o vybrané parkovací zóně.
+\end{enumerate}
+
+\myparagraph{UC7 Zobrazení dopravy na mapě města}
+Tento případ užití popisuje jak mohou občané města jednoduše a rychle zobrazit vytíženost silnice ve městě.
+
+\begin{enumerate}
+  \item Systém uživateli zobrazí mapu vytíženost silnice ve městě.
+\end{enumerate}
+
+Pro dotvoření představy o tom jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{fig:use_case_diagram}, na který zároveň 
+obsahuje i typy uživatelů pracujících s navrženou aplikací.
+
+Co se týče vzájemných vazeb, tak zde je věno
+
+Use case diagram
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{Use case diagram.png}
+  \caption{Use case diagram}
+  \label{fig:use_case_diagram}
+\end{figure}
+
+\myparagraph{Aktéři}
+Hlavními uživateli systému jsou především občané příslušného města, kteří budou aplikaci využívat za účelem splnění cílů z předchozí podkapitoly.
+
+Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data.
+
+TODO jaci uzivatel budou aplikaci použivat
+
+\bigskip
+
+Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrhu funkcionalit aplikace tak, aby co nejlépe odpovídaly těmto potřebám. 
+Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože je na jejich základě možné ověřit, zda systém správně reaguje na očekávané 
+uživatelské interakce. 
+
+Na jejichž základě je proto založeno koncové testování celé aplikace čehož je využito k tvorbě UI testů v kapitole \textit{Testování \ref{testsSection}}.
+
+Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.
+
+\section{Funkční požadavky}
+Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
+užitečná, efektivní a snadno použitelná.
+
+TODO piorita 5 slozitost viz grofetom
+
+\myparagraph{Zobrazení novinek}
+Možnost přidávat, editovat a mazat novinky a oznámení.
+Zobrazení aktuálních novinek na domovské obrazovce aplikace.
+Možnost filtrovat novinky podle kategorie nebo data.
+
+\myparagraph{Zobrazení událostí}
+Zobrazení kalendáře s událostmi, akcemi a důležitými daty.
+Možnost procházet události v kalendáři dle data, místa nebo typu události.
+Možnost přidávat nové události do kalendáře.
+Možnost filtrovat události podle kategorie nebo data.
+
+\myparagraph{Platební brána pro parkovné}
+Možnost provádět platby parkovného prostřednictvím aplikace.
+Zadání informací o vozidle, parkovacím místě a délce parkování.
+Zobrazení historie plateb a možnost platit opakovaná parkování.
+
+\myparagraph{Možnost vyhledání a kontaktování místních úřadů, policie nebo zdravotního střediska}
+Zobrazení kontaktních informací a pracovní doby úřadů.
+Možnost zaslat otázku, stížnost nebo žádost přímo prostřednictvím aplikace.
+
+\myparagraph{Navigace a mapy}
+Integrace mapových služeb pro zobrazení umístění událostí a místních služeb.
+Možnost vyhledávání tras a navigace v rámci města nebo obce.
+
+\myparagraph{Podpora více jazyků}
+Možnost nastavení jazyka aplikace dle uživatelských preferencí.
+Zobrazení obsahu a textů v různých jazycích.
+
+\myparagraph{Feedback a hodnocení}
+Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
+Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
+
+
+\myparagraph{Pokrytí případů užití} 
+Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+  \hline
+  %\multicolumn{9}{|c|}{Functional Requirements} \\ \hline
+   & F1 & F2 & F3 & F4 & F5 & F6 & F7 & F8  \\ \hline
+  UC1  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC2  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC3  & $\ast$ &        &        &        &        &        &        &         \\ \hline
+  UC4  &        & $\ast$ &        &        &        &        &        &         \\ \hline
+  UC5  &        &        &        & $\ast$ &        &        &        &         \\ \hline
+  UC6  &        &        & $\ast$ &        &        &        &        &         \\ \hline
+  UC7  &        &        &        &        & $\ast$ & $\ast$ & $\ast$ & $\ast$  \\ \hline
+  UC8  &        &        &        &        &        & $\ast$ & $\ast$ & $\ast$  \\ \hline
+  UC9  &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  UC10 &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  UC11 &        &        &        &        &        &        &        & $\ast$  \\ \hline
+  \end{tabular}
+  \caption{Pokrytípřípadů užití funkčními požadavky aplikace}
+  \label{table:tabulkaPokryti}
+\end{table}
+  
+
+\section{Architektura aplikace}
+Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
+
+TODO možné architektury pro vyvoj mobilních aplikací
+
+\subsection*{Důležité principy}
+
+\myparagraph{Separation of concerns}
+Separation of concerns je princip návrhu softwaru, který popisuje důležitost oddělení různých funkcionalit do samostatných, dobře definovaných a izolovaných částí.
+Hlavním cílem tohoto principu je zlepšit modularitu, udržitelnost, znovupoužitelnost a spravovatelnost kódu.
+
+Princip oddělení zájmů rozděluje systém na jednotlivé komponenty nebo moduly, přičemž každý z nich se zabývá jednou konkrétní 
+oblastí funkcionality. Každá část systému má jasně definované rozhraní, které umožňuje interakci s ostatními částmi. 
+Tímto způsobem lze snadněji spravovat a udržovat kód, protože změny v jedné části systému nemusí mít nežádoucí dopady na ostatní části.
+
+Příklady oddělení zájmů zahrnují oddělení prezentační vrstvy od logiky aplikace (Model-View-Controller), oddělení datového přístupu od 
+podnikové logiky (Repository pattern), a oddělení různých vrstev aplikace (např. vrstva uživatelského rozhraní, aplikační logika, datová vrstva). 
+
+\myparagraph{Unidirectional Data Flow}
+Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. 
+V tomto přístupu data proudí v jednom směru, což znamená, že existuje jasný a jednoznačný tok dat od zdroje až po jejich konečný cíl.
+Takovýto přístup například umožňuje efektivní aktualizaci uživatelského rozhraní v reakci na změny dat a přispívá k jednoduchosti, 
+předvídatelnosti a údržnosti softwarových aplikací.
+
+\myparagraph{Single source of truth}
+Princip Single Source of Truth (SSOT) je koncept v softwarovém inženýrství, který zdůrazňuje, že v aplikaci by měl existovat jediný 
+zdroj dat, který obsahuje aktuální a spolehlivé informace. Tento zdroj dat je považován za „pravdivý“ a slouží jako jediný zdroj, 
+ze kterého mohou ostatní části aplikace čerpat informace. Tím se zajišťuje konzistence dat napříč aplikací a minimalizuje se riziko 
+konfliktů nebo chyb v datech.
+
+Díky použití principu SSOT jsou data v aplikaci konzistentní a snadněji spravovatelná, protože všechny komponenty a moduly aplikace pracují se stejnými 
+daty. To usnadňuje údržbu a vývoj aplikace, protože úpravy a aktualizace dat lze provádět centrálně. Z hlediska kódu přispívá tento
+princip k jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hledat relevantní data pro různé části aplikace.
+
+Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace a poskytnout spolehlivý zdroj dat pro všechny části aplikace.
+
+
+\subsection*{Vrstvy architektury} \label{vrstvyArchitekturySection} 
+TODO % takzvaná architektura MVVM?  ..., která uplatňuje výše zmíněné principy.
+Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací.
+
+Ta se rozděluje do následujících třech vrstev:
+
+\subsubsection*{UI vrstva} \label{UILayerNavrh}
+UI vrstva se stará o zobrazení dat na obrazovce, která odpovídají aktuálnímu stavu aplikace. Zároveň se stará se logiku, která
+se při změně těchto dat stará o opětovné překreslení UI, tak aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
+dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch_ui_udf} a následně detailněji popsány pod ním.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{arch-ui-udf.png}
+  \caption{Architektura UI vrstvy}
+  \label{fig:arch_ui_udf}
+\end{figure}
+
+\myparagraph{ViewModel}
+Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce, a to i při změnách konfigurace zařízení 
+(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s daty, jako je načítání dat ze zdroje, 
+jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
+rozhraní. % (UI elementů) nebo stavu 
+
+\myparagraph{UI state} \label{UIStateParagraph}
+UI state (stav uživatelského rozhraní) je částí UI vrstvy, který popisuje aktuální stav a chování uživatelského 
+rozhraní v daném okamžiku. Tento stav může zahrnovat různé informace, jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
+ aktuální zobrazené obrazovky nebo panely, stav animací a další.
+
+UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v UI stavu mohou být způsobeny uživatelskými
+interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, rolováním seznamu nebo mohou být vyvolány událostmi v aplikaci,
+jako je získání dat ze serveru nebo jakoukoliv změnou interního stavu aplikace. 
+
+V rámci frameworků, které k tvorbě UI používají deklarativní způsob zápisu, se často k definice stavu a jeho vlivu na UI používá funkce 
+na obrázku \ref{fig:UI_function}, která zjednodušeně popisuje to, že na základě stavu je tvořeno výsledné uživatelské rozhraní.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{ui-equals-function-of-state.png}
+  \caption{Reprezentace vztahu UI a stavu aplikace}
+  \label{fig:UI_function}
+\end{figure}
+
+Správa UI stavu je důležitou součástí vývoje aplikací s uživatelským rozhraním a může být implementována pomocí různých technik a nástrojů.
+Důležité je udržovat UI stav v souladu s interním stavem aplikace a zajistit jeho konzistenci a správnou aktualizaci v reakci na uživatelské 
+interakce a události v aplikaci.
+
+\myparagraph{UI Elements}
+UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s aplikací.
+Tyto prvky zahrnují různé vizuální komponenty, jako jsou tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd. díky nimž
+se zobrazují data reprezentující aktuální stav aplikace nebo je pomocí nich tento stav měněn.
+
+UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob, jak s aplikací komunikovat a manipulovat. Každý prvek má své 
+vlastnosti, jako jsou velikost, barva, text, stav atd., které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
+podle určeného rozvržení (layout), které určuje jejich pozici a vzájemné uspořádání.
+
+UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají klíčovou roli při vytváření uživatelsky přívětivé a atraktivní aplikace. 
+Jejich vhodné použití a umístění má vliv na celkový uživatelský zážitek a efektivnost aplikace.
+
+\myparagraph{UI Events}
+Nejčastějším typem UI událostí jsou takzvané uživatelské události, které jsou generovány interakcí uživatele s uživatelským rozhraním aplikace. 
+Patří k nim například kliknutí myší, dotyk na obrazovce, stisknutí klávesy nebo jakékoli jiné akce prováděné uživatelem, které vyvolávají reakci v 
+UI aplikace. Tyto události jsou zpracovány aplikací pomocí metod jako je například metoda \code{onClick()} a mohou spustit různé akce, které by zároveň
+měli způsobit změny UI stavu.
+
+O zpracování uživatelských událostí se většinou stará příslušný ViewModel, který nabízí veškeré funkce, které je pomocí uživatelského rozhraní možné volat.
+Nicméně některé typy uživatelských událostí může UI zpracovat přímo, takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
+informativní zprávy pomocí takzvaných \textit{Snackbars}.
+
+\subsection*{Doménová vrstva}
+Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. Často se tímto způsobem "odlehčují" ViewModely,
+které by jinak obsahovali příliš mnoho kódu, což by vedlo k nepřehlednosti.
+
+V tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelovou vrstvu a mapovací funkce pro pro převod
+objektů datové vrstvy na objekty používané v prezentační vrstvě a naopak.
+
+Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
+ konceptů a procesů. To zjednodušuje testování, údržbu a rozšíření aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
+ vlivu na doménovou logiku.
+
+\subsection*{Datová vrstva}
+%Datová vrstva se stará o správu dat, která mohou být aplikaci poskytnuta například uživatelem nebo nějakou externí službou.
+%he data layer that contains the business logic of your app and exposes application data.
+
+
+Datová vrstva se zabývá persistencí dat a komunikací s datovými úložišti, jako jsou
+databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
+aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
+
+K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+ získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v indormačních systémech nachází na ... ve formatu XML, 
+
+
+ byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města) tak jak se tomu v levé části obrázku \ref{fig:arch_data_layer}. 
+
+Pro perzistenci těchto dat byla vybrána SQL databáze, která se stará poskytnutí dříve načtených dat v případech, kdy aplikace nemá přístup k internetu.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{data_layer_diagram.png}
+  \caption{Architektura datové vrstvy}
+  \label{fig:arch_data_layer}
+\end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=.3\textwidth]{data_layer_diagram_principle.png}
+%   \caption{Architektura datové vrstvy}
+%   \label{fig:arch_data_layer_principle}
+% \end{figure}
+
+Mezi důležité prvky datové vrstvy patří:
+
+\myparagraph{DAOs}
+DAOs jsou zodpovědné za přímý přístup k datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. Tyto objekty 
+poskytují abstrakci nad konkrétními technologiemi datových úložišť a umožňují snadnou změnu úložišť bez vlivu na ostatní části aplikace.
+
+\myparagraph{DTOs}
+DTOs jsou objekty používané k přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k přenosu dat mezi datovou vrstvou a doménovou 
+vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci.
+
+\myparagraph{Datové entity}
+Datové entity představují strukturu a schéma dat uložených v databázi nebo jiném datovém úložišti. Tyto entity obvykle přímo odrážejí
+strukturu tabulek v relační databázi nebo dokumentů v NoSQL databázi a poskytují model, se kterým mohou pracovat ostatní vrstvy aplikace.
+
+\myparagraph{Datová úložiště}
+Datové úložiště jsou fyzická místa, kde jsou data uložena. Mohou to být relační databáze, NoSQL databáze, soubory na disku nebo externí API. 
+Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s těmito úložišti a aby byla data bezpečně uložena a získána.
+
+\bigskip
+
+Tyto vrstvy jsou spolu propojeny následujícím způsobem.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{arch_diagram.png}
+  \caption{Provázanost jednotlivých částí datové vrstvy}
+  \label{fig:arch_diagram}
+\end{figure}
+
+\bigskip
+
+Po shrnutí dosavadně zmíněních poznatků týkajících se architektury aplikace byly jednotlivé vrstvy převedeny do jednotlivých balíků s následující
+strukturou:
+
+\dirtree{%
+.1 data\DTcomment{datová vrstva}.
+  .2 model\DTcomment{}.
+  .2 repository.
+.1 ui\DTcomment{prezentační vrstva}.
+  .2 composables\DTcomment{}.
+  .2 screens\DTcomment{}.
+    .3 HomeScreen\DTcomment{}.
+}
+\bigskip
+
+
+
+% \dirtree{%
+%         .1 src \DTcomment{}.
+%           .2 androidMain \DTcomment{}.
+%           .2 commonMain \DTcomment{je pro kód sdílený mezi všemi platformami}.
+%             .3 kotlin \DTcomment{}.
+%               .4 data\DTcomment{datová vrstva}.
+% 		            .5 model\DTcomment{}.
+% 		            .5 repository.
+% 		          .4 ui\DTcomment{prezentační vrstva}.
+% 		            .5 composables\DTcomment{}.
+% 		            .5 screens\DTcomment{}.
+% 		              .6 HomeScreen\DTcomment{}.
+%             .3 resourses \DTcomment{}.
+%           .2 desktop Main \DTcomment{}.
+% 	}
+
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=1\textwidth]{mvvm.png}
+%   \caption{MVVM with Clean Architecture}
+%   \label{fig:mvvm}
+% \end{figure}
+
+\section{Uživatelké rozhraní}
+UI bylo navrhováno tak aby vyhovovalo 
+
+v Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to jak celé UI posobí z poheledu
+uspořádání.
+
+
+
+TODO pravidla stravneho navrhu UI
+
+\subsection{Drátové modely}
+K tomu aby bylo výsledné UI pro uživatele přívětivé bylo přístupováno tak aby co nejvíce  s pravidly dobrého návhu UI.
+
+Mezi takoví pravidla patří:
+TODO
+
+Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
+umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově náročnější byli umístěny na sekundární obrazovky.
+
+Zároveň byla snaha o 
+
+\pagebreak
+\begin{minipage}[t]{0.45\textwidth}
+  \myparagraph{Domovská obrazovka}
+  Jak již bylo zmíněno v úvodu této kapitoli, tak domovská obrazovka obsahuje většinu nejdůležitější a 
+  
+  Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v posuvném řádku a to především díky možnosti zobrazit
+  veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídne možnost danou událost rozkliknout a dohledat zbylé informace.
+  Z ... \ref{} totiž vyplivá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  a času konání.
+  
+  Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
+  vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které jsou pro uživatele v případě aktualit nejdůležitější.
+  
+  Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
+  nahlášení závady, zobrazení uředních hodin a kontaktů.
+  
+  %V horní části se nachzí sekce umožňující přidání vlastní 
+  
+  %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
+  
+  \bigskip
+  \myparagraph{Obrazovka událostí}  
+  V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního řádku jako je tomu na domovské obrazovce.
+  
+  Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou udáslosti rozděleny 
+  do několika málo kategorií.
+  
+  V hoorní části aplikce je uživateli dána možnost vybrat den pro který chce zobrazit plánované udáslosti, případně zvolit požadované rozmezí.
+  
+  %jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
+  
+  
+  Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
+  
+  filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umuštěno kvůli malému počtu kategorií.
+  
+  byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrzí jen ty kategorie, které obsahují alespoň jednu událost.
+  
+  veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{home_wireframe.png}
+    \caption{Wireframe obrazovky \textit{Domů}}
+    \label{fig:wireframe1}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{events_wireframe.png}
+    \caption{Obrazovka \textit{Více}}
+    \label{fig:wireframe2}
+  \end{figure}
+\end{minipage}
+
+\begin{minipage}[t]{0.45\textwidth}
+\myparagraph{Obrazovka parkování}
+Obrazovká parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
+
+Aby bylo docíleno co nejjednuším manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována přávě mapovému
+podkalu na němž jsou vyznačeny parkovancí zóny. 
+
+Pro usnadnění hledání parkovacích zón dává aplikace uživateli možnost vyhlenání požadovaná parkovací zóny pomocí vyhledávací pole, které 
+uživateli umožňujě vyhledat příslušnou parkovancí zónu buďto podle čísla nebo názvu zóny. 
+
+Dále zde byla implentována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v případě, že uživatel vyberere nějakou
+z nabízených parkovacích zón. Nezmenšuje tak uživateli prostor pro rychlé vyhledání parkovanící zóny, které je hlavním cílem k použití této obrazovky. 
+
+Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovancí zoně a dá uživateli možnost zaplatit parkovné.
+
+Poslední funkci, kterou tato obrazovka nabízí je zobrazení aktuálního provozu ve městě. 
+
+
+\bigskip
+\myparagraph{Obrazovka více}
+Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých funkcí aplikace a zároveň obsahuje veškeré méně podstatné 
+časti aplikace.
+
+Jelikož je ale aplikce cílena pro široké spektrum lidí, byl zde navžena funkce, která umožnuje přidání vybraného prvku na domovskou obrazovku.
+
+
+který uživatelům umožňuje přízpůsobení domovské obrazovky.
+při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
+které mohou být přidány na uvodní obrzovku.
+
+
+v případě, že by uživatel shledal některou 
+z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje uživateli tuto funkci přidat na domovskou obrazovku.
+
+Představuje rychlo naviga
+
+Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{parking_wireframe.png}
+    \caption{Wireframe obrazovky \textit{Parkování}}
+    \label{fig:wireframe3}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{more_wireframe.png}
+    \caption{Wireframe obrazovka \textit{Více}}
+    \label{fig:wireframe4}
+  \end{figure}
+\end{minipage}
+
+\subsection{Design systém} \label{designSystemSection}
+Před tím něž bylo přistoupeno ke grafickému návrhu aplikace, tak byl vytvořen obecný design systém, který poslouží k vytvoření 
+konzistentního uživatelského rozhraní. Zároveň se díky němu urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace 
+zajistí intuitivní ovládání aplikace na všech platformách. 
+
+%Design system je obecně vzato sada komponent, pravidel, principů a návrhových postupů, které slouží k vytváření konzistentního
+%uživatelského rozhraní a uživatelského zážitku napříč různými aplikacemi a platformami. 
+
+Design systém je obecně vzato sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
+konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
+layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
+vzhledem. 
+ 
+Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje předvším uživatelskou 
+zkušenost s implementovanou aplikací. 
+%Designový systém zároveň často obsahuje sadu prvků UI, typografického stylu, barev, ikon a další informace, které 
+%pomáhají designérům a vývojářům při tvorbě aplikací.
+
+%V navrhovaní výslednéh design systému bylo přistupováno tak aby styl navržených UI komoponenty, typů písma, barem a dalších prvků design 
+%systému přiblině odpovídal aktuálně používanému stylu města.
+
+%Jelikož město, které bylo vybráno pro implementaci aplikace nikde expliciteně nedefinovalo používaný design systém,
+%byl proto vytvořen na základě. 
+%TODO NEBO 
+
+V rámci vybraného města Příbrami není takový systém nikde expliciteně zadefinovaný a proto byl odvozen z designu webových stránek města.
+pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
+
+Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
+na mobilních platformách.
+
+S ohledem na to, že aplikce je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návrh samotné design systému, který
+specifikuje především prvky použitelné na mobilních platformách a zbylé části mohou být případně v budoucnu rozšířený o další prvky 
+používané na jiných platformách.
+
+V tomto případě bylo navrženo pár základních UI prvků, které budou použity v rámci této aplikace a mouhou být použity i případně dalšími 
+aplikací města.
+
+Výsledek základní ukázky takto navrženého systému je k vidění na obrázku \ref{fig:design_system}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.99\textwidth]{design_system.jpg}
+  \caption{Vytvořený design systém}
+  \label{fig:design_system}
+\end{figure}
+
+\subsection{Mockup modely} \label{navrhMockupModelu}
+Po zadefinování použitelných komponet v navženém design systému \ref{designSystemSection} jež samotný návrh grafické podoby UI zjednodušen 
+na nezbytné minimum. 
+
+Vytvořené mockup modely jsou defacto výsledkem sloučení dratových modelů s navrženým design systémem.
+
+při návrhu grafické podoby UI byla proto priparně soustředěn na vyznam jedlotlivých UI komponent a na základě jejich významu byla
+přiřazovány odpovídající barvy. 
+
+Navržené UI se snaží respektovat zásady správného UI návrhu dle Android dokumentace a to především z pohledu přístupnosti, rozložení obsahu, 
+druhu použití UI komponent nebo vhodnosti použití barev.
+
+%\pagebreak
+\begin{minipage}[t]{0.45\textwidth}
+
+\bigskip
+\myparagraph{Přístupnoust}
+Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měli vhodně zvolenou barvu z poheledu
+správného kontrasku vůči podkladu a nebo z pohledu dostatečné čitelnosti.
+
+Dále byla věnována pozornost správnénumu popisu jedlotlivých UI komponent tak, aby bylo možné aplikaci používat i s tazvanou TalkBack čtečkou, která 
+umožňuje nevidomím nebo jinak zrakově postiženým lidem používat aplikaci.
+
+\bigskip
+\myparagraph{Barvy}
+I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během faze návhu mockup modelu byl zároveň kladen důraz na  jejich 
+vhodné použít z pohledu sémantiky barev nebo důležitosti barvených komponenta.
+
+V základu \textit{Material Theme Builder} umožnuje definovat 3 základní barvy (primárním, sekundárním, ternární), kterém máji jasně vymezené role.
+a ta v případě implementovaného UI byla použita například pro potvzovancí akci "zplacení parkovného". Senkundární barva byla
+implementována například na filtrační talčítka na obrazovce "Události", jelikož hlavním předmětem pozornosti v daném zobraní 
+jsou zobrazované akce a ne filtrační možnosti.
+
+\bigskip
+
+\myparagraph{Rozložení}
+Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektorváno pár pravidel liniového zarovnání, tak aby nedocházelo
+k narušení čitelnosti.
+
+Komponety pro důležité interakce byly drženy v takzvané dosahové vzdálenosti jako primarní navigace nebo tlačítka pro vykonání
+důležitých akcí.
+
+Pro obrázky byly voleny běžné poměry jako například 4:3, tak aby nedocházelo k jejich zbytéčnému ořezávání.
+
+Zároveň 
+
+ Sytost barev byla zvolena na základě
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{screen1.png}
+    \caption{Obrazovka \textit{Domů}}
+    \label{fig:mockup1}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{screen2.png}
+    \caption{Obrazovka \textit{Události}}
+    \label{fig:mockup2}
+  \end{figure}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.45\textwidth}
+  TEXT DRUHE STANKY
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{screen3.png}
+    \caption{Obrazovka \textit{Parkování}}
+    \label{fig:mockup3}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\textwidth]{screen4.png}
+    \caption{Obrazovka \textit{Více}}
+    \label{fig:mockup4}
+  \end{figure}
+\end{minipage}

@@ -1,0 +1,712 @@
+\chapter{Implementace}
+Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multipaltformích aplikací založených na Compose Multiplatform 
+se používá nástroj zvaný Gradle.  
+
+\section{Založení Compose Multiplatform projektu}
+K založení projektu byl použit nástroj \textit{Kotlin Multiplatform Wizard} od společnosti JetBrains, který slouži k rychlému vytvoření projektu
+založeném na technologie KMP. O sestavování takto založeného projektu se stará nástroj Gradle.
+
+\subsection{Gradle} \label{gradleChapter}
+Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je to nástroj pro automatizaci sestavení 
+podobný Antu nebo Mavenu, který byl vyvinut pro zjednodušení procesu sestavení a nasazení softwaru.
+
+Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým umožňuje definovat sestavení a konfiguraci projektu pomocí srozumitelné
+a flexibilní syntaxe. Od verze 3.0 z roku 2016 je možné psát Gradle skripty v jazyce Kotlin DSL a od roku 2023 je Kotlin DSL primarním jazykem 
+pro jejich zápis. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v jazyku se stejnou
+syntaxí jako je používána pro ostatní části projektu.
+
+%K vytvoření projektu založeném na Compose Multiplatform je doporučeno využití právě totoho sestavovacího nástoroje. 
+
+K tomu aby bylo možné Compose Multiplatform v projektu použít, je zapotřebí do projektového souboru \code{build.gradle.kts} přidat Compose 
+Multiplatform plugin (viz výpis kódu \ref{lst:ComposePlugin}).
+
+\begin{lstlisting}[caption={Integrace Compose Multiplatform pluginu do sestavovacího scriptu}, label={lst:ComposePlugin}, language=Kotlin]
+plugins {
+  id("org.jetbrains.compose") version "1.6.0"
+}
+\end{lstlisting}
+
+Dále je zapotřebí vybrat platformy pro které má být aplikace určena a podle nich vytvořit příslušné balíčky viz kapitola \ref{projectStructure}.
+V připadě implemetované aplikace se jedná o platformy Android a iOS, které bylo nutné specifikovat v projektovém souboru 
+\code{build.gradle.kts} (viz řádky 2 - 30 na výpisu kódu \ref{lst:LibIntegration}).
+Podle těchto platforem lze následně v příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
+pro každou platformu implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
+sourceSets podle toho, zdali se jedna o multiplatformní (\code{commonMain}) nebo nativní závislost (\code{androidMain}, \code{iosMain}, atd.).
+
+Pro ukázku jak taková multiplatformní závislost může vypadat slouží řádky 32 - 37 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
+kterých je do projektu přidána knihovna umožnující implementaci multiplatformní navigace.
+
+\begin{lstlisting}[caption={Lib integration}, label={lst:LibIntegration}, language=Kotlin]
+  kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation("androidx.compose.ui:ui-test-junit4-android:1.6.4")
+                debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
+            }
+        }
+    }
+
+    jvm("desktop")
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+      commonMain.dependencies {
+        implementation(libs.voyager.navigator)
+        ...
+      }
+    }
+  }
+\end{lstlisting}
+
+Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
+například pomocí \textit{Composable} funkce, která je napsána v rámci sdílené části aplikace.
+
+Ve výpisu kódu \ref{lst:SharedIntegration} je touto funkcí funkce \code{App()}, která je volána z nativního Android kódu a stará se
+o deklaraci veškerého multiplatformního UI.
+
+\begin{lstlisting}[caption={Lib integration}, label={lst:SharedIntegration}, language=Kotlin]
+class MainActivity : ComponentActivity() {
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+
+      setContent {
+          App()
+      }
+  }
+}
+\end{lstlisting}
+
+Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů. 
+
+
+
+Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
+
+\myparagraph{Gradle version catalog}
+Gradle version catalog je obyčejní soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti a pluginy ve celém projektu. 
+Místo ručního přidávání závislostí a pluginů do každého modulu zvlášť je možné shromáždit veškeré závisloti v tomto souboru a zadefinovat rovněž
+verzi, která má být pro tento modul použita napříč celým projektem. 
+
+Příklad toho jak mohou být dříve zmíněné závislosti přepsány do version
+katalogu je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
+
+\begin{lstlisting}[caption={Version katalog}, label={lst:VersionCalalog}, language=Kotlin]
+[versions]
+compose-plugin = "1.6.0"
+voyagerVersion = "1.0.0"
+
+[libraries]
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", 
+                      version.ref = "voyagerVersion" }
+[plugins]
+jetbrainsCompose = { id = "org.jetbrains.compose",
+                     version.ref = "compose-plugin" }
+
+\end{lstlisting}
+
+\section{Tvorba UI obecně}
+\subsection{Navigace}
+Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
+částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v aplikaci. 
+
+Aktuálně však komponenta navizage ze sady knihoven Jetpack Compose není k dispozici a proto je potřeba zvolit nějakou alternativu poskytovanou
+třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multipaltformí navigace je uveden v oficiálních Kotlin 
+multiplatform dokumentaci a zahrnuje navigace Voyager, Decompose nebo Appyx. K implemnaci byl po zvážení nakonec vybrána navigace Voyager a 
+to především díky přehledné dokumentaci, intuitivní implementaci a jednoduchému principu navigace založeném na zásobníku, který pro aktuálně
+implementovanou aplikaci plně dostačuje.
+
+V budoucu by však měla být dostupná, ale do té doby je potřeba vybrat z alternativních knihoven.
+
+
+;
+%\section{Navigace a lokalizace v implementaci}
+\subsection{Design systém}
+
+Při implementace design systému pomocí Compose Multiplatfom byla snaha co nejpřesněji napodobit navržený design sytém z kapitoly \ref{designSystemSection}
+tak aby uživateli navodil maximalní pocitu jednoty s dosavadními informačními systémy města.
+
+
+Compose multiplatform je přípraven na implementaci design systému. 
+
+loading
+
+
+\subsubsection*{Barvy} \label{colorSection}
+Základní barvy pro světlý motiv byly zvoleny na základě navženého design systému, který byl navžen na základě vizuálního stylu města, které město 
+Příbram využívá při všech prezentačních příležitostech.
+
+Zbylé barvy jako barvy pozadí nebo pro tmavý režim byli dopočítány ze základních barev pomocí nástroje \textit{Material Theme Builder}, který 
+
+Pro použití výbraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
+
+\begin{lstlisting}[caption={Zadefinování barev}, label={lst:ComposeCode}, language=Kotlin]
+  val md_theme_light_primary = Color(0xFFBC004C)
+  val md_theme_light_onPrimary = Color(0xFFFFFFFF)
+  val md_theme_light_primaryContainer = Color(0xFFFFD9DE)
+  val md_theme_light_onPrimaryContainer = Color(0xFF400015)
+  ...
+
+  val md_theme_dark_primary = Color(0xFFFFB2BE)
+  val md_theme_dark_onPrimary = Color(0xFF660026)
+  val md_theme_dark_primaryContainer = Color(0xFF900039)
+  val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
+  ...
+\end{lstlisting}
+
+Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů, ploch atd.
+
+Mimojiné jsou taktéž použity pro definování barevných motivů, které se definují následujícím způsobem:
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:ComposeCode}, language=Kotlin]
+  private val LightColors = lightColorScheme(
+    primary = md_theme_light_primary,
+    onPrimary = md_theme_light_onPrimary,
+    primaryContainer = md_theme_light_primaryContainer,
+    onPrimaryContainer = md_theme_light_onPrimaryContainer,
+    secondary = md_theme_light_secondary,
+    ...
+  )
+
+  private val DarkColors = darkColorScheme(
+    primary = md_theme_dark_primary,
+    onPrimary = md_theme_dark_onPrimary,
+    primaryContainer = md_theme_dark_primaryContainer,
+    ...
+  )
+\end{lstlisting}
+
+Díky takto zadefinovaným motivům je následně možné obarvit veškeré komponenty aplikace podle aktuálně použivaného režimu.
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
+  @Composable
+  fun AppTheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+  ) {
+    val colors = if (!useDarkTheme) {
+      LightColors
+    } else {
+      DarkColors
+    }
+  
+    MaterialTheme(
+      colorScheme = colors,
+      content = content
+    )
+  }
+\end{lstlisting}
+
+\subsubsection*{Typografie}
+je používána k definování stylu písma. Využívá k tomu styly definované Material designem. ten definuje celkem 15 druhů písma,
+kde každé z nich má definovaný způsob použití. \cite{material3} Jelikož se jedná o výchozí styly písma, tak lze k těmto stylům přistupovat přes
+Composable funkci \code{MaterialTheme} popsanou v kódu \ref{lst:colorsDef} aniž by se parametr \code{typography} musel explicitně
+uvádět.
+
+\begin{lstlisting}[caption={Ukázka použití stylu písma}, label={lst:typographyExample}, language=Kotlin]
+  Text(
+    text = news.title,
+    style = MaterialTheme.typography.headlineMedium
+  )
+\end{lstlisting}
+
+
+
+\section{Použité technologie}
+Následující podkapitola je věnována konkrétním technologiím, které byli pro tvorku komponent z předchozí kapitoli použity.
+
+Jedná se převážně o soubor multiplatformních technologií, které byli použity k implementaci UI, ale zároveň byli zmíněny některé důležité technologie,
+které
+
+
+\subsection{Vrstva uživatelkého rozhraní}
+
+\subsubsection*{Voyager}
+Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
+ aplikacích. \cite{voyager} Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
+ zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+
+ V rámci implementované aplikace byla Voyager navigace použita k implementaci základní navigace mezi jedlotlivými obrazovkami.
+ Příkladem takové navigace jsou veškeré možné přechody v rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
+ \textit{Stack API}, které jehož implementace fungguje na principu zásobníku. S tím, že pokud uživatel vstoupi na navou obrázovku 
+ (například přejde na stranku zobrazující detail vybrané udásloti), tak je do tohoto zásobníku přidán odkaz na takzvaný SnapshotState,
+ který uchává stav právě opuštěné obrazovky a je znovu obnoven v případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
+ zásobník slouží k tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v zásobníku), když uživatel provede akci zpět
+ například pomocí tlačítka zpět na platformě Android. \textit{Stack API} zároveň umožnuje použití několika funkcí jako jsou například 
+ \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed nebo funkce \code{pop}, \code{popAll}, \code{popUntil}
+  pro zpětný návrat. 
+
+ Díky této implementaci je možné používané obrazovky do sebe libovolně zanořovat a v případě, že je potřeba nějakým způsobem upravit
+ stav předchozích TODO
+
+ Nicméně tento způsob navigace není vhodné použít pro navigaci mezi jednotlivými záložkami aplikace (lišta ve spodní části displaye) 
+ a proto je tado část navigace 
+ implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje. V přípaně použití záložek se
+ průchod nezapisuje do zásobníku jako v předchozím případě jelikož jednotlivé záložky jsou na stejné urovní a implementace navigace
+ založené na zásobníku by byla pro uživatele matoucí.
+
+ TODO
+ \begin{lstlisting}[caption={Ukázka použití navigace založené na záložkách}, label={lst:tabNav}, language=Kotlin]
+TabNavigator(
+  tab = HomeTab
+) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomNavigation(
+                backgroundColor = MaterialTheme.colorScheme.background
+            ) {
+                TabNavigationItem(HomeTab)
+                TabNavigationItem(EventsTab)
+                TabNavigationItem(ParkingTab)
+                TabNavigationItem(MoreTab)
+            }
+        },
+        content = { CurrentTab() },
+    )
+}
+\end{lstlisting}
+
+
+\subsubsection*{Coil}
+Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
+řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
+z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
+
+Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
+umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
+JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
+
+Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
+aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
+přednosti moderních technologií a frameworků při práci s obrázky.
+
+TODO uvest coil
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
+  AsyncImage(
+    model = news.thumbnailUri,
+    contentDescription = "Sample",
+    contentScale = ContentScale.Crop,
+
+    modifier = Modifier.aspectRatio(4f / 3f)
+  )
+\end{lstlisting}
+
+\subsection{Vrstva apliakční logiky}
+
+\subsubsection*{Kotlin}
+\subsubsection*{Coroutines}
+\subsubsection*{Ktor}
+Ktor je open-source framework vytvořený společností JetBrains pro tvorbu aplikací jak na serverové tak i klientské části pomocí programovacího 
+jazyka Kotlin.
+
+Ktor byl vyžit především kvůli možnožnosti využití multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat HTTP požadavky a 
+zpracovávat odpovědi. 
+
+Pro dotazování byl použit multipaltformí Engine CIO, díky ktrému je možné použítna na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
+private val client = HttpClient(CIO) {
+  engine {
+    maxConnectionsCount = 1000
+    requestTimeout = 5000
+    ...
+  }
+}
+
+suspend fun getEventsXml(): EventsXmlDto {
+  val response: String = client.get("https://kalendar.pribram.eu/...").body()
+  return format.decodeFromString<EventsXmlDto>(response.cleanUpEventXml())
+}
+\end{lstlisting}
+
+\subsubsection*{Koin}
+Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
+k jiným známým knihovnám, jako je například Dagger. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací 
+a zároveň zlepšuje čitelnost a údržbu kódu.
+
+Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
+jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
+ vývojářům transparentní pohled na strukturu aplikace.
+
+\bigskip
+
+V rámci této aplikace byl Koin použit například pro vložení databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
+Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většitna databázové logiky je napsána v rámci sdílené 
+logiky a v rámci nativní logiky, byl tak implementovám pouze databázový ovladač.
+
+\begin{lstlisting}[caption={DI databázového ovladače pomocí Koinu}, label={lst:KoinInit}, language=Kotlin]
+class MainActivity : ComponentActivity() {
+
+  private val dbDriverFactoryModule = module {
+      single { DatabaseDriverFactory(applicationContext) }
+  }
+
+  init {
+      loadKoinModules(dbDriverFactoryModule)
+  }
+  ...
+}
+\end{lstlisting}
+
+\subsubsection*{SQLDelight}
+SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
+který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+
+Hlavní funkcionalitou SQLDelightu je automatická generace Kotlinových tříd na základě definovaných SQL schémat. To znamená, že vývojáři
+ mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o vygenerování příslušných tříd v jazyce Kotlin, které umožňují 
+ snadný a bezpečný přístup k databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
+ štítkem (viz "selectAllNews:" ve výpisu kódu \ref{SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
+
+\begin{lstlisting}[caption={SQL dotaz}, label={lst:SQLDotaz}, language=SQL]
+selectNewsById:
+SELECT *
+FROM News
+WHERE id = :id;
+\end{lstlisting}
+
+Vygenerové metody (dotazy) lze následně nalézt ve složce \code{} a pro výše uvedený dotaz vypadá takto
+
+\begin{lstlisting}[caption={SQL vygenerovaný dotaz}, label={lst:SQLGeneratedDotaz}, language=SQL]
+private inner class SelectNewsByIdQuery<out T : Any>(
+  public val id: Long,
+  mapper: (SqlCursor) -> T,
+) : Query<T>(mapper) {
+    override fun addListener(listener: Query.Listener) {
+    driver.addListener("News", listener = listener)
+  } TODO
+  \end{lstlisting}
+  
+
+SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
+ kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
+
+I přesto, že většina kódu může být psána v balíčku sdílenem mezi všemi platformami, je zde i část z předchozí ukázky \ref{lst:SQLGeneratedDotaz}
+, kterou je potřeba naimplementovat nativně. Konkrétně se jedná o ovladače k jejichž implementaci jsou potřeba nativní knihovny a musí
+být proto implementovány v balíčcích jednotlivých platforem. Pro 
+
+TODO
+\begin{lstlisting}[caption={SQL vygenerovaný dotaz}, label={lst:SQLGeneratedDotaz}, language=SQL]
+  actual class DatabaseDriverFactory {
+    actual fun createDriver(): SqlDriver {
+        //val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:test.db")
+        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+        AppDatabase.Schema.create(driver)
+        return driver
+    }
+}
+\end{lstlisting}
+
+
+%\subsection{Full text search impl tech} \label{fulltextSearch}
+%TODO
+% neco na fulltextové vyhledavani
+
+
+
+
+
+\section{Logika uživatelského rozhraní} \label{UILayerImpl}
+V rámci této kapitoly budou ukázáno jakým způsobem byla logika chování UI navržená v kapitole 
+
+
+%\textit{Vrstvy architektury \ref{vrstvyArchitekturySection} }, j
+
+\subsection{Stav uživatelkého rozhraní} \label{stateHandlingImpl}
+Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
+kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
+
+Z pohledu UI se jedná o důležitou část aplikace o jejíž aktualizaci se stará již zmíněný ViewModel \ref{ViewModelImpl} neboli ScreenModel v rámci
+implementované aplikace. 
+Pro zachování stavu jednotlivých obrazek byla použita datová třída, která v sobě umožnujě uchovávat veškeré možné stavy dané obrazovky.
+Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí, která v rámci aplikace potřebuje 
+uchovávat největsí množství informací (viz \ref{lst:EventState})
+
+\begin{lstlisting}[caption={Event State katalog}, label={lst:EventState}, language=Kotlin]
+data class EventsState(
+  val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
+  val selectedFilterOption: FilterOption = FilterOption.TODAY,
+  val isDatePickerOpen: Boolean = false,
+  val isFetchingEvents: Boolean = false,
+  ...
+)
+\end{lstlisting}
+
+Takto zadefinované stavy mohou být v aplikaci použity například následujícím způsobem. Kde stav udržován 
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+  val screenModel = getScreenModel<HomeScreenModel>()
+  val state by screenModel.state.collectAsState()
+
+  val news = state.news.collectAsState()
+  LazyColumn {
+      items(news.value) { news ->
+          NewsItem(news = news, onItemClick = {
+              navigator.push(NewsDetailScreen(news))
+          })
+      }
+  }
+\end{lstlisting}
+
+\subsection{Události uživatelského rozhraní} \label{eventHandlingImpl}
+V rámci této kapitolo bude představeno jak implementovaná aplikace obsluhuje událsti přicházející z uživatelského rozhraní.
+
+
+V rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z UI elementů. V jednotlivýmch j
+
+
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+sealed interface EventsEvent {
+  data object OnFilterTodayIsSelected : EventsEvent
+  data object OnFilterDateIsSelected : EventsEvent
+  ...
+}
+\end{lstlisting}
+
+
+\subsection{ViewModel} \label{ViewModelImpl}
+TODO % odkaz na UI Layer
+V rámci implementované aplikace byl pro každou obrazovku implementovám jeden ViewModel, který se stará o logiku každé obrazovky zvlášť. Tato kapitola 
+bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak 
+
+
+V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přichazející z UI a na jejich základě by vždy měli
+měnit stav aplikace. V tomto duchu jsou implementovany vševhny ViewModely. Díky tomu je možné zaručit, že stav uživatelkého rozhraní  nebude změněn
+v případě 
+
+
+
+\begin{lstlisting}[caption={Použití stavu v aplikaci}, label={lst:StateImpl}, language=Kotlin]
+  fun onEvent(event: EventsEvent) {
+    when (event) {
+        EventsEvent.OnFilterTodayIsSelected -> {
+            screenModelScope.launch {
+                val today: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                ...
+
+                _state.update {
+                    it.copy(
+                        selectedFilterOption = FilterOption.TODAY,
+                        ...
+                    )
+                }
+            }
+        }
+    }
+  }
+\end{lstlisting}
+
+, která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
+
+
+
+\section{Tvorba UI obrazovek}
+TODO %obecne ukazat jak se UI v compose tvori ze je to daklarativne
+
+Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform používají 
+takzvané Composable funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
+
+Tyto Composable funkce tak mohou představovat jednotlivá tlačítka, texty vstupní pole, seznamy, ale také celé soubory těchto prvků jako jsou 
+například celé obrazovky.
+
+Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny a tím tvoří
+takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
+
+\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ConsumeUIState}, language=Kotlin]
+  @Composable
+  fun LatestNewsScreen(
+      viewModel: NewsViewModel = viewModel()
+  ) {
+      // Show UI elements based on the viewModel.uiState
+  }
+\end{lstlisting}
+
+%Zároveň 
+
+%Z těchto Composable funkcí se skládá celé UI
+
+
+Obsahem následujících podkapitol bude ukázka UI komponent, které byly použity k implementaci navrženého UI.
+
+\subsection{Domovská obrazovka}
+Uživatelké rozhraní domovské obrazovky je kompletně implemetováno pomocí Compose Multiplatform a nebylo při jeho implemementaci potřeba
+přistoupit k nativímu řešení ani na platformě iOS nebo desktop. 
+
+K tvorbě UI domovské obrazovky bylo nejprve přistupováno na základě vytvořených wireframes a následně stylizováno tak, aby 
+jednotlivé komponenty odpovídali navržené podobě UI z kapitoly \ref{navrhMockupModelu}
+
+K implementaci posuvného řádku použitého v kapitole \textit{Tvorba drátových modelů \ref{}} byla použita komponenta zvaná LazyRow.
+
+
+I implementaci 
+
+
+
+LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komoponenty
+
+Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
+nebo událostí.
+
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=Kotlin]
+  @Composable
+  fun EventLazyRow(category: EventCategory, state: EventsState) {
+      val scrollState = rememberLazyListState()
+      val coroutineScope = rememberCoroutineScope()
+      val navigator: Navigator = LocalNavigator.currentOrThrow
+  
+      Column {
+          Text( ... )
+          LazyRow( ... ) 
+      {  
+        items(eventList) { event ->  //state.filteredEvents
+            EventItem(event = event, onItemClick = {
+              navigator.push(EventDetailScreen(event))
+            })
+          }
+        }
+      }
+  }
+\end{lstlisting}
+
+\subsection{Obrazovka \textit{Události}}
+
+V rámci obrazovky "Události" je používána stejná komponanta pro zobrazování událostí jako byla použita na domovská obrazovce. 
+
+pro zobrazené údálostí "EventLazyRow". 
+
+Každý z nich obsahuje udásti z jedné katregorie. Ty jsou předem přípraveny ViewModele, který při zavolaní nějaké z filtrovacích
+událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u nich zjistí do jakých kategorií tyto
+udásloti patří. Následně pro kažfou katerorii vytvoří jeden LazyRow do kterého umístí příslušné události.
+
+Uživatel má na víběr filrobat události buďto předm zvolených časových rozmezí jako je dnes, zítra nebo může zvolit vlastní 
+rozmezí pomocí kiknutí na ikonu kalendáře. Po klidní na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
+uživateli umožnuje zvolit požadované časového rozmezí.
+
+k volbě čacového rozmezí Dnes a Zítra bylu zvoleny takzvané Chips a konkrétně FilterChips, které jsou navrženy k filtrování
+a uživatelé jsou na jich použití i z jiných aplikací, které používají Material Design.
+
+
+LAZY ROW , DATE PICKER, SPECIAL CHIPS
+
+
+\subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
+K implementaci mapových podkladů bylo zapotřebí použít nativího řešení. 
+
+
+Bylo využito UI komponenty \code{GoogleMap} z balíčku \code{com.google.maps.android.compose}, která umožňuje vložení mapových podkladů 
+na platformě Android.
+
+Dále byla tato obrazovka rozšířena o vyhledávací pole, které uživateli dává možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla 
+parkovací zóny.
+
+%K tomu je použito fulltextové vyhledání ... popsané v kapitole \ref{fulltextSearch}. 
+
+
+Dále zde byl na tuté obrazovce implemetován bottom sheet, který je zobrazen pouze v případě, že uživatel vyberere nebo vyhledé pro o jakém 
+parkovaní zóně si přeje zobrazit podrobné informace. Díky tomu, že se zobrazí pouze v případě, kdy uživatel požaduje detailnější informace, tak
+tento panel nezmenšuje uživateli prostor pro rychlé vyhledání parkovanící zóny v mapě. 
+
+
+
+\section{Řešení problémů spojených s multiplatformním vývojem}
+Nedostatek knihoven
+Mezi jeden z hlavních problému patří nedostatek vhodných multiplatformních knihoven a ten se projevil i v případě implementace mapových podkladů
+do aplikace kde byla nakonec zvolena implementace nativních mapových podkladů za použití expect a actual deklarací (viz paragraf \ref{expectActual}).
+
+Preview
+Další problémem bylo nefunkční náhled UI , což se na výsledném UI nikterak neprojevilo, ale celý proces tvorby UI to značně prodloužilo.
+
+Špatná nebo téměř žádna dokumentace k knihovnám třetích stran a v případě co se týče Compose Multiplatfrom, tak zde je téměř kompletně spoléháno na
+identic. 
+Na druhou stranu Compose Multiplatform ještě není na všech platformách ve stabilní verzi a proto je možné, že po vydání stabilních verzí i pro jiné
+platformy se dokumentace od JetBrains rozříší.
+
+problémy s IDE 
+
+
+\subsection{Implementace mapových podkladů}
+
+\myparagraph{Výběr mapových podkladů}
+získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
+
+Jak jž bylo zmíněno v kapitole \ref{parkingScreenImpl} tak implementace matových podkladů byla implementována pomocí nativní knihovy proskytovanou
+spoůečností Google pro platformu Android. 
+
+byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé umísila do středu obrazovky. 
+Funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), jež tvoří mnohoúhelník patkovací funkce pomocí náseldující funkce.
+
+\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, \quad \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i
+\]
+
+Výsledná souřadnice $(x¯,y¯)$ bylo použita k vycentrování mapy
+
+\begin{lstlisting}[caption={GoogleMap element}, label={lst:GoogleMapview}, language=kotlin]
+  GoogleMap(
+    modifier = Modifier.fillMaxSize(),
+    properties = MapProperties(
+        isTrafficEnabled = true,
+        mapType = MapType.NORMAL,
+        mapStyleOptions = MapStyleOptions(MapStyle.JSON_LIGHT)
+        /*latLngBoundsForCameraTarget = LatLngBounds(
+            LatLng(49.7195186,13.9845228)) */
+    ),
+    cameraPositionState = cameraPositionState
+) {...}
+\end{lstlisting}
+
+\myparagraph{Impementace motivu mapy}
+
+Aby byla implementace motivů z kapitoly \ref{} komlemtní bylo zapotřebí přizpůsobit i mapove podklady
+
+kreré se mění v závisloti na aktuální motivu zařízení.
+
+\begin{lstlisting}[caption={Motiv mapy ve formátu JSON}, label={lst:MapStyle}, language=kotlin]
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+\end{lstlisting}
+
+
+\myparagraph{Získaní a zpracování mapových dat}
+Mapová data v podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy zón, typy, popisy a umístění zón byla získána od
+města Příbrami. 
+
+Poskytnutá data byla získána ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci, distribuci geografických dat.
+Tento formát ke svému zápisu moužívá sytazi jazyka XML a z toho důvodu byl k jeho převedení do objektů použit stejný XML parser jako při 
+

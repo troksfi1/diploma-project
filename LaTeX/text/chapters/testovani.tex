@@ -1,0 +1,177 @@
+\chapter{Testování} \label{testsSection}
+Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
+
+\section{Uživatelské rozhraní}
+Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
+
+UI testy se používají k ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
+interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+
+Mezi základní typy UI testl se řadí UI testy testující ktitické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
+správnost fungování navigace v dané aplikaci.
+
+
+\section{Výkon aplikace}
+
+
+\section{Kompatibilita}
+estování aplikace na různých zařízeních s různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
+správně na široké škále zařízení.
+
+
+\section{Možnosti testování UI v Compose Multiplatform}
+Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
+proto i stejných konceptů. Mezi tyty klíčové koncepty testovaní UI se řadí následující:
+
+
+\myparagraph{Testování sémantiky}
+V rámci testování
+\myparagraph{API rozhraní}
+Compose Multiplatform z toto důvodů taktéž využívá tři hlavní principy jak testovat UI, které se v Jetpack compose
+označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}. 
+K tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenýcmi 
+komponenty umožňují provest akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provední těchto akcí se používají takzvané tvrzení 
+(Assertions), které ověří zdali určité UI prvky mají požadované atributy.
+
+\textit{Finders} umožnují najít uzel nebo uzly ve strom UI struktuře pomocí tagů, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
+
+
+Pomocí \textit{Assertions}
+
+A pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
+
+\myparagraph{Testování synchoronizace}
+\myparagraph{Testování interoperability}
+
+\begin{lstlisting}[caption={Integrace testů Gradle}, label={lst:testsIntegration}, language=Kotlin]
+kotlin {
+  //...
+  sourceSets {
+    val desktopTest by getting
+
+    // Adds common test dependencies
+    commonTest.dependencies {
+      implementation(kotlin("test"))
+
+        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        implementation(compose.uiTest)
+    }
+
+    // Adds the desktop test dependency
+    desktopTest.dependencies {
+        implementation(compose.desktop.currentOs)
+    }
+  }
+}
+\end{lstlisting}
+\section{Testovací případy}
+Testovací případ je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu s cílem ověřit, zda se chová podle očekávání a splňuje 
+požadavky. Každý testovací případ obvykle obsahuje následující prvky:
+
+\begin{itemize}
+  \item Popis: Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
+  \item Předpoklady: Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
+  \item Kroky: Konkrétní kroky, které musí být provedeny k provedení testu.
+  \item Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kroků.
+  \item Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s očekávanými výsledky k určení úspěšnosti testu.
+\end{itemize}
+
+Na základě této struktury bylu sepsány následující testovací případy:
+
+
+\myparagraph{Testovací případ 1: Zobrazení aktuálních novinek}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující aktuální novinky.
+      \item Ověření, že systém zobrazil seznam aktuálních novinek.
+      \item Kliknutí na konkrétní novinku.
+      \item Ověření, že systém zobrazil detaily vybrané novinky.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam aktuálních novinek je zobrazen.
+      \item Po kliknutí na konkrétní novinku jsou zobrazeny její detaily.
+    \end{itemize}
+\end{enumerate}
+
+\myparagraph{Testovací případ 2: Zobrazení aktuálních událostí}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující aktuální události.
+      \item Ověření, že systém zobrazil seznam aktuálních událostí.
+      \item Kliknutí na konkrétní událost.
+      \item Ověření, že systém zobrazil detaily vybrané události.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam aktuálních událostí je zobrazen.
+      \item Po kliknutí na konkrétní událost jsou zobrazeny její detaily.
+    \end{itemize}
+\end{enumerate}
+
+\myparagraph{Testovací případ 3: Filtrování zobrazených událostí podle data}
+
+\begin{enumerate}
+  \item Kroky:
+    \begin{enumerate}
+      \item Navigace na stránku zobrazující události.
+      \item Ověření, že systém zobrazil seznam událostí.
+      \item Zvolení konkrétního data pro filtrování událostí.
+      \item Ověření, že systém zobrazil události pouze pro vybrané datum.
+    \end{enumerate}
+  \item Očekávaný výstup:
+    \begin{itemize}
+      \item Seznam událostí je filtrován podle zvoleného data.
+      \item Události jsou rozděleny do kategorií podle typu události.
+    \end{itemize}
+\end{enumerate}
+
+\section{Implementace testů}
+
+
+\myparagraph{Testy jednotlivých UI komponent}
+
+\begin{lstlisting}[caption={Implementace UI testu}, label={lst:testImplementation}, language=Kotlin]
+  class ExampleTest {
+
+  @OptIn(ExperimentalTestApi::class)
+  @Test
+  fun myTest() = runComposeUiTest {
+      // Declares a mock UI to demonstrate API calls
+      //
+      // Replace with your own declarations to test the code of your project
+      setContent {
+
+          var text by remember { mutableStateOf("Hello") }
+          Text(
+              text = text,
+              modifier = Modifier.testTag("text")
+          )
+          Button(
+              onClick = { text = "Compose" },
+              modifier = Modifier.testTag("button")
+          ) {
+              Text("Click me")
+          }
+      }
+
+      // Tests the declared UI with assertions and actions of the Compose Multiplatform testing API
+      onNodeWithTag("text").assertTextEquals("Hello")
+      onNodeWithTag("button").performClick()
+      onNodeWithTag("text").assertTextEquals("Compose")
+  }
+}
+\end{lstlisting}
+
+\myparagraph{End-to-end testy}
+
+
+\section{Zhodnocení výsledků testování}
+
+\section{Zhodnocení použitelnosti}
+
+android already in production with hell a lot of features now If you want to share code among these and have single code base, going with flutter is bad idea .. Since its take nativity out. So hence you want both the teams to have a common business logic and networking thing then KMM is the way to go 
