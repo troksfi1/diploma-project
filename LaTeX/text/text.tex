@@ -563,7 +563,9 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
   \label{fig:KMPSurvey}
 \end{figure}
 
-\section{Flutter vs React Native vs Compose Multiplatform}
+\section{Porovnání vybraných multiplatformních frameworků}
+
+V rámci této kapitoly budou porovnány vybrané multiplatformní frameworky
 
 
 \subsection{Porovnání výkonu}
@@ -674,7 +676,7 @@ následně návrhu design systému a nakonec k návrhu konečné podoby UI včet
 
 
 
-\section{Výběr aplikace pro implementaci}
+\section{Výběr aplikace}
 Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
 na různých platformách.
 %které by bylo možné použít napříč různými platformami.
@@ -886,7 +888,7 @@ Pro ověření, že takto sepsané funkční požadavky pokrývají všechny př
 \end{table}
   
 
-\section{Návrh architektury}
+\section{Architektura aplikace}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
 
 TODO možné architektury pro vyvoj mobilních aplikací
@@ -923,7 +925,7 @@ princip k jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hled
 Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace a poskytnout spolehlivý zdroj dat pro všechny části aplikace.
 
 
-\subsection{Vrstvy architektury} \label{vrstvyArchitekturySection} 
+\subsection*{Vrstvy architektury} \label{vrstvyArchitekturySection} 
 TODO % takzvaná architektura MVVM?  ..., která uplatňuje výše zmíněné principy.
 Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací.
 
@@ -1106,7 +1108,7 @@ strukturou:
 %   \label{fig:mvvm}
 % \end{figure}
 
-\section{Návrh UI}
+\section{Uživatelké rozhraní}
 UI bylo navrhováno tak aby vyhovovalo 
 
 v Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to jak celé UI posobí z poheledu
@@ -1116,7 +1118,7 @@ uspořádání.
 
 TODO pravidla stravneho navrhu UI
 
-\section{Tvorba drátových modelů}
+\subsection{Drátové modely}
 K tomu aby bylo výsledné UI pro uživatele přívětivé bylo přístupováno tak aby co nejvíce  s pravidly dobrého návhu UI.
 
 Mezi takoví pravidla patří:
@@ -1237,7 +1239,7 @@ Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné �
   \end{figure}
 \end{minipage}
 
-\section{Návrh design systému} \label{designSystemSection}
+\subsection{Design systém} \label{designSystemSection}
 Před tím něž bylo přistoupeno ke grafickému návrhu aplikace, tak byl vytvořen obecný design systém, který poslouží k vytvoření 
 konzistentního uživatelského rozhraní. Zároveň se díky němu urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace 
 zajistí intuitivní ovládání aplikace na všech platformách. 
@@ -1284,7 +1286,7 @@ Výsledek základní ukázky takto navrženého systému je k vidění na obráz
   \label{fig:design_system}
 \end{figure}
 
-\section{Návrh mockup modelu} \label{navrhMockupModelu}
+\subsection{Mockup modely} \label{navrhMockupModelu}
 Po zadefinování použitelných komponet v navženém design systému \ref{designSystemSection} jež samotný návrh grafické podoby UI zjednodušen 
 na nezbytné minimum. 
 
@@ -1320,13 +1322,13 @@ jsou zobrazované akce a ne filtrační možnosti.
 \bigskip
 
 \myparagraph{Rozložení}
-Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektorváno pár pravidel liniového zarovnání, tak aby nechozázelo
+Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektorváno pár pravidel liniového zarovnání, tak aby nedocházelo
 k narušení čitelnosti.
 
 Komponety pro důležité interakce byly drženy v takzvané dosahové vzdálenosti jako primarní navigace nebo tlačítka pro vykonání
 důležitých akcí.
 
-Pro obrázky byly voleny bězné poměry jako například 4:3, tak aby nedocházelo k jejich zbytéčnému ořezávání.
+Pro obrázky byly voleny běžné poměry jako například 4:3, tak aby nedocházelo k jejich zbytéčnému ořezávání.
 
 Zároveň 
 
@@ -1336,13 +1338,13 @@ Zároveň
 \begin{minipage}[t]{0.45\textwidth}
   \begin{figure}[H]
     \centering
-    \includegraphics[width=.6\textwidth]{screen1.png}
+    \includegraphics[width=.7\textwidth]{screen1.png}
     \caption{Obrazovka \textit{Domů}}
     \label{fig:mockup1}
   \end{figure}
   \begin{figure}[H]
     \centering
-    \includegraphics[width=.6\textwidth]{screen2.png}
+    \includegraphics[width=.7\textwidth]{screen2.png}
     \caption{Obrazovka \textit{Události}}
     \label{fig:mockup2}
   \end{figure}
@@ -1352,19 +1354,18 @@ Zároveň
 
 \begin{minipage}[t]{0.45\textwidth}
   TEXT DRUHE STANKY
-  \lipsum[1]
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
   \begin{figure}[H]
     \centering
-    \includegraphics[width=.6\textwidth]{screen3.png}
+    \includegraphics[width=.7\textwidth]{screen3.png}
     \caption{Obrazovka \textit{Parkování}}
     \label{fig:mockup3}
   \end{figure}
   \begin{figure}[H]
     \centering
-    \includegraphics[width=.6\textwidth]{screen4.png}
+    \includegraphics[width=.7\textwidth]{screen4.png}
     \caption{Obrazovka \textit{Více}}
     \label{fig:mockup4}
   \end{figure}
@@ -1374,7 +1375,11 @@ Zároveň
 Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multipaltformích aplikací založených na Compose Multiplatform 
 se používá nástroj zvaný Gradle.  
 
-\section{Gradle} \label{gradleChapter}
+\section{Založení Compose Multiplatform projektu}
+K založení projektu byl použit nástroj \textit{Kotlin Multiplatform Wizard} od společnosti JetBrains, který slouži k rychlému vytvoření projektu
+založeném na technologie KMP. O sestavování takto založeného projektu se stará nástroj Gradle.
+
+\subsection{Gradle} \label{gradleChapter}
 Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je to nástroj pro automatizaci sestavení 
 podobný Antu nebo Mavenu, který byl vyvinut pro zjednodušení procesu sestavení a nasazení softwaru.
 
@@ -1506,9 +1511,9 @@ implementovanou aplikaci plně dostačuje.
 V budoucu by však měla být dostupná, ale do té doby je potřeba vybrat z alternativních knihoven.
 
 
-
+;
 %\section{Navigace a lokalizace v implementaci}
-\subsection{Implementace design systému}
+\subsection{Design systém}
 
 Při implementace design systému pomocí Compose Multiplatfom byla snaha co nejpřesněji napodobit navržený design sytém z kapitoly \ref{designSystemSection}
 tak aby uživateli navodil maximalní pocitu jednoty s dosavadními informačními systémy města.
@@ -1519,9 +1524,11 @@ Compose multiplatform je přípraven na implementaci design systému.
 loading
 
 
-\subsubsection{Barvy} \label{colorSection}
-Barvy byly zvoleny na základě navženého design systému, který byl navžen na základě vizuálního stylu města, které město 
+\subsubsection*{Barvy} \label{colorSection}
+Základní barvy pro světlý motiv byly zvoleny na základě navženého design systému, který byl navžen na základě vizuálního stylu města, které město 
 Příbram využívá při všech prezentačních příležitostech.
+
+Zbylé barvy jako barvy pozadí nebo pro tmavý režim byli dopočítány ze základních barev pomocí nástroje \textit{Material Theme Builder}, který 
 
 Pro použití výbraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
 
@@ -1582,7 +1589,7 @@ Díky takto zadefinovaným motivům je následně možné obarvit veškeré komp
   }
 \end{lstlisting}
 
-\subsubsection{Typografie}
+\subsubsection*{Typografie}
 je používána k definování stylu písma. Využívá k tomu styly definované Material designem. ten definuje celkem 15 druhů písma,
 kde každé z nich má definovaný způsob použití. \cite{material3} Jelikož se jedná o výchozí styly písma, tak lze k těmto stylům přistupovat přes
 Composable funkci \code{MaterialTheme} popsanou v kódu \ref{lst:colorsDef} aniž by se parametr \code{typography} musel explicitně
@@ -1595,32 +1602,18 @@ uvádět.
   )
 \end{lstlisting}
 
+
+
 \section{Použité technologie}
 Následující podkapitola je věnována konkrétním technologiím, které byli pro tvorku komponent z předchozí kapitoli použity.
 
-\subsection{Kotlin}
-\subsection{Coroutines}
-\subsection{Ktor}
-Ktor je open-source framework vytvořený společností JetBrains pro tvorbu aplikací jak na serverové tak i klientské části pomocí programovacího 
-jazyka Kotlin.
+Jedná se převážně o soubor multiplatformních technologií, které byli použity k implementaci UI, ale zároveň byli zmíněny některé důležité technologie,
+které
 
-Ktor byl vyžit především kvůli tomu, že obsahuje multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat HTTP požadavky a 
-zpracovávat odpovědi. 
 
-\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
-private val client = HttpClient {
-  install(HttpTimeout) {
-      requestTimeoutMillis = 40000
-  }
-}
+\subsection{Vrstva uživatelkého rozhraní}
 
-suspend fun getEventsXml(): EventsXmlDto {
-    val response: String = client.get("https://kalendar.pribram.eu/...").body()
-    return format.decodeFromString<EventsXmlDto>(response.cleanUpEventXml())
-}
-\end{lstlisting}
-
-\subsection{Voyager}
+\subsubsection*{Voyager}
 Voyager je multiplatformní navigační knihovna, která umožňuje navigovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
  aplikacích. \cite{voyager} Jeho hlavním cílem je poskytnout jednotné rozhraní pro navigaci v různých mobilních platformách, jako jsou Android a iOS, a 
  zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
@@ -1666,7 +1659,60 @@ TabNavigator(
 }
 \end{lstlisting}
 
-\subsection{Koin}
+
+\subsubsection*{Coil}
+Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
+řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
+z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
+
+Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
+umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
+JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
+
+Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
+aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
+přednosti moderních technologií a frameworků při práci s obrázky.
+
+TODO uvest coil
+\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
+  AsyncImage(
+    model = news.thumbnailUri,
+    contentDescription = "Sample",
+    contentScale = ContentScale.Crop,
+
+    modifier = Modifier.aspectRatio(4f / 3f)
+  )
+\end{lstlisting}
+
+\subsection{Vrstva apliakční logiky}
+
+\subsubsection*{Kotlin}
+\subsubsection*{Coroutines}
+\subsubsection*{Ktor}
+Ktor je open-source framework vytvořený společností JetBrains pro tvorbu aplikací jak na serverové tak i klientské části pomocí programovacího 
+jazyka Kotlin.
+
+Ktor byl vyžit především kvůli možnožnosti využití multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat HTTP požadavky a 
+zpracovávat odpovědi. 
+
+Pro dotazování byl použit multipaltformí Engine CIO, díky ktrému je možné použítna na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
+
+\begin{lstlisting}[caption={Definice barevných motivů}, label={lst:colorsDef}, language=Kotlin]
+private val client = HttpClient(CIO) {
+  engine {
+    maxConnectionsCount = 1000
+    requestTimeout = 5000
+    ...
+  }
+}
+
+suspend fun getEventsXml(): EventsXmlDto {
+  val response: String = client.get("https://kalendar.pribram.eu/...").body()
+  return format.decodeFromString<EventsXmlDto>(response.cleanUpEventXml())
+}
+\end{lstlisting}
+
+\subsubsection*{Koin}
 Koin je moderní knihovna pro správu závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
 k jiným známým knihovnám, jako je například Dagger. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací 
 a zároveň zlepšuje čitelnost a údržbu kódu.
@@ -1695,7 +1741,7 @@ class MainActivity : ComponentActivity() {
 }
 \end{lstlisting}
 
-\subsection{SQLDelight}
+\subsubsection*{SQLDelight}
 SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
 který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
 
@@ -1749,35 +1795,16 @@ TODO
 % neco na fulltextové vyhledavani
 
 
-\subsection{Coil}
-Coil je knihovna pro načítání a zobrazování obrázků v aplikacích pro Android, napsaná v jazyce Kotlin. Jedná se o moderní a jednoduché 
-řešení pro práci s obrázky, které nabízí rychlost, efektivitu a snadnou integraci. Knihovna poskytuje jednoduché API pro načítání obrázků 
-z různých zdrojů, včetně URL adres, souborů a zdrojů z paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
-
-Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
-umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
-JPEG, GIF, SVG a WebP, což umožňuje pracovat s různými typy obrázků bez nutnosti dalšího přizpůsobování.
-
-Další výhodou Coil je možnost efektivního cachování obrázků, což pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek. Knihovna je navržena tak, 
-aby se snadno integrovala s moderními architekturami aplikací, jako je například Android Jetpack a architektura MVVM. To umožňuje vývojářům využívat 
-přednosti moderních technologií a frameworků při práci s obrázky.
-
-TODO uvest coil
-\begin{lstlisting}[caption={Coil}, label={lst:Coil3}, language=SQL]
-  AsyncImage(
-    model = news.thumbnailUri,
-    contentDescription = "Sample",
-    contentScale = ContentScale.Crop,
-
-    modifier = Modifier.aspectRatio(4f / 3f)
-  )
-\end{lstlisting}
 
 
-\section{Implemtace UI vrstvy} \label{UILayerImpl}
-V rámci této kapitoly budou ukázáno jakým způsobem byla implementována UI vrstva navržená v kapitole \ref{UILayerNavrh}, j
 
-\subsection{Implementace stavu aplikace} \label{stateHandlingImpl}
+\section{Logika uživatelského rozhraní} \label{UILayerImpl}
+V rámci této kapitoly budou ukázáno jakým způsobem byla logika chování UI navržená v kapitole 
+
+
+%\textit{Vrstvy architektury \ref{vrstvyArchitekturySection} }, j
+
+\subsection{Stav uživatelkého rozhraní} \label{stateHandlingImpl}
 Tato kapitola slouží k příblížení toho jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state} v 
 kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implemementován v rámci ukázkové aplikace.
 
@@ -1813,9 +1840,11 @@ Takto zadefinované stavy mohou být v aplikaci použity například následují
   }
 \end{lstlisting}
 
-\subsection{Implementace událostí aplikace} \label{eventHandlingImpl}
+\subsection{Události uživatelského rozhraní} \label{eventHandlingImpl}
+V rámci této kapitolo bude představeno jak implementovaná aplikace obsluhuje událsti přicházející z uživatelského rozhraní.
 
-V rámci viewModel jsou 
+
+V rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z UI elementů. V jednotlivýmch j
 
 
 
@@ -1828,14 +1857,15 @@ sealed interface EventsEvent {
 \end{lstlisting}
 
 
-\subsection{Implementace ViewModelů} \label{ViewModelImpl}
+\subsection{ViewModel} \label{ViewModelImpl}
 TODO % odkaz na UI Layer
 V rámci implementované aplikace byl pro každou obrazovku implementovám jeden ViewModel, který se stará o logiku každé obrazovky zvlášť. Tato kapitola 
 bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak 
 
 
-V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přichazející z UI a na jejich základě měnit stav 
-aplikace. V tomto duchu jsou implementovany vševhny ViewModely. 
+V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přichazející z UI a na jejich základě by vždy měli
+měnit stav aplikace. V tomto duchu jsou implementovany vševhny ViewModely. Díky tomu je možné zaručit, že stav uživatelkého rozhraní  nebude změněn
+v případě 
 
 
 
@@ -1967,7 +1997,7 @@ parkovací zóny.
 
 Dále zde byl na tuté obrazovce implemetován bottom sheet, který je zobrazen pouze v případě, že uživatel vyberere nebo vyhledé pro o jakém 
 parkovaní zóně si přeje zobrazit podrobné informace. Díky tomu, že se zobrazí pouze v případě, kdy uživatel požaduje detailnější informace, tak
-tento panel nezmenšuje uživateli prostor pro rychlé vyhledání parkovanící zóny v mapě.
+tento panel nezmenšuje uživateli prostor pro rychlé vyhledání parkovanící zóny v mapě. 
 
 
 
@@ -1984,11 +2014,25 @@ identic.
 Na druhou stranu Compose Multiplatform ještě není na všech platformách ve stabilní verzi a proto je možné, že po vydání stabilních verzí i pro jiné
 platformy se dokumentace od JetBrains rozříší.
 
+problémy s IDE 
+
 
 \subsection{Implementace mapových podkladů}
 
+\myparagraph{Výběr mapových podkladů}
+získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
+
 Jak jž bylo zmíněno v kapitole \ref{parkingScreenImpl} tak implementace matových podkladů byla implementována pomocí nativní knihovy proskytovanou
 spoůečností Google pro platformu Android. 
+
+byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé umísila do středu obrazovky. 
+Funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), jež tvoří mnohoúhelník patkovací funkce pomocí náseldující funkce.
+
+\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, \quad \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i
+\]
+
+Výsledná souřadnice $(x¯,y¯)$ bylo použita k vycentrování mapy
 
 \begin{lstlisting}[caption={GoogleMap element}, label={lst:GoogleMapview}, language=kotlin]
   GoogleMap(
@@ -2041,14 +2085,10 @@ Tento formát ke svému zápisu moužívá sytazi jazyka XML a z toho důvodu by
 
 
 
-
-
-
-
 \chapter{Testování} \label{testsSection}
 Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
 
-\section{Testování UI}
+\section{Uživatelské rozhraní}
 Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
 
 UI testy se používají k ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
@@ -2058,14 +2098,12 @@ Mezi základní typy UI testl se řadí UI testy testující ktitické uživatel
 správnost fungování navigace v dané aplikaci.
 
 
-\section{Testování výkonu}
+\section{Výkon aplikace}
 
 
-\section{Testování kompatibility}
+\section{Kompatibilita}
 estování aplikace na různých zařízeních s různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
 správně na široké škále zařízení.
-
-
 
 
 \section{Možnosti testování UI v Compose Multiplatform}
@@ -2300,6 +2338,11 @@ ve kterých může být ještě zlepšen.
 
 Co se týka náročnosti implementace aplikac i na ostatních platformách, tak zde byla náročnost
 o něco zvýšena kvůli nemožnosti implemtace iOS aplikace již od začátku. jelikož je ke kompilaci potřeba 
+
+
+Podařilo se potvrdit, že množstí sdíleného kódu, které základě provedné analýzy bylo zjištěno je můžné sdílet. V rámci implementované aplikace
+bylo orecento sdíleného kódu ještě větší a to především díky sdílení UI pomocí Compose Multiplatform, ale také možná kvůli menšímu rozsahu
+aplikace oproti porovnávaným aplikacím. 
 
 
 % kapitola main pains
