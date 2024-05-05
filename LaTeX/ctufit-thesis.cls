@@ -42,7 +42,7 @@
 	\def\@ctufitlang{C}
 }
 \DeclareOption{english}{
-	\AtBeginDocument{\selectlanguage{english}}
+	\AtBeginDocument{\selectlanguage{english}} 
 	\PassOptionsToPackage{czech,main=english}{babel}
 	\def\@ctufitlang{E}
 }
@@ -493,18 +493,16 @@
 \newenvironment{chapterabstract}{\hfill\begin{minipage}{\dimexpr\textwidth-0.5cm}\itshape}{\end{minipage}\vskip 0.5cm\par\@afterindentfalse\@afterheading}
 
 \AtBeginDocument{%
-	\@ifpackageloaded{listings}{%
-		\DeclareRobustCommand{\lstlistingname}{\thectufitlistinglabel}%
-		\DeclareRobustCommand{\lstlistlistingname}{\thectufitlollabel}%
-		\lstset{basicstyle=\small\ttfamily,keywordstyle=\bfseries,%
-				backgroundcolor=\color{backgroundgray},%
-				frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}%
-	}{}%
-	\@ifpackageloaded{minted}{%
-		\DeclareRobustCommand{\listingscaption}{\thectufitlistinglabel}%
-		\DeclareRobustCommand{\listoflistingscaption}{\thectufitlollabel}%
-		\usemintedstyle{bw}%
-		\setminted{bgcolor=backgroundgray}%
-		\setmintedinline{bgcolor={}}
-	}{}%
+\@ifpackageloaded{minted}{%
+\DeclareRobustCommand{\listingscaption}{\thectufitlistinglabel}%
+		\SetupFloatingEnvironment{listing}{name=\listingscaption}
+\DeclareRobustCommand{\listoflistingscaption}{\thectufitlollabel}%
+\DeclareRobustCommand{\listlistingname}{\thectufitlollabel}%
+\DeclareRobustCommand{\thectufitlistingscommand}{\listoflistings}%
+\ifdefined\@ctufitthesisblackandwhite
+	 \usemintedstyle{bw}%
+	\setminted{bgcolor=backgroundgray}%
+\fi
+\setmintedinline{bgcolor={}}
+}{}%
 }

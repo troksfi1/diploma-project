@@ -51,8 +51,10 @@ Každý případ užití obvykle obsahuje následující prvky:
   \item Výsledek: Očekávaný výsledek akce provedené uživatelem.
 \end{itemize}
 
-\myparagraph{UC1 Zobrazení aktuálních novinek} 
-Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přístup k aktuálním novinkám a důležitým oznámením ze svého města 
+\medskip
+
+\myparagraph{UC1 Zobrazení aktuálních novinek}
+Tento případ užití popisuje, jak mohou občané prostřednictvím aplikace získat přístup k aktuálním novinkám a důležitým oznámením ze svého města 
 nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
 
 \begin{enumerate}
@@ -172,7 +174,7 @@ Na základě takto sepsaných případech užití je nyní možné sepsat funkč
 Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
 užitečná, efektivní a snadno použitelná.
 
-TODO piorita 5 slozitost viz grofetom
+TODO priorita 5, slozitost viz grofetom
 
 \myparagraph{Zobrazení novinek}
 Možnost přidávat, editovat a mazat novinky a oznámení.
@@ -228,7 +230,7 @@ Pro ověření, že takto sepsané funkční požadavky pokrývají všechny př
   UC10 &        &        &        &        &        &        &        & $\ast$  \\ \hline
   UC11 &        &        &        &        &        &        &        & $\ast$  \\ \hline
   \end{tabular}
-  \caption{Pokrytípřípadů užití funkčními požadavky aplikace}
+  \caption{Pokrytí případů užití funkčními požadavky aplikace}
   \label{table:tabulkaPokryti}
 \end{table}
   
@@ -359,13 +361,13 @@ Datová vrstva se zabývá persistencí dat a komunikací s datovými úložišt
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
-K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
- získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v indormačních systémech nachází na ... ve formatu XML, 
+K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitoly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+ získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v informačních systémech nachází na ... ve formatu XML, 
 
 
  byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města) tak jak se tomu v levé části obrázku \ref{fig:arch_data_layer}. 
 
-Pro perzistenci těchto dat byla vybrána SQL databáze, která se stará poskytnutí dříve načtených dat v případech, kdy aplikace nemá přístup k internetu.
+Pro persistenci těchto dat byla vybrána SQL databáze, která se stará poskytnutí dříve načtených dat v případech, kdy aplikace nemá přístup k internetu.
 
 
 \begin{figure}[H]
@@ -453,42 +455,42 @@ strukturou:
 %   \label{fig:mvvm}
 % \end{figure}
 
-\section{Uživatelké rozhraní}
+\section{Uživatelské rozhraní}
 UI bylo navrhováno tak aby vyhovovalo 
 
-v Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to jak celé UI posobí z poheledu
+v Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to jak celé UI působí z pohledu
 uspořádání.
 
 
 
 TODO pravidla stravneho navrhu UI
 
-\subsection{Drátové modely}
-K tomu aby bylo výsledné UI pro uživatele přívětivé bylo přístupováno tak aby co nejvíce  s pravidly dobrého návhu UI.
+\subsection{Drátěné modely} \label{navrhWireframes}
+K tomu aby bylo výsledné UI pro uživatele přívětivé bylo přistupováno tak aby co nejvíce  s pravidly dobrého návrhu UI.
 
 Mezi takoví pravidla patří:
 TODO
 
 Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
-umístněny na domovkou obrazovku. A zbylé méně podstatbé nebo prostorově náročnější byli umístěny na sekundární obrazovky.
+umístěny na domovskou obrazovku. A zbylé méně podstatné nebo prostorově náročnější byli umístěny na sekundární obrazovky.
 
 Zároveň byla snaha o 
 
 \pagebreak
 \begin{minipage}[t]{0.45\textwidth}
   \myparagraph{Domovská obrazovka}
-  Jak již bylo zmíněno v úvodu této kapitoli, tak domovská obrazovka obsahuje většinu nejdůležitější a 
+  Jak již bylo zmíněno v úvodu této kapitoly, tak domovská obrazovka obsahuje většinu nejdůležitější a 
   
   Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v posuvném řádku a to především díky možnosti zobrazit
   veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídne možnost danou událost rozkliknout a dohledat zbylé informace.
-  Z ... \ref{} totiž vyplivá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  Z ... \ref{} totiž vyplývá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
   a času konání.
   
   Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
   vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které jsou pro uživatele v případě aktualit nejdůležitější.
   
   Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
-  nahlášení závady, zobrazení uředních hodin a kontaktů.
+  nahlášení závady, zobrazení úředních hodin a kontaktů.
   
   %V horní části se nachzí sekce umožňující přidání vlastní 
   
@@ -496,90 +498,89 @@ Zároveň byla snaha o
   
   \bigskip
   \myparagraph{Obrazovka událostí}  
-  V rámci obrazovky "Události" je použit stejný systém pro zobrazené údálostí pomocí skrolovaního řádku jako je tomu na domovské obrazovce.
+  V rámci obrazovky "Události" je použit stejný systém pro zobrazené událostí pomocí skrolovacího řádku jako je tomu na domovské obrazovce.
   
-  Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou udáslosti rozděleny 
+  Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou události rozděleny 
   do několika málo kategorií.
   
-  V hoorní části aplikce je uživateli dána možnost vybrat den pro který chce zobrazit plánované udáslosti, případně zvolit požadované rozmezí.
+  V horní části aplikace je uživateli dána možnost vybrat den pro který chce zobrazit plánované události, případně zvolit požadované rozmezí.
   
   %jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
   
   
-  Byla navžena tak aby uživatelé mohli jednoduše filtrovat zobrazované události přmárně podle času.
+  Byla navržena tak, aby uživatelé mohli jednoduše filtrovat zobrazované události primárně podle času.
   
-  filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umuštěno kvůli malému počtu kategorií.
+  filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umístěno kvůli malému počtu kategorií.
   
-  byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrzí jen ty kategorie, které obsahují alespoň jednu událost.
+  byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
   
-  veškeré kategori se zobrzí na maximalně 3 straánkách což se ukázalo
+  veškeré kategorie se zobrazí na maximálně 3 stránkách což se ukázalo
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
   \begin{figure}[H]
     \centering
     \includegraphics[width=.7\textwidth]{home_wireframe.png}
-    \caption{Wireframe obrazovky \textit{Domů}}
+    \caption{Drátěný model obrazovky \textit{Domů}}
     \label{fig:wireframe1}
   \end{figure}
   \begin{figure}[H]
     \centering
     \includegraphics[width=.7\textwidth]{events_wireframe.png}
-    \caption{Obrazovka \textit{Více}}
+    \caption{Drátěný model obrazovky \textit{Události}}
     \label{fig:wireframe2}
   \end{figure}
 \end{minipage}
 
 \begin{minipage}[t]{0.45\textwidth}
 \myparagraph{Obrazovka parkování}
-Obrazovká parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
+Obrazovka parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
 
-Aby bylo docíleno co nejjednuším manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována přávě mapovému
-podkalu na němž jsou vyznačeny parkovancí zóny. 
+Aby bylo docíleno co nejjednodušší manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována právě mapovému
+podkladu na němž jsou vyznačeny parkovací zóny. 
 
-Pro usnadnění hledání parkovacích zón dává aplikace uživateli možnost vyhlenání požadovaná parkovací zóny pomocí vyhledávací pole, které 
-uživateli umožňujě vyhledat příslušnou parkovancí zónu buďto podle čísla nebo názvu zóny. 
+Pro usnadnění hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávací pole, které 
+uživateli umožňuje vyhledat příslušnou parkovací zónu buďto podle čísla nebo názvu zóny. 
 
-Dále zde byla implentována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v případě, že uživatel vyberere nějakou
-z nabízených parkovacích zón. Nezmenšuje tak uživateli prostor pro rychlé vyhledání parkovanící zóny, které je hlavním cílem k použití této obrazovky. 
+Dále zde byla implementována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v případě, že uživatel vybere nějakou
+z nabízených parkovacích zón. Nezmenšuje tak uživateli prostor pro rychlé vyhledání parkovací zóny, které je hlavním cílem k použití této obrazovky. 
 
-Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovancí zoně a dá uživateli možnost zaplatit parkovné.
+Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovací zóně a dá uživateli možnost zaplatit parkovné.
 
 Poslední funkci, kterou tato obrazovka nabízí je zobrazení aktuálního provozu ve městě. 
 
 
 \bigskip
 \myparagraph{Obrazovka více}
-Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých funkcí aplikace a zároveň obsahuje veškeré méně podstatné 
-časti aplikace.
+Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých méně podstatných částí aplikace.
 
-Jelikož je ale aplikce cílena pro široké spektrum lidí, byl zde navžena funkce, která umožnuje přidání vybraného prvku na domovskou obrazovku.
-
-
-který uživatelům umožňuje přízpůsobení domovské obrazovky.
-při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
-které mohou být přidány na uvodní obrzovku.
+%Jelikož je ale aplikace cílena pro široké spektrum lidí, byl zde navržena funkce, která umožňuje přidání vybraného prvku na domovskou obrazovku.
 
 
-v případě, že by uživatel shledal některou 
-z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje uživateli tuto funkci přidat na domovskou obrazovku.
+%který uživatelům umožňuje přízpůsobení domovské obrazovky.
+%při dlouhém stisknnutí zobrazí možnost přidání prvku na domovskou obrazovku.
+%které mohou být přidány na uvodní obrzovku.
 
-Představuje rychlo naviga
 
-Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
+%v případě, že by uživatel shledal některou 
+%z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje uživateli tuto funkci přidat na domovskou obrazovku.
+
+%Představuje rychlo naviga
+
+%Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
   \begin{figure}[H]
     \centering
     \includegraphics[width=.7\textwidth]{parking_wireframe.png}
-    \caption{Wireframe obrazovky \textit{Parkování}}
+    \caption{Drátěný model obrazovky \textit{Parkování}}
     \label{fig:wireframe3}
   \end{figure}
   \begin{figure}[H]
     \centering
     \includegraphics[width=.7\textwidth]{more_wireframe.png}
-    \caption{Wireframe obrazovka \textit{Více}}
+    \caption{Drátěný model obrazovky \textit{Více}}
     \label{fig:wireframe4}
   \end{figure}
 \end{minipage}
@@ -593,87 +594,86 @@ zajistí intuitivní ovládání aplikace na všech platformách.
 %uživatelského rozhraní a uživatelského zážitku napříč různými aplikacemi a platformami. 
 
 Design systém je obecně vzato sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
-konzistentního a jednotného vizuálního stylu v rámci celé aplikce. Takový systém tak zahrnuje různé prvky jako jsou barvy, typografie, ikony,
-layouty a komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
+konzistentního a jednotného vizuálního stylu v rámci celé aplikace. Takový systém zahrnuje různé prvky jako jsou barvy, typografie, ikony,
+způsoby rozložení UI nebo komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
 vzhledem. 
  
-Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje předvším uživatelskou 
+Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje především uživatelskou 
 zkušenost s implementovanou aplikací. 
 %Designový systém zároveň často obsahuje sadu prvků UI, typografického stylu, barev, ikon a další informace, které 
 %pomáhají designérům a vývojářům při tvorbě aplikací.
 
-%V navrhovaní výslednéh design systému bylo přistupováno tak aby styl navržených UI komoponenty, typů písma, barem a dalších prvků design 
-%systému přiblině odpovídal aktuálně používanému stylu města.
+%V navrhovaní výsledného design systému bylo přistupováno tak aby styl navržených UI komponenty, typů písma, barem a dalších prvků design 
+%systému přibližně odpovídal aktuálně používanému stylu města.
 
-%Jelikož město, které bylo vybráno pro implementaci aplikace nikde expliciteně nedefinovalo používaný design systém,
+%Jelikož město, které bylo vybráno pro implementaci aplikace nikde explicitně nedefinovalo používaný design systém,
 %byl proto vytvořen na základě. 
 %TODO NEBO 
 
-V rámci vybraného města Příbrami není takový systém nikde expliciteně zadefinovaný a proto byl odvozen z designu webových stránek města.
+V rámci vybraného města Příbrami není takový systém nikde explicitně zadefinovaný a proto byl odvozen z designu webových stránek města.
 pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
 
-Zároveň byl zkobinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
+Zároveň byl zkombinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
 na mobilních platformách.
 
-S ohledem na to, že aplikce je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návrh samotné design systému, který
+S ohledem na to, že aplikace je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návrh samotné design systému, který
 specifikuje především prvky použitelné na mobilních platformách a zbylé části mohou být případně v budoucnu rozšířený o další prvky 
 používané na jiných platformách.
 
-V tomto případě bylo navrženo pár základních UI prvků, které budou použity v rámci této aplikace a mouhou být použity i případně dalšími 
+V tomto případě bylo navrženo pár základních UI prvků, které budou použity v rámci této aplikace a mohou být použity i případně dalšími 
 aplikací města.
 
 Výsledek základní ukázky takto navrženého systému je k vidění na obrázku \ref{fig:design_system}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.99\textwidth]{design_system.jpg}
-  \caption{Vytvořený design systém}
+  \includegraphics[width=.99\textwidth]{design_system.png}
+  \caption{Ukázka navrženého design systému}
   \label{fig:design_system}
 \end{figure}
 
 \subsection{Mockup modely} \label{navrhMockupModelu}
-Po zadefinování použitelných komponet v navženém design systému \ref{designSystemSection} jež samotný návrh grafické podoby UI zjednodušen 
+Po zadefinování použitelných komponent v navrženém design systému \ref{designSystemSection} je již samotný návrh grafické podoby UI zjednodušen 
 na nezbytné minimum. 
 
-Vytvořené mockup modely jsou defacto výsledkem sloučení dratových modelů s navrženým design systémem.
+Vytvořené mockup modely jsou defacto výsledkem sloučení drátěných modelů s navrženým design systémem.
 
-při návrhu grafické podoby UI byla proto priparně soustředěn na vyznam jedlotlivých UI komponent a na základě jejich významu byla
+při návrhu grafické podoby UI byla proto primárně soustředěn na význam jednotlivých UI komponent a na základě jejich významu byla
 přiřazovány odpovídající barvy. 
 
 Navržené UI se snaží respektovat zásady správného UI návrhu dle Android dokumentace a to především z pohledu přístupnosti, rozložení obsahu, 
-druhu použití UI komponent nebo vhodnosti použití barev.
+druhu použitých UI komponent nebo vhodnosti použití barev z hlediska sémantiky barev.
 
 %\pagebreak
 \begin{minipage}[t]{0.45\textwidth}
 
 \bigskip
 \myparagraph{Přístupnoust}
-Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měli vhodně zvolenou barvu z poheledu
-správného kontrasku vůči podkladu a nebo z pohledu dostatečné čitelnosti.
+Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měly vhodně zvolenou barvu z pohledu
+správného kontrastu vůči podkladu a nebo z pohledu dostatečné čitelnosti.
 
-Dále byla věnována pozornost správnénumu popisu jedlotlivých UI komponent tak, aby bylo možné aplikaci používat i s tazvanou TalkBack čtečkou, která 
-umožňuje nevidomím nebo jinak zrakově postiženým lidem používat aplikaci.
+Dále byla věnována pozornost správnému popisu jednotlivých UI komponent a správnému použití dle druhu komponent tak, aby bylo možné aplikaci používat i s 
+takzvanou TalkBack čtečkou, která umožňuje nevidomí nebo jinak zrakově postiženým lidem používat aplikaci.
 
 \bigskip
 \myparagraph{Barvy}
-I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během faze návhu mockup modelu byl zároveň kladen důraz na  jejich 
+I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během fáze návrhu mockup modelu byl zároveň kladen důraz na jejich 
 vhodné použít z pohledu sémantiky barev nebo důležitosti barvených komponenta.
 
-V základu \textit{Material Theme Builder} umožnuje definovat 3 základní barvy (primárním, sekundárním, ternární), kterém máji jasně vymezené role.
-a ta v případě implementovaného UI byla použita například pro potvzovancí akci "zplacení parkovného". Senkundární barva byla
-implementována například na filtrační talčítka na obrazovce "Události", jelikož hlavním předmětem pozornosti v daném zobraní 
+V základu \textit{Material Theme Builder} umožňuje definovat 3 základní barvy (primárním, sekundárním, ternární), které mají jasně vymezené role.
+Primární barva je v případě implementovaného UI například použita pro potvrzovací akci "zplacení parkovného". Sekundární barva byla
+implementována například na filtrační tlačítka na obrazovce "Události", jelikož hlavním předmětem pozornosti na dané obrazovce 
 jsou zobrazované akce a ne filtrační možnosti.
 
 \bigskip
 
 \myparagraph{Rozložení}
-Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektorváno pár pravidel liniového zarovnání, tak aby nedocházelo
+Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektováno několik pravidel jako například liniového zarovnání UI komponent, tak aby nedocházelo
 k narušení čitelnosti.
 
-Komponety pro důležité interakce byly drženy v takzvané dosahové vzdálenosti jako primarní navigace nebo tlačítka pro vykonání
-důležitých akcí.
+Komponenty jako primární navigace nebo tlačítka, která slouží pro vykonávání důležitých akcí byla implementována na taková místa, aby byla v takzvané dosahové vzdálenosti.
 
-Pro obrázky byly voleny běžné poměry jako například 4:3, tak aby nedocházelo k jejich zbytéčnému ořezávání.
+Pro obrázky byly voleny běžné poměry jako například 4:3, tak aby nedocházelo k jejich zbytečnému ořezávání.
 
 Zároveň 
 

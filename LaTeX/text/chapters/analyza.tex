@@ -97,21 +97,27 @@ komponenty na nativní komponenty pro každou platformu.
 
 Pro lepší představu jak dané komponenty vypadají slouží následující ukázka kódu \ref{lst:reactNativeJSX}.
 
-\begin{lstlisting}[caption={Popis UI komponent pomoci JSX}, label={lst:reactNativeJSX}, language=XML]
-function MyComponent() {
-  return (
-    <View>
-      <View
-        style={{backgroundColor: 'red', height: 20, width: 20}}
-      />
-      <View
-        style={{backgroundColor: 'blue', height: 20, width: 20}}
-      />
-    </View>
-  );
-}
-// <MyComponent />
-\end{lstlisting}
+\begin{listing}
+\caption{Popis UI komponent pomoci JSX}\label{lst:reactNativeJSX}
+\begin{minted}{jsx}
+    function MyComponent() {
+      return (
+        <View>
+          <View
+            style={{backgroundColor: 'red', height: 20, width: 20}}
+          />
+          <View
+            style={{backgroundColor: 'blue', height: 20, width: 20}}
+          />
+        </View>
+      );
+    }
+    // <MyComponent />
+\end{minted}
+\end{listing}
+
+
+
 
 Na ukázce kódu \ref{lst:reactNativeJSX} jsou použity některé z nejpoužívanějších core komponent, které se při psaní React
 Native aplikací používají. \cite{reactNativeComponents} Jak již bylo zmíněno dříve, tak tyto komponenty jsou následně převedeny 
@@ -208,8 +214,10 @@ Widget je ve Flutteru základní stavební blok pro tvorbu uživatelského rozhr
 základních widgetů jako je \emph{Image} nebo \emph{Text} a taktéž layout widget zvaný \emph{Container} a \emph{Row} pro organizaci a 
 rozložení vnořených widgetů na obrazovce.
 
-\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Dart}, label={lst:flutterCode}, language=Kotlin]
-  Container(
+\begin{listing}
+\caption{Popis UI widgetů pomocí jazyka Dart}\label{lst:flutterCode}
+\begin{minted}{dart}
+Container(
   color: Colors.blue,
   child: Row(
     children: [
@@ -218,7 +226,8 @@ rozložení vnořených widgetů na obrazovce.
     ],
   ),
 );
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 Když Flutter potřebuje vykreslit tento blok, zavolá metodu \emph{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
 rozhraní na základě aktuálního stavu aplikace. \cite*{flutterArchOverview}
@@ -233,7 +242,6 @@ každý prvek představuje určitou instanci widgetu v daném umístění stromo
   \caption{Flutter build proces}
   \label{fig:flutter_trees}
 \end{figure}
-
 
 
 \subsection{Compose Multiplatform}
@@ -294,7 +302,10 @@ Co se týče samotného UI kódu, tak ten se skládá z jednotlivým funkcí ozn
 \textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro zobrazení
 textu na obrazovce. 
 
-\begin{lstlisting}[caption={Popis UI widgetů pomocí jazyka Kotlin}, label={lst:ComposeCode}, language=Kotlin]
+
+\begin{listing}
+\caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ComposeCode}
+\begin{minted}{kotlin}
 @Composable
 fun MyComposable() {
     Column {
@@ -302,7 +313,8 @@ fun MyComposable() {
         Text("World")
     }
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku k čemuž dochází v těchto třech následujících fázích:
 
@@ -539,6 +551,35 @@ Flutter o tolik nelišila od nativní aplikace.
 % // TODO posledni cast porovnani
 
 % // TODO posledni tabulka pro porovnani https://github.com/jacobras/flutter-vs-native-vs-kmp
+
+\begin{table}[H]
+  \centering
+  \caption{Porovnání rychlosti spuštění ukázkové aplikace na platformě Android}
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+       & min. & median & max. \\ \hline 
+      Native Android & 408.7 ms & 413.1 ms & 423.1 ms \\
+      KMP Android & 403.6 ms & 425.3 ms & 466.4 ms \\
+      Flutter Android & 600.5 ms & 634.2 ms & 649.8 ms \\ \hline
+  \end{tabular}
+  \label{tab:performance_comparison}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Porovnání rychlosti spuštění ukázkové aplikace na platformě iOS}
+  \begin{tabular}{|l|c|}
+      \hline
+       & Duration (AppLaunch) \\
+      \hline
+      Native iOS & 1.441 s \\
+      KMP iOS & 1.618 s \\
+      Flutter iOS & 1.608 s \\
+      \hline
+  \end{tabular}
+  \label{tab:app_launch_duration_ios}
+\end{table}
+
 
 \begin{figure}[H]
   \centering

@@ -13,6 +13,8 @@ správnost fungování navigace v dané aplikaci.
 
 \section{Výkon aplikace}
 
+\section{Přístupnost aplikace}
+
 
 \section{Kompatibilita}
 estování aplikace na různých zařízeních s různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
@@ -43,27 +45,32 @@ A pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jso
 \myparagraph{Testování synchoronizace}
 \myparagraph{Testování interoperability}
 
-\begin{lstlisting}[caption={Integrace testů Gradle}, label={lst:testsIntegration}, language=Kotlin]
-kotlin {
-  //...
-  sourceSets {
-    val desktopTest by getting
 
-    // Adds common test dependencies
-    commonTest.dependencies {
-      implementation(kotlin("test"))
-
-        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-        implementation(compose.uiTest)
+\begin{listing}
+  \caption{Integrace UI testů pomocí Gradle}\label{lst:testsIntegration}
+  \begin{minted}{kotlin}
+    kotlin {
+      //...
+      sourceSets {
+        val desktopTest by getting
+    
+        // Adds common test dependencies
+        commonTest.dependencies {
+          implementation(kotlin("test"))
+    
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+    
+        // Adds the desktop test dependency
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+      }
     }
+\end{minted}
+\end{listing}
 
-    // Adds the desktop test dependency
-    desktopTest.dependencies {
-        implementation(compose.desktop.currentOs)
-    }
-  }
-}
-\end{lstlisting}
 \section{Testovací případy}
 Testovací případ je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu s cílem ověřit, zda se chová podle očekávání a splňuje 
 požadavky. Každý testovací případ obvykle obsahuje následující prvky:
@@ -135,37 +142,38 @@ Na základě této struktury bylu sepsány následující testovací případy:
 
 \myparagraph{Testy jednotlivých UI komponent}
 
-\begin{lstlisting}[caption={Implementace UI testu}, label={lst:testImplementation}, language=Kotlin]
+\begin{listing}
+  \caption{Implementace UI testu}\label{lst:testImplementation}
+  \begin{minted}{kotlin}
   class ExampleTest {
-
-  @OptIn(ExperimentalTestApi::class)
-  @Test
-  fun myTest() = runComposeUiTest {
-      // Declares a mock UI to demonstrate API calls
-      //
-      // Replace with your own declarations to test the code of your project
-      setContent {
-
-          var text by remember { mutableStateOf("Hello") }
-          Text(
-              text = text,
-              modifier = Modifier.testTag("text")
-          )
-          Button(
-              onClick = { text = "Compose" },
-              modifier = Modifier.testTag("button")
-          ) {
-              Text("Click me")
-          }
-      }
-
-      // Tests the declared UI with assertions and actions of the Compose Multiplatform testing API
-      onNodeWithTag("text").assertTextEquals("Hello")
-      onNodeWithTag("button").performClick()
-      onNodeWithTag("text").assertTextEquals("Compose")
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun myTest() = runComposeUiTest {
+        // Declares a mock UI to demonstrate API calls
+        //
+        // Replace with your own declarations to test the code of your project
+        setContent {
+            var text by remember { mutableStateOf("Hello") }
+            Text(
+                text = text,
+                modifier = Modifier.testTag("text")
+            )
+            Button(
+                onClick = { text = "Compose" },
+                modifier = Modifier.testTag("button")
+            ) {
+                Text("Click me")
+            }
+        }
+  
+        // Tests the declared UI with assertions and actions of the Compose Multiplatform testing API
+        onNodeWithTag("text").assertTextEquals("Hello")
+        onNodeWithTag("button").performClick()
+        onNodeWithTag("text").assertTextEquals("Compose")
+    }
   }
-}
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \myparagraph{End-to-end testy}
 
