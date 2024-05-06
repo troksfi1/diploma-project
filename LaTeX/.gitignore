@@ -11,7 +11,6 @@
 *.lot
 _minted-ctufit-thesis/
 *.out
-*.pdf
 *.ps
 *.run.xml
 *.synctex.gz
