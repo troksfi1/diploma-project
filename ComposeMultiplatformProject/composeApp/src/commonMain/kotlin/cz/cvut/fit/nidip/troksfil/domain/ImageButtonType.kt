@@ -17,9 +17,9 @@ enum class ImageButtonType(
     YOUTUBE("YouTube", "img_youtube.png", uri = "https://www.youtube.com/@mestopribram1671"),
     FACEBOOK(
         "Facebook",
-        "img_youtube.png",
+        "img_facebook.png",
         uri = "https://www.facebook.com/mestskyuradpribram/?locale=cs_CZ"
     ),
-    WEB("Web", "img_youtube.png", uri = "https://pribram.eu/"),
-    WEBCAMS("Webkamery", "img_youtube.png", uri = "https://kamery.pribram.cz/")
+    WEB("Web", "img_website.png", uri = "https://pribram.eu/"),
+    WEBCAMS("Webkamery", "img_webcams.png", uri = "https://kamery.pribram.cz/")
 }

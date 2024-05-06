@@ -19,7 +19,7 @@ import cz.cvut.fit.nidip.troksfil.domain.ImageButtonType
 import cz.cvut.fit.nidip.troksfil.presentation.components.ImageButton
 
 class MoreScreen : Screen {
-    val listOfPages = listOf(
+    private val listOfPages = listOf(
         ImageButtonType.DEFECTS,
         ImageButtonType.MUNICIPAL_AUTHORITY,
         ImageButtonType.SERVICES,
