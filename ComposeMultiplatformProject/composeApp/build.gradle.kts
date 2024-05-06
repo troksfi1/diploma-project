@@ -71,16 +71,6 @@ kotlin {
             ///implementation (libs.maps.compose)
             //implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.ui.tooling.preview.v154)
-
-            /*                implementation ("com.google.maps.android:maps-compose:4.3.2")
-
-                            // Optionally, you can include the Compose utils library for Clustering,
-                            // Street View metadata checks, etc.
-                            implementation ("com.google.maps.android:maps-compose-utils:4.3.2")
-
-                            // Optionally, you can include the widgets library for ScaleBar, etc.
-                            implementation ("com.google.maps.android:maps-compose-widgets:4.3.2")*/
-
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.core)
@@ -90,7 +80,6 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.kermit)
             api(libs.compose.webview.multiplatform)
-            //implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
             implementation(libs.koin.core)
@@ -110,8 +99,6 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.google.maps.compose)
             implementation("com.google.android.gms:play-services-maps:18.0.2")
-            // Optionally, you can include the Compose utils library for Clustering,
-            // Street View metadata checks, etc.
             implementation(libs.google.maps.compose.utils)
             implementation("com.google.android.gms:play-services-location:21.2.0")
             implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
@@ -125,12 +112,10 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.native.driver)
             //implementation("io.ktor:ktor-client-darwin:$1.1.1")
-            //implementation("com.squareup.sqldelight:native-driver:$1.1.1")
         }
 
         val desktopTest by getting
 
-        // Adds common test dependencies
         commonTest.dependencies {
             implementation(kotlin("test"))
 
@@ -140,11 +125,9 @@ kotlin {
             implementation(libs.kotlin.test.junit)
         }
 
-        // Adds the desktop test dependency
         desktopTest.dependencies {
             implementation(compose.desktop.currentOs)
         }
-
     }
 }
 
@@ -193,30 +176,6 @@ dependencies {
     commonMainApi(libs.mvvm.flow.compose)
 }
 
-/*dependencies {
-    commonMainApi("dev.icerock.moko:maps:0.6.0")
-    commonMainApi("dev.icerock.moko:maps-google:0.6.0")
-    commonMainApi("dev.icerock.moko:maps-mapbox:0.6.0")
-}
-
-kotlin.targets
-    .matching { it is org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget }
-    .configureEach {
-        val target = this as org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
-        target.binaries
-            .matching { it is org.jetbrains.kotlin.gradle.plugin.mpp.Framework }
-            .configureEach {
-                val framework = this as org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-                val frameworks = listOf("Base", "Maps").map { frameworkPath ->
-                    project.file("../ios-app/Pods/GoogleMaps/$frameworkPath/Frameworks").path.let { "-F$it" }
-                }.plus(
-                    project.file("../ios-app/Pods/Mapbox-iOS-SDK/dynamic").path.let { "-F$it" }
-                )
-
-                framework.linkerOpts(frameworks)
-            }
-    }*/
 compose.desktop {
     application {
         mainClass = "MainKt"

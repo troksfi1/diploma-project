@@ -22,7 +22,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
-class EventsScreenModel(    // todo replace just by eventsRepository
+class EventsScreenModel(
     private val repository: RepositoryImpl
 ) : ScreenModel {
 
@@ -77,7 +77,6 @@ class EventsScreenModel(    // todo replace just by eventsRepository
 
             is EventsEvent.OnDateIsPicked -> {
                 screenModelScope.launch {
-                    //parse input millis to date todo (isn't local!!!)
                     val startDate =
                         LocalDate.fromEpochDays((event.startDateMillis / 86400000).toInt())
                     val endDate = LocalDate.fromEpochDays((event.endDateMillis / 86400000).toInt())

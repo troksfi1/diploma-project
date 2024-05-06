@@ -24,15 +24,6 @@ class HomeScreenModel(
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
     }
-
-    private fun onEvent(event: HomeEvent) {
-        when (event) {
-            HomeEvent.OnInit -> {
-
-            }
-        }
-    }
-
     init {
         screenModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             val news = repository.getAllNews()
@@ -44,7 +35,6 @@ class HomeScreenModel(
                         state.copy(
                             isFetchingNews = false
                         )
-
                     }
                 }
                 _state.update { state ->

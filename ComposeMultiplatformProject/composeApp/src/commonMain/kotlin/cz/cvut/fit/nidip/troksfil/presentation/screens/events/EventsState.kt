@@ -13,7 +13,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 data class EventsState(
-    //todo move to domain model?
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
     val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val timeFilteredEvents: List<Event> = emptyList(),

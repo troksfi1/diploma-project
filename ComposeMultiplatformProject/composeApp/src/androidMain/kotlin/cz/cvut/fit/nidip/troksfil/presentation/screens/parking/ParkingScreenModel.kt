@@ -3,7 +3,7 @@ package cz.cvut.fit.nidip.troksfil.presentation.screens.parking
 import cafe.adriel.voyager.core.model.ScreenModel
 import com.google.android.gms.maps.model.LatLng
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.Document
-import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.htmlToTextUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.decodeFromString
@@ -99,7 +99,7 @@ class ParkingScreenModel : ScreenModel {
             .replace("Platba:", "")
             .replace("<br>", "\n")
 
-        return HtmlToTextUtil(desc)
+        return htmlToTextUtil(desc)
     }
 
     private fun extractUrl(description: String): String {

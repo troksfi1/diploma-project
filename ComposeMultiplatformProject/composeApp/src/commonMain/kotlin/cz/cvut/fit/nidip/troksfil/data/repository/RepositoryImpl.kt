@@ -27,21 +27,13 @@ class RepositoryImpl(
     private val eventsDataMapper: NullableInputListMapper<EventItem, Event>,
     private val newsDataMapper: NullableInputListMapper<NewsItem, News>,
     private val localDataSource: DatabaseDaoImpl
-    //private val eventLocalDataSource: EventsDao,        //todo refactor?
-    //private val newsLocalDataSource: NewsDao,           // todo divide to news and events rep?
 ) : EventsRepository, NewsRepository {
 
-    private val _events: MutableStateFlow<List<Event>> =
-        MutableStateFlow(emptyList()) // private mutable state flow
+    private val _events: MutableStateFlow<List<Event>> = MutableStateFlow(emptyList())
+    var events = _events.asStateFlow()
 
-    var events = _events.asStateFlow() // publicly exposed as read-only state flow
-
-    private val _news: MutableStateFlow<List<News>> =
-        MutableStateFlow(emptyList()) // private mutable state flow
-
-    var news = _news.asStateFlow() // publicly exposed as read-only state flow
-
-    //var newsUpToDate = .asStateFlow() // publicly exposed as read-only state flow
+    private val _news: MutableStateFlow<List<News>> = MutableStateFlow(emptyList())
+    var news = _news.asStateFlow()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
@@ -59,7 +51,7 @@ class RepositoryImpl(
         val timeToLoadAllEventsFromDB = measureTime {
             _events.update { localDataSource.getAllEvents() }
         }
-        println("TAG Time to load all ${events.value.size} events from DB: ${timeToLoadAllEventsFromDB.inWholeMilliseconds} ")
+        println("Time to load all ${events.value.size} events from DB: ${timeToLoadAllEventsFromDB.inWholeMilliseconds} ")
 
         try {
             GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {

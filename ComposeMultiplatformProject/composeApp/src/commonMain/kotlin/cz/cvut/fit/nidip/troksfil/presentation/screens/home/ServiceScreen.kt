@@ -35,7 +35,7 @@ class ServiceScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { /*Text(event.title, fontSize = 15.sp)*/ },
+                    title = { },
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(

@@ -35,12 +35,12 @@ class AuthorityScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { /*Text(event.title, fontSize = 15.sp)*/ },
+                    title = {},
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = "Arrow Back",
                             )
                         }
                     }

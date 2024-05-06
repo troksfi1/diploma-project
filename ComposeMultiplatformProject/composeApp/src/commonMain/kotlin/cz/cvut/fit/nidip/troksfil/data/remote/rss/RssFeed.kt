@@ -15,7 +15,7 @@ import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.core.XmlVersion
 import nl.adaptivity.xmlutil.serialization.XML
 
-class RssFeed { //todo divide to event ana news?
+class RssFeed {
     private val client = HttpClient(CIO) {
         engine {
             maxConnectionsCount = 1000

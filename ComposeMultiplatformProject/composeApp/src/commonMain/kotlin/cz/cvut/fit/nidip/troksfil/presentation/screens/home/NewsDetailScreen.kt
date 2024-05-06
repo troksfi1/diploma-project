@@ -30,12 +30,11 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
-import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import cz.cvut.fit.nidip.troksfil.domain.util.htmlToTextUtil
 
 class NewsDetailScreen(private var news: News) : Screen {
 
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
 
@@ -44,7 +43,7 @@ class NewsDetailScreen(private var news: News) : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { /*Text(news.title, fontSize = 15.sp)*/ },
+                    title = {},
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
@@ -81,7 +80,7 @@ class NewsDetailScreen(private var news: News) : Screen {
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        text = HtmlToTextUtil(news.text),
+                        text = htmlToTextUtil(news.text),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }

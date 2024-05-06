@@ -30,7 +30,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.Event
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
-import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.htmlToTextUtil
 
 class EventDetailScreen(private var event: Event) : Screen {
 
@@ -43,7 +43,7 @@ class EventDetailScreen(private var event: Event) : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { /*Text(event.title, fontSize = 15.sp)*/ },
+                    title = {},
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
@@ -63,7 +63,7 @@ class EventDetailScreen(private var event: Event) : Screen {
                     .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
             ) {
                 AsyncImage(
-                    model = event.imageUri, // replace with working URL
+                    model = event.imageUri,
                     modifier = Modifier.height(300.dp).fillMaxWidth().shadow(10.dp),
                     contentDescription = "coverPhoto",
                     contentScale = ContentScale.Crop
@@ -87,7 +87,7 @@ class EventDetailScreen(private var event: Event) : Screen {
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        text = HtmlToTextUtil(event.description),
+                        text = htmlToTextUtil(event.description),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }

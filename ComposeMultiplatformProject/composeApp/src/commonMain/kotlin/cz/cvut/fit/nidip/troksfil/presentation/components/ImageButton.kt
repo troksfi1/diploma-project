@@ -38,7 +38,7 @@ fun ImageButton(imageButtonType: ImageButtonType, imageSize: Int = 40) {
                     } else {
                         uriHandler.openUri(imageButtonType.uri)
                     }
-                },//onClick.invoke() },
+                },
             color = MaterialTheme.colorScheme.primaryContainer
 
         ) {

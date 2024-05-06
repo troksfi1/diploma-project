@@ -14,10 +14,3 @@ data class Event(
     val imageUri: String,
     val thumbnailUri: String
 )
-
-/*{
-    //option set val category: Int and then
-    companion object {
-        val eventCategory = listOf("Hudba", "Divadlo", "Kino")
-    }
-}*/

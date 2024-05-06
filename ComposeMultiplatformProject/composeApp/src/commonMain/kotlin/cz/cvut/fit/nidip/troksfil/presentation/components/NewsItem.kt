@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import cz.cvut.fit.nidip.troksfil.domain.model.News
 import cz.cvut.fit.nidip.troksfil.domain.util.DateTimeUtil
-import cz.cvut.fit.nidip.troksfil.domain.util.HtmlToTextUtil
+import cz.cvut.fit.nidip.troksfil.domain.util.htmlToTextUtil
 
 @Composable
 fun NewsItem(news: News, onItemClick: (News) -> Unit) {
@@ -64,7 +64,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = HtmlToTextUtil(news.text), // HtmlCompat.fromHtml(news.text, HtmlCompat.FROM_HTML_MODE_COMPACT).toString(),
+                text = htmlToTextUtil(news.text),
                 modifier = Modifier
                     .align(Alignment.Start),
                 style = MaterialTheme.typography.bodySmall,

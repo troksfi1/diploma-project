@@ -13,15 +13,11 @@ import kotlinx.datetime.LocalDateTime
 
 class FakeRepositoryImpl : EventsRepository, NewsRepository {
 
-    private val _events: MutableStateFlow<List<Event>> =
-        MutableStateFlow(emptyList()) // private mutable state flow
+    private val _events: MutableStateFlow<List<Event>> = MutableStateFlow(emptyList())
+    var events = _events.asStateFlow()
 
-    var events = _events.asStateFlow() // publicly exposed as read-only state flow
-
-    private val _news: MutableStateFlow<List<News>> =
-        MutableStateFlow(emptyList()) // private mutable state flow
-
-    var news = _news.asStateFlow() // publicly exposed as read-only state flow
+    private val _news: MutableStateFlow<List<News>> = MutableStateFlow(emptyList())
+    var news = _news.asStateFlow()
     override suspend fun insertAllEvents(events: List<Event>) {
         TODO("Not yet implemented")
     }

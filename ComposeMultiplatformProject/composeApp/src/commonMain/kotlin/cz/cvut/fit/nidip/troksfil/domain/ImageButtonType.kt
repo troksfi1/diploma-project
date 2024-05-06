@@ -10,7 +10,7 @@ enum class ImageButtonType(
     val imageButtonPath: String,
     val screen: Screen = DefectScreen(),
     val uri: String = ""
-) { //todo remove default screen
+) {
     DEFECTS("Závady", "img_defect.png", DefectScreen()),
     MUNICIPAL_AUTHORITY("Úřad", "img_municipal_authority.png", AuthorityScreen()),
     SERVICES("Služby", "img_service.png", ServiceScreen()),

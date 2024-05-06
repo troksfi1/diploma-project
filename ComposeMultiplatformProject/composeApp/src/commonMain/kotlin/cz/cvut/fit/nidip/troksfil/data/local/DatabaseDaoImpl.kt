@@ -42,7 +42,7 @@ class DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory) : NewsDao, E
     ): News {
         return News(
             id = id.toInt(),
-            pubDateTime = LocalDateTime.parse(dateTime),    // todo kdyz budu ukladat rss po mapperu tak se nic nezmeni
+            pubDateTime = LocalDateTime.parse(dateTime),
             title = title,
             text = text,
             thumbnailUri = thumbnailUri,
@@ -70,7 +70,7 @@ class DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory) : NewsDao, E
         dbEventQuery.insertEventObject(
             Events(
                 event.id.toLong(),
-                event.categories.joinToString(separator = ",") /*{ it.categoryName }*/,
+                event.categories.joinToString(separator = ","),
                 event.place,
                 event.title,
                 event.startDateTime.toString(),
@@ -82,7 +82,7 @@ class DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory) : NewsDao, E
         )
     }
 
-    private fun mapEventsSelecting(     //mode to repository ala mapper
+    private fun mapEventsSelecting(
         id: Long,
         tags: String,
         place: String,
@@ -99,7 +99,7 @@ class DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory) : NewsDao, E
             place = place,
             title = title,
             startDateTime = LocalDateTime.parse(startDateTime),
-            endDateTime = LocalDateTime.parse(endDateTime),  //add second parameter formatter?
+            endDateTime = LocalDateTime.parse(endDateTime),
             description = description,
             imageUri = imageUri,
             thumbnailUri = thumbnailUri

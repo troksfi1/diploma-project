@@ -52,12 +52,12 @@ class DefectScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { /*Text(event.title, fontSize = 15.sp)*/ },
+                    title = {},
                     navigationIcon = {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = "Arrow Back",
                             )
                         }
                     }
@@ -74,7 +74,7 @@ class DefectScreen : Screen {
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(PaddingValues(bottom = innerPadding.calculateBottomPadding()))
             ) {
-                FilledIconButton(onClick = {/* open image picker*/ }, content = {})
+                FilledIconButton(onClick = {}, content = {})
 
                 Column(
                     modifier = Modifier
@@ -90,7 +90,7 @@ class DefectScreen : Screen {
                     TextField(
                         value = defectTitle,
                         label = { Text("Zadejte název závady") },
-                        onValueChange = { defectTitle = it  /* onTextChanged(it)*/ },
+                        onValueChange = { defectTitle = it },
                         modifier = Modifier
                             .fillMaxSize()
                     )
@@ -100,7 +100,7 @@ class DefectScreen : Screen {
                     )
                     FilledTonalButton(
                         modifier = Modifier.size(150.dp, 150.dp),
-                        onClick = {/* vyberte misto z mapy*/ }) {
+                        onClick = {}) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Icon(Icons.Outlined.PhotoCamera, contentDescription = "add photo")
                             Text(
@@ -116,7 +116,7 @@ class DefectScreen : Screen {
                     TextField(
                         value = defectDescription,
                         label = { Text("Zadejte popis závady") },
-                        onValueChange = { defectDescription = it  /* onTextChanged(it)*/ },
+                        onValueChange = { defectDescription = it },
                         modifier = Modifier.fillMaxSize()
                     )
                     HorizontalDivider(
@@ -163,7 +163,14 @@ class DefectScreen : Screen {
                         color = MaterialTheme.colorScheme.background
                     )
                     Button(onClick = { navigator.pop() }) {
+                        //val scope = rememberCoroutineScope()
+                        //val snackbarHostState = remember { SnackbarHostState() }
+
                         Text("Odeslat závadu")
+                        //scope.launch {
+                        //    snackbarHostState.showSnackbar("Závada odeslána")
+                        //}
+                        //SnackbarHost(hostState = snackbarHostState)
                     }
                 }
             }

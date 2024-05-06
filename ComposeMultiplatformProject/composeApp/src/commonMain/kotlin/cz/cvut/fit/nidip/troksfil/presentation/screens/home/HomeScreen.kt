@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Done
@@ -52,7 +51,6 @@ class HomeScreen : Screen {
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
         val state by screenModel.state.collectAsState()
-        val scrollState = rememberScrollState()
         val navigator: Navigator = LocalNavigator.currentOrThrow
 
         Scaffold(
@@ -61,7 +59,6 @@ class HomeScreen : Screen {
             Column(
                 modifier = Modifier
                     .fillMaxSize().padding(PaddingValues(bottom = it.calculateBottomPadding())),
-                //.verticalScroll(state = scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {
@@ -126,7 +123,7 @@ class HomeScreen : Screen {
                 }
 
                 LazyRow {
-                    items(state.events.value) { event ->  //state.filteredEvents
+                    items(state.events.value) { event ->
                         EventItem(event = event, onItemClick = {
                             navigator.push(EventDetailScreen(event))
                         })
