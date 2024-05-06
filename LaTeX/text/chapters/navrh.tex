@@ -4,7 +4,7 @@ bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvod
 
 Po vybrání typu aplikace následuje podkapitola věnující návrhu vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
 uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
-Zároveň vhodné skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splni s co nejmenší dávkou úsilí, 
+Zároveň vhodné skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splnit s co nejmenší dávkou úsilí, 
 je pro správný návrh UI klíčové. 
 což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
 
@@ -16,7 +16,7 @@ Dále je v rámci této kapitoly navržena architektura aplikace, která je pro 
 Podkapitola \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
 rozebrání jednotlivých vrstev vybrané architektury.
 
-V poslední části návrhu je přistoupeno k samotné návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných wireframe modelů,
+V poslední části návrhu je přistoupeno k samotné návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných drátěných modelů,
 následně návrhu design systému a nakonec k návrhu konečné podoby UI včetně grafických prvků.
 
 
@@ -37,115 +37,127 @@ TODO rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsaho
 Na základě toho popisu byli vybrány následující případy užití.
 
 \section{Případy užití}
-Případy užití (use cases) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
-vlastnosti aplikace k dosažení svých cílů. \cite{} Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy od 
+Případy užití  (zkráceně UC - z anglického ”use case“) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
+vlastnosti aplikace k dosažení svých cílů. \cite{figmaUseCase} Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy od 
 uživatele. Zároveň popisují jakou zpětnou vazbu uživatel na základě provedených vstupů od systému dostává.
+
+\medskip
 
 Každý případ užití obvykle obsahuje následující prvky:
 
 \begin{itemize}
-  \item Název: Stručný název, který popisuje, co uživatel chce dosáhnout.
-  \item Aktor: Uživatel nebo systém, který spouští případ užití.
-  \item Popis: Podrobný popis scénáře, který obsahuje kroky, které uživatel vykonává, a odpovědi systému na tyto kroky.
-  \item Předpoklady: Podmínky nebo situace, které musí být splněny, aby mohl být případ užití spuštěn.
-  \item Výsledek: Očekávaný výsledek akce provedené uživatelem.
+  \item \textbf{Název:} Stručný název, který popisuje, čeho chce uživatel dosáhnout.
+  \item \textbf{Aktér:} Uživatel nebo systém, který spouští případ užití.
+  \item \textbf{Popis:} Podrobný popis scénáře, který obsahuje kroky, které uživatel vykonává a odpovědi systému na tyto kroky.
+  %\item Předpoklady: Podmínky nebo situace, které musí být splněny, aby mohl být případ užití spuštěn.
+  %\item Výsledek: Očekávaný výsledek akce provedené uživatelem.
 \end{itemize}
 
-\medskip
+\myparagraph{Aktéři}
+Hlavními aktéry systému jsou především občané příslušného města, kteří budou aplikaci využívat za účelem splnění cílů 
+zmíněných v rámci této kapitoly. 
+Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data. 
 
-\myparagraph{UC1 Zobrazení aktuálních novinek}
-Tento případ užití popisuje, jak mohou občané prostřednictvím aplikace získat přístup k aktuálním novinkám a důležitým oznámením ze svého města 
-nebo obce. Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
+\smallskip
+\textit{Pozn. Následující případy užití jsou pro jednoduchost popsány pouze z pohledu občanů města a z toho důvodu 
+explicitně nespecifikují aktéra, jehož se daný případ užití týká.
+}
+
+%TODO jaci uzivatel budou aplikaci použivat
+
+\myparagraph{UC1 Poskytnutí aktuálních novinek}
+Získání přístupu k aktuálním novinkám a důležitým oznámením. 
+ze svého města nebo obce. %Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí aktuální seznam aktualit z webových stránek města a dalších informačních zdrojů.
+  \item Systém uživateli poskytne seznam aktualit načtený z webových stránek města a dalších informačních zdrojů.
   \item Uživatel si vybere aktualitu, která ho zaujme.
-  \item Systém uživateli zobrazí detail vybrané aktuality obsahující její název, obsah, datum vytvoření, obrázek a případně odkazy na další zdroje.
+  \item Systém uživateli vrátí detail vybrané aktuality obsahující její název, obsah, datum vytvoření, obrázek a případně odkazy na další zdroje.
 \end{enumerate}
 
-\myparagraph{UC2 Zobrazení aktuálních událostí} 
-Tento případ užití popisuje jak mohou občané prostřednictvím aplikace získat přehled o aktuálně připravovaných akcích, událostech a kulturních 
-aktivitách v jejich městě nebo obci. 
+\myparagraph{UC2 Poskytnutí aktuálních událostí} 
+Získání přehledu o aktuálně připravovaných akcích, událostech a kulturních 
+aktivitách ve vybraném městě nebo obci. 
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí aktuální seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů.
+  \item Systém uživateli poskytne aktuální seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů.
   \item Uživatel si vybere událost, která ho zaujme.
-  \item Systém uživateli zobrazí detail vybrané události obsahující její název, popis, datum konání, místo konání obrázek a případně odkazy na další zdroje.
+  \item Systém uživateli poskytne detail vybrané události obsahující její název, datum konání, popis, místo konání obrázek a případně odkazy na další zdroje.
 \end{enumerate}
 
-\myparagraph{UC6 Filtrování zobrazených událostí za základě času}
-Tento případ užití popisuje jak mohou občané filtrovat zobrazené události podle na základě datu konání daných událostí.
+\myparagraph{UC3 Poskytnutí událostí za základě času}
+Filtrování zobrazených událostí na základě data konání jednotlivých událostí.
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů s nejbližším datem konání, který 
+  \item Systém uživateli poskytne seznam událostí z webových stránek města, divadel, kin a dalších informačních zdrojů, který 
   je rozdělen na základě kategorií jako například kino, divadlo, hudba atd..
-  \item Uživatel si vybere konkrétní den pro který chce zobrazit konané události.
-  \item Systém uživatel vrátí výpis pro vybraný den a události rozdělí na základě kategorií, do kterých vyfiltrované události spadají.
+  \item Uživatel si vybere konkrétní den nebo časový rozsah, pro který chce zobrazit konané události.
+  \item Systém uživateli poskytne seznam událostí konaných ve vybraný den (případně vybraný časový rozsah) a tyto události zároveň
+  rozdělí podle příslušných kategorií.
 \end{enumerate}
 
-\myparagraph{UC3 Zobrazení kontakty na místní úřady}
-Aplikace může poskytovat možnost rychlého a snadného získání kontaktu na místní úřady nebo správními orgány. %Uživatelé budou moci prostřednictvím aplikace zasílat otázky, stížnosti nebo žádosti o pomoc a získávat odpovědi a podporu přímo ze svého mobilního zařízení.
+\myparagraph{UC4 Poskytnutí kontaktů na místní úřady}
+Získání kontaktů na místní úřady nebo správní orgány. 
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí seznam městských institucí.
+  \item Systém uživateli poskytne seznam městských institucí.
   \item Uživatel vybere konkrétní instituci, pro kterou chce zobrazit detailní informace.
   \item Systém vrátí podrobné informace o vybrané instituci.  
 \end{enumerate}
 
-\myparagraph{UC4 Nahlášení závady ve městě}
-Aplikace dá občanům možnost hlásit závady, které je potřeba ve městě opravit.
+\myparagraph{UC5 Nahlášení závady ve městě}
+Možnost nahlášení závady na území města.
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí formulář pro k vyplnění městských institucí.
+  \item Systém uživateli poskytne formulář pro k vyplnění městských institucí.
   \item Uživatel vyplní název závady, nahraje fotografii závady, vyplní místo, kde se závada nachází, vybere kategorii závad do, které závada spadá a 
   záznam o závadě odešle.
-  \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o 
+  \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o jejím zaslání.
   
-  \item TODO rozdvojka spatne dobre vyplnene
+  %\item TODO rozdvojka spatne dobre vyplnene
 \end{enumerate}
 
-\myparagraph{UC5 Propojení s YouTube kanálem města}
-Aplikace dá občanům možnost konzumovat aktuální novinky prostřednictvím videí z městského YouTube kanálu. Díky intuitívnímu propojení...
+\myparagraph{UC6 Propojení se sociálními kanály města}
+Možnost konzumovat aktuální novinky prostřednictvím videí z městského YouTube kanálu nebo prostřednictvím sociální sítě Facebook.
 
 \begin{enumerate}
-  \item 
-  \item 
+  \item Systém uživateli poskytne městem používané sociální sítě.
+  \item Uživatel zvolí požadovanou sociální síť.
+  \item Systém uživatele přesměruje na požadovanou sociální síť.
 \end{enumerate}
 
 \myparagraph{UC7 Vyhledání parkovacích zón}
-Aplikace umožňuje občanům města jednoduše a rychle vyhledat veškeré parkovací zóny ve městě včetně informace o provozní době parkovací zóny.
+Možnost jednoduše vyhledat veškeré parkovací zóny ve městě včetně informace o provozní době a ceníku parkovací zóny.
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
-  \item Uživatel vybere parkovací zóny pro kterou chce zobrazit detailní informace.
-  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny.
+  \item Systém uživateli poskytne mapu parkovacích zón.
+  \item Uživatel vybere parkovací zónu pro kterou požaduje zobrazit detailní informace.
+  \item Systém uživateli vrátí detailní informace týkající se vybrané parkovací zóny.
 \end{enumerate}
 
-\myparagraph{UC8 Platba parkovného}  podTask UC7
-Aplikace umožní uživatelům snadno a rychle zaplatit parkovné prostřednictvím svého mobilního zařízení. Uživatelé mohou zadat informace o svém vozidle, 
-délce parkování a provedení platby online, což jim ušetří čas a nepohodlí spojené s hledáním parkovacího automatu nebo mincí.
+\myparagraph{UC8 Platba parkovného} % podTask UC7
+Možnost rychle zaplatit poplatek za parkování.
 
 \begin{enumerate}
-  \item Systém uživateli zobrazí mapu parkovacích zón ve jeho obci.
-  \item Uživatel vybere parkovací zóny pro kterou chce zaplatit parkování.
-  \item Systém vrátí uživateli detailní informace týkající se vybrané parkovací zóny s odkazem na zaplacení.
-  \item Uživatel na detailu vybrané zóny vybere akci zaplatit parkovné.
+  \item Systém uživateli zobrazí mapu parkovacích zón v příslušném městě.
+  \item Uživatel vybere parkovací zóno pro kterou si přeje zaplatit poplatek za parkování.
+  \item Systém uživateli vrátí detailní informace týkající se vybrané parkovací zóny.
+  \item Uživatel v detailu vybrané parkovací zóny vybere akci "zaplatit poplatek za parkování".
   \item Systém uživatele přesměruje na platební systém používaný daným městem pro platbu parkovného s předvyplněnou informací o vybrané parkovací zóně.
 \end{enumerate}
 
-\myparagraph{UC7 Zobrazení dopravy na mapě města}
-Tento případ užití popisuje jak mohou občané města jednoduše a rychle zobrazit vytíženost silnice ve městě.
-
+\myparagraph{UC9 Poskytnutí aktuální dopravní situace}
+Možnost rychle získat přehled o aktuální dopraní situaci ve městě.
 \begin{enumerate}
-  \item Systém uživateli zobrazí mapu vytíženost silnice ve městě.
+  \item Systém uživateli zobrazí mapu vytíženost jednotlivých silnic v rámci města.
+  \item Uživatel tuto informaci zpracuje.
 \end{enumerate}
 
-Pro dotvoření představy o tom jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{fig:use_case_diagram}, na který zároveň 
+Pro dotvoření představy o tom, jak jsou spolu jednotlivé případy užití navzájem propojeny slouží obrázek \ref{fig:use_case_diagram}, který zároveň 
 obsahuje i typy uživatelů pracujících s navrženou aplikací.
 
-Co se týče vzájemných vazeb, tak zde je věno
+%Co se týče vzájemných vazeb, tak zde je věno
 
-Use case diagram
 \begin{figure}[H]
   \centering
   \includegraphics[width=.99\textwidth]{Use case diagram.png}
@@ -153,82 +165,136 @@ Use case diagram
   \label{fig:use_case_diagram}
 \end{figure}
 
-\myparagraph{Aktéři}
-Hlavními uživateli systému jsou především občané příslušného města, kteří budou aplikaci využívat za účelem splnění cílů z předchozí podkapitoly.
-
-Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data.
-
-TODO jaci uzivatel budou aplikaci použivat
-
 \bigskip
 
 Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrhu funkcionalit aplikace tak, aby co nejlépe odpovídaly těmto potřebám. 
-Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, protože je na jejich základě možné ověřit, zda systém správně reaguje na očekávané 
-uživatelské interakce. 
+Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, jelikož lze díky nim jednoduše ověřit, zda systém správně reaguje na očekávané 
+uživatelské interakce. Podrobněji se tomuto tématu věnuje poslední kapitola \textit{Testování \ref{testsSection}} v rámci které byly případy užití
+použity jako základ k tvorbě UI testů.
 
-Na jejichž základě je proto založeno koncové testování celé aplikace čehož je využito k tvorbě UI testů v kapitole \textit{Testování \ref{testsSection}}.
 
-Na základě takto sepsaných případech užití je nyní možné sepsat funkční požadavky.
+%koncové testování celé aplikace čehož je využito  v kapitole .
 
-\section{Funkční požadavky}
-Funkční požadavky definují konkrétní vlastnosti a chování aplikace, které zajistí, že bude aplikace pro občany měst či obcí 
-užitečná, efektivní a snadno použitelná.
+\section{Specifikace požadavků}
+Na základě případů užití sepsaných v předchozí sekci je nyní možné sepsat konkrétní požadavky na vybranou aplikaci.
+Pro specifikaci těchto požadavků byla použita specifikace na základě funkčních a nefunkčních požadavků, která je součástí ISO/IEC/IEEE 29148:2018
+jenž popisuje proces vývoje softwarových produktů.
 
-TODO priorita 5, slozitost viz grofetom
+\subsection{Funkční požadavky}
+Funkční požadavky definují konkrétní funkce a chování systému z pohledu uživatele. Obecně se dá říci, že specifikují
+co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. 
+%Funkční požadavky popisují očekávané výsledky a chování systému v různých situacích.
 
-\myparagraph{Zobrazení novinek}
-Možnost přidávat, editovat a mazat novinky a oznámení.
-Zobrazení aktuálních novinek na domovské obrazovce aplikace.
-Možnost filtrovat novinky podle kategorie nebo data.
+%které zajistí, že bude aplikace pro občany měst či obcí 
+%užitečná, efektivní a snadno použitelná.
 
-\myparagraph{Zobrazení událostí}
-Zobrazení kalendáře s událostmi, akcemi a důležitými daty.
-Možnost procházet události v kalendáři dle data, místa nebo typu události.
-Možnost přidávat nové události do kalendáře.
-Možnost filtrovat události podle kategorie nebo data.
+\myparagraph{FR1 Zobrazení aktualit a událostí}
+Systém bude přehledně zobrazovat seznamy aktualit a událostí v daném městě včetně jeji detailních informací.
 
-\myparagraph{Platební brána pro parkovné}
-Možnost provádět platby parkovného prostřednictvím aplikace.
-Zadání informací o vozidle, parkovacím místě a délce parkování.
-Zobrazení historie plateb a možnost platit opakovaná parkování.
+\begin{itemize}
+  \item \textit{Priorita: 5}
+  \item \textit{Složitost: 4}
+\end{itemize}
 
-\myparagraph{Možnost vyhledání a kontaktování místních úřadů, policie nebo zdravotního střediska}
-Zobrazení kontaktních informací a pracovní doby úřadů.
-Možnost zaslat otázku, stížnost nebo žádost přímo prostřednictvím aplikace.
+% \myparagraph{FR4 Synchronizace s IS města}
+% Systém bude synchronizován s informačními systémy města tak, aby vždy kdy je to možné zobrazoval aktuální data.
+% Zároveň bude uživatele informovat o stavu synchronizace.
 
-\myparagraph{Navigace a mapy}
-Integrace mapových služeb pro zobrazení umístění událostí a místních služeb.
-Možnost vyhledávání tras a navigace v rámci města nebo obce.
+% \begin{itemize}
+%   \item \textit{Priorita: 3}
+%   \item \textit{Složitost: 2}
+% \end{itemize}
 
-\myparagraph{Podpora více jazyků}
-Možnost nastavení jazyka aplikace dle uživatelských preferencí.
-Zobrazení obsahu a textů v různých jazycích.
+\myparagraph{FR2 Filtorvání událostí}
+Systém bude filtrovat konané události v daném městě podle data a kategorie události.
 
-\myparagraph{Feedback a hodnocení}
-Možnost zaslat zpětnou vazbu, hodnocení nebo recenzi na aplikaci.
-Zpětná vazba od uživatelů a možnost sledovat spokojenost s aplikací.
+\begin{itemize}
+  \item \textit{Priorita: 4}
+  \item \textit{Složitost: 4}
+\end{itemize}
+
+\myparagraph{FR3 Propojení s komunikační kanály města}
+Systém poskytne uživateli propojení s aktuálně používanými sociálními sítěmi města buďto v podobě odkázání na webové stránky 
+dané sociální sítě nebo rovnou otevření profilu města v aplikaci vybrané sociální sítě.  
+
+\begin{itemize}
+  \item \textit{Priorita: 3}
+  \item \textit{Složitost: 1}
+\end{itemize}
+
+\myparagraph{FR4 Zpracovávat nahlášené závady}
+Systém zpracuje a zašle uživatelem nahlášenou závadu do informačního systému města.
+
+\begin{itemize}
+  \item \textit{Priorita: 1}
+  \item \textit{Složitost: 4}
+\end{itemize}
+
+\myparagraph{FR5 Zobrazit kontakty na místní úřady}
+Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady.
+
+\begin{itemize}
+  \item \textit{Priorita: 2}
+  \item \textit{Složitost: 2}
+\end{itemize}
+
+\myparagraph{FR6 Správa parkovací zón}
+Pomocí systému bude možné zobrazit detailní informace o parkovacích zónách jako je provozní doba nebo výše parkovacích poplatků a současně jednoduše zaplatit parkovací poplatky pro vybranou zónu.
+\begin{itemize}
+  \item \textit{Priorita: 3}
+  \item \textit{Složitost: 4}
+\end{itemize}
+
+\myparagraph{FR7 Zobrazení dopravy na mapě města}
+Pomocí systému bude možné jednoduše a rychle zobrazit vytíženost silnice ve městě.
+
+\begin{itemize}
+  \item \textit{Priorita: 2}
+  \item \textit{Složitost: 2}
+\end{itemize}
+
+\subsection{Nefunkční požadavky}
+Nefunkční požadavky se oproti funkčním požadavků nezaměřují na funkčnost samotného produktu ("co má systém dělat"),
+ale spíše na jeho vlastnosti ("jaký má být") z pohledu
+výkonu, spolehlivosti, bezpečnosti, uživatelské přívětivosti a dalších aspektů, které nepřímo ovlivňují uživatelský zážitek a kvalitu systému. 
+Tyto požadavky jsou z toto důvodu často spojeny s technickými a provozními charakteristikami systému.
+
+\myparagraph{NFR Multiplatformnost}
+Systém by měl být dostupný alespoň na mobilních aplikacích.
+
+%aby tak aby uživatele měli potřebné informaci ihned po ruce
+
+%a pro zaruceni multiplatformnosti bude pouzit framework Compose Multiplatform a KMP
+
+\myparagraph{NFR1 Rozšiřitelnost}
+Systém by měl být rozšiřitelný na ostatní podporované platformy. % a nove funkce
+
+\myparagraph{NFR2 Offline dostupnost}
+Systém by měl být správně fungovat i v případě, že není připojen k internetu.
+
+\myparagraph{NFR3 Přístupnost}
+Systém by měl být přizpůsoben širokému spektru lidí včetně například zrakově postižených.
 
 
 \myparagraph{Pokrytí případů užití} 
-Pro ověření, že takto sepsané funkční požadavky pokrývají všechny případy užití byla vytvořena následující tabulka pokrytí.
+Pro ověření a zároveň ukázání, že takto sepsané funkční požadavky pokrývají všechny případy užití 
+byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
   \hline
   %\multicolumn{9}{|c|}{Functional Requirements} \\ \hline
-   & F1 & F2 & F3 & F4 & F5 & F6 & F7 & F8  \\ \hline
-  UC1  & $\ast$ &        &        &        &        &        &        &         \\ \hline
-  UC2  & $\ast$ &        &        &        &        &        &        &         \\ \hline
-  UC3  & $\ast$ &        &        &        &        &        &        &         \\ \hline
-  UC4  &        & $\ast$ &        &        &        &        &        &         \\ \hline
-  UC5  &        &        &        & $\ast$ &        &        &        &         \\ \hline
-  UC6  &        &        & $\ast$ &        &        &        &        &         \\ \hline
-  UC7  &        &        &        &        & $\ast$ & $\ast$ & $\ast$ & $\ast$  \\ \hline
-  UC8  &        &        &        &        &        & $\ast$ & $\ast$ & $\ast$  \\ \hline
-  UC9  &        &        &        &        &        &        &        & $\ast$  \\ \hline
-  UC10 &        &        &        &        &        &        &        & $\ast$  \\ \hline
-  UC11 &        &        &        &        &        &        &        & $\ast$  \\ \hline
+       & F1     & F2     & F3     & F4     & F5     & F6     & F7  \\ \hline
+  UC1  & $\ast$ &        &        &        &        &        &         \\ \hline
+  UC2  & $\ast$ &        &        &        &        &        &         \\ \hline
+  UC3  &        & $\ast$ &        &        &        &        &         \\ \hline
+  UC4  &        &        &        &        & $\ast$ &        &         \\ \hline
+  UC5  &        &        &        & $\ast$ &        &        &         \\ \hline
+  UC6  &        &        & $\ast$ &        &        &        &         \\ \hline
+  UC7  &        &        &        &        &        & $\ast$ &         \\ \hline
+  UC8  &        &        &        &        &        & $\ast$ &         \\ \hline
+  UC9  &        &        &        &        &        &        &  $\ast$ \\ \hline
   \end{tabular}
   \caption{Pokrytí případů užití funkčními požadavky aplikace}
   \label{table:tabulkaPokryti}
@@ -238,7 +304,7 @@ Pro ověření, že takto sepsané funkční požadavky pokrývají všechny př
 \section{Architektura aplikace}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
 
-TODO možné architektury pro vyvoj mobilních aplikací
+TODO možné architektury pro vývoj mobilních aplikací
 
 \subsection*{Důležité principy}
 
@@ -362,7 +428,7 @@ databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat ro
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
 K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitoly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
- získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v informačních systémech nachází na ... ve formatu XML, 
+ získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v informačních systémech nachází na ... ve formátu XML, 
 
 
  byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města) tak jak se tomu v levé části obrázku \ref{fig:arch_data_layer}. 
@@ -492,13 +558,13 @@ Zároveň byla snaha o
   Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
   nahlášení závady, zobrazení úředních hodin a kontaktů.
   
-  %V horní části se nachzí sekce umožňující přidání vlastní 
+  %V horní části se nachází sekce umožňující přidání vlastní 
   
   %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
   
   \bigskip
   \myparagraph{Obrazovka událostí}  
-  V rámci obrazovky "Události" je použit stejný systém pro zobrazené událostí pomocí skrolovacího řádku jako je tomu na domovské obrazovce.
+  V rámci obrazovky "Události" je použit stejný systém pro zobrazené událostí pomocí posuvného řádku jako je tomu na domovské obrazovce.
   
   Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou události rozděleny 
   do několika málo kategorií.
@@ -510,7 +576,7 @@ Zároveň byla snaha o
   
   Byla navržena tak, aby uživatelé mohli jednoduše filtrovat zobrazované události primárně podle času.
   
-  filtrování podle kategorie bylo nejprve navrženo ale následně z neho bylo umístěno kvůli malému počtu kategorií.
+  filtrování podle kategorie bylo nejprve navrženo ale následně od něho bylo upuštěno kvůli malému počtu kategorií.
   
   byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
   
@@ -563,11 +629,11 @@ Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled v
 
 
 %v případě, že by uživatel shledal některou 
-%z nabízených funkcí důležitější/častěji potřebnou, tak umožňnuje uživateli tuto funkci přidat na domovskou obrazovku.
+%z nabízených funkcí důležitější/častěji potřebnou, tak umožňuje uživateli tuto funkci přidat na domovskou obrazovku.
 
-%Představuje rychlo naviga
+%Představuje rychlo navigaci
 
-%Obsahuj důležité prvky aplice, které obsahují veškeré méně podstatné časti aplikace.
+%Obsahuj důležité prvky aplikace, které obsahují veškeré méně podstatné části aplikace.
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
@@ -636,7 +702,7 @@ Výsledek základní ukázky takto navrženého systému je k vidění na obráz
 Po zadefinování použitelných komponent v navrženém design systému \ref{designSystemSection} je již samotný návrh grafické podoby UI zjednodušen 
 na nezbytné minimum. 
 
-Vytvořené mockup modely jsou defacto výsledkem sloučení drátěných modelů s navrženým design systémem.
+Vytvořené mockup modely jsou de facto výsledkem sloučení drátěných modelů s navrženým design systémem.
 
 při návrhu grafické podoby UI byla proto primárně soustředěn na význam jednotlivých UI komponent a na základě jejich významu byla
 přiřazovány odpovídající barvy. 

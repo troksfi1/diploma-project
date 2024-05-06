@@ -2,12 +2,12 @@
 Tato kapitola se bude věnovat předvším UI teestování a to z nějkolika růzých pohledů. 
 
 \section{Uživatelské rozhraní}
-Od verze 1.6.0 Compse multiplatform umožnuje testování UI na všech platformách. \cite{composeNews1.6.0}
+Od verze 1.6.0 Compse Multiplatform umožňuje testování UI na všech platformách. \cite{composeNews1.6.0}
 
 UI testy se používají k ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
 interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
 
-Mezi základní typy UI testl se řadí UI testy testující ktitické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
+Mezi základní typy UI testy se řadí UI testy testující kritické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
 správnost fungování navigace v dané aplikaci.
 
 
@@ -23,7 +23,7 @@ správně na široké škále zařízení.
 
 \section{Možnosti testování UI v Compose Multiplatform}
 Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
-proto i stejných konceptů. Mezi tyty klíčové koncepty testovaní UI se řadí následující:
+proto i stejných konceptů. Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
 \myparagraph{Testování sémantiky}
@@ -32,7 +32,7 @@ V rámci testování
 Compose Multiplatform z toto důvodů taktéž využívá tři hlavní principy jak testovat UI, které se v Jetpack compose
 označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}. 
 K tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenýcmi 
-komponenty umožňují provest akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provední těchto akcí se používají takzvané tvrzení 
+komponenty umožňují provest akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provedení těchto akcí se používají takzvané tvrzení 
 (Assertions), které ověří zdali určité UI prvky mají požadované atributy.
 
 \textit{Finders} umožnují najít uzel nebo uzly ve strom UI struktuře pomocí tagů, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
@@ -46,7 +46,7 @@ A pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jso
 \myparagraph{Testování interoperability}
 
 
-\begin{listing}
+\begin{listing}[H]
   \caption{Integrace UI testů pomocí Gradle}\label{lst:testsIntegration}
   \begin{minted}{kotlin}
     kotlin {
@@ -142,7 +142,7 @@ Na základě této struktury bylu sepsány následující testovací případy:
 
 \myparagraph{Testy jednotlivých UI komponent}
 
-\begin{listing}
+\begin{listing}[H]
   \caption{Implementace UI testu}\label{lst:testImplementation}
   \begin{minted}{kotlin}
   class ExampleTest {

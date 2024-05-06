@@ -22,7 +22,7 @@ syntaxí jako je používána pro ostatní části projektu.
 K tomu aby bylo možné Compose Multiplatform v projektu použít, je zapotřebí do projektového souboru \code{build.gradle.kts} přidat Compose 
 Multiplatform plugin (viz výpis kódu \ref{lst:ComposePlugin}).
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Integrace Compose Multiplatform zásuvného modulu do sestavovacího scriptu}\label{lst:ComposePlugin}
 \begin{minted}{kotlin}
     plugins {
@@ -41,7 +41,7 @@ sourceSets podle toho, zdali se jedna o multiplatformní (\code{commonMain}) neb
 
 Pro ukázku jak taková multiplatformní závislost může vypadat slouží řádky 32 - 37 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
 kterých je do projektu přidána knihovna umožnující implementaci multiplatformní navigace.
-\begin{listing}
+\begin{listing}[H]
 \caption{Lib integration}\label{lst:LibIntegration}
 \begin{minted}{kotlin}
   kotlin {
@@ -90,7 +90,7 @@ například pomocí \textit{Composable} funkce, která je napsána v rámci sdí
 
 Ve výpisu kódu \ref{lst:SharedIntegration} je touto funkcí funkce \code{App()}, která je volána z nativního Android kódu a stará se
 o deklaraci veškerého multiplatformního UI.
-\begin{listing}
+\begin{listing}[H][H]
   \caption{Lib integration}\label{lst:SharedIntegration}
   \begin{minted}{Kotlin}
     class MainActivity : ComponentActivity() {
@@ -121,7 +121,7 @@ verzi, která má být pro tento modul použita napříč celým projektem.
 Příklad toho jak mohou být dříve zmíněné závislosti přepsány do version
 katalogu je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Version katalog}\label{lst:VersionCalalog}
 \begin{minted}{toml}
 [versions]
@@ -172,7 +172,7 @@ a zbylé barvy jako například barvy pro výplň pozadí nebo pro tmavý režim
 
 Pro použití vybraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Zadefinování barev}\label{lst:Colors}
 \begin{minted}{Kotlin}
 val md_theme_light_primary = Color(0xFFBC004C)
@@ -191,7 +191,7 @@ val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
 Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů, ploch a dalších UI komponent.
 
 Mimo jiné jsou taktéž použity pro definování barevných motivů, které se definují následujícím způsobem:
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Definice barevných motivů}\label{lst:ThemeDef}
 \begin{minted}{Kotlin}
 private val LightColors = lightColorScheme(
@@ -215,7 +215,7 @@ Díky takto zadefinovaným motivům je následně možné obarvit veškeré komp
 
 V aplikaci byla proto implementována \textit{Composable} funkce AppTheme (viz výpis kódu \ref{lst:colorsDef}), která je z pohledu stromové struktury
 UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci je tak možné měnit barevné režimy i za běhu aplikace. 
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Definice barevných motivů}\label{lst:colorsDef}
 \begin{minted}{Kotlin}
   @Composable
@@ -244,7 +244,7 @@ Jelikož se jedná o styly písma přímo definované systémem Material Design,
 \textit{Composable} funkci \code{MaterialTheme} z balíčku \code{androidx.compose.material3} popsanou v kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
 definovaný v rámci kapitoly \ref{designSystemSection}
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Ukázka použití stylu písma}\label{lst:typographyExample}
 \begin{minted}{Kotlin}
 Text(
@@ -289,7 +289,7 @@ Voyager je multiplatformní navigační knihovna, která umožňuje se pohybovat
  
  
 % založené na zásobníku by byla pro uživatele matoucí.
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Ukázka použití navigace založené na záložkách}\label{lst:tabNav}
 \begin{minted}{Kotlin}
   TabNavigator(
@@ -333,7 +333,7 @@ kdy aplikace nemá přístup k internetu.
 
 % TODO placeholder
 
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Coil}\label{lst:Coil3}
 \begin{minted}{Kotlin}
   AsyncImage(
@@ -355,7 +355,7 @@ jazyka Kotlin. Ktor byl vyžit především kvůli možnosti využití multiplat
 HTTP požadavky a zároveň zpracovávat případné odpovědi. 
 
 Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor možné použít na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
-\begin{listing}
+\begin{listing}[H]
 \caption{Konfigurace http klienta}\label{lst:ktorConfig}
 \begin{minted}{Kotlin}
   private val client = HttpClient(CIO) {
@@ -369,7 +369,7 @@ Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor
 \end{listing}
 
 Po nakonfigurování http klienta je již možné zasílat běžné http dotazy pomocí metod \code{post}, \code{get}, \code{put} nebo \code{delete}.
-\begin{listing}
+\begin{listing}[H][H]
 \caption{Zaslání požadavku}\label{lst:ktorRequest}
 \begin{minted}{Kotlin}
   suspend fun getEventsXml(): EventsXmlDto {
@@ -395,7 +395,7 @@ Využití tohoto zápisu bylo vhodné použít především díky tomu, že pře
 logiky a v rámci nativní logiky, byl tak implementovám pouze databázový ovladač.
 
 TODO nejen driver screenmodel, repository
-\begin{listing}
+\begin{listing}[H][H]
 \caption{DI databázového ovladače pomocí Koinu}\label{lst:KoinInit}
 \begin{minted}{Kotlin}
   class MainActivity : ComponentActivity() {
@@ -421,7 +421,7 @@ Hlavní funkcionalitou knihovny SQLDelight je automatická generace Kotlin tří
  snadný a bezpečný přístup k databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
  štítkem (viz \code{selectAllNews:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
 
-\begin{listing}
+\begin{listing}[H]
 \caption{SQL dotaz}\label{lst:SQLDotaz}
 \begin{minted}{SQL}
 selectNewsById:
@@ -435,7 +435,7 @@ WHERE id = :id;
 Vygenerové metody (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z výpisu kódu \ref{lst:SQLDotaz}
 vypadá následovně:
 
-\begin{listing}
+\begin{listing}[H]
 \caption{SQL vygenerovaný dotaz}\label{lst:SQLGeneratedDotaz}
 \begin{minted}{kotlin}
 private inner class SelectNewsByIdQuery<out T : Any>(
@@ -452,7 +452,7 @@ private inner class SelectNewsByIdQuery<out T : Any>(
 SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
  kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Nativní databázový ovladač}\label{lst:DatabaseDriverFactory}
 \begin{minted}{kotlin}
   actual class DatabaseDriverFactory {
@@ -495,7 +495,7 @@ Pro zachování stavu jednotlivých obrazovek byla použita datová třída, kte
 Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí (viz \ref{lst:EventState}), která v sobě 
 například uchovává informace typu jaké filtry událostí jsou aktuálně zvoleny, zdali je otevřeno dialogové okno pro výběr datového rozmezí 
 nebo zdali jsou aktuálně načítány nějaká data.
-\begin{listing}
+\begin{listing}[H]
 \caption{Event State katalog}\label{lst:EventState}
 \begin{minted}{Kotlin}
   data class EventsState(
@@ -511,7 +511,7 @@ nebo zdali jsou aktuálně načítány nějaká data.
 Takto zadefinované stavy je následně možné používat v rámci jednotlivých obrazovek a ty jsou při jakékoliv změně tohoto stavu znovu sestaveny.
 
 být v aplikaci použity například následujícím způsobem. Kde stav udržován 
-\begin{listing}
+\begin{listing}[H]
 \caption{Události uživatelského rozhraní}\label{lst:StateImpl}
 \begin{minted}{Kotlin}
   val screenModel = getScreenModel<HomeScreenModel>()
@@ -535,7 +535,7 @@ V rámci této kapitolo bude představeno jak implementovaná aplikace obsluhuje
 V rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z UI elementů. V jednotlivýmch j
 
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Použití stavu v aplikaci}\label{lst:StateImpl}
 \begin{minted}{Kotlin}
   sealed interface EventsEvent {
@@ -555,7 +555,7 @@ bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak
 V rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z UI a na jejich základě by vždy měli
 měnit stav aplikace. V tomto duchu jsou implementovany všechny ViewModely. Díky tomu je možné zaručit, že stav uživatelského rozhraní  nebude změněn
 v případě 
-\begin{listing}
+\begin{listing}[H]
 \caption{Implementace ViewModelu}\label{lst:ViewModelImpl}
 \begin{minted}{Kotlin}
   fun onEvent(event: EventsEvent) {
@@ -593,7 +593,7 @@ seznamů, ale také celým souborům těchto prvků jako jsou například celé 
 Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny čímž tvoří
 takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ConsumeUIState}
 \begin{minted}{Kotlin}
   @Composable
@@ -621,7 +621,7 @@ přistoupit k nativnímu řešení ani na platformě iOS nebo desktop.
 
 K implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita komponenta vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow},
 která je založená na základní \code{LazyRow}, která umožňuje zobrazení velké
-\begin{listing}
+\begin{listing}[H]
 \caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
 \begin{minted}{Kotlin}
   @Composable
@@ -694,7 +694,7 @@ se zbytkem aplikace byla použita expect/actual deklarace.
 
 %\myparagraph{Výběr mapových podkladů}
 %získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
-\begin{listing}
+\begin{listing}[H]
 \caption{GoogleMap element}\label{lst:GoogleMapview}
 \begin{minted}{Kotlin}
   GoogleMap(
@@ -713,7 +713,7 @@ se zbytkem aplikace byla použita expect/actual deklarace.
 Aby byla implementace motivů z kapitoly \ref{} komlemtní bylo zapotřebí přizpůsobit i mapove podklady
 
 kreré se mění v závisloti na aktuální motivu zařízení.
-\begin{listing}
+\begin{listing}[H]
 \caption{Motiv mapy ve formátu JSON}\label{lst:MapStyle}
 \begin{minted}{json}
   {
