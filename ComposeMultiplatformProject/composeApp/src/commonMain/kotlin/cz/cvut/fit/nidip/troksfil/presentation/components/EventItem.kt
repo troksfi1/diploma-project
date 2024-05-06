@@ -33,7 +33,7 @@ fun EventItem(event: Event, onItemClick: (Event) -> Unit) {
         Column {
             AsyncImage(
                 model = event.thumbnailUri,
-                contentDescription = "thumbnailImage",
+                contentDescription = "Event Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)

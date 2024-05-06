@@ -87,62 +87,6 @@ class HomeScreen : Screen {
                     }
                 }
 
-                /*Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-
-                    ) {
-                    LazyVerticalGrid(
-                        modifier = Modifier.fillMaxWidth().size(height = 200.dp, width = 1000.dp),
-                        //rows = GridCells.Adaptive(minSize = 50.dp)
-                        columns = GridCells.Adaptive(minSize = 80.dp),
-
-                        //contentPadding = PaddingValues(10.dp)
-                    ) {
-                        *//*items(18) { photo ->
-                            ImageButton()
-                            Box(modifier = Modifier.padding(10.dp)) {
-                                ImageButton("Popis", "drawable/img_municipal_authority.png",
-                                    imageSize = 150,
-                                    onClick = {}
-                                )
-                            }
-
-                            //PhotoItem(photo)
-                        }*//*
-
-                        items(listOfPages) { page ->
-                            Box(modifier = Modifier.padding(10.dp)) {
-                                ImageButton(
-                                    page,
-                                    imageSize = 150,
-                                    onClick = {}
-                                )
-                            }
-                        }
-
-                        *//*state.usedImageButtons.forEach {
-                        ImageButton(it.name)
-                    }*//*
-                        *//*ImageButton(name = "Úřad", imagePath = "drawable/img_municipal_authority.png",
-                        onClick = { navigator.push(AuthorityScreen()) }
-                    )
-                    ImageButton(name = "Závady", imagePath = "drawable/img_defect.png",
-                        onClick = { navigator.push(DefectScreen()) }
-                    )
-                    ImageButton(name = "Služby", imagePath = "drawable/img_service.png",
-                        onClick = { navigator.push(ServiceScreen()) }
-                    )
-                    ImageButton(name = "YouTube", imagePath = "drawable/img_youtube.png",
-                        onClick = {
-                            uriHandler.openUri("https://www.youtube.com/@mestopribram1671")
-                        }
-                    )*//*
-                    }*/
-
-
-                //Spacer(modifier = Modifier.size(5.dp))
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween

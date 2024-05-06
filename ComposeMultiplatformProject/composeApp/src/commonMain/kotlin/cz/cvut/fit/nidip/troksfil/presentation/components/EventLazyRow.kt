@@ -55,7 +55,7 @@ fun EventLazyRow(category: EventCategory, state: EventsState) {
 
             //EventsEvent.getEventsByCategory(category)
 
-            items(eventList) { event ->  //state.filteredEvents
+            items(eventList) { event ->
                 EventItem(event = event, onItemClick = {
                     navigator.push(EventDetailScreen(event))
                 })

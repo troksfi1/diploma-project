@@ -1,7 +1,7 @@
 package cz.cvut.fit.nidip.troksfil.presentation.theme
 import androidx.compose.ui.graphics.Color
 
-val md_theme_light_primary = Color(0xFFBC004C)
+val md_theme_light_primary = Color(0xFFAE1B28)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFFFD9DE)
 val md_theme_light_onPrimaryContainer = Color(0xFF400015)
@@ -13,7 +13,7 @@ val md_theme_light_tertiary = Color(0xFF795831)
 val md_theme_light_onTertiary = Color(0xFFFFFFFF)
 val md_theme_light_tertiaryContainer = Color(0xFFFFDDBA)
 val md_theme_light_onTertiaryContainer = Color(0xFF2B1700)
-val md_theme_light_error = Color(0xFFBA1A1A)
+val md_theme_light_error = Color(0xFFE30613)
 val md_theme_light_errorContainer = Color(0xFFFFDAD6)
 val md_theme_light_onError = Color(0xFFFFFFFF)
 val md_theme_light_onErrorContainer = Color(0xFF410002)
@@ -33,8 +33,8 @@ val md_theme_light_outlineVariant = Color(0xFFD6C2C4)
 val md_theme_light_scrim = Color(0xFF000000)
 
 val md_theme_dark_primary = Color(0xFFFFB2BE)
-val md_theme_dark_onPrimary = Color(0xFF660026)
-val md_theme_dark_primaryContainer = Color(0xFF660026)
+val md_theme_dark_onPrimary = Color(0xff320012)
+val md_theme_dark_primaryContainer = Color(0xff320012)
 val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
 val md_theme_dark_secondary = Color(0xFFE4BDC2)
 val md_theme_dark_onSecondary = Color(0xFF43292E)
