@@ -2,23 +2,23 @@
 V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost frameworku Compose Multiplatform a následně
 bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní sekce \textit{Cíle práce \ref{goals}}.
 
-Po vybrání typu aplikace následuje podkapitola věnující návrhu vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
-uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
-Zároveň vhodné skloubení případů užití s grafickou podobou UI, tak aby nejčastější uživatelovi cílem bylo možné splnit s co nejmenší dávkou úsilí, 
+Po vybrání typu aplikace následuje sekce věnující detekci případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
+uživatelé budou danou aplikaci používat, tak z důvodu výběru platforem pro které bude následně aplikace implementována. %pohledu na jakých zařízení případně platformách ji budou využívat. 
+Zároveň vhodné skloubení případů užití s grafickou podobou UI tak, aby nejčastější uživatelovi cíle bylo možné splnit s co nejmenší dávkou úsilí, 
 je pro správný návrh UI klíčové. 
-což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
+%což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
 
 
-Další fáze návrhu je věnována vytyčení funkčních požadavků ...
+Další fáze návrhu je věnována vytyčení funkčních požadavků pomocí kterých je jasně specifikováno jakými funkcionalitami by měla výsledná 
+aplikace disponovat. 
 
 Dále je v rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. 
 
-Podkapitola \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
+Sekce \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
 rozebrání jednotlivých vrstev vybrané architektury.
 
 V poslední části návrhu je přistoupeno k samotné návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných drátěných modelů,
 následně návrhu design systému a nakonec k návrhu konečné podoby UI včetně grafických prvků.
-
 
 
 \section{Výběr aplikace}
@@ -338,7 +338,6 @@ Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace
 
 
 \subsection*{Vrstvy architektury} \label{vrstvyArchitekturySection} 
-TODO % takzvaná architektura MVVM?  ..., která uplatňuje výše zmíněné principy.
 Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací.
 
 Ta se rozděluje do následujících třech vrstev:
