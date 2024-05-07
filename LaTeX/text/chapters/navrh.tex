@@ -662,7 +662,7 @@ Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled v
 \subsection{Design systém} \label{designSystemSection}
 Před tím něž bylo přistoupeno ke grafickému návrhu aplikace, tak byl vytvořen obecný design systém, který poslouží k vytvoření 
 konzistentního uživatelského rozhraní. Zároveň se díky němu urychlí proces navrhovaní grafické podoby UI a při následné fázi implementace 
-zajistí intuitivní ovládání aplikace na všech platformách. 
+zajistí intuitivní ovládání aplikace na všech implementovaných platformách. 
 
 %Design system je obecně vzato sada komponent, pravidel, principů a návrhových postupů, které slouží k vytváření konzistentního
 %uživatelského rozhraní a uživatelského zážitku napříč různými aplikacemi a platformami. 
@@ -670,9 +670,7 @@ zajistí intuitivní ovládání aplikace na všech platformách.
 Design systém je obecně vzato sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k vytváření a udržování 
 konzistentního a jednotného vizuálního stylu v rámci celé aplikace. Takový systém zahrnuje různé prvky jako jsou barvy, typografie, ikony,
 způsoby rozložení UI nebo komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s jednotným 
-vzhledem. 
- 
-Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje především uživatelskou 
+vzhledem. Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje především uživatelskou 
 zkušenost s implementovanou aplikací. 
 %Designový systém zároveň často obsahuje sadu prvků UI, typografického stylu, barev, ikon a další informace, které 
 %pomáhají designérům a vývojářům při tvorbě aplikací.
@@ -685,17 +683,17 @@ zkušenost s implementovanou aplikací.
 %TODO NEBO 
 
 V rámci vybraného města Příbrami není takový systém nikde explicitně zadefinovaný a proto byl odvozen z designu webových stránek města.
-pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
+%pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
 
-Zároveň byl zkombinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným Material 3, který se hodí nejen pro použití
-na mobilních platformách.
+Zároveň byl zkombinovaný s aktuálně nejnovějším design systémem od společnosti Google zvaným \textit{Material Design 3}.
+%, který je vhodný nejen pro použití na mobilních platformách.
 
-S ohledem na to, že aplikace je navrhována pro použití na mobilních zařízením, tak je tomu uzpůsoben i návrh samotné design systému, který
-specifikuje především prvky použitelné na mobilních platformách a zbylé části mohou být případně v budoucnu rozšířený o další prvky 
+S ohledem na to, že aplikace je navrhována pro použití na mobilních zařízeních, tak je tomu uzpůsoben i návrh samotného design systému, který
+specifikuje především barvy, styly textů a prvky použitelné na mobilních platformách. Zbylé části mohou být případně v budoucnu rozšířený o další prvky 
 používané na jiných platformách.
 
-V tomto případě bylo navrženo pár základních UI prvků, které budou použity v rámci této aplikace a mohou být použity i případně dalšími 
-aplikací města.
+Součástí návrhu je tak pár základních UI prvků, které budou použity v rámci implementované aplikace a mohou být použity i případně dalšími 
+aplikacemi města.
 
 Výsledek základní ukázky takto navrženého systému je k vidění na obrázku \ref{fig:design_system}
 
@@ -707,51 +705,44 @@ Výsledek základní ukázky takto navrženého systému je k vidění na obráz
 \end{figure}
 
 \subsection{Mockup modely} \label{navrhMockupModelu}
-Po zadefinování použitelných komponent v navrženém design systému \ref{designSystemSection} je již samotný návrh grafické podoby UI zjednodušen 
-na nezbytné minimum. 
+Po zadefinování použitelných komponent v předchozí sekci \textit{Design systém \ref{designSystemSection}} 
+je již samotný návrh grafické podoby UI zjednodušen na nezbytné minimum. Vytvořené mockup modely jsou totiž de facto výsledkem sloučení drátěných modelů
+ s navrženým design systémem.
 
-Vytvořené mockup modely jsou de facto výsledkem sloučení drátěných modelů s navrženým design systémem.
-
-při návrhu grafické podoby UI byla proto primárně soustředěn na význam jednotlivých UI komponent a na základě jejich významu byla
-přiřazovány odpovídající barvy. 
-
-Navržené UI se snaží respektovat zásady správného UI návrhu dle Android dokumentace a to především z pohledu přístupnosti, rozložení obsahu, 
-druhu použitých UI komponent nebo vhodnosti použití barev z hlediska sémantiky barev.
+Při návrhu grafické podoby UI byla proto pozornost primárně soustředěna na význam jednotlivých UI komponent a na základě jejich významu byly
+přiřazovány například odpovídající barvy. Navržené UI se tímto přístupem snaží respektovat zásady správného UI návrhu dle Android dokumentace 
+a to především z pohledu přístupnosti, rozložení obsahu, druhu použitých UI komponent nebo vhodnosti použití barev z hlediska sémantiky barev.
 
 %\pagebreak
 \begin{minipage}[t]{0.45\textwidth}
 
 \bigskip
 \myparagraph{Přístupnoust}
-Z pohledu přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měly vhodně zvolenou barvu z pohledu
+Z hlediska přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měly vhodně zvolenou barvu z pohledu
 správného kontrastu vůči podkladu a nebo z pohledu dostatečné čitelnosti.
 
 Dále byla věnována pozornost správnému popisu jednotlivých UI komponent a správnému použití dle druhu komponent tak, aby bylo možné aplikaci používat i s 
-takzvanou TalkBack čtečkou, která umožňuje nevidomí nebo jinak zrakově postiženým lidem používat aplikaci.
+takzvanou TalkBack čtečkou, která umožňuje nevidomí nebo jinak zrakově postiženým lidem používat aplikaci například na základě hlasové odezvy.
 
 \bigskip
 \myparagraph{Barvy}
-I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během fáze návrhu mockup modelu byl zároveň kladen důraz na jejich 
-vhodné použít z pohledu sémantiky barev nebo důležitosti barvených komponenta.
+I přesto, že základní barvy byly zvoleny již v při navrhování designu systému, tak během fáze návrhu mockup modelu byl kladen důraz na jejich 
+vhodné použít a to především z pohledu sémantiky barev nebo důležitosti barvených komponent.
 
-V základu \textit{Material Theme Builder} umožňuje definovat 3 základní barvy (primárním, sekundárním, ternární), které mají jasně vymezené role.
-Primární barva je v případě implementovaného UI například použita pro potvrzovací akci "zplacení parkovného". Sekundární barva byla
-implementována například na filtrační tlačítka na obrazovce "Události", jelikož hlavním předmětem pozornosti na dané obrazovce 
+%je barva primárním, sekundárním  ternární navržené v rámci designs sytému
+
+Základní popisy barev použité při návrhu design systému byly odvozeny z \textit{Material 3} design systému, v rámci kterého mají jasně 
+vymezené role. \cite{m3ColorRoles}
+Primární barva je proto v případě implementovaného UI například použita pro potvrzovací akci "zaplacení parkovacích poplatků". 
+Sekundární barva byla naopak
+implementována například na filtrační tlačítka na obrazovce \textit{Události}, jelikož hlavním předmětem pozornosti na dané obrazovce 
 jsou zobrazované akce a ne filtrační možnosti.
 
 \bigskip
 
-\myparagraph{Rozložení}
-Co se týká rozložení UI komponent na obrazovky, tak zde bylo respektováno několik pravidel jako například liniového zarovnání UI komponent, tak aby nedocházelo
-k narušení čitelnosti.
 
-Komponenty jako primární navigace nebo tlačítka, která slouží pro vykonávání důležitých akcí byla implementována na taková místa, aby byla v takzvané dosahové vzdálenosti.
 
-Pro obrázky byly voleny běžné poměry jako například 4:3, tak aby nedocházelo k jejich zbytečnému ořezávání.
-
-Zároveň 
-
- Sytost barev byla zvolena na základě
+ %Sytost barev byla zvolena na základě
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
@@ -772,7 +763,14 @@ Zároveň
 \pagebreak
 
 \begin{minipage}[t]{0.45\textwidth}
-  TEXT DRUHE STANKY
+  \myparagraph{Rozložení}
+  Co se rozložení UI komponent na obrazovky týká, tak zde bylo respektováno několik pravidel, jako například liniového zarovnání UI komponent tak,
+   aby nedocházelo k narušení čitelnosti nebo dodržení minimální vzdálenosti od krajů obrazovky.
+  
+  Komponenty jako primární navigace nebo tlačítka, která slouží pro vykonávání důležitých akcí byla implementována na taková místa, 
+  aby byla v takzvané dosahové vzdálenosti.
+  
+  Pro obrázky byly voleny běžné poměry jako například 4:3, aby nedocházelo k jejich zbytečnému ořezávání.
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
