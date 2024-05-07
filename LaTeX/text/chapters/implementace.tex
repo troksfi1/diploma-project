@@ -1,16 +1,25 @@
 \chapter{Implementace}
-Stejně tak jako v případě vývoje Android aplikací, tak k sestavování multiplatformních aplikací založených na Compose Multiplatform 
-se používá nástroj zvaný Gradle.  
+
 
 \section{Založení Compose Multiplatform projektu}
-K založení projektu byl použit nástroj \textit{Kotlin Multiplatform Wizard} od společnosti JetBrains, který slouži k rychlému vytvoření projektu
-založeném na technologie KMP. O sestavování takto založeného projektu se stará nástroj Gradle.
+K založení projektu byl použit nástroj \textit{Kotlin Multiplatform Wizard} od společnosti JetBrains, který slouží k rychlému vytvoření projektu
+založeném na technologiích KMP. Tento nástroj se taktéž stará o založení sestavovacího skriptu založeném na technologii Gradle, který je následně možné 
+použít k sestavení multiplatformních aplikací založených na KMP a frameworku Compose Multiplatform.
+ 
+ 
+ %se používá nástroj zvaný Gradle.
+
+%se stejně jako v případě vývoje Android aplikací stará   
+
+%Ten se stará o založení sestavovací skriptu založeném na technologii Gradle a dále se stará o vytvoření příslušných balíčků na základě vybraných platforem.
+
+%
 
 \subsection{Gradle} \label{gradleChapter}
 Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je 
-podobný technologiím Ant nebo Maven, který byli vyvinuty pro zjednodušení procesu sestavení a nasazení softwaru.
+podobný technologiím Ant nebo Maven, které byli vyvinuty pro zjednodušení procesu sestavení a nasazení softwaru.
 
-Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým umožňuje definovat sestavení a konfiguraci projektu pomocí srozumitelné
+Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým je možné definovat sestavení a konfiguraci projektu pomocí srozumitelné
 a flexibilní syntaxe. Od verze 3.0 z roku 2016 je možné psát Gradle skripty v jazyce Kotlin DSL a od roku 2023 je Kotlin DSL primárním jazykem 
 pro jejich zápis. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v jazyku se stejnou
 syntaxí jako je používána pro ostatní části projektu. 
@@ -31,33 +40,24 @@ Multiplatform plugin (viz výpis kódu \ref{lst:ComposePlugin}).
 \end{minted}
 \end{listing}
 
-
-Dále je zapotřebí vybrat platformy, pro které má být aplikace sestavována a podle nich vytvořit příslušné balíčky viz kapitola \ref{projectStructure}.
-V případě implementované aplikace se jedná o platformy Android a iOS, které bylo nutné specifikovat v projektovém souboru 
-\code{build.gradle.kts} (viz řádky 2 - 30 na výpisu kódu \ref{lst:LibIntegration}).
+Dále je zapotřebí vybrat platformy, pro které má být aplikace sestavována a podle nich vytvořit příslušné balíčky (viz sekce \textit{Kotlin Multiplatform \ref{projectStructure}}).
+V případě implementované aplikace se jedná o platformy \textit{Android}, \textit{iOS} a \textit{desktop}, které bylo nutné specifikovat v projektovém 
+souboru \code{build.gradle.kts} (viz řádky 2 - 21 na výpisu kódu \ref{lst:LibIntegration}).
 Podle těchto platforem lze následně v příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
 pro každou platformu implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
 sourceSets podle toho, zdali se jedna o multiplatformní (\code{commonMain}) nebo nativní závislost (\code{androidMain}, \code{iosMain}, atd.).
 
-Pro ukázku jak taková multiplatformní závislost může vypadat slouží řádky 32 - 37 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
+Pro ukázku jak taková multiplatformní závislost může vypadat slouží řádky 23 - 28 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
 kterých je do projektu přidána knihovna umožnující implementaci multiplatformní navigace.
+
 \begin{listing}[H]
 \caption{Lib integration}\label{lst:LibIntegration}
-\begin{minted}{kotlin}
+\begin{minted}[xleftmargin=\parindent,linenos]{kotlin}
   kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
-            }
-        }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            sourceSetTree.set(KotlinSourceSetTree.test)
-
-            dependencies {
-                implementation("androidx.compose.ui:ui-test-junit4-android:1.6.4")
-                debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
             }
         }
     }
@@ -86,7 +86,7 @@ kterých je do projektu přidána knihovna umožnující implementaci multiplatf
 \end{listing}
 
 Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
-například pomocí \textit{Composable} funkce, která je napsána v rámci sdílené části aplikace.
+například pomocí \textit{Composable} funkce, která je napsána v rámci společné části aplikace.
 
 Ve výpisu kódu \ref{lst:SharedIntegration} je touto funkcí funkce \code{App()}, která je volána z nativního Android kódu a stará se
 o deklaraci veškerého multiplatformního UI.
@@ -94,10 +94,8 @@ o deklaraci veškerého multiplatformního UI.
   \caption{Lib integration}\label{lst:SharedIntegration}
   \begin{minted}{Kotlin}
     class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-  
         setContent {
             App()
         }
@@ -107,14 +105,14 @@ o deklaraci veškerého multiplatformního UI.
 \end{listing}
 
 
-Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů. 
+%Stejným způsobem je potřeba integrovat tuto funkci i do ostatních spouštěcích souborů
 
 
 
-Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
+%Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
 
 \myparagraph{Gradle version catalog}
-Gradle version catalog je obyčejní soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti a pluginy ve celém projektu. 
+Gradle version catalog je obyčejný soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti v rámci celém projektu. 
 Místo ručního přidávání závislostí a pluginů do každého modulu zvlášť je možné shromáždit veškeré závislosti v tomto souboru a zadefinovat rovněž
 verzi, která má být pro tento modul použita napříč celým projektem. 
 
@@ -137,25 +135,12 @@ jetbrainsCompose = { id = "org.jetbrains.compose",
 \end{minted}
 \end{listing}
 
-\section{Tvorba UI obecně}
-\subsection{Navigace}
-Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
-částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v aplikaci. 
-
-Aktuálně však komponenta navigace ze sady knihoven Jetpack Compose není k dispozici a proto je potřeba zvolit nějakou alternativu poskytovanou
-třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multiplatformní navigace je uveden v oficiální Kotlin 
-multiplatform dokumentaci a zahrnuje navigaci Voyager, Decompose nebo Appyx. K implementaci byla vybrána navigace Voyager a 
-to především díky přehledné dokumentaci, intuitivní implementaci a jednoduchému principu navigace založeném na zásobníku, který pro aktuálně
-implementovanou aplikaci plně dostačuje.
-
-V budoucnu by však měla být dostupná i oficiální navigace, ale do té doby je potřeba vybrat z alternativních knihoven.
-
-
-;
 %\section{Navigace a lokalizace v implementaci}
-\subsection{Design systém} \label{designSystemImpl}
 
-Při implementace design systému pomocí Compose Multiplatform byla snaha co nejpřesněji napodobit navržený design systém z kapitoly \ref{designSystemSection}
+
+\section{Design systém} \label{designSystemImpl}
+Při implementace design systému pomocí Compose Multiplatform byla snaha co nejpřesněji napodobit navržený design systém ze sekce 
+\textit{Design system \ref{designSystemSection}}
 tak, aby byl uživateli navozen maximální pocit jednoty s dosavadními informačními systémy města.
 
 Od verze 1.6 Compose Multiplatform umožňuje přístup ke zdrojům ve společném kódu na všech podporovaných platformách, což výrazně usnadňuje 
@@ -163,14 +148,13 @@ implementaci navrženého design systému.
 
 %a implementaci design systému a umožňuje sdílet barvy, písma napříč platformami. 
 
-
-\subsubsection*{Barvy} \label{colorSection}
+\subsection*{Barvy} \label{colorSection}
 Základní barvy pro světlý motiv byly zvoleny na základě navrženého design systému
 %který byl navržen na základě vizuálního stylu města, které město Příbram využívá při všech prezentačních příležitostech.
 a zbylé barvy jako například barvy pro výplň pozadí nebo pro tmavý režim byly dopočítány ze základních barev nástrojem \textit{Material Theme Builder}.
 %Ten barvy rovnou dopočítá tak, aby 
 
-Pro použití vybraných barev v aplikaci bylo zapotřebý jednotlivé barvy zadefinovat následujícím způsobem:
+Pro použití vybraných barev v aplikaci bylo zapotřebí jednotlivé barvy zadefinovat následujícím způsobem:
 
 \begin{listing}[H]
 \caption{Zadefinování barev}\label{lst:Colors}
@@ -238,7 +222,7 @@ UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci j
 \end{listing}
 
 
-\subsubsection*{Typografie}
+\subsection*{Typografie}
 Vybraný Material Design definuje celkem 15 stylů písma, kde každé z nich má předem definovaný způsob použití. \cite{material3} 
 Jelikož se jedná o styly písma přímo definované systémem Material Design, tak lze k těmto stylům přistupovat přes
 \textit{Composable} funkci \code{MaterialTheme} z balíčku \code{androidx.compose.material3} popsanou v kódu \ref{lst:colorsDef}.
@@ -254,9 +238,212 @@ Text(
 \end{minted}
 \end{listing}
 
+\section{Tvorba UI obrazovek}
+TODO %obecne ukazat jak se UI v compose tvori ze je to daklarativne
+
+Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform 
+používají takzvané \textit{Composable} funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
+
+Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k reprezentaci jednotlivých tlačítek, textů vstupní polí, 
+seznamů, ale také celým souborům těchto prvků jako jsou například celé obrazovky.
+
+Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny čímž tvoří
+takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
+
+\begin{listing}[H]
+\caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ConsumeUIState}
+\begin{minted}{Kotlin}
+  @Composable
+  fun LatestNewsScreen(
+      viewModel: NewsViewModel = viewModel()
+  ) {
+      // Show UI elements based on the viewModel.uiState
+  }
+\end{minted}
+\end{listing}
+
+%Zároveň 
+
+%Z těchto Composable funkcí se skládá celé UI
+
+\bigskip
+
+Obsahem následujících podkapitol je ukázka UI komponent, které byly použity k implementaci navrženého UI a celkově dává náhled na to
+jak je deklarativní UI pomocí Compose Multiplatform tvořeno. K tvorbě celého uživatelského rozhraní bylo nejprve přistupováno na základě vytvořených 
+drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrhWireframes}}) a následně bylo stylizováno tak, aby odpovídalo navržené podobě UI z kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
+
+\subsection{Domovská obrazovka}
+Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform a nebylo při jeho implementaci potřeba
+přistoupit k nativnímu řešení ani na platformě iOS nebo desktop.
+
+K implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita komponenta vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow},
+která je založená na základní \code{LazyRow}, která umožňuje zobrazení velké
+\begin{listing}[H]
+\caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
+\begin{minted}{Kotlin}
+  @Composable
+  fun EventLazyRow(category: EventCategory, state: EventsState) {
+      val scrollState = rememberLazyListState()
+      val coroutineScope = rememberCoroutineScope()
+      val navigator: Navigator = LocalNavigator.currentOrThrow
+  
+      Column {
+          Text( ... )
+          LazyRow( ... ) 
+      {  
+        items(eventList) { event ->  //state.filteredEvents
+            EventItem(event = event, onItemClick = {
+              navigator.push(EventDetailScreen(event))
+            })
+          }
+        }
+      }
+  }
+\end{minted}
+\end{listing}
+
+Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}
+
+I implementaci 
+
+LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komponenty
+
+Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
+nebo událostí.
+
+\subsection{Obrazovka \textit{Události}}
+
+V rámci obrazovky "Události" je používána stejná komponenta pro zobrazování událostí jako byla použita na domovská obrazovce. 
+
+%pro zobrazené událostí "EventLazyRow". 
+
+Každý z nich obsahuje události z jedné kategorie. Ty jsou předem připraveny ViewModelem, který při zavolaní nějaké z filtrovacích
+událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u nich zjistí do jakých kategorií tyto
+události patří. Následně pro každou kategorii vytvoří jeden LazyRow do kterého umístí příslušné události.
+
+% napsat to bez pohledu uzivatele
+Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je "Dnes", "Zítra" nebo může zvolit vlastní 
+rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
+uživateli umožňuje zvolit požadované časového rozmezí.
+
+K volbě časových rozmezí \textit{Dnes} a \textit{Zítra} byly zvoleny takzvané Chips, konkrétně FilterChips, které jsou navrženy k 
+filtrování a uživatelé jsou na jich použití zvyklí i z jiných aplikací, které používají Material Design.
+
+Celá obrazovka je vzhledem k nepředvídatelnosti zobrazovaných událostí implementována jako rolovací seznam.
+
+LAZY ROW , DATE PICKER, SPECIAL CHIPS
+
+
+\subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
+Hlavní UI komponentou navrženou pro obrazovku \textit{Parkování} je komponenta sloužící k zobrazení mapových podkladů, která by zároveň umožňovala 
+vykreslení překryvné vrstvy reprezentující rozmístění parkovacích zón. Taková knihovna, ale doposud nebyla pro použití na všech požadovaných 
+platformách dostupná, a proto bylo zapotřebí použít nativní způsob implementace. 
+
+\subsubsection*{Implementace mapových podkladů}
+Mapové podklady byly implementovány pouze pro platformu Android pro kterou existuje nativní knihovna \textit{Maps Compose} od společnosti Google, 
+která poskytuje Jetpack Compose komponenty pro práci s \text{(Google) Maps SDK}.
+
+K integraci mapových podkladů do aplikace bylo využito UI komponenty \code{GoogleMap} (viz výpis kódu \ref{lst:GoogleMapview})z balíčku 
+\code{com.google.maps.android.compose}, která umožňuje vložení mapových podkladů na platformě Android a pro propojení této nativní části 
+se zbytkem aplikace byla použita expect/actual deklarace.
+
+%Před tím něž bylo možné Google Maps v aplici použít bylo nutné 
+
+%\myparagraph{Výběr mapových podkladů}
+%získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
+\begin{listing}[H]
+\caption{GoogleMap element}\label{lst:GoogleMapview}
+\begin{minted}{Kotlin}
+  GoogleMap(
+    modifier = Modifier.fillMaxSize(),
+    properties = MapProperties(
+        mapType = MapType.NORMAL,
+        mapStyleOptions = MapStyleOptions(MapStyle.JSON_LIGHT)
+    ),
+    cameraPositionState = cameraPositionState
+) {...}
+\end{minted}
+\end{listing}
+
+\myparagraph{Impementace motivu mapy}
+
+Aby byla implementace motivů z kapitoly \textit{Design systém \ref{designSystemImpl}} kompletní bylo zapotřebí přizpůsobit i mapové podklady tak,
+aby se jejich motiv měnil v závislosti na aktuálním motivu zařízení.
+
+Z tohoto důvodu a z důvodu lepší přehlednosti byly na mapové podklady implementovány určité styly (viz výpis kódu \ref{lst:MapStyle}) \cite{googleStyles}.
+Ty jednotlivým částem mapových podkladů přiřazují konkrétní barvy díky čemuž bylo docíleno jednotnějšího vzhledu. Původní mapové podklady
+používaly k obarvení jednotlivých mapových prvků několik druhů barev a to mělo za důsledek, že na něm byly vyznačené parkovací zónu hůře viditelné.
+
+\begin{listing}[H]
+\caption{Motiv mapy ve formátu JSON}\label{lst:MapStyle}
+\begin{minted}{json}
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#616161"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  },
+\end{minted}
+\end{listing}
+
+\myparagraph{Získaní a zpracování mapových dat}
+Mapová data v podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy, typy, popisy a umístění parkovacích zón byla 
+získána od města Příbrami. Poskytnutá data byla získána ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci a 
+distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z toho důvodu byl k jeho převedení do Kotlin objektů 
+použit stejný nástroj jako pro převod veškerých dat přicházejících s z informačních systémů města.
+
+Zobrazení parkovacích zón na mapě bylo implementováno pomocí \textit{Composable} funkce Polygon, která je poskytována v rámci stejného balíčku 
+jako dříve zmíněná komponenta \code{GoogleMap}.
+
+Pro vycentrování vybrané parkovací zóny na obrazovce byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé 
+umístila do středu obrazovky. Implementovaná funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), 
+jenž tvoří mnohoúhelník parkovací zóny a pomocí aritmetického průměrů vypočítává souřadnice středu zóny následujícím způsobem:
+
+\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, \quad \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i
+\]
+
+Výsledné souřadnice $(\bar{x},\bar{y})$, jsou následně použity k vycentrování mapy.
+
+\bigskip
+
+Dále byla tato obrazovka rozšířena o vyhledávací pole, které bylo již možné implementovat v rámci společné části aplikace. 
+To dává uživateli možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla parkovací zóny.
+
+Poslední implementovanou komponentou v rámci obrazovky \textit{Parkování} je takzvaný \textit{Bottom sheet}, který je zobrazen v případě, 
+že uživatel vybere nebo vyhledá parkovací zónu pro kterou si přeje zobrazit podrobné informace. Konkrétně byl pro implementaci vybrán 
+\code{BottomSheetScaffold}, který oproti jeho modálním variantám (např. \code{ModalBottomSheet}), umožňuje souběžnou integraci mezi tímto
+ výsuvným panelem a mapovým podkladem.
+
+
+%\section{Tvorba UI obecně}
+\subsection{Navigace}
+Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
+částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v aplikaci. 
+
+Aktuálně však komponenta navigace ze sady knihoven Jetpack Compose není k dispozici a proto je potřeba zvolit nějakou alternativu poskytovanou
+třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multiplatformní navigace je uveden v oficiální Kotlin 
+multiplatform dokumentaci a zahrnuje navigaci Voyager, Decompose nebo Appyx. K implementaci byla vybrána navigace Voyager a 
+to především díky přehledné dokumentaci, intuitivní implementaci a jednoduchému principu navigace založeném na zásobníku, který pro aktuálně
+implementovanou aplikaci plně dostačuje.
+
+V budoucnu by však měla být dostupná i oficiální navigace, ale do té doby je potřeba vybrat z alternativních knihoven.
+
 \section{Použité technologie}
-Následující podkapitoly jsou věnovány konkrétním technologiím, které byli pro tvorbu uživatelského rozhraní použity.
-Jedná se o soubor multiplatformních technologií, které byli převážně použity k implementaci UI, ale zároveň byli zmíněny některé 
+Následující sekce jsou věnovány konkrétním technologiím, které byli pro tvorbu uživatelského rozhraní použity.
+Jedná se o soubor multiplatformních technologií, které byli převážně použity k implementaci UI, ale zároveň jsou zde zmíněny některé 
 důležité technologie na kterých je postavena aplikační logika aplikace.
 
 \subsection{Vrstva uživatelského rozhraní}
@@ -579,196 +766,6 @@ v případě
 
 , která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
 
-
-
-\section{Tvorba UI obrazovek}
-TODO %obecne ukazat jak se UI v compose tvori ze je to daklarativne
-
-Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform 
-používají takzvané \textit{Composable} funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
-
-Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k reprezentaci jednotlivých tlačítek, textů vstupní polí, 
-seznamů, ale také celým souborům těchto prvků jako jsou například celé obrazovky.
-
-Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny čímž tvoří
-takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
-
-\begin{listing}[H]
-\caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ConsumeUIState}
-\begin{minted}{Kotlin}
-  @Composable
-  fun LatestNewsScreen(
-      viewModel: NewsViewModel = viewModel()
-  ) {
-      // Show UI elements based on the viewModel.uiState
-  }
-\end{minted}
-\end{listing}
-
-%Zároveň 
-
-%Z těchto Composable funkcí se skládá celé UI
-
-\bigskip
-
-Obsahem následujících podkapitol je ukázka UI komponent, které byly použity k implementaci navrženého UI a celkově dává náhled na to
-jak je deklarativní UI pomocí Compose Multiplatform tvořeno. K tvorbě celého uživatelského rozhraní bylo nejprve přistupováno na základě vytvořených 
-drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrhWireframes}}) a následně bylo stylizováno tak, aby odpovídalo navržené podobě UI z kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
-
-\subsection{Domovská obrazovka}
-Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform a nebylo při jeho implementaci potřeba
-přistoupit k nativnímu řešení ani na platformě iOS nebo desktop.
-
-K implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita komponenta vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow},
-která je založená na základní \code{LazyRow}, která umožňuje zobrazení velké
-\begin{listing}[H]
-\caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
-\begin{minted}{Kotlin}
-  @Composable
-  fun EventLazyRow(category: EventCategory, state: EventsState) {
-      val scrollState = rememberLazyListState()
-      val coroutineScope = rememberCoroutineScope()
-      val navigator: Navigator = LocalNavigator.currentOrThrow
-  
-      Column {
-          Text( ... )
-          LazyRow( ... ) 
-      {  
-        items(eventList) { event ->  //state.filteredEvents
-            EventItem(event = event, onItemClick = {
-              navigator.push(EventDetailScreen(event))
-            })
-          }
-        }
-      }
-  }
-\end{minted}
-\end{listing}
-
-Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}
-
-I implementaci 
-
-LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komponenty
-
-Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
-nebo událostí.
-
-\subsection{Obrazovka \textit{Události}}
-
-V rámci obrazovky "Události" je používána stejná komponenta pro zobrazování událostí jako byla použita na domovská obrazovce. 
-
-%pro zobrazené událostí "EventLazyRow". 
-
-Každý z nich obsahuje události z jedné kategorie. Ty jsou předem připraveny ViewModelem, který při zavolaní nějaké z filtrovacích
-událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u nich zjistí do jakých kategorií tyto
-události patří. Následně pro každou kategorii vytvoří jeden LazyRow do kterého umístí příslušné události.
-
-% napsat to bez pohledu uzivatele
-Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je "Dnes", "Zítra" nebo může zvolit vlastní 
-rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
-uživateli umožňuje zvolit požadované časového rozmezí.
-
-K volbě časových rozmezí \textit{Dnes} a \textit{Zítra} byly zvoleny takzvané Chips, konkrétně FilterChips, které jsou navrženy k 
-filtrování a uživatelé jsou na jich použití zvyklí i z jiných aplikací, které používají Material Design.
-
-Celá obrazovka je vzhledem k nepředvídatelnosti zobrazovaných událostí implementována jako rolovací seznam.
-
-LAZY ROW , DATE PICKER, SPECIAL CHIPS
-
-
-\subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
-Hlavní UI komponentou navrženou pro obrazovku \textit{Parkování} je komponenta sloužící k zobrazení mapových podkladů, která by zároveň umožňovala 
-vykreslení překryvné vrstvy reprezentující rozmístění parkovacích zón. Taková knihovna, ale doposud nebyla pro použití na všech požadovaných 
-platformách dostupná, a proto bylo zapotřebí použít nativní způsob implementace. 
-
-\subsubsection*{Implementace mapových podkladů}
-Mapové podklady byly implementovány pouze pro platformu Android pro kterou existuje nativní knihovna \textit{Maps Compose} od společnosti Google, 
-která poskytuje Jetpack Compose komponenty pro práci s \text{(Google) Maps SDK}.
-
-K integraci mapových podkladů do aplikace bylo využito UI komponenty \code{GoogleMap} (viz výpis kódu \ref{lst:GoogleMapview})z balíčku 
-\code{com.google.maps.android.compose}, která umožňuje vložení mapových podkladů na platformě Android a pro propojení této nativní části 
-se zbytkem aplikace byla použita expect/actual deklarace.
-
-%Před tím něž bylo možné Google Maps v aplici použít bylo nutné 
-
-%\myparagraph{Výběr mapových podkladů}
-%získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
-\begin{listing}[H]
-\caption{GoogleMap element}\label{lst:GoogleMapview}
-\begin{minted}{Kotlin}
-  GoogleMap(
-    modifier = Modifier.fillMaxSize(),
-    properties = MapProperties(
-        mapType = MapType.NORMAL,
-        mapStyleOptions = MapStyleOptions(MapStyle.JSON_LIGHT)
-    ),
-    cameraPositionState = cameraPositionState
-) {...}
-\end{minted}
-\end{listing}
-
-\myparagraph{Impementace motivu mapy}
-
-Aby byla implementace motivů z kapitoly \textit{Design systém \ref{designSystemImpl}} kompletní bylo zapotřebí přizpůsobit i mapové podklady tak,
-aby se jejich motiv měnil v závislosti na aktuálním motivu zařízení.
-
-Z tohoto důvodu a z důvodu lepší přehlednosti byly na mapové podklady implementovány určité styly (viz výpis kódu \ref{lst:MapStyle}) \cite{googleStyles}.
-Ty jednotlivým částem mapových podkladů přiřazují konkrétní barvy díky čemuž bylo docíleno jednotnějšího vzhledu. Původní mapové podklady
-používaly k obarvení jednotlivých mapových prvků několik druhů barev a to mělo za důsledek, že na něm byly vyznačené parkovací zónu hůře viditelné.
-
-\begin{listing}[H]
-\caption{Motiv mapy ve formátu JSON}\label{lst:MapStyle}
-\begin{minted}{json}
-  {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-\end{minted}
-\end{listing}
-
-\myparagraph{Získaní a zpracování mapových dat}
-Mapová data v podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy, typy, popisy a umístění parkovacích zón byla 
-získána od města Příbrami. Poskytnutá data byla získána ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci a 
-distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z toho důvodu byl k jeho převedení do Kotlin objektů 
-použit stejný nástroj jako pro převod veškerých dat přicházejících s z informačních systémů města.
-
-Zobrazení parkovacích zón na mapě bylo implementováno pomocí \textit{Composable} funkce Polygon, která je poskytována v rámci stejného balíčku 
-jako dříve zmíněná komponenta \code{GoogleMap}.
-
-Pro vycentrování vybrané parkovací zóny na obrazovce byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé 
-umístila do středu obrazovky. Implementovaná funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), 
-jenž tvoří mnohoúhelník parkovací zóny a pomocí aritmetického průměrů vypočítává souřadnice středu zóny následujícím způsobem:
-
-\[
-\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, \quad \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i
-\]
-
-Výsledné souřadnice $(\bar{x},\bar{y})$, jsou následně použity k vycentrování mapy.
-
-\bigskip
-
-Dále byla tato obrazovka rozšířena o vyhledávací pole, které bylo již možné implementovat v rámci společné části aplikace. 
-To dává uživateli možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla parkovací zóny.
-
-Poslední implementovanou komponentou v rámci obrazovky \textit{Parkování} je takzvaný \textit{Bottom sheet}, který je zobrazen v případě, 
-že uživatel vybere nebo vyhledá parkovací zónu pro kterou si přeje zobrazit podrobné informace. Konkrétně byl pro implementaci vybrán 
-\code{BottomSheetScaffold}, který oproti jeho modálním variantám (např. \code{ModalBottomSheet}), umožňuje souběžnou integraci mezi tímto
- výsuvným panelem a mapovým podkladem.
 
 
 \section{Řešení problémů spojených s multiplatformním vývojem} % mozna presunou do zaveru
