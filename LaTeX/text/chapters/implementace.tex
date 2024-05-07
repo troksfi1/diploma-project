@@ -90,7 +90,7 @@ například pomocí \textit{Composable} funkce, která je napsána v rámci sdí
 
 Ve výpisu kódu \ref{lst:SharedIntegration} je touto funkcí funkce \code{App()}, která je volána z nativního Android kódu a stará se
 o deklaraci veškerého multiplatformního UI.
-\begin{listing}[H][H]
+\begin{listing}[H]
   \caption{Lib integration}\label{lst:SharedIntegration}
   \begin{minted}{Kotlin}
     class MainActivity : ComponentActivity() {
@@ -153,7 +153,7 @@ V budoucnu by však měla být dostupná i oficiální navigace, ale do té doby
 
 ;
 %\section{Navigace a lokalizace v implementaci}
-\subsection{Design systém}
+\subsection{Design systém} \label{designSystemImpl}
 
 Při implementace design systému pomocí Compose Multiplatform byla snaha co nejpřesněji napodobit navržený design systém z kapitoly \ref{designSystemSection}
 tak, aby byl uživateli navozen maximální pocit jednoty s dosavadními informačními systémy města.
@@ -191,7 +191,7 @@ val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
 Takto zadefinované barvy je následně možné použít napříč aplikací k obarvení tlačítek, textů, ploch a dalších UI komponent.
 
 Mimo jiné jsou taktéž použity pro definování barevných motivů, které se definují následujícím způsobem:
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Definice barevných motivů}\label{lst:ThemeDef}
 \begin{minted}{Kotlin}
 private val LightColors = lightColorScheme(
@@ -215,7 +215,7 @@ Díky takto zadefinovaným motivům je následně možné obarvit veškeré komp
 
 V aplikaci byla proto implementována \textit{Composable} funkce AppTheme (viz výpis kódu \ref{lst:colorsDef}), která je z pohledu stromové struktury
 UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci je tak možné měnit barevné režimy i za běhu aplikace. 
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Definice barevných motivů}\label{lst:colorsDef}
 \begin{minted}{Kotlin}
   @Composable
@@ -244,7 +244,7 @@ Jelikož se jedná o styly písma přímo definované systémem Material Design,
 \textit{Composable} funkci \code{MaterialTheme} z balíčku \code{androidx.compose.material3} popsanou v kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
 definovaný v rámci kapitoly \ref{designSystemSection}
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Ukázka použití stylu písma}\label{lst:typographyExample}
 \begin{minted}{Kotlin}
 Text(
@@ -289,7 +289,7 @@ Voyager je multiplatformní navigační knihovna, která umožňuje se pohybovat
  
  
 % založené na zásobníku by byla pro uživatele matoucí.
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Ukázka použití navigace založené na záložkách}\label{lst:tabNav}
 \begin{minted}{Kotlin}
   TabNavigator(
@@ -333,7 +333,7 @@ kdy aplikace nemá přístup k internetu.
 
 % TODO placeholder
 
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Coil}\label{lst:Coil3}
 \begin{minted}{Kotlin}
   AsyncImage(
@@ -369,7 +369,7 @@ Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor
 \end{listing}
 
 Po nakonfigurování http klienta je již možné zasílat běžné http dotazy pomocí metod \code{post}, \code{get}, \code{put} nebo \code{delete}.
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{Zaslání požadavku}\label{lst:ktorRequest}
 \begin{minted}{Kotlin}
   suspend fun getEventsXml(): EventsXmlDto {
@@ -395,7 +395,7 @@ Využití tohoto zápisu bylo vhodné použít především díky tomu, že pře
 logiky a v rámci nativní logiky, byl tak implementovám pouze databázový ovladač.
 
 TODO nejen driver screenmodel, repository
-\begin{listing}[H][H]
+\begin{listing}[H]
 \caption{DI databázového ovladače pomocí Koinu}\label{lst:KoinInit}
 \begin{minted}{Kotlin}
   class MainActivity : ComponentActivity() {
@@ -432,7 +432,7 @@ WHERE id = :id;
 \end{listing}
 
 
-Vygenerové metody (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z výpisu kódu \ref{lst:SQLDotaz}
+Vygenerové třídy (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z výpisu kódu \ref{lst:SQLDotaz}
 vypadá následovně:
 
 \begin{listing}[H]
@@ -528,7 +528,7 @@ být v aplikaci použity například následujícím způsobem. Kde stav udržov
 \end{minted}
 \end{listing}
 
-\subsection{} \label{eventHandlingImpl}
+\subsection{UI Events} \label{eventHandlingImpl}
 V rámci této kapitolo bude představeno jak implementovaná aplikace obsluhuje událsti přicházející z uživatelského rozhraní.
 
 
@@ -710,9 +710,13 @@ se zbytkem aplikace byla použita expect/actual deklarace.
 
 \myparagraph{Impementace motivu mapy}
 
-Aby byla implementace motivů z kapitoly \ref{} komlemtní bylo zapotřebí přizpůsobit i mapove podklady
+Aby byla implementace motivů z kapitoly \textit{Design systém \ref{designSystemImpl}} kompletní bylo zapotřebí přizpůsobit i mapové podklady tak,
+aby se jejich motiv měnil v závislosti na aktuálním motivu zařízení.
 
-kreré se mění v závisloti na aktuální motivu zařízení.
+Z tohoto důvodu a z důvodu lepší přehlednosti byly na mapové podklady implementovány určité styly (viz výpis kódu \ref{lst:MapStyle}) \cite{googleStyles}.
+Ty jednotlivým částem mapových podkladů přiřazují konkrétní barvy díky čemuž bylo docíleno jednotnějšího vzhledu. Původní mapové podklady
+používaly k obarvení jednotlivých mapových prvků několik druhů barev a to mělo za důsledek, že na něm byly vyznačené parkovací zónu hůře viditelné.
+
 \begin{listing}[H]
 \caption{Motiv mapy ve formátu JSON}\label{lst:MapStyle}
 \begin{minted}{json}
@@ -740,29 +744,31 @@ kreré se mění v závisloti na aktuální motivu zařízení.
 \myparagraph{Získaní a zpracování mapových dat}
 Mapová data v podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy, typy, popisy a umístění parkovacích zón byla 
 získána od města Příbrami. Poskytnutá data byla získána ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci a 
-distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z toho důvodu byl k jeho převedení do objektů 
+distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z toho důvodu byl k jeho převedení do Kotlin objektů 
 použit stejný nástroj jako pro převod veškerých dat přicházejících s z informačních systémů města.
 
-Zobrazení parkovacích zón na mapě bylo 
+Zobrazení parkovacích zón na mapě bylo implementováno pomocí \textit{Composable} funkce Polygon, která je poskytována v rámci stejného balíčku 
+jako dříve zmíněná komponenta \code{GoogleMap}.
 
-Pro vycentrování vybrané zobrazení vybrané parkovací zóny na obrazovce byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé 
-umísila do středu obrazovky. Implementovaná funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), 
-jenž tvoří mnohoúhelník parkovací zóny a pomocí aritmetického průměrů vypočítává souřadnice středu zóny.
+Pro vycentrování vybrané parkovací zóny na obrazovce byla napsána funkce pro vycentrování mapy tak, aby se zvolená zóna pokaždé 
+umístila do středu obrazovky. Implementovaná funkce tedy hledá geometrický střed zadaných souřadnic \( (x_1, y_1), (x_2, y_2), ..., (x_n, y_n)\), 
+jenž tvoří mnohoúhelník parkovací zóny a pomocí aritmetického průměrů vypočítává souřadnice středu zóny následujícím způsobem:
 
 \[
 \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, \quad \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i
 \]
 
+Výsledné souřadnice $(\bar{x},\bar{y})$, jsou následně použity k vycentrování mapy.
+
 \bigskip
 
-Dále byla tato obrazovka rozšířena o vyhledávací pole a výsuvný panel, které bylo již implementováno v rámci společné části aplikace. 
+Dále byla tato obrazovka rozšířena o vyhledávací pole, které bylo již možné implementovat v rámci společné části aplikace. 
+To dává uživateli možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla parkovací zóny.
 
-, které uživateli dává možnost jednoduchého vyhledání parkovací zóny podle názvu nebo
-čísla parkovací zóny.
-
-Dále na stejné obrazovce implementován takzvaný \textit{Bottom sheet}, který je zobrazen v případě, že uživatel vybere nebo vyhledá 
-parkovací zónu pro kterou si přeje zobrazit podrobné informace. Konkrétně byl pro implementaci vybrán \code{BottomSheetScaffold}, který
-oproti jeho modálním variantám (např. \code{ModalBottomSheet}), umožňuje souběžnou integraci mezi tímto výsuvným panelem a mapovým podkladem.
+Poslední implementovanou komponentou v rámci obrazovky \textit{Parkování} je takzvaný \textit{Bottom sheet}, který je zobrazen v případě, 
+že uživatel vybere nebo vyhledá parkovací zónu pro kterou si přeje zobrazit podrobné informace. Konkrétně byl pro implementaci vybrán 
+\code{BottomSheetScaffold}, který oproti jeho modálním variantám (např. \code{ModalBottomSheet}), umožňuje souběžnou integraci mezi tímto
+ výsuvným panelem a mapovým podkladem.
 
 
 \section{Řešení problémů spojených s multiplatformním vývojem} % mozna presunou do zaveru

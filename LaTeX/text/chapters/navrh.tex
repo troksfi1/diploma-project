@@ -1,6 +1,6 @@
 \chapter{Návrh}
-V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost Compose Multiplatform frameworku a následně
-bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní kapitoly \textit{Cíle práce \ref{goals}}.
+V rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k otestování použitelnost frameworku Compose Multiplatform a následně
+bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z úvodní sekce \textit{Cíle práce \ref{goals}}.
 
 Po vybrání typu aplikace následuje podkapitola věnující návrhu vhodných případů užití, které je vhodné specifikovat jednak aby bylo zřejmé jací 
 uživatelé budou danou aplikaci používat, tak z pohledu na jakých zařízení případně platformách ji budou využívat. 
@@ -24,7 +24,6 @@ následně návrhu design systému a nakonec k návrhu konečné podoby UI včet
 \section{Výběr aplikace}
 Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
 na různých platformách.
-%které by bylo možné použít napříč různými platformami.
 Mezi další požadavky patřilo zaměření se na kritické problémy, které aktuálně multiplatformní vývojem provází. 
 Mezi takové problémy patří například využití funkcí, které jsou silně spjaty s hardwarem koncových zařízení jako je použití jednotné navigace, fotoaparátu 
 nebo služeb lokalizace.
@@ -32,9 +31,9 @@ nebo služeb lokalizace.
 Z těchto důvodů byla k implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky, které plynou ze zadání.
 
 Tato aplikace by sloužila občanům k získání informací o aktuálních novinkách, pořádaných akcích nebo by jim například umožňovala vyhledat a zaplatit parkovné.
-TODO rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsahovat
+TODO% rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsahovat
 
-Na základě toho popisu byli vybrány následující případy užití.
+Na základě toho popisu byli specifikovány následující případy užití.
 
 \section{Případy užití}
 Případy užití  (zkráceně UC - z anglického ”use case“) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
@@ -304,7 +303,7 @@ byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
 \section{Architektura aplikace}
 Navržená architektura se z velké části drží architektonických principů shrnutých v Android dokumentaci. \cite{andDocArch}
 
-TODO možné architektury pro vývoj mobilních aplikací
+TODO %možné architektury pro vývoj mobilních aplikací
 
 \subsection*{Důležité principy}
 
@@ -415,7 +414,7 @@ V tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objekt
 objektů datové vrstvy na objekty používané v prezentační vrstvě a naopak.
 
 Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
- konceptů a procesů. To zjednodušuje testování, údržbu a rozšíření aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
+ konceptů a procesů. To zjednodušuje testování, údržbu, rozšiřitelnost aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
  vlivu na doménovou logiku.
 
 \subsection*{Datová vrstva}
@@ -427,7 +426,7 @@ Datová vrstva se zabývá persistencí dat a komunikací s datovými úložišt
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
-K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitoly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+K tomu aby aplikace fungovala, tak jak bylo popsáno v úvodu této kapitoly, je zapotřebí aby  TODO datová vrstva této aplikace obsahovala mechanismy pro
  získání dat z informačních systému města. Jelikož se na základě provedené analýzy data v informačních systémech nachází na ... ve formátu XML, 
 
 
@@ -544,34 +543,41 @@ Zároveň byla snaha o
 
 \pagebreak
 \begin{minipage}[t]{0.45\textwidth}
-  \myparagraph{Domovská obrazovka}
-  Jak již bylo zmíněno v úvodu této kapitoly, tak domovská obrazovka obsahuje většinu nejdůležitější a 
+  \myparagraph{Obrazovka \textit{Domů}}
+  %Jak již bylo zmíněno v úvodu této kapitoly, tak 
+  Obrazovka \textit{Domů} (viz obrázek \ref{fig:wireframe1}) byla na navržena tak, aby jakožto hlavní stránka celé aplikace obsahovala pro uživatele
+  co nejpřínosnější informace a zároveň aby sloužila jako jakýsi rozcestník na další obrazovky aplikace. Z tohoto důvodu byla do horní části obrazovky
+  navržena tlačítka, která uživateli umožňují rychlý proklik na YouTube kanál města, nahlášení závady, zobrazení úředních hodin nebo stránku služeb města.
   
-  Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí v posuvném řádku a to především díky možnosti zobrazit
-  veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídne možnost danou událost rozkliknout a dohledat zbylé informace.
+  %Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí
+
+  Do střední části obrazovky byl navržen posuvný řádek obsahující nově přidané události a to především díky možnosti zobrazit
+  veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídnout možnost danou událost otevřít a dohledat zbylé informace.
   Z ... \ref{} totiž vyplývá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
   a času konání.
   
   Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
-  vyžít celou šíři obrazovky k zobrazení delších titulků a textů událostí, které jsou pro uživatele v případě aktualit nejdůležitější.
+  vyžít celou šíři obrazovky k zobrazení delších titulků a textů, které jsou pro uživatele v případě aktualit nejdůležitější.
   
-  Mezi další UI prvky na domovské obrazovce patří tlačítka v její horní části, která uživateli umožňují rychlý proklik na YouTube kanál města,
-  nahlášení závady, zobrazení úředních hodin a kontaktů.
+  %Mezi další UI prvky na domovské obrazovce patří 
   
   %V horní části se nachází sekce umožňující přidání vlastní 
   
   %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
   
   \bigskip
-  \myparagraph{Obrazovka událostí}  
-  V rámci obrazovky "Události" je použit stejný systém pro zobrazené událostí pomocí posuvného řádku jako je tomu na domovské obrazovce.
+  \myparagraph{Obrazovka \textit{události}}
+  V rámci obrazovky \textit{Události} (viz obrázek \ref{fig:wireframe2}) je použit stejný systém pro zobrazení událostí pomocí posuvného řádku 
+  jako je tomu na obrazovce \textit{Domů}.
   
   Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou události rozděleny 
-  do několika málo kategorií.
+  do několika kategorií jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce}, \textit{Akce pro děti} nebo \textit{Přednášky}.
   
-  V horní části aplikace je uživateli dána možnost vybrat den pro který chce zobrazit plánované události, případně zvolit požadované rozmezí.
+  V horní části aplikace je pak uživateli dána možnost vybrat den, pro který chce zobrazit plánované události, případně zvolit požadované rozmezí.
+
+  To je možné navolit pomocí , který se zobrazí po kliknutí na ikonu kalendáře v pravé horní části obrazovky 
   
-  %jako například Kino, Divadlo, Celodenní akce, akce pro děti, přednášku atd.
+  %
   
   
   Byla navržena tak, aby uživatelé mohli jednoduše filtrovat zobrazované události primárně podle času.
@@ -599,22 +605,24 @@ Zároveň byla snaha o
 \end{minipage}
 
 \begin{minipage}[t]{0.45\textwidth}
-\myparagraph{Obrazovka parkování}
-Obrazovka parkovaní slouží uživateli především k vyhledání parkovací zóny, získání informací o ceně parkování případně k platbě parkovného.
+\myparagraph{Obrazovka \textit{Parkování}}
+Obrazovka parkovaní (viz obrázek \ref{fig:wireframe3}) slouží uživateli dle dříve specifikovaných případů užití především k vyhledání parkovací zóny, 
+získání informací o ceně parkování a případně k platbě parkovacích poplatků. Z toho důvodu byla hlavní část obrazovky věnována mapovému podkladu, 
+který by uživateli umožňoval snadné nalezení parkovací zóny v mapě mesta. % jehož součástí je množina parkovacích zón.
 
-Aby bylo docíleno co nejjednodušší manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována právě mapovému
-podkladu na němž jsou vyznačeny parkovací zóny. 
+% Aby bylo docíleno co nejjednodušší manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována právě mapovému
+% podkladu na němž jsou vyznačeny parkovací zóny. 
 
-Pro usnadnění hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávací pole, které 
+Pro ještě snadnější hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávací pole, které 
 uživateli umožňuje vyhledat příslušnou parkovací zónu buďto podle čísla nebo názvu zóny. 
 
 Dále zde byla implementována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v případě, že uživatel vybere nějakou
-z nabízených parkovacích zón. Nezmenšuje tak uživateli prostor pro rychlé vyhledání parkovací zóny, které je hlavním cílem k použití této obrazovky. 
+z nabízených parkovacích zón. Díky této implementaci uživateli nezmenšuje prostor pro rychlé vyhledání parkovací zóny,
+které je hlavním cílem k použití této obrazovky. 
 
-Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovací zóně a dá uživateli možnost zaplatit parkovné.
+Tato výsuvná karta uživateli zobrazí detailní informace k vybrané parkovací zóně a dá uživateli možnost zaplatit parkovací poplatek pro vybranou parkovací zónu.
 
-Poslední funkci, kterou tato obrazovka nabízí je zobrazení aktuálního provozu ve městě. 
-
+Poslední funkcí, kterou tato obrazovka nabízí je zobrazení aktuální dopravní situace ve městě, která je na mapě zobrazena spolu s parkovacími zónami.
 
 \bigskip
 \myparagraph{Obrazovka více}
