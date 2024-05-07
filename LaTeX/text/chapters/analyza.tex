@@ -284,7 +284,7 @@ používán s toolkitem Kotlin Multiplatform, který dané aplikaci poskytuje i 
 komponentu bez které by Compose Multiplatform nevznikl, tak je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
 
 Pro lepší ukázku toho, z jakých částí se typická multiplatformní mobilní aplikace skládá slouží následující obrázek \ref{fig:composeIOS}, který
-vizualizuje propojenost frameworku Compsose Multiplatfom s toolkitem Kotlin Multiplatfom (KMP). Dále vizualizuje 
+vizualizuje propojenost frameworku Compose Multiplatform s toolkitem Kotlin Multiplatform (KMP). Dále vizualizuje 
 vztah platformě specifických knihoven pro tvorbu UI jako SwiftUI k frameworku Compose Multiplatform.
 Compose Multiplatform lze nicméně použít i s technologiemi pro tvorbu UI jako je UI kit pro platformu iOS nebo
 Android views  pro platformu Android, od kterých je postupně upouštěno a přechází se k deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
@@ -301,7 +301,6 @@ TODO % doplnit neco o KMP a APIs
 Co se týče samotného UI kódu, tak ten se skládá z jednotlivým funkcí označených anotací \code{@Composable}, která v těle obsahuje další
 \textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro zobrazení
 textu na obrazovce. 
-
 
 \begin{listing}[H]
 \caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ComposeCode}

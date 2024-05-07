@@ -154,10 +154,10 @@ Základní barvy pro světlý motiv byly zvoleny na základě navrženého desig
 a zbylé barvy jako například barvy pro výplň pozadí nebo pro tmavý režim byly dopočítány ze základních barev nástrojem \textit{Material Theme Builder}.
 %Ten barvy rovnou dopočítá tak, aby 
 
-Pro použití vybraných barev v aplikaci bylo zapotřebí jednotlivé barvy zadefinovat následujícím způsobem:
+Pro použití vybraných barev v aplikaci bylo zapotřebí jednotlivé barvy nejprve zadefinovat následujícím způsobem:
 
 \begin{listing}[H]
-\caption{Zadefinování barev}\label{lst:Colors}
+\caption{Zadefinování barev v souboru \code{commonMain/.../presentation/theme/Color.kt}}\label{lst:Colors}
 \begin{minted}{Kotlin}
 val md_theme_light_primary = Color(0xFFBC004C)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -183,7 +183,6 @@ private val LightColors = lightColorScheme(
   onPrimary = md_theme_light_onPrimary,
   primaryContainer = md_theme_light_primaryContainer,
   onPrimaryContainer = md_theme_light_onPrimaryContainer,
-  secondary = md_theme_light_secondary,
   ...
 )
 private val DarkColors = darkColorScheme(
@@ -227,7 +226,8 @@ Vybraný Material Design definuje celkem 15 stylů písma, kde každé z nich m�
 Jelikož se jedná o styly písma přímo definované systémem Material Design, tak lze k těmto stylům přistupovat přes
 \textit{Composable} funkci \code{MaterialTheme} z balíčku \code{androidx.compose.material3} popsanou v kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
-definovaný v rámci kapitoly \ref{designSystemSection}
+definovaný v rámci sekce \textit{Design system \ref{designSystemSection}}.
+
 \begin{listing}[H]
 \caption{Ukázka použití stylu písma}\label{lst:typographyExample}
 \begin{minted}{Kotlin}
@@ -239,25 +239,46 @@ Text(
 \end{listing}
 
 \section{Tvorba UI obrazovek}
-TODO %obecne ukazat jak se UI v compose tvori ze je to daklarativne
-
-Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform 
+Jak již bylo zmíněno v kapitole \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}, tak k tvorbě UI se v Compose Multiplatform 
 používají takzvané \textit{Composable} funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
 
-Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k reprezentaci jednotlivých tlačítek, textů vstupní polí, 
-seznamů, ale také celým souborům těchto prvků jako jsou například celé obrazovky.
+Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k reprezentaci jednotlivých tlačítek (\code{Button()}), 
+textů (\code{Text()}) obrázků \code{Image()}, ale také celých souborům těchto prvků jako jsou například celé obrazovky.
 
-Na následujícím výpisu kódu \ref{lst:ConsumeUIState} je proto ukázáno jak mohou být do sebe jednotlivé Composable funkce zanořeny čímž tvoří
-takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura frameworku Compose Multiplatfom \ref{ComposeArch}}
+Mimo těchto funkcí je UI možné tvořit ještě pomocí takzvaných Layout funkcí mezi které se řadí například \code{Column}, která vnořené \textit{Composable}
+funkce uspořádává do sloupce nebo \code{Row}, která vnořené elementy řadí naopak do řádku.
+
+Jelikož se tato sekce věnuje právě tvorbě UI jednotlivých obrazovek, tak na následujícím výpisu kódu \ref{lst:ConsumeUIState} je ukázáno jak mohou
+ být do sebe dříve zmíněné Composable funkce zanořeny čímž tvoří takzvaný sémantický strom taktéž popsaný v kapitole 
+ \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}
 
 \begin{listing}[H]
-\caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ConsumeUIState}
+\caption{Příklad tvorby UI pomocí frameworku Compose Multiplatform}\label{lst:ConsumeUIState}
 \begin{minted}{Kotlin}
   @Composable
-  fun LatestNewsScreen(
-      viewModel: NewsViewModel = viewModel()
-  ) {
-      // Show UI elements based on the viewModel.uiState
+  fun HomeScreen {
+    // Přidá vnitřní okraj kolem celé zprávy
+    Row(modifier = Modifier.padding(all = 8.dp)) {
+        Image(
+            painter = painterResource(DrawableResource("profile_picture.jpg")),
+            contentDescription = "Contact profile picture",
+            modifier = Modifier
+                // Nastaví velikost obrázku na 40 dp
+                .size(40.dp)
+                // Ořízne obrázek do kruhu
+                .clip(CircleShape)
+        )
+
+        // Přidá horizontální mezeru mezi obrázek a sloupec
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Column {
+            Text(text = msg.author)
+            // Přidá vertikální mezeru bezi texty
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = msg.body)
+        }
+    }
   }
 \end{minted}
 \end{listing}
@@ -266,31 +287,32 @@ takzvaný sémantický strom taktéž popsaný v kapitole \textit{Architektura f
 
 %Z těchto Composable funkcí se skládá celé UI
 
-\bigskip
-
-Obsahem následujících podkapitol je ukázka UI komponent, které byly použity k implementaci navrženého UI a celkově dává náhled na to
+Obsahem následujících sekcí je ukázka UI komponent, které byly použity k implementaci navrženého UI a celkově dává náhled na to
 jak je deklarativní UI pomocí Compose Multiplatform tvořeno. K tvorbě celého uživatelského rozhraní bylo nejprve přistupováno na základě vytvořených 
-drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrhWireframes}}) a následně bylo stylizováno tak, aby odpovídalo navržené podobě UI z kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
+drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrhWireframes}}) a následně bylo pomocí implementovaného design systému
+stylizováno tak, aby odpovídalo navržené podobě UI z kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
 
 \subsection{Domovská obrazovka}
 Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform a nebylo při jeho implementaci potřeba
 přistoupit k nativnímu řešení ani na platformě iOS nebo desktop.
 
-K implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita komponenta vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow},
-která je založená na základní \code{LazyRow}, která umožňuje zobrazení velké
+K implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow} 
+(viz výpis kódu \ref{lst:EventLazyRowImpl}),
+která je založená na základní UI komponentě zvané \code{LazyRow}. Tato komponenta se se obvykle používá v případech, že je na obrazovku potřeba efektivně 
+vykreslit velkého množství položek (kolekce položek) čož je přesně případ vykreslení událostí. Komponenta \code{LazyRow} totiž vykresluje pouze ty položky,
+které jsou aktuálně viditelné čím nezpomaluje načítání obsahu v případně většího množství událostí výrazně šetří zdroje potřebné k vykreslení.
+
 \begin{listing}[H]
 \caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
 \begin{minted}{Kotlin}
   @Composable
   fun EventLazyRow(category: EventCategory, state: EventsState) {
       val scrollState = rememberLazyListState()
-      val coroutineScope = rememberCoroutineScope()
-      val navigator: Navigator = LocalNavigator.currentOrThrow
   
       Column {
           Text( ... )
           LazyRow( ... ) 
-      {  
+      {
         items(eventList) { event ->  //state.filteredEvents
             EventItem(event = event, onItemClick = {
               navigator.push(EventDetailScreen(event))
@@ -302,14 +324,15 @@ která je založená na základní \code{LazyRow}, která umožňuje zobrazení 
 \end{minted}
 \end{listing}
 
-Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}
+Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}, které naopak posloužila pro vykreslení seznamu novinek.
+
+Dále byla na této obrazovce implementována tlačítka používající 
 
 I implementaci 
 
 LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komponenty
 
-Obě tyto komponent navíc nabízí postupné načítání jejich obsahu, což nezpomaluje načítání obsahu v případně většího množství novinek
-nebo událostí.
+
 
 \subsection{Obrazovka \textit{Události}}
 
@@ -449,32 +472,34 @@ důležité technologie na kterých je postavena aplikační logika aplikace.
 \subsection{Vrstva uživatelského rozhraní}
 
 \subsubsection*{Voyager}
-Voyager je multiplatformní navigační knihovna, která umožňuje se pohybovat mezi různými obrazovkami a destinacemi v multiplatformních mobilních
- aplikacích. \cite{voyager} Jejím hlavním cílem je poskytnout jednotné rozhraní pro navigaci na různých mobilních platformách, jako 
- jsou Android a iOS, a zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
+Voyager je multiplatformní navigační knihovna, která umožňuje přecházet mezi různými obrazovkami a destinacemi v multiplatformních
+aplikacích. \cite{voyager} Jejím hlavním cílem je poskytnout jednotné rozhraní především pro navigaci na mobilních platformách, jako 
+jsou Android a iOS a zároveň maximalizovat sdílený kód a snižovat duplikaci kódu.
 
- V rámci implementované aplikace byla navigace Voyager použita k implementaci základní navigace mezi jednotlivými obrazovkami.
- Příkladem takové navigace jsou veškeré možné přechody v rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
- \textit{Stack API} jehož implementace funguje na principu zásobníku. S tím, že pokud uživatel vstoupí na novou obrazovku 
- (například přejde na stránku zobrazující detail vybrané události), tak je do tohoto zásobníku přidán odkaz na takzvaný SnapshotState,
- který uchovává stav právě opuštěné obrazovky a je znovu obnoven v případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
- zásobník slouží k tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v zásobníku), když uživatel provede akci zpět
- například pomocí tlačítka zpět na platformě Android. \textit{Stack API} zároveň umožňuje použití několika funkcí jako jsou například 
- \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed nebo funkce \code{pop}, \code{popAll}, \code{popUntil}
-  pro zpětný návrat. 
+\medskip
 
- Díky této implementaci je možné procházené obrazovky do sebe libovolně zanořovat a v případě, že je potřeba nějakým způsobem upravit
- stav předchozích stavů v zásobníku TODO
+V rámci implementované aplikace byla navigace Voyager použita především k implementaci základní navigace mezi jednotlivými obrazovkami.
+Příkladem takové navigace jsou například veškeré možné přechody v rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
+\textit{Stack API} jehož implementace funguje na principu zásobníku. S tím, že pokud uživatel vstoupí na novou obrazovku 
+(například přejde na stránku zobrazující detail vybrané události), tak je do tohoto zásobníku přidán odkaz na takzvaný \code{SnapshotState},
+který uchovává stav právě opuštěné obrazovky a je znovu obnoven v případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
+zásobník slouží k tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v zásobníku), když uživatel provede akci zpět
+například pomocí tlačítka zpět na platformě Android nebo jakéhokoliv tlačítka zpět implementovaného v rámci aplikace. \textit{Stack API}
+ zároveň umožňuje použití několika funkcí jako jsou například funkce \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed 
+ nebo funkce \code{pop}, \code{popAll}, \code{popUntil} pro zpětný návrat. 
+Díky této implementaci je možné procházené obrazovky do sebe libovolně zanořovat a v případě, že je potřeba nějakým způsobem upravit
+stav předchozích stavů v zásobníku lze nad tímto zásobníkem zavolat některou z dříve uvedených funkcí.
 
- Způsob navigace založený na \textit{Stack API} však není vhodný pro navigování mezi jednotlivými záložkami aplikace (lišta ve spodní 
- části displaye), a proto je tato část navigace implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje.
- V případě použití záložek se průchod obrazovkami nezapisuje do zásobníku, jako tomu bylo v předchozím případě, ale místo toho poskytuje pouze vlastnost 
- \code{current}, díky které je možné nastavit nebo získat aktuální záložku. \cite{voyagerTabNav} 
- 
- %Ukázka použití tohoto typu navigace je na náseldujících
+\medskip
 
- 
- 
+Způsob navigace založený na \textit{Stack API} však není vhodný pro navigování mezi jednotlivými záložkami aplikace (lišta ve spodní 
+části obrazovky), a proto je tato část navigace implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje.
+V případě použití záložek se průchod obrazovkami nezapisuje do zásobníku, jako tomu bylo v předchozím případě, ale místo toho poskytuje pouze vlastnost 
+\code{current}, díky které je možné nastavit nebo získat aktuální záložku. \cite{voyagerTabNav} 
+
+Příklad použití tohoto typu navigace je na následující ukázce kódu \ref{lst:tabNav}, díky které je vidět, jak jsou jednotlivé záložky 
+uspořádány v rámci spodní navigační lišty (\code{BottomNavigation}).
+
 % založené na zásobníku by byla pro uživatele matoucí.
 \begin{listing}[H]
 \caption{Ukázka použití navigace založené na záložkách}\label{lst:tabNav}
@@ -499,8 +524,6 @@ Voyager je multiplatformní navigační knihovna, která umožňuje se pohybovat
   }
 \end{minted}
 \end{listing}
-TODO
-
 
 \subsubsection*{Coil}
 Coil je knihovna pro načítání a zobrazování obrázků napsaná v jazyce Kotlin, která byla původně napsaná pouze pro platformu Android avšak
@@ -518,6 +541,8 @@ Další výhodou knihovny Coil je možnost efektivního cachování obrázků, k
 V rámci implementované aplikace jsou téměř všechny obrázky načítány z URL adres, a proto je možnost cachování zásadní hlavně v případech, 
 kdy aplikace nemá přístup k internetu.
 
+Pro ukázku \textit{Composable} funkce, která je poskytována knihovnou Coil a byla v rámci
+aplikaci použita k načítání veškerých obrázků z internetu slouží následující výpis kódu \ref{lst:Coil3}
 % TODO placeholder
 
 \begin{listing}[H]
@@ -534,16 +559,16 @@ kdy aplikace nemá přístup k internetu.
 
 \subsection{Vrstva aplikační logiky}
 
-\subsubsection*{Kotlin}
-\subsubsection*{Coroutines}
+%\subsubsection*{Kotlin}
+%\subsubsection*{Coroutines}
 \subsubsection*{Ktor}
 Ktor je open-source framework vytvořený společností JetBrains pro tvorbu jak serverových, tak klientských aplikací pomocí programovacího 
-jazyka Kotlin. Ktor byl vyžit především kvůli možnosti využití multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat 
+jazyka Kotlin. Ktor byl vybrán především kvůli možnosti využití multiplatformního asynchronního HTTP klienta pomocí kterého je možné zadávat 
 HTTP požadavky a zároveň zpracovávat případné odpovědi. 
 
 Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor možné použít na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
 \begin{listing}[H]
-\caption{Konfigurace http klienta}\label{lst:ktorConfig}
+\caption{Konfigurace HTTP klienta}\label{lst:ktorConfig}
 \begin{minted}{Kotlin}
   private val client = HttpClient(CIO) {
     engine {
@@ -555,7 +580,10 @@ Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor
 \end{minted}
 \end{listing}
 
-Po nakonfigurování http klienta je již možné zasílat běžné http dotazy pomocí metod \code{post}, \code{get}, \code{put} nebo \code{delete}.
+Po nakonfigurování HTTP klienta je již možné zasílat běžné HTTP dotazy pomocí metod \code{post}, \code{get}, \code{put} nebo \code{delete}.
+Na následující ukázce kódu \ref{lst:ktorRequest} je pomocí nakonfigurovaného klienta z ukázky kódu \ref{lst:ktorConfig} zaslán HTTP požadavek
+na webový server města.
+
 \begin{listing}[H]
 \caption{Zaslání požadavku}\label{lst:ktorRequest}
 \begin{minted}{Kotlin}
@@ -568,18 +596,18 @@ Po nakonfigurování http klienta je již možné zasílat běžné http dotazy 
 
 \subsubsection*{Koin}
 Koin je moderní framework pro vkládání závislostí v aplikacích napsaných v jazyce Kotlin. Jedná se o lehkou a snadno použitelnou alternativu 
-k jiným známým knihovnám, jako je například Hilt pro platformu Android. Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje 
-vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
+k jiným známým knihovnám, jako je například Hilt pro platformu Android.
+ %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
 
-Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují všechny závislosti a 
+Hlavním principem Koinu je deklarativní přístup k definici závislostí pomocí tzv. modulů. V modulu se specifikují veškeré závislosti a 
 jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
- vývojářům transparentní pohled na strukturu aplikace.
+vývojářům transparentní pohled na strukturu aplikace.
 
 \bigskip
 
 V rámci této aplikace byl Koin použit například pro vložení databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
-Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většitna databázové logiky je napsána v rámci sdílené 
-logiky a v rámci nativní logiky, byl tak implementovám pouze databázový ovladač.
+Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většina databázové logiky je napsána v rámci sdílené 
+logiky a v rámci nativní logiky, byl tak implementován pouze databázový ovladač.
 
 TODO nejen driver screenmodel, repository
 \begin{listing}[H]
@@ -600,11 +628,11 @@ TODO nejen driver screenmodel, repository
 \end{listing}
 
 \subsubsection*{SQLDelight}
-SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní nástroj, 
-který umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+SQLDelight je multiplatformní knihovna pro práci s relačními databázemi v aplikacích napsaných v jazyce Kotlin. Jedná se o moderní knihovnu, 
+která umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
 
-Hlavní funkcionalitou knihovny SQLDelight je automatická generace Kotlin tříd na základě definovaných SQL schémat. To znamená, že vývojáři
- mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o vygenerování příslušných tříd v jazyce Kotlin, které umožňují 
+Hlavní funkcionalitou knihovny SQLDelight je automatická generace Kotlin tříd a funkcí na základě definovaných SQL schémat. To znamená, že vývojáři
+ mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o vygenerování příslušných funkcí v jazyce Kotlin, které umožňují 
  snadný a bezpečný přístup k databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
  štítkem (viz \code{selectAllNews:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
 
