@@ -634,59 +634,71 @@ která umožňuje vytváření a správu SQL dotazů pomocí typově bezpečnýc
 Hlavní funkcionalitou knihovny SQLDelight je automatická generace Kotlin tříd a funkcí na základě definovaných SQL schémat. To znamená, že vývojáři
  mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o vygenerování příslušných funkcí v jazyce Kotlin, které umožňují 
  snadný a bezpečný přístup k databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
- štítkem (viz \code{selectAllNews:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
+ štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
 
 \begin{listing}[H]
-\caption{SQL dotaz}\label{lst:SQLDotaz}
+\caption{SQL dotaz pro získání všech novinek v databázi}\label{lst:SQLDotaz}
 \begin{minted}{SQL}
-selectNewsById:
+selectNewestEvents:
 SELECT *
-FROM News
-WHERE id = :id;
+FROM Events
+ORDER BY startDateTime DESC
+LIMIT 30;
 \end{minted}
 \end{listing}
 
 
-Vygenerové třídy (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z výpisu kódu \ref{lst:SQLDotaz}
-vypadá následovně:
+Vygenerované funkce (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z výpisu kódu \ref{lst:SQLDotaz}
+vypadá jeho zkrácená podoba následovně:
 
 \begin{listing}[H]
 \caption{SQL vygenerovaný dotaz}\label{lst:SQLGeneratedDotaz}
 \begin{minted}{kotlin}
-private inner class SelectNewsByIdQuery<out T : Any>(
-  public val id: Long,
-  mapper: (SqlCursor) -> T,
-) : Query<T>(mapper) {
-    override fun addListener(listener: Query.Listener) {
-    driver.addListener("News", listener = listener)
-    } TODO
+public fun <T : Any> selectNewestEvents(mapper: (
+  id: Long,
+  categories: String,
+  place: String,
+  title: String,
+) -> T): Query<T> = Query(-704_046_957, arrayOf("Events"), driver, "Events.sq",
+    "selectNewestEvents", 
+"""
+|SELECT Events.id, Events.categories, Events.place, Events.title
+|FROM Events
+|ORDER BY startDateTime DESC
+|LIMIT 30
+""".trimMargin()) { cursor ->
+  mapper(
+    cursor.getLong(0)!!,
+    cursor.getString(1)!!,
+    cursor.getString(2)!!,
+    cursor.getString(3)!!
+  )
 }
 \end{minted}
 \end{listing}
 
-SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
- kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
+I přesto, že se jedná o multiplatformní knihovnu a většina kódu tak může být psána v balíčku sdíleném mezi všemi platformami, je zde i 
+část z následující ukázky kódu \ref{lst:DatabaseDriverFactory}, kterou je pro veškeré implementované platformy potřeba implementovat
+nativně. Konkrétně se jedná o databázové ovladače k jejichž implementaci jsou 
+zapotřebí nativní knihovny a musí být proto implementovány v balíčcích jednotlivých platforem.
 
 \begin{listing}[H]
-\caption{Nativní databázový ovladač}\label{lst:DatabaseDriverFactory}
+\caption{Nativní databázový ovladač pro platformu \textit{desktop}}\label{lst:DatabaseDriverFactory}
 \begin{minted}{kotlin}
-  actual class DatabaseDriverFactory {
-    actual fun createDriver(): SqlDriver {
-      //val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:test.db")
-      val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-      AppDatabase.Schema.create(driver)
+actual class DatabaseDriverFactory {
+  actual fun createDriver(): SqlDriver {
+      val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:AppDatabase.db")
+      AppDatabase.Schema.synchronous().create(driver)
       return driver
-    }
   }
+}
 \end{minted}
 \end{listing}
 
-I přesto, že většina kódu může být psána v balíčku sdíleném mezi všemi platformami, je zde i část z předchozí ukázky \ref{lst:SQLDriver},
-kterou je pro platformy Android, JVM, a Native potřeba naimplementovat nativně. Konkrétně se jedná o ovladače k jejichž implementaci jsou 
-potřeba nativní knihovny a musí být proto implementovány v balíčcích jednotlivých platforem.
 
-TODO
 
+%SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
+% kompilaci kódu, což usnadňuje odhalování chyb a zvyšuje stabilitu aplikace.
 
 %\subsection{Full text search impl tech} \label{fulltextSearch}
 %TODO
@@ -694,7 +706,7 @@ TODO
 
 
 \section{Logika uživatelského rozhraní} \label{UILayerImpl}
-V rámci této kapitoly je ukázáno jakým způsobem byla implementována logika chování UI navržená v kapitole 
+V rámci této sekce je ukázáno jakým způsobem byla implementována logika chování UI navržená v kapitole 
 \textit{Vrstvy architektury \ref{vrstvyArchitekturySection}}.
 
 
