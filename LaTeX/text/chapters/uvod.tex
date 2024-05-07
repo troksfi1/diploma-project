@@ -14,17 +14,17 @@
 %\section{Motivace}
 \section{Cíle práce} \label{goals}
 Prvním důležitým cílem práce je analyzovat použitelnost nově nastupující technologie na poli vývoje multiplatformního UI a otestovat, jaké
-nové principy přináší. Dále tuto technologii porovnat s ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
+nové principy přináší. Dále tuto technologii porovnat s~ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
 rozebrat důležité principy, na kterých jsou tyto technologie postaveny. 
 
 Další podstatným cílem je vytvoření aplikace, která tuto technologii implementuje a zaměření se při tom na slabé stránky, 
 které aktuálně multiplatformní UI provází.
 
-Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v praxi.
+Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v~praxi.
 
 \section{Stručný přehled obsahu práce}
-V úvodu se práce zabývá otázkou co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
-Dále je probrána otázka v jakých případech se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
+V~úvodu se práce zabývá otázkou co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
+Dále je probrána otázka v~jakých případech se vyplatí aplikovat multiplatformní UI a na jakých zařízeních. 
 
 %a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
 
@@ -33,40 +33,40 @@ Dále je probrána otázka v jakých případech se vyplatí aplikovat multiplat
 %kdy multiplatformí vývoj nemá smysl (vyfocení závady)
 
 
-Jaké jsou výhody a nevýhody multiplatformních aplikací  v porovnaní s nativními aplikacemi.
+Jaké jsou výhody a nevýhody multiplatformních aplikací  v~porovnaní s~nativními aplikacemi.
 
-Existujícími frameworky a jich porovnáním s Compose Multiplatform.
+Existujícími frameworky a jich porovnáním s~Compose Multiplatform.
 
-Detailně rozebrána architektura Compose Multiplatform jak framework funguje a jaké další technologie jsou potřeba k smysluplné implementaci tohoto
+Detailně rozebrána architektura Compose Multiplatform jak framework funguje a jaké další technologie jsou potřeba k~smysluplné implementaci tohoto
 frameworku.
 
 Dále je se práce zabývá návrhem a následnou tvorbou multiplatformního UI pomocí frameworku Compose Multiplatform.
 
-V v jedné z posledních části se týká možností testování takto vytvořeného UI a následného testování UI na naimplementované aplikaci.
+V~v~jedné z~posledních části se týká možností testování takto vytvořeného UI a následného testování UI na naimplementované aplikaci.
 
 je věnován shrnutí celého procesu implementace a vyzdvižení naskytlých problémů a výhod oproti nativnímu případně jiným multiplatformním frameworkům
 
 
 
-Obecně něco o multiplatformním vývoji.
+Obecně něco o~multiplatformním vývoji.
 
 \section{Definice multiplatformního vývoje UI}
 
-Technologie sloužících k tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelská rozhraní, 
+Technologie sloužících k~tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelská rozhraní, 
 která mohou být nasazena na různá zařízení jako jsou mobilní zařízení, tablety, televize, hodinky, obrazovky aut či 
-klasické počítače a to buďto v podobě desktopové nebo webové aplikace. Cílem multiplatformního vývoje je tak dosáhnout jednotného 
-uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu. Nicméně jak je vidno z předchozího výčtu zařízení, 
+klasické počítače a to buďto v~podobě desktopové nebo webové aplikace. Cílem multiplatformního vývoje je tak dosáhnout jednotného 
+uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu. Nicméně jak je vidno z~předchozího výčtu zařízení, 
 tak ne vždy má smysl multiplatformní přístup aplikovat a tomu kdy je vhodné aplikovat multiplatformní vývoj je věnována následující kapitola.  
 
 \section{Uplatnění multiplatformního vývoje a sdíleného UI}
 Aktuálně největší uplatnění multiplatformního UI nabízí mobilní vývoj, kde je díky multiplatformním frameworkům možné vyvíjet
-aplikace pro platformy Android a iOS současně. Je tomu tak z důvodu, že mobilní vývoj je aktuálně jeden TODO také díky podobnostem majících na návrh multiplatformního 
+aplikace pro platformy Android a iOS současně. Je tomu tak z~důvodu, že mobilní vývoj je aktuálně jeden TODO také díky podobnostem majících na návrh multiplatformního 
 UI vliv jako je například velikost obrazovky.
 
-I přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
-Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z pohledu UI mají ty platformy často jiné 
+I~přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
+Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z~pohledu UI mají ty platformy často jiné 
 velikosti obrazovek, jiné možnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika implementována konkrétně pro danou platformu
-nebo typ zařízení. Je proto vždy nutné vědět jaký typ aplikace bude z pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
+nebo typ zařízení. Je proto vždy nutné vědět jaký typ aplikace bude z~pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
 platformách bude daná aplikace implementována.
 
 Obecně lze tedy říci, že efektivita implementace multiplatformních aplikaci se může dle těchto omezeních a požadavků výrazně lišit.
@@ -77,7 +77,7 @@ Obecně lze tedy říci, že efektivita implementace multiplatformních aplikaci
 
 \section{Důvody multiplatformního vývoje a sdíleného UI}
 
-Mezi primární důvody vedoucí firmy a jednotlivce k vývoji multiplatformních aplikací patří především
+Mezi primární důvody vedoucí firmy a jednotlivce k~vývoji multiplatformních aplikací patří především
 snížení nákladů na vývoj a následně také na údržbu. Jednodušší dosažení konzistentního vzhledu
 na různých platformách nebo například možnost znovu používat komponenty UI na různých platformách.
 
