@@ -20,7 +20,20 @@ prostor o~rozříšení ostatních naticvních knihoven o~mmmultipatformní API.
 \section{Zkušenosti z~implementace na reálné aplikaci}
 Preview
 Nedostatek knihoven
-Špatná nebo téměř žádna dokumentace k~knihovnám třetích stran a v~případě co se týče Compose Multiplatfrom
+Špatná nebo téměř žádna dokumentace k~knihovnám třetích stran a v~případě co se týče Compose Multiplatform
+
+Co se interoperability frameworku Compose Multiplatform s vývojový prostředím Android Studio (verze Jellyfish 2023.3.1), tak zde vývoj doprovázeli 
+taktéž problémy v podobě 
+Testovani nelze spustit pomocí IDE podobný problém se vyskytoval i v případě testovaní spouštění aplikace pro \textit{desktop}, kterou taktéž pomocí
+IDE nebylo možné aplikaci spustit.
+%https://stackoverflow.com/questions/78421627/how-can-i-run-tests-in-compose-multiplatform-from-android-studio-command-line
+Dále během fáze implementace nebylo možné využít například některé z \code{assertIsNotDisplayed()} jelikož ještě nebyli implementovány.
+
+
+Běhen fáze návrhu byly obecně známy problémy s nefunkční anotací \textit{@Preview}, která nebyla dostupná a ani aktuálně nefunguje například pro 
+\textit{Composable} funkce s parametry. \cite{previewCompose} Důležité je taky zmínit, že 
+
+
 \section{Závěr o~použitelnosti frameworku}
 Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, tak aby bylo toto hodnocení co 
 nejobjetivnější, tak bude rozvrženno do několika částí.

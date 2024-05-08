@@ -1,94 +1,75 @@
 \chapter{Testování} \label{testsSection}
-Tato kapitola se bude věnovat předvším UI teestování a to z~nějkolika růzých pohledů. 
+Tato kapitola se bude věnovat především UI testování a to z~několika různých pohledů. 
 
 \section{Uživatelské rozhraní}
-Od verze 1.6.0 Compse Multiplatform umožňuje testování UI na všech platformách. \cite{composeNews1.6.0}
-
-UI testy se používají k~ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, uživatelských 
-interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+UI testy se používají k~ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, 
+uživatelských interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
 
 Mezi základní typy UI testy se řadí UI testy testující kritické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
 správnost fungování navigace v~dané aplikaci.
 
 
-\section{Výkon aplikace}
+% \section{Výkon aplikace}
 
-\section{Přístupnost aplikace}
-K~testování přístupnosti byla použita funkce TalkBack, která pomáhá nevidomým a slabozrakým ovládat zařízení Android pomocí hmatové a 
-hlasové odezvy. 
+% \section{Přístupnost aplikace}
+% Mimi UI testů byla aplikace manuálně testovaná
+% K~testování přístupnosti byla použita funkce TalkBack, která pomáhá nevidomým a slabozrakým ovládat zařízení Android pomocí hmatové a 
+% hlasové odezvy. 
 
 
-\section{Kompatibilita}
-Testování aplikace na různých zařízeních s~různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
-správně na široké škále zařízení.
+% \section{Kompatibilita}
+% Testování aplikace na různých zařízeních s~různými velikostmi obrazovek, rozlišeními a hardwarovými konfiguracemi, aby se zajistilo, že funguje 
+% správně na široké škále zařízení.
 
 
 \section{Možnosti testování UI v~Compose Multiplatform}
+Od verze 1.6.0 Compose Multiplatform umožňuje testování UI na všech platformách. \cite{composeNews1.6.0}
 Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
 proto i stejných konceptů. Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
-\myparagraph{Testování sémantiky}
-V~rámci testování
-\myparagraph{API rozhraní}
+\subsection{Testování sémantiky}
+Testování UI je v Compose Multiplatform založené na testování 
+
+
+\subsection{API rozhraní}
 Compose Multiplatform z~toto důvodů taktéž využívá tři hlavní principy jak testovat UI, které se v~Jetpack compose
 označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}. 
-K~tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenýcmi 
-komponenty umožňují provest akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provedení těchto akcí se používají takzvané tvrzení 
+K~tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenými 
+komponentami umožňují provést akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provedení těchto akcí se používají takzvané tvrzení 
 (Assertions), které ověří zdali určité UI prvky mají požadované atributy.
 
-\textit{Finders} umožnují najít uzel nebo uzly ve strom UI struktuře pomocí tagů, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
+\textit{Finders} umožňují najít uzel nebo uzly ve strom UI struktuře pomocí štítků, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
 
 
 Pomocí \textit{Assertions}
 
 A~pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
 
-\myparagraph{Testování synchoronizace}
-\myparagraph{Testování interoperability}
+\subsection{Testování synchoronizace}
+Případě, že je například zavolána některá z funkcí z předchozího paragrafu pomocí ComposeTestRule, tak test je předem synchronizován a čeká dokud 
+se strom UI nebude ve stavu IDLE. 
 
+Obvykle tak není potřeba do synchronizace testů nikterak zasahovat avšak existují některé okrajové případy
 
-\begin{listing}[H]
-  \caption{Integrace UI testů pomocí Gradle}\label{lst:testsIntegration}
-  \begin{minted}{kotlin}
-    kotlin {
-      //...
-      sourceSets {
-        val desktopTest by getting
-    
-        // Adds common test dependencies
-        commonTest.dependencies {
-          implementation(kotlin("test"))
-    
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
-        }
-    
-        // Adds the desktop test dependency
-        desktopTest.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
-      }
-    }
-\end{minted}
-\end{listing}
+%\myparagraph{Testování interoperability}
 
-\section{Testovací případy}
-Testovací případ je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu s~cílem ověřit, zda se chová podle očekávání a splňuje 
-požadavky. Každý testovací případ obvykle obsahuje následující prvky:
+\section{Testovací případy}\label{testCases}
+Testovací případ (zkráceně TC - z~anglického \uv{test case}) je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu 
+s~cílem ověřit, zda se chová podle očekávání a splňuje požadavky. Každý testovací případ obvykle obsahuje následující prvky:
 
 \begin{itemize}
-  \item Popis: Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
-  \item Předpoklady: Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
-  \item Kroky: Konkrétní kroky, které musí být provedeny k~provedení testu.
-  \item Očekávané výsledky: Popis očekávaných výsledků testu po dokončení kroků.
-  \item Aktuální výsledky: Skutečné výsledky testu, které jsou porovnány s~očekávanými výsledky k~určení úspěšnosti testu.
+  \item \textbf{Popis:} Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
+  \item \textbf{Předpoklady:} Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
+  \item \textbf{Kroky:} Konkrétní kroky, které musí být provedeny k~provedení testu.
+  \item \textbf{Očekávané výsledky:} Popis očekávaných výsledků testu po dokončení kroků.
+  \item \textbf{Aktuální výsledky:} Skutečné výsledky testu, které jsou porovnány s~očekávanými výsledky k~určení úspěšnosti testu.
 \end{itemize}
 
-Na základě této struktury bylu sepsány následující testovací případy:
+Na základě této struktury byly sepsány následující testovací případy:
 
 
-\myparagraph{Testovací případ 1: Zobrazení aktuálních novinek}
+\myparagraph{TC1: Zobrazení aktuálních novinek}
 
 \begin{enumerate}
   \item Kroky:
@@ -140,45 +121,92 @@ Na základě této struktury bylu sepsány následující testovací případy:
 \end{enumerate}
 
 \section{Implementace testů}
+% %Jelikož je testovobvní pos
+% Před tím něž bylo možné UI testy implementovat bylo potřebné jejich použití př
+
+% \begin{listing}[H]
+%   \caption{Integrace UI testů pomocí Gradle}\label{lst:testsIntegration}
+%   \begin{minted}{kotlin}
+% sourceSets {
+%   val desktopTest by getting
+%   // Adds common test dependencies
+%   commonTest.dependencies {
+%     implementation(kotlin("test"))
+%       @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+%       implementation(compose.uiTest)
+%   }
+%   // Adds the desktop test dependency
+%   desktopTest.dependencies {
+%       implementation(compose.desktop.currentOs)
+%   }
+% }
+
+% \end{minted}
+% \end{listing}
 
 
-\myparagraph{Testy jednotlivých UI komponent}
+\subsection{Testy jednotlivých UI komponent}
+Před tím, než bylo přistoupeno k testování UI dle výše zmíněných scénářů, bylo nejprve implementováno několik testů pro ověření správné 
+funkcionality a vzhledu jednotlivých komponent jako jsou tlačítka, textová pole, seznamy, obrázky atd.
+
+Účelem těchto testů je zajistit, že každá komponenta aplikace funguje správně a že se zobrazuje v souladu s návrhem a specifikacemi. 
+To zahrnuje ověření interakcí s komponentou, jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty v 
+různých situacích, jako je například změna orientace zařízení.
 
 \begin{listing}[H]
-  \caption{Implementace UI testu}\label{lst:testImplementation}
+  \caption{Metody pro testování UI komponent}\label{lst:testImplementation}
   \begin{minted}{kotlin}
-  class ExampleTest {
-    @OptIn(ExperimentalTestApi::class)
-    @Test
-    fun myTest() = runComposeUiTest {
-        // Declares a mock UI to demonstrate API calls
-        //
-        // Replace with your own declarations to test the code of your project
-        setContent {
-            var text by remember { mutableStateOf("Hello") }
-            Text(
-                text = text,
-                modifier = Modifier.testTag("text")
-            )
-            Button(
-                onClick = { text = "Compose" },
-                modifier = Modifier.testTag("button")
-            ) {
-                Text("Click me")
-            }
-        }
-  
-        // Tests the declared UI with assertions and actions of the Compose Multiplatform testing API
-        onNodeWithTag("text").assertTextEquals("Hello")
-        onNodeWithTag("button").performClick()
-        onNodeWithTag("text").assertTextEquals("Compose")
-    }
-  }
+@OptIn(ExperimentalTestApi::class)
+@Test
+fun check_properties_check_return() = runComposeUiTest {
+  ...
+  //Asserts that the component was found and is part of the component tree.
+  onNodeWithText("Závady").assertExists()
+  //Asserts that the current semantics node is displayed on screen.
+  onNodeWithText("Závady").assertIsDisplayed()
+  //Asserts that the layout of this node has height that is greater than 100 dp
+  onNodeWithText("Závady").assertHeightIsAtLeast(100.dp)
+}
 \end{minted}
 \end{listing}
 
-\myparagraph{End-to-end testy}
+\subsection{End-to-end testy}
+End-to-end (E2E) testy jsou typem softwarového testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele.
+Tyto testy prověřují integraci jednotlivých komponent aplikace a zajišťují, že aplikace pracuje korektně a očekávaným způsobem od začátku až do konce procesu.
 
+V E2E testech je často využíván reálný prohlížeč nebo emulátor, aby se co nejvíce blížilo reálným uživatelským podmínkám. Testy mohou obsahovat různé 
+scénáře, jako je například registrace uživatele, přihlášení, provádění akcí v aplikaci a ověřování výsledků.
+
+Cílem E2E testů je zajistit, že aplikace funguje spolehlivě a správně napříč všemi vrstvami a komponentami a že uživatelé mohou dosáhnout svých cílů
+ bez problémů.
+
+Při implementaci těchto testů bylo postupováno na základě testovacích scénářů uvedených v sekci \textit{Testovací případy \ref{testCases}} a pro
+ukázku implementace byl zvolen test: \ref{lst:E2ETest}
+
+\begin{listing}[H]
+  \caption{Implementace E2E testu}\label{lst:E2ETest}
+  \begin{minted}{kotlin}
+    fun nav_to_events_open_calendar_press_cancel_check_buttons_state() {
+
+        val dbDriverFactoryModule = module {
+            single { DatabaseDriverFactory(instrumentationContext) }
+        }
+        loadKoinModules(dbDriverFactoryModule)
+
+        rule.setContent { App() }
+
+        rule.onNodeWithText("Události").performClick()
+        rule.onNodeWithText("Dnes").assertIsSelected()
+
+        rule.onNodeWithContentDescription("calendar icon").performClick()
+        rule.onNodeWithText("Zrušit").performClick()
+
+        rule.onNodeWithText("Dnes").assertIsSelected()
+        rule.onNodeWithText("Zítra").assertIsNotSelected()
+        rule.onNodeWithContentDescription("calendar icon").assertIsNotSelected()
+    }
+\end{minted}
+\end{listing}
 
 \section{Zhodnocení výsledků testování}
 

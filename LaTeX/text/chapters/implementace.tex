@@ -336,7 +336,7 @@ LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYU
 
 \subsection{Obrazovka \textit{Události}}
 
-V~rámci obrazovky "Události" je používána stejná komponenta pro zobrazování událostí jako byla použita na domovská obrazovce. 
+V~rámci obrazovky \textit{Události} je používána stejná komponenta pro zobrazování událostí jako byla použita na domovská obrazovce. 
 
 %pro zobrazené událostí "EventLazyRow". 
 
@@ -345,7 +345,7 @@ událostí nejprve vybere události, které spadají do vymezeného časového i
 události patří. Následně pro každou kategorii vytvoří jeden LazyRow do kterého umístí příslušné události.
 
 % napsat to bez pohledu uzivatele
-Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je "Dnes", "Zítra" nebo může zvolit vlastní 
+Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je \textit{Dnes}, \textit{Zítra} nebo může zvolit vlastní 
 rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
 uživateli umožňuje zvolit požadované časového rozmezí.
 
@@ -452,7 +452,7 @@ Poslední implementovanou komponentou v~rámci obrazovky \textit{Parkování} je
 
 
 %\section{Tvorba UI obecně}
-\subsection{Navigace}
+\section{Navigace}
 Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
 částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v~aplikaci. 
 
@@ -595,17 +595,22 @@ na webový server města.
 \end{listing}
 
 \subsubsection*{Koin}
-Koin je moderní framework pro vkládání závislostí v~aplikacích napsaných v~jazyce Kotlin. Jedná se o~lehkou a snadno použitelnou alternativu 
-k~jiným známým knihovnám, jako je například Hilt pro platformu Android.
+Koin je moderní framework pro vkládání závislostí. Jedná se o~lehkou a snadno použitelnou alternativu 
+ke knihovnám, jako je například Hilt pro platformu Android.
  %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
 
-Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí tzv. modulů. V~modulu se specifikují veškeré závislosti a 
-jejich vytváření, a to pomocí jednoduchých funkcí nebo tzv. singletons. Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
+Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
+jejich vytváření a to pomocí jednoduchých funkcí nebo tzv. singletons. 
+
+Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
 vývojářům transparentní pohled na strukturu aplikace.
 
 \bigskip
 
-V~rámci této aplikace byl Koin použit například pro vložení databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
+V~rámci této aplikace byl Koin použit například pro vložení 
+
+
+databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
 Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většina databázové logiky je napsána v~rámci sdílené 
 logiky a v~rámci nativní logiky, byl tak implementován pouze databázový ovladač.
 
@@ -713,13 +718,13 @@ V~rámci této sekce je ukázáno jakým způsobem byla implementována logika c
 %\textit{Vrstvy architektury \ref{vrstvyArchitekturySection} }, j
 
 \subsection{Stav uživatelského rozhraní} \label{stateHandlingImpl}
-Tato podkapitola slouží k~přiblížení toho, jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state}
+Tato sekce slouží k~přiblížení toho, jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state}
 v~kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implementován v~rámci ukázkové aplikace.
 
 Z~pohledu UI se jedná o~důležitou část aplikace o~jejíž aktualizaci se stará již zmíněný ViewModel \ref{ViewModelImpl} neboli ScreenModel v~rámci
 implementované aplikace. 
 Pro zachování stavu jednotlivých obrazovek byla použita datová třída, která v~sobě umožňuje uchovávat veškeré možné stavy dané obrazovky.
-Pro ukázku toho jak byla taková datová třída implementována byla vybrána obrazovka událostí (viz \ref{lst:EventState}), která v~sobě 
+Pro ukázku toho, jak byla taková datová třída implementována byla vybrána obrazovka událostí (viz výpis kódu \ref{lst:EventState}), která v~sobě 
 například uchovává informace typu jaké filtry událostí jsou aktuálně zvoleny, zdali je otevřeno dialogové okno pro výběr datového rozmezí 
 nebo zdali jsou aktuálně načítány nějaká data.
 \begin{listing}[H]
@@ -735,9 +740,10 @@ nebo zdali jsou aktuálně načítány nějaká data.
 \end{minted}
 \end{listing}
 
-Takto zadefinované stavy je následně možné používat v~rámci jednotlivých obrazovek a ty jsou při jakékoliv změně tohoto stavu znovu sestaveny.
+Takto zadefinované stavy je následně možné používat v~rámci jednotlivých obrazovek, které jsou při jakékoliv změně tohoto stavu znovu sestaveny.
 
-být v~aplikaci použity například následujícím způsobem. Kde stav udržován 
+
+%být v~aplikaci použity například následujícím způsobem. Kde stav udržován 
 \begin{listing}[H]
 \caption{Události uživatelského rozhraní}\label{lst:StateImpl}
 \begin{minted}{Kotlin}
@@ -763,7 +769,7 @@ V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh
 
 
 \begin{listing}[H]
-\caption{Použití stavu v~aplikaci}\label{lst:StateImpl}
+\caption{Použití stavu v~aplikaci}\label{lst:EventsImpl}
 \begin{minted}{Kotlin}
   sealed interface EventsEvent {
     data object OnFilterTodayIsSelected : EventsEvent
