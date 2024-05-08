@@ -36,7 +36,7 @@ TODO% rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsah
 Na základě toho popisu byli specifikovány následující případy užití.
 
 \section{Případy užití}
-Případy užití  (zkráceně UC - z~anglického ”use case“) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
+Případy užití  (zkráceně UC - z~anglického \uv{use case}) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
 vlastnosti aplikace k~dosažení svých cílů. \cite{figmaUseCase} Tyto scénáře zachycují interakce mezi uživatelem a systémem a popisují, jak systém reaguje na určité vstupy od 
 uživatele. Zároveň popisují jakou zpětnou vazbu uživatel na základě provedených vstupů od systému dostává.
 
@@ -57,14 +57,14 @@ Hlavními aktéry systému jsou především občané příslušného města, kt
 zmíněných v~rámci této kapitoly. 
 Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data. 
 
-\smallskip
+\medskip
 \textit{Pozn. Následující případy užití jsou pro jednoduchost popsány pouze z~pohledu občanů města a z~toho důvodu 
 explicitně nespecifikují aktéra, jehož se daný případ užití týká.
 }
 
 %TODO jaci uzivatel budou aplikaci použivat
 
-\myparagraph{UC1 Poskytnutí aktuálních novinek}
+\myparagraph{UC1 Získání aktuálních novinek}
 Získání přístupu k~aktuálním novinkám a důležitým oznámením. 
 ze svého města nebo obce. %Tato funkce umožní občanům zůstat informováni o dění ve svém okolí.
 
@@ -74,7 +74,7 @@ ze svého města nebo obce. %Tato funkce umožní občanům zůstat informováni
   \item Systém uživateli vrátí detail vybrané aktuality obsahující její název, obsah, datum vytvoření, obrázek a případně odkazy na další zdroje.
 \end{enumerate}
 
-\myparagraph{UC2 Poskytnutí aktuálních událostí} 
+\myparagraph{UC2 Získání aktuálních událostí} 
 Získání přehledu o~aktuálně připravovaných akcích, událostech a kulturních 
 aktivitách ve vybraném městě nebo obci. 
 
@@ -84,7 +84,7 @@ aktivitách ve vybraném městě nebo obci.
   \item Systém uživateli poskytne detail vybrané události obsahující její název, datum konání, popis, místo konání obrázek a případně odkazy na další zdroje.
 \end{enumerate}
 
-\myparagraph{UC3 Poskytnutí událostí za základě času}
+\myparagraph{UC3 Získání událostí za základě času}
 Filtrování zobrazených událostí na základě data konání jednotlivých událostí.
 
 \begin{enumerate}
@@ -95,7 +95,7 @@ Filtrování zobrazených událostí na základě data konání jednotlivých ud
   rozdělí podle příslušných kategorií.
 \end{enumerate}
 
-\myparagraph{UC4 Poskytnutí kontaktů na místní úřady}
+\myparagraph{UC4 Získání kontaktů na místní úřady}
 Získání kontaktů na místní úřady nebo správní orgány. 
 
 \begin{enumerate}
@@ -141,11 +141,11 @@ Možnost rychle zaplatit poplatek za parkování.
   \item Systém uživateli zobrazí mapu parkovacích zón v~příslušném městě.
   \item Uživatel vybere parkovací zóno pro kterou si přeje zaplatit poplatek za parkování.
   \item Systém uživateli vrátí detailní informace týkající se vybrané parkovací zóny.
-  \item Uživatel v~detailu vybrané parkovací zóny vybere akci "zaplatit poplatek za parkování".
+  \item Uživatel v~detailu vybrané parkovací zóny vybere akci \uv{zaplatit poplatek za parkování}.
   \item Systém uživatele přesměruje na platební systém používaný daným městem pro platbu parkovného s~předvyplněnou informací o~vybrané parkovací zóně.
 \end{enumerate}
 
-\myparagraph{UC9 Poskytnutí aktuální dopravní situace}
+\myparagraph{UC9 Získání aktuální dopravní situace}
 Možnost rychle získat přehled o~aktuální dopraní situaci ve městě.
 \begin{enumerate}
   \item Systém uživateli zobrazí mapu vytíženost jednotlivých silnic v~rámci města.
@@ -160,7 +160,7 @@ obsahuje i typy uživatelů pracujících s~navrženou aplikací.
 \begin{figure}[H]
   \centering
   \includegraphics[width=.99\textwidth]{Use case diagram.png}
-  \caption{Use case diagram}
+  \caption{Diagram případů užití}
   \label{fig:use_case_diagram}
 \end{figure}
 
@@ -180,7 +180,7 @@ Pro specifikaci těchto požadavků byla použita specifikace na základě funk�
 jenž popisuje proces vývoje softwarových produktů.
 
 \subsection{Funkční požadavky}
-Funkční požadavky definují konkrétní funkce a chování systému z~pohledu uživatele. Obecně se dá říci, že specifikují
+Funkční požadavky (zkráceně FR - z~anglického \uv{functional requirement}) definují konkrétní funkce a chování systému z~pohledu uživatele. Obecně se dá říci, že specifikují
 co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. 
 %Funkční požadavky popisují očekávané výsledky a chování systému v různých situacích.
 
@@ -188,7 +188,7 @@ co má systém dělat, jaké úkoly má provádět a jaké operace musí uživat
 %užitečná, efektivní a snadno použitelná.
 
 \myparagraph{FR1 Zobrazení aktualit a událostí}
-Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě včetně jeji detailních informací.
+Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě včetně jejich detailních informací.
 
 \begin{itemize}
   \item \textit{Priorita: 5}
@@ -230,7 +230,7 @@ Systém zpracuje a zašle uživatelem nahlášenou závadu do informačního sys
 \end{itemize}
 
 \myparagraph{FR5 Zobrazit kontakty na místní úřady}
-Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady.
+Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady a jejich pracovní dobu.
 
 \begin{itemize}
   \item \textit{Priorita: 2}
@@ -253,8 +253,8 @@ Pomocí systému bude možné jednoduše a rychle zobrazit vytíženost silnice 
 \end{itemize}
 
 \subsection{Nefunkční požadavky}
-Nefunkční požadavky se oproti funkčním požadavků nezaměřují na funkčnost samotného produktu ("co má systém dělat"),
-ale spíše na jeho vlastnosti ("jaký má být") z~pohledu
+Nefunkční požadavky (zkráceně FR - z~anglického \uv{Non-functional requirement}) se oproti funkčním požadavků nezaměřují na funkčnost samotného produktu (\uv{co má systém dělat}),
+ale spíše na jeho vlastnosti (\uv{jaký má být}) z~pohledu
 výkonu, spolehlivosti, bezpečnosti, uživatelské přívětivosti a dalších aspektů, které nepřímo ovlivňují uživatelský zážitek a kvalitu systému. 
 Tyto požadavky jsou z~toto důvodu často spojeny s~technickými a provozními charakteristikami systému.
 
@@ -406,7 +406,7 @@ Nicméně některé typy uživatelských událostí může UI zpracovat přímo,
 informativní zprávy pomocí takzvaných \textit{Snackbars}.
 
 \subsection*{Doménová vrstva}
-Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. Často se tímto způsobem "odlehčují" ViewModely,
+Doménová vrstva typicky obsahuje způsoby užití nicméně pro menší aplikace jako je tato může být vynechána. Často se tímto způsobem \uv{odlehčují} ViewModely,
 které by jinak obsahovali příliš mnoho kódu, což by vedlo k~nepřehlednosti.
 
 V~tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelovou vrstvu a mapovací funkce pro pro převod
@@ -624,8 +624,8 @@ Tato výsuvná karta uživateli zobrazí detailní informace k~vybrané parkovac
 Poslední funkcí, kterou tato obrazovka nabízí je zobrazení aktuální dopravní situace ve městě, která je na mapě zobrazena spolu s~parkovacími zónami.
 
 \bigskip
-\myparagraph{Obrazovka více}
-Poslední navrženou obrazovkou je obrazovka "Více", která obsahuje přehled veškerých méně podstatných částí aplikace.
+\myparagraph{Obrazovka \textit{více}}
+Poslední navrženou obrazovkou je obrazovka \textit{Více}, která obsahuje přehled veškerých méně podstatných částí aplikace.
 
 %Jelikož je ale aplikace cílena pro široké spektrum lidí, byl zde navržena funkce, která umožňuje přidání vybraného prvku na domovskou obrazovku.
 
@@ -700,7 +700,7 @@ Výsledek základní ukázky takto navrženého systému je k~vidění na obráz
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.99\textwidth]{design_system.png}
+  \includegraphics[width=.99\textwidth]{design_system.jpg}
   \caption{Ukázka navrženého design systému}
   \label{fig:design_system}
 \end{figure}
@@ -734,7 +734,7 @@ vhodné použít a to především z~pohledu sémantiky barev nebo důležitosti
 
 Základní popisy barev použité při návrhu design systému byly odvozeny z~\textit{Material 3} design systému, v~rámci kterého mají jasně 
 vymezené role. \cite{m3ColorRoles}
-Primární barva je proto v~případě implementovaného UI například použita pro potvrzovací akci "zaplacení parkovacích poplatků". 
+Primární barva je proto v~případě implementovaného UI například použita pro potvrzovací akci \uv{zaplacení parkovacích poplatků}. 
 Sekundární barva byla naopak
 implementována například na filtrační tlačítka na obrazovce \textit{Události}, jelikož hlavním předmětem pozornosti na dané obrazovce 
 jsou zobrazované akce a ne filtrační možnosti.
