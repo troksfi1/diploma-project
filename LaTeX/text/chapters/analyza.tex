@@ -1,11 +1,11 @@
 \chapter{Analýza}
 Tato kapitola je zaměřena na představení aktuálně používaných multiplatformních frameworků a porovnání těchto frameworků
-s~technologií Compose Multiplatform. Shrnuje jejich podstatné rysy a následně slouží
+s~technologií Compose Multiplatform. Kapitola dále shrnuje jejich podstatné rysy a následně slouží
 k~jednoduššímu porovnání a vyhodnocení použitelnosti frameworku Compose Multiplatform. Zároveň je v~této kapitole detailněji
-rozebrán samotný Compose Multiplatform a jak z~pohledu implementace uživatelského rozhraní, tak i z~pohledu implementace
+rozebrán samotný Compose Multiplatform a to jak z~pohledu implementace uživatelského rozhraní, tak i z~pohledu implementace
 aplikační logiky, ke které využívá technologii Kotlin Multiplatform.
 
-Po dokončení analýzy obou těchto technologií se práce věnuje porovnáním všech těchto frameworků jednak z~pohledu architektury
+Po dokončení analýzy obou těchto technologií se práce zaměřuje na porovnání všech těchto frameworků jednak z~pohledu architektury
 a náročnosti implementace, tak z~pohledu výkonu aplikací implementovaných pomocí těchto technologií. 
 
 Konec této kapitoly je věnován limitacím frameworku Compose Multiplatform oproti nativním řešením, které přímo vyplývají 
@@ -17,10 +17,10 @@ Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně pa
 V~následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobně porovnány s~frameworkem Compose Multiplatform a u~každého z~nich 
 jsou vybrány důležité vlastnosti, které jsou pro tyto frameworky typické. 
 
-Jednotlivé frameworky jsou seřazeny postupně od nejstaršího
-po nejmladší, což umožňuje lepší náhled na to, jak se jednotlivé frameworky vyvíjely v~čase. Pro lepší ilustraci rozdílů 
-mezi jednotlivými frameworky byla zvolena 
-podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společnými rysům napříč frameworky.
+Jednotlivé frameworky jsou seřazeny postupně od vývojově TODO nejstaršího
+po nejmladší, což umožňuje lepší náhled na to, jak se frameworky vyvíjely v~čase. Pro lepší ilustraci rozdílů 
+mezi vybranými TODO frameworky byla zvolena 
+podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společným rysům napříč frameworky.
 
 %---------------------------------------------------------------
 \subsection{React Native}
@@ -28,7 +28,7 @@ podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mn
 React Native byl jedním z~prvních frameworků pro tvorbu multiplatformního UI a do jisté míry ovlivnil i ostatní popisované
 frameworky. Jeho vývoj započal ve společnosti Facebook během interního hackaton projektu a první jeho oficiálně publikovaná
 verze vyšla začátkem roku 2015. \cite{reactNativeHistory}
-Nyní se jedná o~open-source framework, kde jeho hlavním cílem je umožnit vývojářům vytvářet nativní mobilní aplikace 
+Nyní se jedná o~open-source framework, kde je jeho hlavním cílem umožnit vývojářům vytvářet nativní mobilní aplikace 
 pro platformy Android a iOS z~jednoho společného kódu napsaného v~jazyce JavaScript nebo TypeScript.
 
 \section*{Klíčové vlastnosti React Native}
@@ -42,14 +42,14 @@ komponenty, komponenty vytvořené komunitou či vlastní nativní komponenty. \
 % // todo komponenty prekladane na nativni 
     
 \myparagraph{Deklarativní zápis UI}
-React Native stejně jako React pro webové aplikace využívá pro zápis UI deklarativní způsob, 
+React Native, stejně jako React pro webové aplikace, využívá pro zápis UI deklarativní způsob, 
 při kterém využívá JSX (JavaScript XML) syntaxe k~popisu struktury UI komponent. \cite{reactNativeJSX}
 Takto zapsané UI lépe reflektovalo aktuální stav aplikace.
-Tento způsob zápisu začal na mobilních platformách růst popularitě právě díky Reactu Native, který po svém uvolnění v~roce 2013 
+Tento způsob zápisu začal na mobilních platformách růst na popularitě právě díky Reactu Native, který po svém uvolnění v~roce 2013 
 defacto nastartoval éru deklarativního zápisu UI na mobilních platformách. \cite{declarativeUIHistory}
 
 \myparagraph{Fast Refresh} 
-Fast Refresh je v~funkce, která vývojářům umožňuje okamžitě vidět výsledky provedených 
+Fast Refresh je funkce, která vývojářům umožňuje okamžitě vidět výsledky provedených 
 změn v~kódu bez nutnosti znovu sestavení aplikace. \cite{reactNativeFastRefresh}
 
 \myparagraph{JavaScript/TypeScript} 
@@ -61,14 +61,14 @@ React Native má rozsáhlou komunitu vývojářů, což vede k~bohatému ekosyst
 třetích stran, včetně mnoha dostupných knihoven a modulů. \cite{reactNativeComunity}
 
 \myparagraph{Expo framework} 
-Pro ještě snazší start vývoje poskytuje React Native Expo framework, který 
+Pro ještě snazší start vývoje poskytuje React Native možnost Expo framework, který 
 zjednodušuje proces vývoje a umožňuje rychlé prototypování. \cite{reactNativeExpo}
 
 \subsection*{Architektura frameworku React Native}
 
-React native do roku 2022 využíval architekturu založenou na návrhového vzoru Bridge, který spojoval kód napsaný v~JavaScriptu s~nativní kódem určeným pro danou platformu. 
-Tyto dva celky byly spuštěny na souběžných vláknech a komunikovaly spolu pomocí zasílání serializovaných zpráv. Časem se ale ukázalo, že se tato komunikace
-a další její charakteristiky stávají úzkým hrdlem celého systému a byla proto od verze 0.68 nahrazena JavaScriptovým rozhraním zvaným JSI. \cite{reactNativeAboutNewArch}
+React native do roku 2022 využíval architekturu založenou na návrhovém vzoru Bridge, který spojoval kód napsaný v~JavaScriptu s~nativním kódem určeným pro danou platformu. 
+Tyto dva celky byly spuštěny na souběžných vláknech a komunikovaly spolu pomocí zasílaných TODO serializovaných zpráv. Časem se ale ukázalo, že se tato komunikace
+a další její charakteristiky stávají úzkým hrdlem celého systému, a byla proto od verze 0.68 nahrazena JavaScriptovým rozhraním zvaným JSI. \cite{reactNativeAboutNewArch}
 
 JSI nově JavaScriptu umožňuje držet referenci na C++ objekty a volat nad nimi potřebné metody. \cite{reactNativeAboutNewArch} Toho využívá nový renderovací systém zvaný \textit{Fabric}, který 
 frameworku napomáhá sjednotit renderovací logiku prováděnou v~C++ a zlepšit tak interoperabilitu s~nativními platformami.
@@ -95,7 +95,7 @@ frameworku napomáhá sjednotit renderovací logiku prováděnou v~C++ a zlepši
 Jak je vidět na obrázku \ref{fig:react-natice-xplat-implementation-diagram}, tak \textit{Fabric} de facto plní funkci prostředníka, který převádí React 
 komponenty na nativní komponenty pro každou platformu. 
 
-Pro lepší představu jak dané komponenty vypadají slouží následující ukázka kódu \ref{lst:reactNativeJSX}.
+Pro lepší představu, jak dané komponenty vypadají, slouží následující ukázka kódu \ref{lst:reactNativeJSX}.
 
 \begin{listing}[H]
 \caption{Popis UI komponent pomoci JSX}\label{lst:reactNativeJSX}
@@ -119,9 +119,9 @@ Pro lepší představu jak dané komponenty vypadají slouží následující uk
 
 
 
-Na ukázce kódu \ref{lst:reactNativeJSX} jsou použity některé z~nejpoužívanějších core komponent, které se při psaní React
+Na ukázce kódu \ref{lst:reactNativeJSX} jsou aplikovány některé z~nejpoužívanějších core komponent, které se při psaní React
 Native aplikací používají. \cite{reactNativeComponents} Jak již bylo zmíněno dříve, tak tyto komponenty jsou následně převedeny 
-na nativní komponenty pro každou platformu a to jakým způsobem Fabric dané komponenty převádí se dá rozdělit do následujících tří
+na nativní komponenty pro každou platformu a to, jakým způsobem Fabric dané komponenty převádí, se dá rozdělit do následujících tří
 na sebe navazujících fází: \cite{reactNativeRenderCommitMount}
  
 %Na této ukázce je zároveň vidět použití deklarativního zápisu, které bude podrobněji probráno v následující kapitole.
@@ -130,11 +130,11 @@ na sebe navazujících fází: \cite{reactNativeRenderCommitMount}
 
 \myparagraph{Render}
 Během této fáze se z~jednotlivých komponent (React Elementů) sestaví strom elementů v~JavaScriptu (viz levá část obrázku \ref{fig:react-native-render-pipeline}) a nad tímto stromem se 
-následně spustí rekurzivní redukce, při které dojde k~vytvoření nového stromu takzvaného React Shadow Tree. (viz prostřední část obrázku \ref{fig:react-native-render-pipeline})
-\cite{reactNativeRenderCommitMount} Ten se skládá z~jednotlivých React Shadow Nodes, které reprezentují objekty v~C++ a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
+následně spustí rekurzivní redukce, při které dojde k~vytvoření nového stromu takzvaného React Shadow Tree (viz prostřední část obrázku \ref{fig:react-native-render-pipeline}).
+\cite{reactNativeRenderCommitMount} Ten se skládá z React Shadow Nodes, které reprezentují objekty v~C++, a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
 
 \myparagraph{Commit}
-V~rámci této fáze je pro každý React Shadow Node vypočítána jeho pozice a velikost na koncovém zařízení a díky tomu může renderovací systém
+V~rámci této fáze je pro každý React Shadow Node vypočítána jeho pozice a velikost na koncovém zařízení, a díky tomu může renderovací systém
 přejít k~poslední fázi zvané Mount. \cite{reactNativeRenderCommitMount}
 
 \myparagraph{Mount}
@@ -159,13 +159,13 @@ Byl vydán v~roce 2017 a získal značnou popularitu mezi vývojáři díky své
 
 \myparagraph{UI založené na widgetech} 
 Flutter využívá reaktivně deklarativní UI založené na widgetech. \cite{flutterUI} Widgety jsou základními stavebními 
-bloky Flutter aplikací, představující vše od strukturálních prvků po stylistické komponenty. \cite{flutterWidgets}
+bloky Flutter aplikací představující vše od strukturálních prvků po stylistické komponenty. \cite{flutterWidgets}
 
 \myparagraph{Hot Reload} 
 Další z~významných funkcí Flutteru, která významně zrychluje vývojový proces a zvyšuje produktivitu je funkce \textit{Hot Reload}. 
 Během vývoje běží Flutter aplikace na virtuálním počítači (Dart VM), který díky této funkci umožňuje okamžitě vidět provedené změny
-v~kódu bez nutnosti úplné rekompilace aplikace. \cite{flutterHotReload} Teprve pro vydání jsou Flutter aplikace kompilovány přímo do strojového kódu, 
-ať už jde o~instrukce Intel x64 nebo ARM, případně do JavaScriptu pokud jsou cíleny na web. \cite{flutterArchOverview}
+v~kódu bez nutnosti úplné rekompilace aplikace. \cite{flutterHotReload} Teprve pro fázi vydání jsou Flutter aplikace kompilovány přímo do strojového kódu a to 
+i v případě, že už jde o~instrukce Intel x64 nebo ARM, případně do JavaScriptu, pokud jsou cíleny na web. \cite{flutterArchOverview}
 
 
 \myparagraph{Jeden zdrojový kód pro více platforem} 
@@ -178,7 +178,7 @@ atraktivních uživatelských rozhraní. Tyto widgety zahrnují vše od základn
 pokročilé komponenty jako jsou grafy a animace. \cite{flutterWidgets2}
 
 \myparagraph{Programovací jazyk Dart}
-Aplikace vytvořené pomocí frameworku Flutter jsou psány v~jazyce Dart, moderním objektově orientovaném programovacím jazyce 
+Aplikace vytvořené pomocí frameworku Flutter jsou psány v~jazyce Dart - moderním a objektově orientovaném programovacím jazyce 
 vyvinutém společností Google. Dart je navržen pro optimální výkon a produktivitu, což ho činí vhodným pro mobilní a
 webový vývoj. \cite{dart}
 
@@ -189,9 +189,9 @@ renderuje pomocí vlastního renderovacího enginu. \cite{flutterRenderingModel}
 
 \subsection*{Architektura frameworku Flutter} 
 Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev. \cite{flutterArchOverview}
-Embedder je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
+První z nich, embedder, je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
 Každý embedder obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
-Engine je vrstva starající se o~vykreslování grafiky, kdykoli kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
+Engine je další vrstva starající se o~vykreslování grafiky, kdykoli, kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
 Framework je vrstva, která je používána vývojáři k~vytváření uživatelských rozhraní a definování chování aplikace. 
 Obsahuje hotové widgety, funkce pro manipulaci s~UI a další nástroje pro vývojáře. \cite{flutterArchOverview} 
 
@@ -203,15 +203,15 @@ Obsahuje hotové widgety, funkce pro manipulaci s~UI a další nástroje pro vý
   \label{fig:flutter_architectural_layers}
 \end{figure}
 
-Mezi hierarchicky poslední a neméně důležitou častí tohoto frameworku jsou platformě specifické knihovny Material and Cupertino. Tyto knihovny
+Mezi hierarchicky poslední a neméně důležitou část tohoto frameworku patří platformě specifické knihovny Material and Cupertino. Tyto knihovny
 jsou následně využívány widgety k~implementaci konkrétního design systému. Díky tomu je možné uživateli navodit nativní pocit z~dané aplikace.
 
 \medskip
 
-Z~pohledu UI je důležitým prvkem právě Flutter framework, který zároveň definuje jak spolu jednotlivé widgety interagují.
+Z~pohledu UI je důležitým prvkem právě Flutter framework, který zároveň definuje, jak spolu jednotlivé widgety interagují.
 
 Widget je ve Flutteru základní stavební blok pro tvorbu uživatelského rozhraní. \cite{flutterWidgets} V~následující ukázce kódu \ref{lst:flutterCode} je pro příklad použito několik 
-základních widgetů jako je \emph{Image} nebo \emph{Text} a taktéž layout widget zvaný \emph{Container} a \emph{Row} pro organizaci a 
+základních widgetů jako je \emph{Image} nebo \emph{Text}, taktéž layout widget zvaný \emph{Container} a \emph{Row} pro organizaci a 
 rozložení vnořených widgetů na obrazovce.
 
 \begin{listing}[H]
@@ -232,8 +232,7 @@ Container(
 Když Flutter potřebuje vykreslit tento blok, zavolá metodu \emph{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
 rozhraní na základě aktuálního stavu aplikace. \cite*{flutterArchOverview}
 
-Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (například kód \ref{lst:flutterCode}) do odpovídajícího stromu elementů viz obrázek \ref{fig:flutter_trees}, přičemž každý widget má jeden element a 
-každý prvek představuje určitou instanci widgetu v~daném umístění stromové hierarchie. \cite*{flutterArchOverview}
+Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (například kód \ref{lst:flutterCode}) do odpovídajícího stromu elementů viz obrázek \ref{fig:flutter_trees}, přičemž každý widget má přiřazený jeden element. Každý prvek pak představuje určitou instanci widgetu v~daném umístění stromové hierarchie. \cite*{flutterArchOverview}
 
 
 \begin{figure}[H]
@@ -246,9 +245,9 @@ každý prvek představuje určitou instanci widgetu v~daném umístění stromo
 
 \subsection{Compose Multiplatform}
 
-Compose Multiplatform je framework sloužící k~tvorbě uživatelských rozhraní použitelných na vícero platformách za 
+Compose Multiplatform je framework sloužící k~tvorbě uživatelských rozhraní použitelných na vícero platformách, za 
 jehož vývojem stojí společnost JetBrains. \cite{composeMultiplatform} Je založen na toolkitu zvaném Jetpack Compose, který je aktuálně 
-doporučovaný k~tvorbě nativních uživatelských rozhraních na platformě Android. \cite{jetpack}
+doporučovaný k~tvorbě nativních uživatelských rozhraní na platformě Android. \cite{jetpack}
 
 Podporuje platformy jako Android, iOS (Alpha), Windows, MacOS, Linux a Web (experimentální). \cite{composeMultiplatform}
 
@@ -270,7 +269,7 @@ ostatním multiplatformním technologiím. \cite{KMP}
 Díky KMP je možné použít některé části kódu z~již existujících Android aplikací i na ostatních platformách.
 
 \myparagraph{Programovací jazyk Kotlin} 
-Frontendová i backendová část aplikace jsou psány v~jazyce Kotlin pro bezproblémovou integraci se serverovou částí.
+Frontendová i backendová část aplikace je psána v~jazyce Kotlin pro bezproblémovou integraci se serverovou částí.
 
 \myparagraph{Podpora od JetBrains}
 Poskytuje stabilní podporu od vývojářského týmu JetBrains.
@@ -279,15 +278,15 @@ Poskytuje stabilní podporu od vývojářského týmu JetBrains.
 Jelikož je framework Compose Multiplatform z~velké části založen na frameworku Jetpack Compose, tak v~této kapitole bude probírána
 právě architektura toho frameworku, která bude doplněna o~drobné rozdíly mezi těmito dvěma frameworky.
 
-V~porovnání s~ostatními dříve zmíněnými frameworky slouží tento framework pouze k~tvorbě multiplatformního UI a z~toto důvodu je převážně 
+V~porovnání s~ostatními dříve zmíněnými frameworky slouží pouze tento k~tvorbě multiplatformního UI. Z~toho důvodu je převážně 
 používán s~toolkitem Kotlin Multiplatform, který dané aplikaci poskytuje i multiplatformní aplikační logiku. Jelikož se jedná o~základní 
-komponentu bez které by Compose Multiplatform nevznikl, tak je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
+komponentu, bez které by Compose Multiplatform nevznikl, je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
 
-Pro lepší ukázku toho, z~jakých částí se typická multiplatformní mobilní aplikace skládá slouží následující obrázek \ref{fig:composeIOS}, který
-vizualizuje propojenost frameworku Compose Multiplatform s~toolkitem Kotlin Multiplatform (KMP). Dále vizualizuje 
-vztah platformě specifických knihoven pro tvorbu UI jako SwiftUI k~frameworku Compose Multiplatform.
+Pro lepší ukázku toho, z~jakých částí se typická multiplatformní mobilní aplikace skládá, slouží následující obrázek \ref{fig:composeIOS}, který
+vizualizuje propojenost frameworku Compose Multiplatform s~toolkitem Kotlin Multiplatform (KMP). Dále obrázek vizualizuje 
+vztah platformě specifických knihoven pro tvorbu UI jako je SwiftUI k~frameworku Compose Multiplatform.
 Compose Multiplatform lze nicméně použít i s~technologiemi pro tvorbu UI jako je UI kit pro platformu iOS nebo
-Android views  pro platformu Android, od kterých je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
+Android views pro platformu Android. Každopádně, od těchto něco... TODO je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
 
 \begin{figure}[H]
   \centering
@@ -298,7 +297,7 @@ Android views  pro platformu Android, od kterých je postupně upouštěno a př
 
 TODO % doplnit neco o KMP a APIs
 
-Co se týče samotného UI kódu, tak ten se skládá z~jednotlivým funkcí označených anotací \code{@Composable}, která v~těle obsahuje další
+Co se týče samotného UI kódu, tak ten se skládá z~jednotlivých funkcí označených anotací \code{@Composable}, která v~těle obsahuje další
 \textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro zobrazení
 textu na obrazovce. 
 
@@ -315,12 +314,12 @@ fun MyComposable() {
 \end{minted}
 \end{listing}
 
-Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku k~čemuž dochází v~těchto třech následujících fázích:
+Takto strukturovaný kód může být následně frameworkem vykreslen na obrazovku, k~čemuž dochází v~těchto třech následujících fázích:
 
 \myparagraph{Composition}
 Během této fáze Jetpack Compose vytvoří stromovou strukturu reprezentující UI komponenty, které mají být vykresleny.\cite{jetpackPhases} 
-Tato stromová struktura je tvořena na základě do sebe zanořených Composable funkcí, které představují jednotlivé prvku uživatelského rozhraní.
-Lepé tutu skutečnost reprezentuje obrázek \ref{fig:semantics-ui-tree}, na kterém je vidět, že nejspodnější vrstvu UI, reprezentuje kořenový uzel
+Tato stromová struktura je tvořena na základě do sebe zanořených Composable funkcí, které představují jednotlivé prvky uživatelského rozhraní.
+Lepé tutu skutečnost reprezentuje obrázek \ref{fig:semantics-ui-tree}, na kterém je vidět, že nejspodnější vrstvu UI reprezentuje kořenový uzel
 sémantického stromu a následující vnořené prvky jsou jeho potomky.
 
 \begin{figure}[H]
@@ -331,15 +330,15 @@ sémantického stromu a následující vnořené prvky jsou jeho potomky.
 \end{figure}
 
 \myparagraph{Layout}
-Během této fáze se jednotlivým komponentám určí na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
+Během této fáze se komponentám určí, na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
 Compose během této fáze prochází strom UI komponent tak, že nejprve změří velikost svých potomků (pokud existují) a následně se 
-na základě těchto měření rozhodně o~vlastní velikosti. Nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
+na základě těchto měření rozhodne o~vlastní velikosti. Nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
 
-Díky použití tohoto algoritmu je k~prostupu celého stromu zapotřebí navštívit každý uzel pouze jednou, což je výhodné jelikož
+Díky použití tohoto algoritmu je k~prostupu celého stromu zapotřebí navštívit každý uzel pouze jednou, což je výhodné, jelikož
 s~přibývajícími uzly roste čas potřebný k~průchodu celého stromu pouze lineárně. \cite{jetpackPhases}
 
 \myparagraph{Drawing}
-V~rámci poslední fáze dochází s~samotnému vykreslení komponent na obrazovku koncového zařízení. \cite{jetpackPhases}
+V~rámci poslední fáze dochází k~samotnému vykreslení komponent na obrazovku koncového zařízení. \cite{jetpackPhases}
 Compose během této fáze znovu postupně prochází strom UI elementů od kořene až do listů a každý element tohoto stromu vykreslí sám sebe 
 na pozici určenou během Layout fáze. \cite{jetpackPhases}
 
