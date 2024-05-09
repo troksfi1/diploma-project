@@ -17,7 +17,7 @@ Mezi aktuálně nejpopulárnější multiplatformní frameworky jednoznačně pa
 V~následujících kapitolách jsou proto tyto nejpoužívanější frameworky podrobně porovnány s~frameworkem Compose Multiplatform a u~každého z~nich 
 jsou vybrány důležité vlastnosti, které jsou pro tyto frameworky typické. 
 
-Jednotlivé frameworky jsou seřazeny postupně od vývojově TODO nejstaršího
+Jednotlivé frameworky jsou seřazeny postupně od vývojově nejstaršího
 po nejmladší, což umožňuje lepší náhled na to, jak se frameworky vyvíjely v~čase. Pro lepší ilustraci rozdílů 
 mezi vybranými TODO frameworky byla zvolena 
 podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společným rysům napříč frameworky.
@@ -330,7 +330,7 @@ sémantického stromu a následující vnořené prvky jsou jeho potomky.
 \end{figure}
 
 \myparagraph{Layout}
-Během této fáze se komponentám určí, na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
+V této fázi se komponentám určí na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
 Compose během této fáze prochází strom UI komponent tak, že nejprve změří velikost svých potomků (pokud existují) a následně se 
 na základě těchto měření rozhodne o~vlastní velikosti. Nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
 
@@ -350,10 +350,10 @@ na pozici určenou během Layout fáze. \cite{jetpackPhases}
 Kotlin Multiplatform je často základním kamenem pro tvorbu multiplatformních aplikací založených na Compose Multiplatform a to
 z~toho důvodu, že díky KMP je možné implementovat multiplatformní aplikační logiku, která může doplňovat multiplatformní UI 
 poskytované frameworkem Compose Multiplatform. \cite{KMPUseCases} Důležitým rozdílem oproti ostatním multiplatformním frameworkům 
-je právě ta možnost, kterou KMP případně Compose Multiplatform vývojářům poskytuje. 
+je právě ta možnost, kterou KMP nebo případně Compose Multiplatform vývojářům poskytuje. 
 
-Jelikož se jedná o~SDK, tak umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat 
-v~Kotlinu celé vrstvy aplikací. Díky tomu dává vývojářům možnost sdílet napříč platformami je ty části kódu, které mají největších
+Jelikož se jedná o~SDK, umožňuje vývojářům implementovat multiplatformní funkcionality postupně, bez nutnosti implementovat 
+v~Kotlinu celé vrstvy aplikací. Díky tomu dává vývojářům možnost sdílet napříč platformami jen ty části kódu, které mají největší
 smysl implementovat pro veškeré platformy a zbylé části kódu psát v~nativním jazyce pro danou platformu. \cite{KMP}
 Lépe je tato skutečnost ilustrována na následujícím obrázku \ref{fig:KMP_vrstvy}, na kterém jsou vidět různé možnosti,
 jakými může být KMP na daných platformách implementován.
@@ -366,10 +366,10 @@ jakými může být KMP na daných platformách implementován.
 \end{figure}
 
 Zároveň je tento obrázek ukázkou toho, jak může probíhat migrace z~již naimplementované nativní aplikace na aplikaci
-multiplatformní. Nejprve je tedy možné implementovat jen malou část aplikační logiky pro víro platforem a postupem času přesouvat
-do multiplatformní části aplikace například celé vrstvy starající se o~prezentační, datovou nebo jinou aplikační logiku. \cite{KMPUseCases}
+multiplatformní. Nejprve je tedy možné implementovat jen malou část aplikační logiky pro vícero platforem a postupem času přesouvat
+do multiplatformní části aplikace například i celé vrstvy starající se o~prezentační, datovou nebo jinou aplikační logiku. \cite{KMPUseCases}
 
-Aby ale k~takové migraci mohlo dojít, tak je zapotřebí aby pro technologie používané v~původní nativní aplikaci existovali multiplatformní
+Aby k~takové migraci mohlo dojít, je zapotřebí, aby pro technologie používané v~původní nativní aplikaci existovaly multiplatformní
 knihovny nebo alespoň jejich ekvivalent.
 
 \subsubsection*{Multiplatformní knihovny}
@@ -382,12 +382,12 @@ Právě počet a vyspělost těchto knihoven se podle společností, které již
 }).
 
 V~případě, že žádná vhodná knihovna není k~dispozici, tak je zde stále možnost čehož je možné docílit díky funkcionalitě jazyka Kotlina
-zvané Expected a actual deklarace.
+zvané Expected a actual deklarace. TODO
 
 \subsubsection*{Expected a actual deklarace}\label{expectActual}
 Deklarace \textit{expected} a \textit{actual} umožňují přistupovat k~platformě specifickým API z~Kotlin Multiplatform modulů. \cite{KMPExpectActual}
-Nejprve je ve společné části potřeba vytvořit například třídu nebo funkci u~které chceme aby její obsah byl implementován typicky pomocí
-platformě specifických knihoven a tuto část v~rámci společného modulu označit klíčovým slovem \code{expect}. \cite{KMPExpectActual} Její implementaci následně provést v~rámci
+Nejprve je ve společné části potřeba vytvořit například třídu nebo funkci, u~které chceme, aby její obsah byl implementován typicky pomocí
+platformě specifických knihoven a tuto část společného modulu označit klíčovým slovem \code{expect}. \cite{KMPExpectActual} Její implementaci následně provést v~rámci
 platformě specifického kódu. Tato implementace musí být provedena pod stejným názvem a ve stejném balíku jako deklarace ve společném modulu
 a musí být označena klíčovým slovem \code{actual}. \cite{KMPExpectActual}
 
@@ -396,23 +396,23 @@ a vygeneruje z~ní jednu deklaraci obsahující actual implementaci. \cite{KMPEx
 
 \subsubsection*{Struktura KMP projektů}\label{projectStructure}
 Jak již bylo zmíněno v~úvodu, tak jedním z~hlavních cílů multiplatformního vývoje je mít 
-jeden kód, který by bylo možné zkompilovat tak, aby byl spustitelný je všech požadovaných platformách. To však u~KMP není vždy 
-možné, a proto je nutné, zvlášť rozdělit kód, který je určen pro všechny platformy a kód, který je platformě specifický. 
+jeden kód, který by bylo možné zkompilovat tak, aby byl spustitelný na všech požadovaných platformách. To však u~KMP není vždy 
+možné, a proto je nutné zvlášť rozdělit kód, který je určen pro všechny platformy a kód, který je platformě specifický. 
 
 \myparagraph{Společný kód}
 Jedná se o~kód sdílený mezi různými platformami a měl by být seskupen v~adresáři \code{commonMain}. \cite{KMPCommonCode}
 
-Kotlin kompilátor na základě zdrojových kódů umístěný v~tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. \cite{KMPCommonCode}
-Při kompilaci tak může z~téhož kódu vygenerovat několik souborů, jako například soubory pro \textit{Java Virtual Machine (JVM)}, 
+Kotlin kompilátor na základě zdrojových kódů umístěných v~tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. \cite{KMPCommonCode}
+Při kompilaci tak může z~téhož kódu vygenerovat několik souborů jako například soubory pro \textit{Java Virtual Machine (JVM)}, 
 anebo spustitelné soubory pro nativní platformu. \cite{KMPCommonCode}
 
 Nicméně i pro jednotlivé platformy existují zařízení, která například využívají specifickou architekturu, a proto je třeba pro 
 tato zařízení zkompilovat tento kód jiným způsobem.
 
 K~této kompilaci KMP používá technologii Kotlin/Native, díky které
-je možné sestavovat kód napsaný v~jazyce Kotlin do nativních binárních souborů a ten díky tomu může běžet i bez JVM. \cite{kotlinNative}
+je možné sestavovat kód napsaný v~jazyce Kotlin do nativních binárních souborů, a ten díky tomu může běžet i bez JVM. \cite{kotlinNative}
 
-Pro ukázku toho, jaká zařízení jsou technologií Kotlin/Native podporovaná slouží následují obrázek \ref{fig:KMP_struktura}
+Pro ukázku toho, jaká zařízení jsou technologií Kotlin/Native podporovaná, slouží následují obrázek \ref{fig:KMP_struktura}
 
 \begin{figure}[H]
   \centering
@@ -423,15 +423,15 @@ Pro ukázku toho, jaká zařízení jsou technologií Kotlin/Native podporovaná
 
 Při této vizualizaci veškerých podporovaných zařízeních se ale ukazuje, že rozřazení kódu do vhodných balíčků je pro orientaci
 v~multiplatformním projektu založeném na KMP klíčové. Implementace kódu pro každé jednotlivé zařízení by byla zbytečná, jelikož
-velké části kódu i těchto platformě specifických kódu mohou být součástí společného kódu. Nesdílení toho kódu s~ostatními platformami
+velké části kódu a to i těchto platformě specifických, mohou být součástí kódu společného. Nesdílení tohoto kódu s~ostatními platformami
 by tak zapříčinilo duplikaci velké části kódu. 
 
-Aby se tomuto zabránilo je vhodné využít dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které slouží 
-pro jakési seskupení kódů specifických pro konkrétní zařízení nebo platformy. Pro lepší představu o~tom jak jsou jednotlivé
-\textit{source sets} definovány slouží obrázek \ref{fig:dependson-tree-diagram},
+Aby se zdvojení zabránilo, je vhodné aplikovat dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které slouží 
+pro jakési seskupení kódů specifických pro konkrétní zařízení nebo platformy. Pro lepší představu o~tom, jak jsou jednotlivé
+\textit{source sets} definovány, slouží obrázek \ref{fig:dependson-tree-diagram},
 který vizualizuje celkem pět zadefinovaných \textit{source sets} a to konkrétně \code{commonMain}, \code{androidMain}, 
 \code{iosMain}, \code{iosSimulatorArm64} a \code{iosArm64}. V~rámci těchto zdrojových sad mohou být následně implementovány
-platformě specifické knihovny čemuž se detailněji věnuje kapitola \textit{Gradle \ref{gradleChapter}} v~implementační části práce.
+platformě specifické knihovny, čemuž se detailněji věnuje kapitola \textit{Gradle \ref{gradleChapter}} v~implementační části práce.
 
 %pro které může být například použit specifický kód nebo 
 %Díky nim je možné sdílet společný kód pouze mezi některými podporovanými platformami. \cite{KMPHierarchi}
@@ -445,23 +445,23 @@ platformě specifické knihovny čemuž se detailněji věnuje kapitola \textit{
   \label{fig:dependson-tree-diagram}
 \end{figure}
 
-Ze struktury těchto zdrojových sad zároveň vyplývá koncová struktura projektu, která se ve většině případů obsahuje adresář pro sdílený kód (\code{commonMain}), 
-který smí obsahovat pouze kód a případné knihovny, které jsou multiplatformní a pokrývají tak veškeré platformy používané v~projektu.
+Ze struktury těchto zdrojových sad zároveň vyplývá koncová struktura projektu, která ve většině případů obsahuje adresář pro sdílený kód (\code{commonMain}), 
+který smí obsahovat pouze kód a případné knihovny. Tyto knihovny a kódy jsou multiplatformní a pokrývají tak veškeré platformy používané v~projektu.
 
-A~dále na adresáře pro vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
+TO DO A~dále na adresáře pro vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
 
 \subsubsection*{Aktuální použití KMP v~praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
 
 I~přesto, že je KMP ve stabilní verzi teprve od listopadu 2023 \cite{KMPstable}, tak tuto technologii používá již několik světově 
-známých firem v~produkčním nasazení jako je například Forbes či McDonald's. Forbes uvádí, že právě díky KMP dokáží sdílet až 80 \%
+známých firem v~produkčním nasazení, jsou to například firmy Forbes či McDonald's. Forbes uvádí, že právě díky KMP dokáží sdílet až 80 \%
 aplikační logiky napříč platformami Android a iOS. \cite{KMPinForbes} 
-Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší testování \cite{KMPinMcDonalds}
+Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší testování. \cite{KMPinMcDonalds}
 
-Naopak mezi největší výzvy, které obě společnosti ve svých souhrnech uvádějí patří adaptace na KMP prostředí (především iOS vývojářů) nebo
+Naopak mezi největší výzvy do budoucna, které obě společnosti ve svých souhrnech uvádějí, patří adaptace na KMP prostředí (především iOS vývojářů) nebo
 nedostatečné množství potřebných multiplatformních knihoven (případně jejich nedostatečná vyspělost). \cite{KMPinForbes} \cite{KMPinMcDonalds}
 
-Pro porovnání s 
+Pro porovnání s TODO
 
 \emph{\uv{Od této doby jsme vyvinuli a v~produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme 
 sdílet cca 60–70 \% kódu na platformu. V~případě vývoje na dvě platformy to znamená, že v~součtu dokážeme ušetřit minimálně třetinu 
@@ -474,12 +474,12 @@ nákladů na vývoj, plus s~tím související další náklady na věci typu te
   \label{fig:KMP_vs_native}
 \end{figure}
 
-Pro upřesnění je ještě potřeba zmínit, že veškeré vyjmenované společnosti, využili pouze možnosti sdílení logiky a nepoužívají
+Pro upřesnění je ještě potřeba zmínit, že veškeré vyjmenované společnosti využily pouze možnosti sdílení logiky a nepoužívají
 tak sdílené UI pomocí Compose Multiplatform.
 
 To se ukázalo i na průzkumu, který provedla společnost JetBrains v~roce 2021, kde pouze 3,8~\% respondentů odpovědělo, že byli schopni sdílet UI ve svých aplikacích.
 
-Pro ukázku veškerých částí, které respondenti sdíleli ve svých aplikacích napříč platformami slouží obrázek \ref{fig:KMPSurvey}, který jednoznačně ukazuje, že
+Pro ukázku veškerých částí, které respondenti sdíleli ve svých aplikacích napříč platformami, slouží obrázek \ref{fig:KMPSurvey}, který jednoznačně ukazuje, že
 mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva.  
 
 \begin{figure}[H]
@@ -491,13 +491,12 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 
 \section{Porovnání vybraných multiplatformních frameworků}
 
-V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky
+V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky.
 
 
 \subsection{Porovnání výkonu} \label{performanceSection}
 
-Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří především výkon
-nativních aplikací. Z~toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů multiplatformních aplikací
+Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří především jejich výkon. Z~toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů multiplatformních aplikací
 s~nativními verzemi aplikací. 
 
 Pro testování byly použity toolkity pro tvorbu nativního UI pro platformu Android (Jetpack Compose) a iOS (SwiftUI)
@@ -507,11 +506,11 @@ frameworkem zvaném Flutter. \cite{crossPlatformFrameworksStats}
 Mezi hlavní testované parametry patřil čas nastartování testované aplikace a její velikost.
 
 \subsection*{Ukázková aplikace}
-Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace, která obsahovala jednu obrazovku, 
+Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace s jednou obrazovkou, která 
 načetla obrázky z~veřejného API a zobrazila je v~horizontálním seznamu. 
-Na každý obrázek šlo kliknout a zobrazit jej přiblížený pod seznamem. 
+Na každý obrázek šlo kliknout a zobrazit jeho přiblížení pod seznamem. 
 
-Veškeré testy proběhli na zařízeních Pixel 4a a iPhone 12 Mini a byly opakovány celkem pětkrát.
+Veškeré testy proběhly na zařízeních Pixel 4a a iPhone 12 Mini a byly opakovány celkem pětkrát.
 
 %Verze Compose Multiplatform 1.4
 
@@ -520,15 +519,15 @@ Veškeré testy proběhli na zařízeních Pixel 4a a iPhone 12 Mini a byly opak
 
 \myparagraph{Velikost aplikace} 
 
-Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform je identická
-s~velikostí nativní aplikace pro Android. Je tomu tak z~toho důvodu, že výsledná aplikace pro Android neobsahuje kód 
-pro jiné platformy. \cite{} Kdežto u~velikosti iOS aplikace je situace výrazně jiná. Samotná aplikace pro iOS je v~porovnání
+Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform, je identická
+s~velikostí nativní aplikace pro Android. Je tomu tak z důvodu, že výsledná aplikace pro Android neobsahuje kód 
+pro jiné platformy. \cite{} Kdežto u~velikosti iOS aplikace je situace výrazně odlišná. Samotná aplikace pro iOS je v~porovnání
 s~její nativní aplikací o~23,1 MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
-která je na platformě Android dostupná, kdežto na platformě iOS ne a proto tam musí být spolu s~aplikací dodána. \cite{}
+která je na platformě Android dostupná, kdežto na platformě iOS se nenachází. Knihovna proto musí být spolu s~aplikací dodána. \cite{}
 
 Zajímavé je následné porovnání s~velikostí aplikace založené na frameworku Flutter, jelikož ta, stejně jako Compose
-Multiplatform využívá knihovnu Skia, ale i přesto je o~něco menší než Compose Multiplatform aplikace na platformě iOS.
-Součástí aplikace Flutter ještě vlastní engine, který je součástí aplikace a zvětšuje tak velikost aplikace asi o~3–4 MB pro Android a 10 MB 
+Multiplatform, využívá knihovnu Skia, ale i přesto je o~něco velikostně menší než Compose Multiplatform aplikace na platformě iOS.
+Součástí aplikace Flutter je ještě vlastní engine, který je součástí aplikace a zvětšuje tak velikost aplikace asi o~3–4 MB pro Android a 10 MB 
 pro iOS. \cite{flutterSize}
 
 \begin{figure}[H]
@@ -541,9 +540,9 @@ pro iOS. \cite{flutterSize}
 \myparagraph{Rychlost spuštění aplikace}
 
 Při porovnání rychlosti spuštění Compose Multiplatform aplikace na platformě Android není mezi rychlostmi téměř žádný
-rozdíl stejně tak jako tomu při porovnání velikosti aplikací v~předchozí kapitole. O~něco delší dobu spuštění měla
+rozdíl, stejně tak jako tomu bylo při porovnání velikosti aplikací v~předchozí kapitole. O~něco delší dobu spuštění měla
 aplikace napsaná pomocí frameworku Flutter, která se spouštěla v~průměru o~221 ms déle než Compose Multiplatform aplikace. 
-Toto zpomalení je s~nejvyšší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s~oficiální
+Toto zpomalení je s největší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s~oficiální
 Flutter dokumentací. \cite{flutterPerformance}
 
 U~posledního porovnání na platformě iOS se doba spuštění aplikací založených na Compose Multiplatform a frameworku 
@@ -600,10 +599,10 @@ Jak již bylo zmíněno v~kapitole \textit{Kotlin Multiplatform \ref{kmpSection}
 především nedostatečné množství knihoven. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o~něco lepší. Většina omezení, která jsou
-aktuálně spjata s~UI se týká především plynulosti a nebo použití nativně vypadajících komponent na platformě iOS.
+aktuálně spjata s~UI, se týká především plynulosti anebo použití nativně vypadajících komponent na platformě iOS.
 Ta v~její nativní podobě používá styl zvaný Cupertino, který frameworkem Compose Multiplatform není aktuálně oficiálně podporován. 
-Co se týče plynulosti UI na platformě iOS, tak aktuálně se nejvíce řeší problém s~rychlostí vykreslování.
+Co se týče plynulosti UI na platformě iOS, se momentálně nejvíce řeší problém s~rychlostí vykreslování.
 
 Většina výše zmíněných problémů se již řeší a je zmíněna v~Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap} Konkrétně
-se jedná o~veškeré zmíněné o~problémy kromě zařazení HarmonyOS mezi podporované platformy.% // todo 
-V~tomto plánu je mimo jiné uvedeno, že aktuální prioritu číslo jedna je dostání frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
+se jedná o~veškeré zmíněné problémy kromě zařazení HarmonyOS mezi podporované platformy. % // todo 
+V~tomto plánu je mimo jiné uvedeno, že aktuální prioritou číslo jedna je změna frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
