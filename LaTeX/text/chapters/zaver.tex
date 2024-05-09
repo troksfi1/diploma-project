@@ -50,117 +50,111 @@ platformy se dokumentace od JetBrains rozříší.
 problémy s~IDE 
 
 \section{Závěr o~použitelnosti frameworku}
-Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, tak aby bylo toto hodnocení co 
-nejobjetivnější, tak bude rozvrženno do několika částí.
-
-Nejprve bude framework porovnán na základě provedné analýzy a to jednak z~pohledu architektury, 
-
-Co se pokrytí aktuálně používaných platforem týka, tak Compose Multiplatform pokrývá většinu z~akluálně nejžádanějších 
-platforem pro vývoj multipaltformních aplikací a dá se tak očekávat, že po uvolnění stabilních verzí pro veškeré 
-aktuálně nabízené platformy se jeho obliba ještě zvýší. 
-
-V~oblasti výkonu se Compose Multiplatform docela dobře daří a je konkurenceschopný s~ostatními multiplatformními frameworky.
-V~případě větších projektů by však tento rozdíl mohl být výraznější.
-
-Rychlost vývoje je také významným hlediskem. 
-Co se rychlosti vývoje týká, tak při tvorbě UI, tak V~porovnání s~jinými frameworky, jako je například Flutter, má Compose Multiplatform strukturu kódu s~méně znaky.
+Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, při které by měla být dodržena maximální 
+transparence, hodnocení bude rozvrženo do několika částí. Nejprve bude framework porovnán na základě provedené analýzy a to jednak 
+z~pohledu architektury, tak z TODO
 
 
-V~oblasti optimalizace má však Compose Multiplatform ještě poměrně velké nedostatky a to zejména v~plynulosti provozu na 
-platformě iOS.
+\myparagraph{Podporované platformy}
+Co se pokrytí aktuálně podporovaných platforem týká, tak Compose Multiplatform pokrývá většinu z~aktuálně nejžádanějších platforem pro 
+vývoj multiplatformních aplikací a dá se tak očekávat, že po uvolnění stabilních verzí pro veškeré aktuálně nabízené platformy se 
+jeho obliba ještě zvýší.
 
 
-Pokud jde o~připravenost IDE, situace je obdobná.  Při implementaci a to před
-opriti Flutteru nenebízí tolik možnonstí upravy už jako  například zanoření některých kompent do jiných, ale díky jednoduchosti
-zápisu UI jsou tyto akce o~něco jednosušší.
+% A protože je platforma Compose Multiplatfom poměrně rýchlá ve svém vývoji v porovnání s jinými frameworky, snadno tak dotahuje 
+% svoji konkurenci. Například při tvorbě UI nebo v porovnání s frameworky jako je například Flutter, má Compose Multiplatform strukturu 
+% kódu s~méně znaky. 
 
-A~co se výběru IDE týka, tak z~otestovaných IDE Android Studio jednoznačně předčilo Fleet. Nicméně tato situace se může, 
-taktéž rychle změnit.
-
-V~průběhu implementace bylo narazeno na několik problému, které byli nahlášeny a postupně se na nich začína pracovat.
-
-Z~pohledu komunity se s~,
-
-
-Z~pohledu dokumentace jsou zde velikoé nedostky, ale díky Jetpack Compose není potřeba a většina postupů jak jednotlivé části 
-UI tvořit je dobře dokumentovaná společností Google. 
-
-Z~pohledu KMP je tato situace horší
-I~přesto, že je KMP již ve stabilní verzi, tak dokumentace oproti ostatním technologiím velmi zaostává.
-
-
-
-Následně bude porovnán z~pohledu implementace  jak z~pouheledu tvorby UI, tak z~pohledu tvorby aplikační logiky,
-
-
-
-Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že 
-je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací, ačkoli existují oblasti, 
-ve kterých může být ještě zlepšen.
-
-
-Co se týka náročnosti implementace aplikac i na ostatních platformách, tak zde byla náročnost
-o~něco zvýšena kvůli nemožnosti implemtace iOS aplikace již od začátku. jelikož je ke kompilaci potřeba 
-
-
-Podařilo se potvrdit, že množstí sdíleného kódu, které základě provedné analýzy bylo zjištěno je můžné sdílet. V~rámci implementované aplikace
-bylo orecento sdíleného kódu ještě větší a to především díky sdílení UI pomocí Compose Multiplatform, ale také možná kvůli menšímu rozsahu
-aplikace oproti porovnávaným aplikacím. 
-
-
-% kapitola main pains
-% https://blog.jetbrains.com/kotlin/2021/01/results-of-the-first-kotlin-multiplatform-survey/
-
-
-\section{Shrnutí dosažených výsledků}
-Podařilo se navrhnou aplikaci tak aby fungovala na více platformách.
-
-Součástí návrhu byl také obecně použitelný designový systém, který může být použit k~rozšíření nebo tvorbě nových aplikací v~navrženém stylu.
-
-Aplikace byla úspěšně přizpůsobena konkrétnímu městu a napojena na jeho infrastrukturu pro získávání dat o~událostech, 
-aktualitách a parkovacích zónách. Díky implementaci lokální databáze je aplikace použitelná i v~offline režimu.
-
-Díky navržené architektuře je možné aplikaci kdykoliv v~budoucnu rozšířit o~další funkce. 
-
-Poskytuje občanů rychlí přehle o~aktálním dění ve městě a zároveň 
-
-Poskytuje moderní UI, které odpovídá moderním standartům společnost Google pro vývoj mobilních aplikací.
-vsetne fukci jako je vyuziti tmavého motivu.
-
-Podařilo se naimplementovat multipaltformí aplikaci, která splňuje požadavky zadání a je spusittelná na mobilních 
-platformách Android a iOS. 
-
-Zároveň shlukuje co největší množství kódu ve společné části, čím ukazuje možnosti frameworku a 
-
-zarověň ale ukazaje jak framework umožnuje implementaci navních částí, 
-
-Jedinečný design, pokocí čeho ukažu možnosti daklarativního zápisu UI pomocí Compose Multiplatform.
-
-Z~pohledu UI splnňuje veškeré stanovené požadavky
-
-S~podařilo naimplementovat UI testy, které testují klíčové částí uživatelského rozhraní.
-
-Ukázalo se, že i v~současné fázi vývoje je možné pomocí této technologie vytvořit použitelnou aplikaci.
-
-\section{Zhodnocení splnění cílů práce}
-\section{Návrhy pro budoucí vývoj a výzkum}
-Z~pohledu aplikace jsou zde velké možnosti pro budoudcí vývoj 
-at už z~pohledu rychlosti UI, propojení s~dalšími systémy města, implementaci další UI testu a unit testu
-otestovani na vize zařízeních
-
-A~navhnout tak pro města intuitivní aplikace, která by díky multipaltformím vlastnostem pokryla co nejvetší množství zařízení
-a zároven by byla snadněji udržovatelná.
-
-Zároveň umožnuje snadnou imtegraci mapových prvků 
-
-nicméně 
-
-
-Časem se zajisté ukáží
+\myparagraph{Výkon a optimalizace}
+V~oblasti výkonu je dle sekce \textit{Porovnání výkonu \ref{performanceSection}} Compose Multiplatform konkurenceschopný s~ostatními 
+multiplatformními frameworky, ale kdyby bylo srovnání výkonu provedeno na rozsáhlejších projektech, tak je možné, že by rozdíl mezi 
+naměřenými výsledky by mohl být výraznější.
 
 \bigskip
 
-mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
+V~oblasti optimalizace má však Compose Multiplatform ještě poměrně velké nedostatky a to zejména co se týká plynulosti provozu na platformě iOS.
+Pro tu je však Compose Multiplatform stále ve verzi Alfa a z toho důvodu se dá očekávat brzké zlepšení.
+%a dá se tak očekávat, že tato oblast bude pro uspěšnost technologie Compose Multiplatform klíčová.
 
+\myparagraph{Optimalizace nástrojů pro vývoj} %DONE
+Pokud jde o~připravenost nástrojů pro vývoj, tak mezi hlavními šesti problémy, které dle posledního oficiálního výzkumu KMP
+provází jsou celkem tři, které se optimalizace nástrojů pro vývoj týkají. Konkrétně šlo o problémy s nastavením sestavovaní, problémy s 
+vývojovým prostředím a o problém co se rychlosti sestavování týká. \cite{imgSurvey}. Aktuálně nelze objektivně říci jaké problémy již byly 
+vyřešeny a jaké ne, ale v rámci procesu implementace této aplikace byly největší problémy detekovány právě u podpory vývojových prostředí.
+
+Z~testovaných prostředí se vývojové prostředí Android Studio jevilo z z pohledu optimalizace lépe optimalizované než konkurenční vývojové 
+prostředí Fleet. Na druhou stranu z pohledu funkcí podporuje Fleet některé užitečné funkce jako například \textit{Preview}, které buďto
+Android Studio nepodporovalo nebo se u nich vyskytovali zásadní problém, kvůli kterým je nebylo možné použít. Dalším příkladem může být 
+například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter Icons}, které pro multiplatformní testy nebylo možné vůbec použít. 
+
+% Nicméně při zmíněné rychlosti vývoje prostředí Fleet se tato situace může taktéž rychle změnit.
+
+% Razantní rozdíl oproti Flutteru je v možnostech jednotlivých úprav. Jedním z příkladů je zanoření určitých komponent do jiných, 
+% které v Compose Multiplatform nejsou možné. Benefit v oblasti noření komponet je naopak jednoduchost zápisu UI, které provází 
+% celý framework, a proto jsou tyto akce vždy o něco jednodušší.
+
+
+% \myparagraph{Náročnost implementace}
+% Co se týká náročnosti implementace aplikace i na ostatních platformách, tak zde byla náročnost o~něco zvýšena kvůli nemožnosti implementace 
+% iOS aplikace již od začátku. jelikož je ke kompilaci potřeba ? . 
+
+% I když v~průběhu implementace bylo zjištěno několik problémů (jaký?), zjištěné problémy byly nahlášeny a jsou v procesu nápravy.
+
+\myparagraph{Dokumentace}
+Z~pohledu dokumentace má Compose Multiplatform významné nedostatky, ale díky tomu, že je z velké části odvozen z frameworku Jetpack Compose,
+tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí co se tvorby uživatelského rozhraní týká je totiž dobře dokumentovaná 
+společností Google. Co se přidružené technologie KMP týká, tak ta v porovnání s ostatním technologie v oblasti dokumentace stejně jako Compose 
+Multiplatform zaostává i~přesto, že se již nachází ve stabilní verzi.
+
+
+\section*{Shrnutí}
+Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že
+je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací, ačkoli existují oblasti,ve kterých může být ještě zlepšen.
+
+
+\section{Shrnutí dosažených výsledků}
+Co se vytvořené aplikace týká, tak ta byla úspěšně přizpůsobena konkrétnímu městu a napojena na jeho infrastrukturu pro získávání dat 
+o~událostech, aktualitách a parkovacích zónách. Díky implementaci lokální databáze je navíc aplikace použitelná i v~offline režimu, čímž 
+usnadňuje přístup všem uživatelům a urychlí přehled o~aktálním dění ve městě. Navržená architektura je zároveň dostatečně flexibilní, 
+aby pokryla případně změny ve struktuře města. Městská struktura, tak může efektivněji reagovat na náhlé změny v organizaci města.
+
+Co se frameworku Compose Multiplatform týká, tak zde se podařilo základě prakticky sestavené aplikace potvrdit, že aplikace je schopná 
+sdílení určitého množství kodu. Přími při implementaci aplikace bylo procento sdíleného kódu násobně větší oproti dosavadním aplikacím
+požužívaných v praxi. Množství sdíleného kódu se zvýšilo především díky sdílení UI pomocí Compose Multiplatform. 
+V rámci výsledků je ale nutné zohlednit fakt, že rozsah zkušební aplikace nedosahuje 
+takových rozměrů oproti ostatním porovnávaným aplikacím. Každopádně lze konstatovat, že se i v~současné fázi vývoje se podařilo navrhnout
+aplikaci tak, aby fungovala na více platformách a zároveň že pomocí této technologie možné vytvořit použitelnou aplikaci a z~pohledu UI 
+splnňovat veškeré stanovené požadavky které mohou být pro aplikaci menšího rozměru dostačující.
+
+\bigskip
+
+Multipaltformí aplikaci splňuje požadavky zadání a je spustitelná na mobilních platformách Android, iOS a desktop. Její univerzalitu 
+mimo jiné podporuje i nově navržený designový systém zmíněný v kapitolách … (výše). Obecně použitelný designový systém může být použit
+ k~rozšíření nebo tvorbě nových aplikací v~navrženém stylu typu Material design 3, který ji používán jako uživatelsky přívětivé rozhraní 
+ od společnosti Google. Mimo to aplikace poskytuje moderní UI a odpovídá tedy moderním standartům společnost Google pro vývoj mobilních 
+ aplikací.Uživatelskou přívětivost vsetne jiných fukci doplňuje vyuziti tmavého motivu (řežimu?).(Jedinečný design, pokocí čeho ukažu 
+ možnosti daklarativního zápisu UI pomocí Compose Multiplatform.)- moc nechapu
+Díky navržené architektuře je možné aplikaci kdykoliv v~budoucnu rozšířit o~další funkce a přizpůsobovat ji snadvo v průběhu času novým 
+požadavkům. (Zároveň shlukuje co největší množství kódu ve společné části, čím ukazuje možnosti frameworku a zarověň ale ukazaje jak 
+framework umožnuje implementaci navních částí,) - dopln sám, moc nechapu.
+
+Nakonec se podařilo naimplementovat UI testy, které testují klíčové částí uživatelského rozhraní. 
+
+
+
+%\section{Zhodnocení splnění cílů práce}
+\section{Návrhy pro budoucí vývoj a výzkum}
+Z~pohledu aplikace jsou zde velké možnosti pro budoucí vývoj a to ať už z~pohledu rychlosti UI, propojení s~dalšími systémy města, 
+implementaci další UI testu a unit testu otestovani na vize zařízeních. Výsledkem by tak mohla být obecně použitelná aplikaci pro města,
+která by díky multiplatformním vlastnostem pokryla co největší množství zařízení a zároveň by byla snadněji a levněji udržovatelná.
+
+Časem se zajisté ukáží
+Při rychlosti vývoje toho frameworku se jistě brzy ukáží další možnosti využití.
 uz je prubehu psani teto prace vzniklo nekolik novych funkcionalit ktere nebyli otesovany jako napriklad moznost
 implementovat viepodely na platforme ios stejne jako je tomu na android zarizenich.
+
+%Zároveň se zde nabízí rozšíření aplikace i na další podporované platformy
+
+
+
+mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
