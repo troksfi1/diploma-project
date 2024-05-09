@@ -16,7 +16,7 @@ data class EventsState(
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
     val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val timeFilteredEvents: List<Event> = emptyList(),
-    val filteredEventsCategories: List<EventCategory> = emptyList(),
+    val filteredEventCategories: List<EventCategory> = emptyList(),
     val selectedDateStart: LocalDateTime = LocalDateTime(
         Clock.System.todayIn(TimeZone.currentSystemDefault()),
         LocalTime(0, 0)

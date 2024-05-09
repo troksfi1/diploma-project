@@ -3,9 +3,7 @@ import SwiftUI
 @main
 struct iOSApp: App {
     init() {
-        startKoin {
-           modules(appModule())
-        }
+        KoinHelperKt.doInitKoin()
     }
 
 	var body: some Scene {

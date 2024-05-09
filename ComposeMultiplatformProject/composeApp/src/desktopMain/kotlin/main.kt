@@ -5,7 +5,6 @@ import androidx.compose.ui.window.application
 import cz.cvut.fit.nidip.troksfil.App
 import cz.cvut.fit.nidip.troksfil.data.local.DatabaseDriverFactory
 import cz.cvut.fit.nidip.troksfil.di.appModule
-import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
@@ -17,10 +16,8 @@ private val dbDriverFactoryModule = module {
 fun main() = application {
 
     startKoin {
-        modules(appModule())
+        modules(appModule() + dbDriverFactoryModule)
     }
-
-    loadKoinModules(dbDriverFactoryModule)
 
     Window(onCloseRequest = ::exitApplication, title = "ComposeMultiplatformProject") {
         App()

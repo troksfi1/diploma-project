@@ -152,7 +152,7 @@ class EventsScreen : Screen {
                 }
 
                 FlowColumn {
-                    state.filteredEventsCategories.forEach {
+                    state.filteredEventCategories.forEach {
                         EventLazyRow(it, state)
                     }
                 }

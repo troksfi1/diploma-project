@@ -126,6 +126,7 @@ kotlin {
         }
 
         desktopTest.dependencies {
+            implementation(compose.desktop.uiTestJUnit4)
             implementation(compose.desktop.currentOs)
         }
     }
@@ -170,6 +171,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.core)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.places)
+    implementation(libs.androidx.ui.tooling.preview.desktop)
+    implementation(libs.androidx.ui.tooling.preview.android)
     commonMainApi(libs.mvvm.core)
     commonMainApi(libs.mvvm.compose)
     commonMainApi(libs.mvvm.flow)

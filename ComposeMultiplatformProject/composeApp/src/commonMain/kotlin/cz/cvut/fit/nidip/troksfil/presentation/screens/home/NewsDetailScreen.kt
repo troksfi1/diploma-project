@@ -48,7 +48,7 @@ class NewsDetailScreen(private var news: News) : Screen {
                         Button(onClick = { navigator.pop() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
+                                contentDescription = "Arrow Back",
                             )
                         }
                     }

@@ -37,7 +37,7 @@ fun NewsItem(news: News, onItemClick: (News) -> Unit) {
     ) {
         AsyncImage(
             model = news.thumbnailUri,
-            contentDescription = "Sample",
+            contentDescription = "News thumbnail",
             contentScale = ContentScale.Crop,
 
             modifier = Modifier

@@ -47,7 +47,7 @@ class EventsScreenModel(
                             selectedDateStart = LocalDateTime(today, LocalTime(0, 0)),
                             selectedDateEnd = LocalDateTime(today, LocalTime(23, 59)),
                             timeFilteredEvents = timeFilteredEvents,
-                            filteredEventsCategories = getCategoriesOfFilteredEvents(
+                            filteredEventCategories = getCategoriesOfFilteredEvents(
                                 timeFilteredEvents
                             )
                         )
@@ -69,7 +69,7 @@ class EventsScreenModel(
                             selectedFilterOption = FilterOption.TOMORROW,       //todo it nebo _state
                             selectedDateStart = LocalDateTime(tomorrow, LocalTime(0, 0)),
                             selectedDateEnd = LocalDateTime(tomorrow, LocalTime(23, 59)),
-                            filteredEventsCategories = getCategoriesOfFilteredEvents(filteredEvents)
+                            filteredEventCategories = getCategoriesOfFilteredEvents(filteredEvents)
                         )
                     }
                 }
@@ -96,7 +96,7 @@ class EventsScreenModel(
                             selectedDateStart = startDateTime,
                             selectedDateEnd = endDateTime,
                             selectedFilterOption = FilterOption.SELECTED_DATE,
-                            filteredEventsCategories = getCategoriesOfFilteredEvents(filteredEvents)
+                            filteredEventCategories = getCategoriesOfFilteredEvents(filteredEvents)
                         )
                     }
                 }

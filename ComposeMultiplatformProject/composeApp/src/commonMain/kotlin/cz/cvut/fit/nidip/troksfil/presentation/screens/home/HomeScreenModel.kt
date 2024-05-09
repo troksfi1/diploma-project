@@ -24,6 +24,7 @@ class HomeScreenModel(
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
     }
+
     init {
         screenModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             val news = repository.getAllNews()
