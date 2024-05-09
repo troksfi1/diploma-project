@@ -97,23 +97,21 @@ například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter
 
 \myparagraph{Dokumentace}
 Z~pohledu dokumentace má Compose Multiplatform významné nedostatky, ale díky tomu, že je z velké části odvozen z frameworku Jetpack Compose,
-tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí potřebných pro tvorbu uživatelského rozhraní je totiž dobře dokumentovaná 
+tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí pro tvorbu uživatelského rozhraní je totiž dobře dokumentovaná 
 společností Google. Co se přidružené technologie KMP týká, tak ta v porovnání s ostatními technologiemi v oblasti dokumentace stejně jako Compose 
 Multiplatform zaostává i~přesto, že se již nachází ve stabilní verzi.
 
 \myparagraph{Náročnost implementace}
 %Co se týká náročnosti implementace aplikace, tak ta nebýt výše zmíněných problémů, tak implementace probíhala poměrně bezproblémově.
 
-Vyjma vyse zminenych problemu, ktere se naskytly během procesu implementace, cely ukon probel temer bez chyb. Tato bezchybovost a 
-jednoduchost se tedy stava velkou výhodou tohoto frameworku. Oproti jin7m frameworkum je možnost postupné integrace do již stávajících 
+Vyjma výše zminěných problemů, které se naskytly během procesu implementace, celý úkon proběhl téměr bez chyb. Tato bezchybovost a 
+jednoduchost se tedy stává velkou výhodou tohoto frameworku. Oproti jiným frameworkům je možnost postupné integrace do již stávajících 
 aplikací, která v aktuální fázi přecházení od imperativních způsobů zápisu UI k deklarativním způsobům může tomuto frameworku pomoct 
 nabýt na popularitě. 
 
 
 \section*{Shrnutí}
-Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že jej je aktuálně možné  
-
-je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací a ačkoli existují oblasti, ve kterých může být ještě zlepšen.
+Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací, i když existují oblasti, ve kterých může být ještě zlepšen.
 
 
 \section{Shrnutí dosažených výsledků}
@@ -122,43 +120,32 @@ o~událostech, aktualitách a parkovacích zónách. Díky implementaci lokáln�
 usnadňuje přístup všem uživatelům a urychluje tak přehled o~aktuálním dění ve městě. Navržená architektura je zároveň dostatečně flexibilní, 
 aby pokryla případně změny ve struktuře města.
 
-Co se frameworku Compose Multiplatform týká, tak zde se podařilo základě prakticky sestavené aplikace potvrdit, že aplikace je schopná 
-sdílení určitého množství kodu. Přími při implementaci aplikace bylo procento sdíleného kódu násobně větší oproti dosavadním aplikacím
-požužívaných v praxi. Množství sdíleného kódu se zvýšilo především díky sdílení UI pomocí Compose Multiplatform. 
+Co se frameworku Compose Multiplatform týká, tak zde se podařilo na základě prakticky sestavené aplikace potvrdit, že aplikace je schopná 
+sdílení určitého množství kódu. Přímo při implementaci aplikace bylo procento sdíleného kódu násobně větší oproti dosavadním aplikacím
+používaných v praxi. Množství sdíleného kódu se zvýšilo především díky sdílení UI pomocí Compose Multiplatform. 
 V rámci výsledků je ale nutné zohlednit fakt, že rozsah zkušební aplikace nedosahuje 
 takových rozměrů oproti ostatním porovnávaným aplikacím. Každopádně lze konstatovat, že se i v~současné fázi vývoje se podařilo navrhnout
-aplikaci tak, aby fungovala na více platformách a zároveň že pomocí této technologie možné vytvořit použitelnou aplikaci a z~pohledu UI 
-splnňovat veškeré stanovené požadavky které mohou být pro aplikaci menšího rozměru dostačující.
+aplikaci tak, aby fungovala na více platformách a zároveň je možné pomocí této technologie vytvořit použitelnou aplikaci. Z~pohledu UI 
+splnňuje veškeré stanovené požadavky, které mohou být pro aplikaci menšího rozměru dostačující.
 
 \bigskip
 
-Multipaltformí aplikaci splňuje požadavky zadání a je spustitelná na mobilních platformách Android, iOS a desktop. Její univerzalitu 
-mimo jiné podporuje i nově navržený designový systém zmíněný v kapitolách … (výše). Obecně použitelný designový systém může být použit
- k~rozšíření nebo tvorbě nových aplikací v~navrženém stylu typu Material design 3, který ji používán jako uživatelsky přívětivé rozhraní 
- od společnosti Google. Mimo to aplikace poskytuje moderní UI a odpovídá tedy moderním standartům společnost Google pro vývoj mobilních 
- aplikací.Uživatelskou přívětivost vsetne jiných fukci doplňuje vyuziti tmavého motivu (řežimu?).(Jedinečný design, pokocí čeho ukažu 
- možnosti daklarativního zápisu UI pomocí Compose Multiplatform.)- moc nechapu
-Díky navržené architektuře je možné aplikaci kdykoliv v~budoucnu rozšířit o~další funkce a přizpůsobovat ji snadvo v průběhu času novým 
-požadavkům. (Zároveň shlukuje co největší množství kódu ve společné části, čím ukazuje možnosti frameworku a zarověň ale ukazaje jak 
-framework umožnuje implementaci navních částí,) - dopln sám, moc nechapu.
 
-Nakonec se podařilo naimplementovat UI testy, které testují klíčové částí uživatelského rozhraní. 
+
 
 
 
 %\section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
 Z~pohledu aplikace jsou zde velké možnosti pro budoucí vývoj a to ať už z~pohledu rychlosti UI, propojení s~dalšími systémy města, 
-implementaci další UI testu a unit testu otestovani na vize zařízeních. Výsledkem by tak mohla být obecně použitelná aplikaci pro města,
+implementaci dalších UI testů a unit testů na více zařízeních. Výsledkem by tak mohla být obecně použitelná aplikace pro města,
 která by díky multiplatformním vlastnostem pokryla co největší množství zařízení a zároveň by byla snadněji a levněji udržovatelná.
 
-Časem se zajisté ukáží
 Při rychlosti vývoje toho frameworku se jistě brzy ukáží další možnosti využití.
-uz je prubehu psani teto prace vzniklo nekolik novych funkcionalit ktere nebyli otesovany jako napriklad moznost
-implementovat viepodely na platforme ios stejne jako je tomu na android zarizenich.
+Už průbéhu psaní této práce vzniklo několik nových funkcionalit, které nebyly otestovány jako například možnost
+implementovat Viewmodely na platformě iOS, stejně jako je tomu na android zařízeních.
 
 %Zároveň se zde nabízí rozšíření aplikace i na další podporované platformy 
 
 
 
-mohou ukázat další možnosti využití tohoto frameworku na jiných platformách
