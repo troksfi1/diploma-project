@@ -306,7 +306,7 @@ byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
 \section{Architektura aplikace}
 Navržená architektura se z~velké části drží architektonických principů shrnutých v~Android dokumentaci. \cite{andDocArch}
 
-TODO %možné architektury pro vývoj mobilních aplikací
+%TODO %možné architektury pro vývoj mobilních aplikací
 
 \subsection*{Důležité principy}
 
@@ -427,11 +427,10 @@ Datová vrstva se zabývá persistencí dat a komunikací s~datovými úložišt
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
-K~tomu aby aplikace fungovala, tak jak bylo popsáno v~úvodu této kapitoly, je zapotřebí aby  TODO datová vrstva této aplikace obsahovala mechanismy pro
- získání dat z~informačních systémů města. Jelikož se na základě provedené analýzy data v~informačních systémech nachází na ... ve formátu XML, 
-
-
- byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města), tak jak je tomu v~levé části obrázku \ref{fig:arch_data_layer}. 
+K~tomu aby aplikace fungovala, tak jak bylo popsáno v~úvodu této kapitoly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+ získání dat z~informačních systémů města a vhodně je kombinovala s daty uloženými v lokální databázi.
+ 
+Jelikož se data v~informačních systémech nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města), tak jak je tomu v~levé části obrázku \ref{fig:arch_data_layer}. 
 
 Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o poskytnutí dříve načtených dat v~případech, kdy aplikace nemá přístup k~internetu.
 
@@ -450,7 +449,7 @@ Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o posk
 %   \label{fig:arch_data_layer_principle}
 % \end{figure}
 
-Mezi důležité prvky datové vrstvy patří:
+Mezi důležité prvky datové navržené pro implementaci datové vrstvy patří následující části:
 
 \myparagraph{DAOs}
 DAOs jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. Tyto objekty 
@@ -470,7 +469,7 @@ Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úlo�
 
 \bigskip
 
-Tyto vrstvy jsou spolu propojeny následujícím způsobem.
+Tyto vrstvy jsou pak spolu propojeny následujícím způsobem:
 
 \begin{figure}[H]
   \centering
@@ -481,19 +480,6 @@ Tyto vrstvy jsou spolu propojeny následujícím způsobem.
 
 \bigskip
 
-Po shrnutí dosavadně zmíněních poznatků týkajících se architektury aplikace byly jednotlivé vrstvy převedeny do jednotlivých balíků s~následující
-strukturou:
-
-\dirtree{%
-.1 data\DTcomment{datová vrstva}.
-  .2 model\DTcomment{}.
-  .2 repository.
-.1 ui\DTcomment{prezentační vrstva}.
-  .2 composables\DTcomment{}.
-  .2 screens\DTcomment{}.
-    .3 HomeScreen\DTcomment{}.
-}
-\bigskip
 
 
 
@@ -522,25 +508,25 @@ strukturou:
 % \end{figure}
 
 \section{Uživatelské rozhraní}
-UI bylo navrhováno tak aby vyhovovalo TODO
+% UI bylo navrhováno tak aby vyhovovalo TODO
 
-v~Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to, jak celé UI působí z~pohledu
-uspořádání.
+% v~Android dokumentaci jejíž části se zaměřují na návrh od jednotlivých tlačítek, textů až po to, jak celé UI působí z~pohledu
+% uspořádání.
 
 
 
-TODO pravidla stravneho navrhu UI
+% TODO pravidla stravneho navrhu UI
 
 \subsection{Drátěné modely} \label{navrhWireframes}
-K~tomu, aby bylo výsledné UI pro uživatele přívětivé, bylo přistupováno tak, aby co nejvíce korespondovalo s~pravidly dobrého návrhu UI.
+% K~tomu, aby bylo výsledné UI pro uživatele přívětivé, bylo přistupováno tak, aby co nejvíce korespondovalo s~pravidly dobrého návrhu UI.
 
-Mezi taková pravidla patří:
-TODO
+% Mezi taková pravidla patří:
+% TODO
 
-Navržené drátové modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
+Navržené drátěné modely byly vytvořeny na základě funkčních požadavků a to tak, aby nejdůležitější a nejčastěji používané funkce byly 
 umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově náročnější byly umístěny na sekundární obrazovky.
 
-Zároveň byla snaha o 
+
 
 \pagebreak
 \begin{minipage}[t]{0.45\textwidth}
@@ -554,7 +540,7 @@ Zároveň byla snaha o
 
   Do střední části obrazovky byl navržen posuvný řádek obsahující nově přidané události a to především díky možnosti zobrazit
   veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídnout možnost danou událost otevřít a dohledat zbylé informace.
-  Z~... \ref{}  TODO totiž vyplývá, že akce poutají především svým vizuálním největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  Akce poutají největší pozornost především svou vizuální reprezentací a největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
   a času konání.
   
   Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
@@ -567,7 +553,7 @@ Zároveň byla snaha o
   %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
   
   \bigskip
-  \myparagraph{Obrazovka \textit{události}}
+  \myparagraph{Obrazovka \textit{Události}}
   V~rámci obrazovky \textit{Události} (viz obrázek \ref{fig:wireframe2}) je použit stejný systém pro zobrazení událostí pomocí posuvného řádku 
   jako je tomu na obrazovce \textit{Domů}.
   
@@ -576,7 +562,7 @@ Zároveň byla snaha o
   
   V~horní části aplikace je pak uživateli dána možnost vybrat den, pro který chce zobrazit plánované události a případně si zvolit požadované rozmezí.
 
-  To je možné navolit pomocí TODO , který se zobrazí po kliknutí na ikonu kalendáře v~pravé horní části obrazovky.
+  To je možné navolit pomocí kalendáře, který se zobrazí po kliknutí na ikonu kalendáře v~pravé horní části obrazovky.
   
   %
   
@@ -585,9 +571,8 @@ Zároveň byla snaha o
   
   Filtrování podle kategorie bylo nejprve navrženo, ale následně od něho bylo upuštěno kvůli malému počtu kategorií.
   
-  Ve finále byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
-  
-  veškeré kategorie se zobrazí na maximálně 3 stránkách což se ukázalo TODO
+
+ 
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
@@ -606,7 +591,15 @@ Zároveň byla snaha o
 \end{minipage}
 
 \begin{minipage}[t]{0.45\textwidth}
+  Ve finále byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
+
+  Filtrování podle kategorie bylo nejprve navrženo, ale následně od něho bylo upuštěno kvůli malému počtu kategorií.
+  
+
+
+
 \myparagraph{Obrazovka \textit{Parkování}}
+
 Obrazovka parkovaní (viz obrázek \ref{fig:wireframe3}) slouží uživateli dle dříve specifikovaných případů užití, především k~vyhledání parkovací zóny, 
 získání informací o~ceně parkování a případně k~platbě parkovacích poplatků. Z~toho důvodu byla hlavní část obrazovky věnována mapovému podkladu, 
 který by uživateli umožňoval snadné nalezení parkovací zóny v~mapě města. % jehož součástí je množina parkovacích zón.
