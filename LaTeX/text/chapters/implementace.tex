@@ -299,40 +299,41 @@ přistoupit k~nativnímu řešení ani na platformě iOS nebo desktop.
 K~implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow} 
 (viz výpis kódu \ref{lst:EventLazyRowImpl}),
 která je založená na základní UI komponentě zvané \code{LazyRow}. Tato komponenta se se obvykle používá v~případech, že je na obrazovku potřeba efektivně 
-vykreslit velkého množství položek (kolekce položek) čož je přesně případ vykreslení událostí. Komponenta \code{LazyRow} totiž vykresluje pouze ty položky,
-které jsou aktuálně viditelné čím nezpomaluje načítání obsahu v~případně většího množství událostí výrazně šetří zdroje potřebné k~vykreslení.
+vykreslit velkého množství položek (kolekce položek), čož je přesně případ vykreslení událostí. Komponenta \code{LazyRow} totiž vykresluje pouze ty položky,
+které jsou aktuálně viditelné, čím nezpomaluje načítání obsahu a v~případně většího množství událostí výrazně šetří zdroje potřebné k~vykreslení.
 
 \begin{listing}[H]
 \caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
 \begin{minted}{Kotlin}
-  @Composable
-  fun EventLazyRow(category: EventCategory, state: EventsState) {
-      val scrollState = rememberLazyListState()
-  
-      Column {
-          Text( ... )
-          LazyRow( ... ) 
-      {
-        items(eventList) { event ->  //state.filteredEvents
-            EventItem(event = event, onItemClick = {
-              navigator.push(EventDetailScreen(event))
-            })
+@Composable
+fun EventLazyRow(category: EventCategory, state: EventsState) {
+    val scrollState = rememberLazyListState()
+
+    Column {
+      Text( ... )
+      LazyRow(
+          state = scrollState,
+      ) {
+          ...
+          items(eventList) { event ->
+              EventItem(event = event, onItemClick = {
+                  navigator.push(EventDetailScreen(event))
+              })
           }
-        }
       }
-  }
+    }
+}  
 \end{minted}
 \end{listing}
 
-Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}, které naopak posloužila pro vykreslení seznamu novinek.
+Na stejném principu jako \code{LazyRow}, funguje i komponenta \code{LazyColumn}, která naopak posloužila pro vykreslení seznamu novinek.
 
-Dále byla na této obrazovce implementována tlačítka používající 
+Dále byla na této obrazovce implementována vlastní tlačítka zvaná \code{ImageButton()}, která například plní funkci přesměrovaní uživatele na 
+příslušné informační kanaly města.  
 
-I~implementaci 
+%I~implementaci 
 
-LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komponenty
-
-
+%LAZY ROW LAZY COLLUMN , OBRAZKY POMOCI COIL, STYLOVANI POMOCI DESIGN SYTEMU, VYUZITI DATABAZE, ukazka Event lazy row komponenty
 
 \subsection{Obrazovka \textit{Události}}
 
@@ -342,20 +343,18 @@ V~rámci obrazovky \textit{Události} je používána stejná komponenta pro zob
 
 Každý z~nich obsahuje události z~jedné kategorie. Ty jsou předem připraveny ViewModelem, který při zavolaní nějaké z~filtrovacích
 událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u~nich zjistí do jakých kategorií tyto
-události patří. Následně pro každou kategorii vytvoří jeden LazyRow do kterého umístí příslušné události.
+události patří. Pro každou z těchto kategorii poté vytvoří jeden LazyRow do kterého umístí příslušné události.
 
 % napsat to bez pohledu uzivatele
 Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je \textit{Dnes}, \textit{Zítra} nebo může zvolit vlastní 
-rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný DatePicker, který 
+rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný \textit{DatePicker}, který 
 uživateli umožňuje zvolit požadované časového rozmezí.
 
-K~volbě časových rozmezí \textit{Dnes} a \textit{Zítra} byly zvoleny takzvané Chips, konkrétně FilterChips, které jsou navrženy
-k~filtrování a uživatelé jsou na jich použití zvyklí i z~jiných aplikací, které používají Material Design.
+K~volbě časových rozmezí \textit{Dnes} a \textit{Zítra} byly zvoleny takzvané \textit{Chips}, konkrétně \code{FilterChips}, které jsou 
+navrženy k~filtrování a uživatelé jsou na jich použití zvyklí i z~jiných aplikací, které používají Material Design.
 
-Celá obrazovka je vzhledem k~nepředvídatelnosti zobrazovaných událostí implementována jako rolovací seznam.
-
-LAZY ROW , DATE PICKER, SPECIAL CHIPS
-
+Celá obrazovka je vzhledem k~nepředvídatelnosti množství zobrazovaných událostí implementována jako rolovací seznam, který se v případě potřeby
+rozšíří a umožní tak zobrazit veškeré události pro vybrané datové rozmezí.
 
 \subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
 Hlavní UI komponentou navrženou pro obrazovku \textit{Parkování} je komponenta sloužící k~zobrazení mapových podkladů, která by zároveň umožňovala 
@@ -409,15 +408,7 @@ používaly k~obarvení jednotlivých mapových prvků několik druhů barev a t
       }
     ]
   },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
+  ...
 \end{minted}
 \end{listing}
 
@@ -456,9 +447,15 @@ Poslední implementovanou komponentou v~rámci obrazovky \textit{Parkování} je
 Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
 částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a provádění akcí v~aplikaci. 
 
+\medskip
+
 Aktuálně však komponenta navigace ze sady knihoven Jetpack Compose není k~dispozici a proto je potřeba zvolit nějakou alternativu poskytovanou
 třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multiplatformní navigace je uveden v~oficiální Kotlin 
-multiplatform dokumentaci a zahrnuje navigaci Voyager, Decompose nebo Appyx. K~implementaci byla vybrána navigace Voyager a 
+multiplatform dokumentaci a zahrnuje například navigaci Voyager, Decompose nebo Appyx. 
+
+\medskip
+
+K~implementaci byla vybrána navigace Voyager a 
 to především díky přehledné dokumentaci, intuitivní implementaci a jednoduchému principu navigace založeném na zásobníku, který pro aktuálně
 implementovanou aplikaci plně dostačuje.
 
@@ -497,8 +494,10 @@ Způsob navigace založený na \textit{Stack API} však není vhodný pro navigo
 V~případě použití záložek se průchod obrazovkami nezapisuje do zásobníku, jako tomu bylo v~předchozím případě, ale místo toho poskytuje pouze vlastnost 
 \code{current}, díky které je možné nastavit nebo získat aktuální záložku. \cite{voyagerTabNav} 
 
+\medskip
+
 Příklad použití tohoto typu navigace je na následující ukázce kódu \ref{lst:tabNav}, díky které je vidět, jak jsou jednotlivé záložky 
-uspořádány v~rámci spodní navigační lišty (\code{BottomNavigation}).
+uspořádány v~rámci spodní navigační lišty (funkce \code{BottomNavigation()}).
 
 % založené na zásobníku by byla pro uživatele matoucí.
 \begin{listing}[H]
@@ -529,14 +528,17 @@ uspořádány v~rámci spodní navigační lišty (\code{BottomNavigation}).
 Coil je knihovna pro načítání a zobrazování obrázků napsaná v~jazyce Kotlin, která byla původně napsaná pouze pro platformu Android avšak
 od verze 3.0.0 z~prosince roku 2023 existuje alpha verze podporující i platformy JVM, iOS, macOS, nebo Javascript.  
 
+\medskip
+
 Knihovna poskytuje jednoduché API pro načítání obrázků
 z~různých zdrojů, včetně URL adres, souborů a zdrojů z~paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
-
-Coil nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
+Knihovna Coil dále nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
 umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
 JPEG, GIF, SVG a WebP, což umožňuje pracovat s~různými typy obrázků bez nutnosti dalšího přizpůsobování.
 
 Další výhodou knihovny Coil je možnost efektivního cachování obrázků, které pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek.
+
+\medskip
 
 V~rámci implementované aplikace jsou téměř všechny obrázky načítány z~URL adres, a proto je možnost cachování zásadní hlavně v~případech, 
 kdy aplikace nemá přístup k~internetu.
@@ -546,7 +548,7 @@ aplikaci použita k~načítání veškerých obrázků z~internetu slouží nás
 % TODO placeholder
 
 \begin{listing}[H]
-\caption{Coil}\label{lst:Coil3}
+\caption{Composable funkce \code{AsyncImage}poskytovaná knihovnou}\label{lst:Coil3}
 \begin{minted}{Kotlin}
   AsyncImage(
     model = news.thumbnailUri,
@@ -556,6 +558,10 @@ aplikaci použita k~načítání veškerých obrázků z~internetu slouží nás
   )
 \end{minted}
 \end{listing}
+
+Kromě těchto druhů navigace byla knihovna Voyager ještě použita k implementaci ViewModelů, které je možné díky použití této knihovny
+použít napříč všemi platformami. V rámci knihovny Voyager jsou tyto ViewModely nazývány jako \textit{ScreenModels} a stejně jako klasické
+ViewModely je díky nim například možné uchovat data i při změnách konfigurace (například otočení obrazovky). \cite{voyagerScreeNmodel}
 
 \subsection{Vrstva aplikační logiky}
 
@@ -594,52 +600,16 @@ na webový server města.
 \end{minted}
 \end{listing}
 
-\subsubsection*{Koin}
-Koin je moderní framework pro vkládání závislostí. Jedná se o~lehkou a snadno použitelnou alternativu 
-ke knihovnám, jako je například Hilt pro platformu Android.
- %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
-
-Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
-jejich vytváření a to pomocí jednoduchých funkcí nebo tzv. singletons. 
-
-Tento přístup umožňuje snadnou konfiguraci závislostí a poskytuje
-vývojářům transparentní pohled na strukturu aplikace.
-
-\bigskip
-
-V~rámci této aplikace byl Koin použit například pro vložení 
-
-
-databázového ovladače za pomocí expect actual deklarace \ref{expectActual}.
-Využití tohoto zápisu bylo vhodné použít především díky tomu, že převážná většina databázové logiky je napsána v~rámci sdílené 
-logiky a v~rámci nativní logiky, byl tak implementován pouze databázový ovladač.
-
-TODO nejen driver screenmodel, repository
-\begin{listing}[H]
-\caption{DI databázového ovladače pomocí Koinu}\label{lst:KoinInit}
-\begin{minted}{Kotlin}
-  class MainActivity : ComponentActivity() {
-
-  private val dbDriverFactoryModule = module {
-      single { DatabaseDriverFactory(applicationContext) }
-  }
-
-  init {
-      loadKoinModules(dbDriverFactoryModule)
-  }
-  ...
-}
-\end{minted}
-\end{listing}
-
 \subsubsection*{SQLDelight}
 SQLDelight je multiplatformní knihovna pro práci s~relačními databázemi v~aplikacích napsaných v~jazyce Kotlin. Jedná se o~moderní knihovnu, 
 která umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
 
-Hlavní funkcionalitou knihovny SQLDelight je automatická generace Kotlin tříd a funkcí na základě definovaných SQL schémat. To znamená, že vývojáři
- mohou psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které umožňují 
- snadný a bezpečný přístup k~databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
- štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
+\medskip
+
+Hlavní funkcionalitou knihovny SQLDelight je automatické generování Kotlin tříd a funkcí na základě definovaných SQL schémat. Díky tomu
+je možné psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které
+umožňují  snadný a bezpečný přístup k~databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
+štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
 
 \begin{listing}[H]
 \caption{SQL dotaz pro získání všech novinek v~databázi}\label{lst:SQLDotaz}
@@ -651,7 +621,6 @@ ORDER BY startDateTime DESC
 LIMIT 30;
 \end{minted}
 \end{listing}
-
 
 Vygenerované funkce (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z~výpisu kódu \ref{lst:SQLDotaz}
 vypadá jeho zkrácená podoba následovně:
@@ -700,6 +669,44 @@ actual class DatabaseDriverFactory {
 \end{minted}
 \end{listing}
 
+\subsubsection*{Koin}
+Koin je moderní framework pro vkládání závislostí (zkráceně DI - z~anglického \uv{dependency injection}). Jedná se o~lehkou a snadno 
+použitelnou alternativu ke knihovnám, jako je například Hilt pro platformu Android.
+ %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
+
+ \medskip
+
+Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
+jejich vytváření a to pomocí jednoduchých funkcí nebo takzvaných singletons případně factories. Ty jak název napovídá odkazují na 
+patřičné návrhové vzory na jejich základě se dané instance vytvářejí.
+
+\bigskip
+
+V~rámci této aplikace byl Koin použit například pro vložení databázového ovladače (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect 
+actual deklarací.
+Využití DI bylo v tomto případě vhodné použít především díky tomu, že převážná většina databázové logiky je napsána v~rámci sdílené 
+logiky a v~rámci nativní logiky byl tak implementován pouze nativní databázový ovladač. Ten musel být následně pro každou platformu vložen do 
+společné třídy implementující Databázi (\code{DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory)}).
+
+Dalšími důležitými komponentami, které byly do aplikace vkládány pomocí DI byly ViewModely a celá třída úložiště, na které jsou ViewModely
+závislé.
+
+\begin{listing}[H]
+\caption{DI databázového ovladače pomocí Koinu}\label{lst:KoinInit}
+\begin{minted}{Kotlin}
+  class MainActivity : ComponentActivity() {
+
+  private val dbDriverFactoryModule = module {
+      single { DatabaseDriverFactory(applicationContext) }
+  }
+
+  init {
+      loadKoinModules(dbDriverFactoryModule)
+  }
+  ...
+}
+\end{minted}
+\end{listing}
 
 
 %SQLDelight také nabízí silnou typovou kontrolu při práci s daty v databázi. To znamená, že chyby v SQL dotazech jsou odhaleny již při
@@ -763,9 +770,11 @@ Takto zadefinované stavy je následně možné používat v~rámci jednotlivýc
 %V~rámci této sekce bude představeno jakým způsobem bylo přistoupeno k implementaci takzvaných \textit{UI Events}.
 
 Jak již bylo zmíněno, tak nejčastějším typem UI události jsou takzvané uživatelské události produkované uživatelem při interakci s aplikací.
-Tyto události jsou zpracovány aplikací pomocí metod, jako je například metoda \code{onClick()}, která je typickým příkladem pro UI komponenty. 
+Tyto události jsou zpracovány aplikací pomocí metod, jako je například metoda \code{onClick()}, která je často typickým příkladem toho, jak
+jednotlivé UI komponenty obsluhují patřičné uživatelské události. 
 
-Tato metoda \code{onClick()} je možné uplatnit reprezentaci UI události v podobě datových objektů zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
+V rámci takovýchto metod je pak vhodné uplatnit reprezentaci UI události například v podobě datových objektů 
+zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 
 \begin{listing}[H]
 \caption{Použití stavu v~aplikaci}\label{lst:EventsImpl}
@@ -778,34 +787,53 @@ Tato metoda \code{onClick()} je možné uplatnit reprezentaci UI události v pod
 \end{minted}
 \end{listing}
 
+Takto zadefinované objekty je již možné použít v rámci UI obrazovek například následujícím způsobem \ref{lst:EventsinUIImpl}.
+
+\begin{listing}[H]
+\caption{Použití stavu v~aplikaci}\label{lst:EventsinUIImpl}
+\begin{minted}{Kotlin}
+  FilterChip(
+      onClick = { screenModel.onEvent(EventsEvent.OnFilterTodayIsSelected) },
+      label = {
+          Text(text = FilterOption.TODAY.filterName)
+      },
+  )
+\end{minted}
+\end{listing}
+
+Na ukázce kódu \ref{lst:EventsinUIImpl} je zároveň vidět propojenost UI událostí s příslušným ViewModelem čemuž se více věnuje následující
+sekce \textit{ViewModel}.
 
 
-a mohou spustit různé akce, které by zároveň
-měli způsobit změny UI stavu.
+%a mohou spustit různé akce, které by zároveň měli způsobit změny UI stavu.
 
-implementovaná aplikace obsluhuje události přicházející z~uživatelského rozhraní.
+%implementovaná aplikace obsluhuje události přicházející z~uživatelského rozhraní.
 
 
-V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z~UI elementů. V~jednotlivýmch j
+%V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z~UI elementů. V~jednotlivýmch j
 
 \subsection{ViewModel} \label{ViewModelImpl}
-V~rámci implementované aplikace byl pro každou obrazovku implementován jeden ViewModel, který se stará o~logiku každé obrazovky zvlášť. 
-Tato kapitola bude proto shrnutím stěžejních částí z každého ViewModelů tak aby dávala vhodnou představenu o tom, jako funkci ViewModely
-v aplikaci mají.
+% V~rámci implementované aplikace byl pro každou obrazovku implementován jeden ViewModel, který se stará o~logiku každé obrazovky zvlášť. 
+% Tato kapitola bude proto shrnutím stěžejních částí z každého ViewModelů tak aby dávala vhodnou představenu o tom, jako funkci ViewModely
+% v aplikaci mají.
 
 V~rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI na jejich základě 
 by vždy měli měnit stav aplikace. \cite{viewmodelEvents} V~tomto duchu jsou implementovany všechny ViewModely. Díky tomu je možné 
-zaručit, že stav uživatelského rozhraní nebude změněn v~případě 
+zaručit, že stav uživatelského rozhraní nebude změněn například v~důsledku konfiguračních změn. 
+
+Co se implementace jednotlivých ViewModelů týče, tak vesměs všechny mají podobnou strukturu. K vytvoření instance ViewModelu (ScreenModelu)
+je zapotřebí dodat příslušnou instanci úložiště (například \code{RepositoryImpl}) a následně již je možné implementovat příslušné funkce
+zpracovávající UI události (viz ukázka kódu \ref{lst:ViewModelImpl}). 
 
 
 \begin{listing}[H]
 \caption{Implementace ViewModelu}\label{lst:ViewModelImpl}
 \begin{minted}{Kotlin}
-  fun onEvent(event: EventsEvent) {
+fun onEvent(event: EventsEvent) {
     when (event) {
         EventsEvent.OnFilterTodayIsSelected -> {
             screenModelScope.launch {
-                val today: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
+                val today: LocalDate = Clock.System.todayIn(...)
                 ...
                 _state.update {
                     it.copy(
@@ -816,11 +844,11 @@ zaručit, že stav uživatelského rozhraní nebude změněn v~případě
             }
         }
     }
-  }
+}
 \end{minted}
 \end{listing}
 
-, která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
+%, která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
 
 
 
