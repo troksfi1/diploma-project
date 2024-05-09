@@ -50,15 +50,14 @@ platformy se dokumentace od JetBrains rozříší.
 problémy s~IDE 
 
 \section{Závěr o~použitelnosti frameworku}
-Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, při které by měla být dodržena maximální 
-transparence, hodnocení bude rozvrženo do několika částí. Nejprve bude framework porovnán na základě provedené analýzy a to jednak 
+Závěrečné zhodnocení bude rozvrženo do několika částí. Nejprve bude framework porovnán na základě provedené analýzy a to jednak 
 z~pohledu architektury, tak z TODO
 
 
 \myparagraph{Podporované platformy}
 Co se pokrytí aktuálně podporovaných platforem týká, tak Compose Multiplatform pokrývá většinu z~aktuálně nejžádanějších platforem pro 
 vývoj multiplatformních aplikací a dá se tak očekávat, že po uvolnění stabilních verzí pro veškeré aktuálně nabízené platformy se 
-jeho obliba ještě zvýší.
+jeho obliba ještě zvýší. 
 
 
 % A protože je platforma Compose Multiplatfom poměrně rýchlá ve svém vývoji v porovnání s jinými frameworky, snadno tak dotahuje 
@@ -68,21 +67,19 @@ jeho obliba ještě zvýší.
 \myparagraph{Výkon a optimalizace}
 V~oblasti výkonu je dle sekce \textit{Porovnání výkonu \ref{performanceSection}} Compose Multiplatform konkurenceschopný s~ostatními 
 multiplatformními frameworky, ale kdyby bylo srovnání výkonu provedeno na rozsáhlejších projektech, tak je možné, že by rozdíl mezi 
-naměřenými výsledky by mohl být výraznější.
+naměřenými výsledky byl mnohem výraznější.
 
-\bigskip
-
-V~oblasti optimalizace má však Compose Multiplatform ještě poměrně velké nedostatky a to zejména co se týká plynulosti provozu na platformě iOS.
-Pro tu je však Compose Multiplatform stále ve verzi Alfa a z toho důvodu se dá očekávat brzké zlepšení.
+Co se oblasti optimalizace týká, tak zde má Compose Multiplatform ještě poměrně velké nedostatky a to zejména co se týká plynulosti
+provozu na platformě iOS. Pro tu je však Compose Multiplatform stále ve verzi Alfa a z toho důvodu se dá očekávat brzké zlepšení.
 %a dá se tak očekávat, že tato oblast bude pro uspěšnost technologie Compose Multiplatform klíčová.
 
 \myparagraph{Optimalizace nástrojů pro vývoj} %DONE
 Pokud jde o~připravenost nástrojů pro vývoj, tak mezi hlavními šesti problémy, které dle posledního oficiálního výzkumu KMP
-provází jsou celkem tři, které se optimalizace nástrojů pro vývoj týkají. Konkrétně šlo o problémy s nastavením sestavovaní, problémy s 
-vývojovým prostředím a o problém co se rychlosti sestavování týká. \cite{imgSurvey}. Aktuálně nelze objektivně říci jaké problémy již byly 
+provází, jsou celkem tři, které se optimalizace nástrojů pro vývoj týkají. Konkrétně šlo o problémy s nastavením sestavovaní, problémy s 
+vývojovým prostředím a o potíže co se rychlosti sestavování týká. \cite{imgSurvey}. Aktuálně nelze objektivně říci jaké problémy již byly 
 vyřešeny a jaké ne, ale v rámci procesu implementace této aplikace byly největší problémy detekovány právě u podpory vývojových prostředí.
 
-Z~testovaných prostředí se vývojové prostředí Android Studio jevilo z z pohledu optimalizace lépe optimalizované než konkurenční vývojové 
+Z~testovaných prostředí se vývojové prostředí Android Studio jevilo z pohledu optimalizace lépe optimalizované než konkurenční vývojové 
 prostředí Fleet. Na druhou stranu z pohledu funkcí podporuje Fleet některé užitečné funkce jako například \textit{Preview}, které buďto
 Android Studio nepodporovalo nebo se u nich vyskytovali zásadní problém, kvůli kterým je nebylo možné použít. Dalším příkladem může být 
 například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter Icons}, které pro multiplatformní testy nebylo možné vůbec použít. 
@@ -93,30 +90,37 @@ například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter
 % které v Compose Multiplatform nejsou možné. Benefit v oblasti noření komponet je naopak jednoduchost zápisu UI, které provází 
 % celý framework, a proto jsou tyto akce vždy o něco jednodušší.
 
-
-% \myparagraph{Náročnost implementace}
-% Co se týká náročnosti implementace aplikace i na ostatních platformách, tak zde byla náročnost o~něco zvýšena kvůli nemožnosti implementace 
+% zde byla náročnost o~něco zvýšena kvůli nemožnosti implementace 
 % iOS aplikace již od začátku. jelikož je ke kompilaci potřeba ? . 
 
 % I když v~průběhu implementace bylo zjištěno několik problémů (jaký?), zjištěné problémy byly nahlášeny a jsou v procesu nápravy.
 
 \myparagraph{Dokumentace}
 Z~pohledu dokumentace má Compose Multiplatform významné nedostatky, ale díky tomu, že je z velké části odvozen z frameworku Jetpack Compose,
-tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí co se tvorby uživatelského rozhraní týká je totiž dobře dokumentovaná 
-společností Google. Co se přidružené technologie KMP týká, tak ta v porovnání s ostatním technologie v oblasti dokumentace stejně jako Compose 
+tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí potřebných pro tvorbu uživatelského rozhraní je totiž dobře dokumentovaná 
+společností Google. Co se přidružené technologie KMP týká, tak ta v porovnání s ostatními technologiemi v oblasti dokumentace stejně jako Compose 
 Multiplatform zaostává i~přesto, že se již nachází ve stabilní verzi.
+
+\myparagraph{Náročnost implementace}
+%Co se týká náročnosti implementace aplikace, tak ta nebýt výše zmíněných problémů, tak implementace probíhala poměrně bezproblémově.
+
+Vyjma vyse zminenych problemu, ktere se naskytly během procesu implementace, cely ukon probel temer bez chyb. Tato bezchybovost a 
+jednoduchost se tedy stava velkou výhodou tohoto frameworku. Oproti jin7m frameworkum je možnost postupné integrace do již stávajících 
+aplikací, která v aktuální fázi přecházení od imperativních způsobů zápisu UI k deklarativním způsobům může tomuto frameworku pomoct 
+nabýt na popularitě. 
 
 
 \section*{Shrnutí}
-Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že
-je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací, ačkoli existují oblasti,ve kterých může být ještě zlepšen.
+Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že jej je aktuálně možné  
+
+je Compose Multiplatform vhodným nástrojem pro vývoj multiplatformních aplikací a ačkoli existují oblasti, ve kterých může být ještě zlepšen.
 
 
 \section{Shrnutí dosažených výsledků}
 Co se vytvořené aplikace týká, tak ta byla úspěšně přizpůsobena konkrétnímu městu a napojena na jeho infrastrukturu pro získávání dat 
 o~událostech, aktualitách a parkovacích zónách. Díky implementaci lokální databáze je navíc aplikace použitelná i v~offline režimu, čímž 
-usnadňuje přístup všem uživatelům a urychlí přehled o~aktálním dění ve městě. Navržená architektura je zároveň dostatečně flexibilní, 
-aby pokryla případně změny ve struktuře města. Městská struktura, tak může efektivněji reagovat na náhlé změny v organizaci města.
+usnadňuje přístup všem uživatelům a urychluje tak přehled o~aktuálním dění ve městě. Navržená architektura je zároveň dostatečně flexibilní, 
+aby pokryla případně změny ve struktuře města.
 
 Co se frameworku Compose Multiplatform týká, tak zde se podařilo základě prakticky sestavené aplikace potvrdit, že aplikace je schopná 
 sdílení určitého množství kodu. Přími při implementaci aplikace bylo procento sdíleného kódu násobně větší oproti dosavadním aplikacím

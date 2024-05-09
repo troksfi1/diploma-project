@@ -19,7 +19,7 @@ jsou vybrány důležité vlastnosti, které jsou pro tyto frameworky typické.
 
 Jednotlivé frameworky jsou seřazeny postupně od vývojově nejstaršího
 po nejmladší, což umožňuje lepší náhled na to, jak se frameworky vyvíjely v~čase. Pro lepší ilustraci rozdílů 
-mezi vybranými TODO frameworky byla zvolena 
+mezi vybranými frameworky byla zvolena 
 podobná struktura jednotlivých kapitol, čehož bylo možné docílit díky mnoha společným rysům napříč frameworky.
 
 %---------------------------------------------------------------
@@ -44,7 +44,6 @@ komponenty, komponenty vytvořené komunitou či vlastní nativní komponenty. \
 \myparagraph{Deklarativní zápis UI}
 React Native, stejně jako React pro webové aplikace, využívá pro zápis UI deklarativní způsob, 
 při kterém využívá JSX (JavaScript XML) syntaxe k~popisu struktury UI komponent. \cite{reactNativeJSX}
-Takto zapsané UI lépe reflektovalo aktuální stav aplikace.
 Tento způsob zápisu začal na mobilních platformách růst na popularitě právě díky Reactu Native, který po svém uvolnění v~roce 2013 
 defacto nastartoval éru deklarativního zápisu UI na mobilních platformách. \cite{declarativeUIHistory}
 
@@ -61,13 +60,13 @@ React Native má rozsáhlou komunitu vývojářů, což vede k~bohatému ekosyst
 třetích stran, včetně mnoha dostupných knihoven a modulů. \cite{reactNativeComunity}
 
 \myparagraph{Expo framework} 
-Pro ještě snazší start vývoje poskytuje React Native možnost Expo framework, který 
+Pro ještě snazší start vývoje poskytuje React Native takzvaný Expo framework, který 
 zjednodušuje proces vývoje a umožňuje rychlé prototypování. \cite{reactNativeExpo}
 
 \subsection*{Architektura frameworku React Native}
 
 React native do roku 2022 využíval architekturu založenou na návrhovém vzoru Bridge, který spojoval kód napsaný v~JavaScriptu s~nativním kódem určeným pro danou platformu. 
-Tyto dva celky byly spuštěny na souběžných vláknech a komunikovaly spolu pomocí zasílaných TODO serializovaných zpráv. Časem se ale ukázalo, že se tato komunikace
+Tyto dva celky byly spuštěny na souběžných vláknech a komunikovaly spolu pomocí zasílaní serializovaných zpráv. Časem se ale ukázalo, že se tato komunikace
 a další její charakteristiky stávají úzkým hrdlem celého systému, a byla proto od verze 0.68 nahrazena JavaScriptovým rozhraním zvaným JSI. \cite{reactNativeAboutNewArch}
 
 JSI nově JavaScriptu umožňuje držet referenci na C++ objekty a volat nad nimi potřebné metody. \cite{reactNativeAboutNewArch} Toho využívá nový renderovací systém zvaný \textit{Fabric}, který 
@@ -248,7 +247,6 @@ Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (nap
 Compose Multiplatform je framework sloužící k~tvorbě uživatelských rozhraní použitelných na vícero platformách, za 
 jehož vývojem stojí společnost JetBrains. \cite{composeMultiplatform} Je založen na toolkitu zvaném Jetpack Compose, který je aktuálně 
 doporučovaný k~tvorbě nativních uživatelských rozhraní na platformě Android. \cite{jetpack}
-
 Podporuje platformy jako Android, iOS (Alpha), Windows, MacOS, Linux a Web (experimentální). \cite{composeMultiplatform}
 
 \medskip
@@ -286,7 +284,7 @@ Pro lepší ukázku toho, z~jakých částí se typická multiplatformní mobiln
 vizualizuje propojenost frameworku Compose Multiplatform s~toolkitem Kotlin Multiplatform (KMP). Dále obrázek vizualizuje 
 vztah platformě specifických knihoven pro tvorbu UI jako je SwiftUI k~frameworku Compose Multiplatform.
 Compose Multiplatform lze nicméně použít i s~technologiemi pro tvorbu UI jako je UI kit pro platformu iOS nebo
-Android views pro platformu Android. Každopádně, od těchto něco... TODO je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
+Android views pro platformu Android. Každopádně, od těchto technologií je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
 
 \begin{figure}[H]
   \centering
@@ -294,8 +292,6 @@ Android views pro platformu Android. Každopádně, od těchto něco... TODO je 
   \caption{Compose Multiplatform iOS Zdroj: \cite{imgComposeMultiplatfromiOS}}
   \label{fig:composeIOS}
 \end{figure}
-
-TODO % doplnit neco o KMP a APIs
 
 Co se týče samotného UI kódu, tak ten se skládá z~jednotlivých funkcí označených anotací \code{@Composable}, která v~těle obsahuje další
 \textit{Composable} funkce (viz výpis kódu \ref{lst:ComposeCode}) jako jsou například \code{Column} pro strukturování vnořených elementů do sloupce nebo \code{Text} pro zobrazení
@@ -381,8 +377,8 @@ Právě počet a vyspělost těchto knihoven se podle společností, které již
 (viz sekce \textit{Aktuální použití KMP v~praxi %\ref{kmpInPractise}
 }).
 
-V~případě, že žádná vhodná knihovna není k~dispozici, tak je zde stále možnost čehož je možné docílit díky funkcionalitě jazyka Kotlina
-zvané Expected a actual deklarace. TODO
+V~případě, že žádná vhodná knihovna není k~dispozici, tak je zde stále možnost implementovat danou knihovnu nativně čehož je možné docílit díky funkcionalitě jazyka Kotlina
+zvané \textit{expected} a \textit{actual} deklarace.
 
 \subsubsection*{Expected a actual deklarace}\label{expectActual}
 Deklarace \textit{expected} a \textit{actual} umožňují přistupovat k~platformě specifickým API z~Kotlin Multiplatform modulů. \cite{KMPExpectActual}
@@ -401,14 +397,12 @@ možné, a proto je nutné zvlášť rozdělit kód, který je určen pro všech
 
 \myparagraph{Společný kód}
 Jedná se o~kód sdílený mezi různými platformami a měl by být seskupen v~adresáři \code{commonMain}. \cite{KMPCommonCode}
-
 Kotlin kompilátor na základě zdrojových kódů umístěných v~tomto adresáři generuje sadu binárních souborů specifických pro danou platformu. \cite{KMPCommonCode}
 Při kompilaci tak může z~téhož kódu vygenerovat několik souborů jako například soubory pro \textit{Java Virtual Machine (JVM)}, 
 anebo spustitelné soubory pro nativní platformu. \cite{KMPCommonCode}
 
 Nicméně i pro jednotlivé platformy existují zařízení, která například využívají specifickou architekturu, a proto je třeba pro 
 tato zařízení zkompilovat tento kód jiným způsobem.
-
 K~této kompilaci KMP používá technologii Kotlin/Native, díky které
 je možné sestavovat kód napsaný v~jazyce Kotlin do nativních binárních souborů, a ten díky tomu může běžet i bez JVM. \cite{kotlinNative}
 
@@ -448,7 +442,7 @@ platformě specifické knihovny, čemuž se detailněji věnuje kapitola \textit
 Ze struktury těchto zdrojových sad zároveň vyplývá koncová struktura projektu, která ve většině případů obsahuje adresář pro sdílený kód (\code{commonMain}), 
 který smí obsahovat pouze kód a případné knihovny. Tyto knihovny a kódy jsou multiplatformní a pokrývají tak veškeré platformy používané v~projektu.
 
-TO DO A~dále na adresáře pro vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
+Dále se adresáře mohou dělit podle vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
 
 \subsubsection*{Aktuální použití KMP v~praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
@@ -461,22 +455,23 @@ Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší tes
 Naopak mezi největší výzvy do budoucna, které obě společnosti ve svých souhrnech uvádějí, patří adaptace na KMP prostředí (především iOS vývojářů) nebo
 nedostatečné množství potřebných multiplatformních knihoven (případně jejich nedostatečná vyspělost). \cite{KMPinForbes} \cite{KMPinMcDonalds}
 
-Pro porovnání s TODO
+% Pro porovnání s TODO
 
-\emph{\uv{Od této doby jsme vyvinuli a v~produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme 
-sdílet cca 60–70 \% kódu na platformu. V~případě vývoje na dvě platformy to znamená, že v~součtu dokážeme ušetřit minimálně třetinu 
-nákladů na vývoj, plus s~tím související další náklady na věci typu testování (v~tomto případě snížení až na polovinu).}}
+% \emph{\uv{Od této doby jsme vyvinuli a v~produkci provozujeme několik mobilních aplikací. Ze zkušenosti vidíme, že při jejich vývoji dokážeme 
+% sdílet cca 60–70 \% kódu na platformu. V~případě vývoje na dvě platformy to znamená, že v~součtu dokážeme ušetřit minimálně třetinu 
+% nákladů na vývoj, plus s~tím související další náklady na věci typu testování (v~tomto případě snížení až na polovinu).}}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.55\textwidth]{chart-KMP-vs-native.png}
-  \caption{Množství kódu KMP vs native Zdroj: \cite{imgMnozstviSdilenehoKodu}}  
-  \label{fig:KMP_vs_native}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=.55\textwidth]{chart-KMP-vs-native.png}
+%   \caption{Množství kódu KMP vs native Zdroj: \cite{imgMnozstviSdilenehoKodu}}  
+%   \label{fig:KMP_vs_native}
+% \end{figure}
+
+\bigskip
 
 Pro upřesnění je ještě potřeba zmínit, že veškeré vyjmenované společnosti využily pouze možnosti sdílení logiky a nepoužívají
 tak sdílené UI pomocí Compose Multiplatform.
-
 To se ukázalo i na průzkumu, který provedla společnost JetBrains v~roce 2021, kde pouze 3,8~\% respondentů odpovědělo, že byli schopni sdílet UI ve svých aplikacích.
 
 Pro ukázku veškerých částí, které respondenti sdíleli ve svých aplikacích napříč platformami, slouží obrázek \ref{fig:KMPSurvey}, který jednoznačně ukazuje, že
@@ -491,7 +486,7 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 
 \section{Porovnání vybraných multiplatformních frameworků}
 
-V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky.
+V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky z pohledu výkonu a velikosti jednotlivých aplikací.
 
 
 \subsection{Porovnání výkonu} \label{performanceSection}
@@ -521,9 +516,9 @@ Veškeré testy proběhly na zařízeních Pixel 4a a iPhone 12 Mini a byly opak
 
 Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform, je identická
 s~velikostí nativní aplikace pro Android. Je tomu tak z důvodu, že výsledná aplikace pro Android neobsahuje kód 
-pro jiné platformy. \cite{} Kdežto u~velikosti iOS aplikace je situace výrazně odlišná. Samotná aplikace pro iOS je v~porovnání
-s~její nativní aplikací o~23,1 MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
-která je na platformě Android dostupná, kdežto na platformě iOS se nenachází. Knihovna proto musí být spolu s~aplikací dodána. \cite{}
+pro jiné platformy. \cite{imgAndroidFlutterCompose} Kdežto u~velikosti iOS aplikace je situace výrazně odlišná. Samotná aplikace pro iOS je v~porovnání
+s~její nativní aplikací o~23,1~MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
+která je na platformě Android dostupná, kdežto na platformě iOS se nenachází. Knihovna proto musí být spolu s~aplikací dodána. \cite{imgAndroidFlutterCompose}
 
 Zajímavé je následné porovnání s~velikostí aplikace založené na frameworku Flutter, jelikož ta, stejně jako Compose
 Multiplatform, využívá knihovnu Skia, ale i přesto je o~něco velikostně menší než Compose Multiplatform aplikace na platformě iOS.
@@ -541,15 +536,11 @@ pro iOS. \cite{flutterSize}
 
 Při porovnání rychlosti spuštění Compose Multiplatform aplikace na platformě Android není mezi rychlostmi téměř žádný
 rozdíl, stejně tak jako tomu bylo při porovnání velikosti aplikací v~předchozí kapitole. O~něco delší dobu spuštění měla
-aplikace napsaná pomocí frameworku Flutter, která se spouštěla v~průměru o~221 ms déle než Compose Multiplatform aplikace. 
+aplikace napsaná pomocí frameworku Flutter, která se spouštěla v~průměru o~221 ms déle než Compose Multiplatform aplikace. (viz tabulka \ref{tab:performance_comparison})
 Toto zpomalení je s největší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s~oficiální
 Flutter dokumentací. \cite{flutterPerformance}
-
 U~posledního porovnání na platformě iOS se doba spuštění aplikací založených na Compose Multiplatform a frameworku 
-Flutter o~tolik nelišila od nativní aplikace.
-% // TODO posledni cast porovnani
-
-% // TODO posledni tabulka pro porovnani https://github.com/jacobras/flutter-vs-native-vs-kmp
+Flutter o~tolik nelišila od nativní aplikace (viz tabulka \ref{tab:app_launch_duration_ios}).
 
 \begin{table}[H]
   \centering
@@ -580,18 +571,18 @@ Flutter o~tolik nelišila od nativní aplikace.
 \end{table}
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.7\textwidth]{chart_startup_times.png}
-  \caption{Časy nastartování jednotlivých aplikací Zdroj: \cite{imgAndroidFlutterCompose}}
-  \label{fig:chart_startup_times}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=.7\textwidth]{chart_startup_times.png}
+%   \caption{Časy nastartování jednotlivých aplikací Zdroj: \cite{imgAndroidFlutterCompose}}
+%   \label{fig:chart_startup_times}
+% \end{figure}
 
-\subsection{Náročnost implementace}
-I~přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik aspektů, které mohou k~porovnání 
-náročnosti implementace Compose Multiplatform s~ostatními frameworky posloužit. 
+% \subsection{Náročnost implementace}
+% I~přesto, že je náročnost implementace do jisté míry subjektivní záležitostí, tak existuje několik aspektů, které mohou k~porovnání 
+% náročnosti implementace Compose Multiplatform s~ostatními frameworky posloužit. 
 
-TODO
+%TODO
 
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multiplatform
@@ -602,6 +593,8 @@ Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o~
 aktuálně spjata s~UI, se týká především plynulosti anebo použití nativně vypadajících komponent na platformě iOS.
 Ta v~její nativní podobě používá styl zvaný Cupertino, který frameworkem Compose Multiplatform není aktuálně oficiálně podporován. 
 Co se týče plynulosti UI na platformě iOS, se momentálně nejvíce řeší problém s~rychlostí vykreslování.
+
+\bigskip
 
 Většina výše zmíněných problémů se již řeší a je zmíněna v~Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap} Konkrétně
 se jedná o~veškeré zmíněné problémy kromě zařazení HarmonyOS mezi podporované platformy. % // todo 

@@ -12,6 +12,49 @@
 %\end{chapterabstract}
 
 %\section{Motivace}
+
+V rámci úvodní kapitoly se práce zabývá otázkou, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
+Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní uživatelské rozhraní (UI) aplikovat a na jakých zařízeních. 
+
+%a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
+
+
+
+%kdy multiplatformí vývoj nemá smysl (vyfocení závady)
+
+V rámci analýzy jsou následně detailně představeny aktuálně používané frameworky pro tvorbu multiplatformních aplikací včetně samotného
+frameworku Compose Multiplatform a jeho vazbě na technologii Kotlin Multiplatform. Obě tyto technologie jsou následně podrobně rozebrány
+a nakonec porovnány s aktuálně používanými technologiemi z hlediska výkonu a velikosti samotných aplikací.
+
+\medskip
+
+Druhá kapitola se věnuje výběru a následnému návrhu aplikace, která bude sloužit k otestovaní použitelnosti technologie Compose Multiplatform.
+Při fázi návrhu je nejprve přistoupeno k vytyčení případů užití a následně jsou specifikovány funkční a nefunkční požadavky pro vybranou aplikaci.
+Dále je pro aplikaci navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně již práce přechází k detailnímu
+návrhu samotného UI. To je nejprve navrženo pomocí takzvaných drátěných modelů a následně převedeno na takzvané mockup modely, které
+lépe vystihují výslednou podobu UI.
+
+\medskip
+
+Třetí kapitolou je kapitola implementace, která popisuje samotné založení multiplatformního projektu pomocí frameworku Compose Multiplatform
+a následnou implementaci navrženého uživatelského rozhraní pomocí této technologie. Dále se tato kapitola věnuje kritickým UI komponentám,
+jako je například použitá navigace a následně také důležitým technologiím použitých pro správné fungování aplikační logiky. Závěr této kapitoly
+je pak věnován implementované logice uživatelského rozhraní.
+
+\medskip
+
+Předposlední kapitolou je kapitola věnují se testovaní implementované aplikace, v rámci které jsou nejprve představeny možnosti testování
+multiplatformního UI, následně jsou tyto testy navrženy a implementovány.
+
+
+\medskip
+
+
+Poslední kapitola je věnována shrnutí celého procesu implementace a vyzdvižení naskytlých problémů. Poslední částí je pak celková evaluace
+vlastností frameworku Compose Multiplatform a závěrečné zhodnocení použitelnosti toho frameworku v praxi.
+
+\newpage
+
 \section{Cíle práce} \label{goals}
 Prvním důležitým cílem práce je analyzovat použitelnost nově nastupující technologie na poli vývoje multiplatformního UI a otestovat, jaké
 nové principy přináší. Dále tuto technologii porovnat s~ostatními frameworky pro tvorbu multiplatformního UI a pokusit se
@@ -21,50 +64,25 @@ Dalším podstatným cílem je vytvoření aplikace, která tuto technologii imp
 které aktuálně multiplatformní UI provází. 
 Posledním hlavním cílem je vytvořenou aplikaci otestovat a zhodnotit použitelnost daného frameworku v~praxi.
 
-\section{Stručný přehled obsahu práce}
-V~úvodu se práce zabývá otázkou, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
-Dále je probrána otázka v~jakých případech se vyplatí multiplatformní UI aplikovat a na jakých zařízeních. 
-
-%a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
-
-
-
-%kdy multiplatformí vývoj nemá smysl (vyfocení závady)
-
-
-Jaké jsou výhody a nevýhody multiplatformních aplikací  v~porovnaní s~nativními aplikacemi.
-
-Existujícími frameworky a jich porovnáním s~Compose Multiplatform.
-
-Detailně rozebrána architektura Compose Multiplatform, jak framework funguje a jaké další technologie jsou potřeba k~smysluplné implementaci
- tohoto frameworku.
-
-Následně se práce zabývá návrhem a následnou tvorbou multiplatformního UI pomocí frameworku Compose Multiplatform.
-
-V~jedné z~posledních částí se práce věnuje možnostem testování takto vytvořeného UI a následného testování UI na naimplementované aplikaci.
-
-je věnován shrnutí celého procesu implementace a vyzdvižení naskytlých problémů a výhod oproti nativnímu případně jiným multiplatformním frameworkům
-
-
+\begin{sloppypar}
 \section{Definice multiplatformního vývoje UI}
-
 Technologie sloužící k~tvorbě multiplatformních UI umožňují vývojářům vytvářet jednotná uživatelská rozhraní, 
 která mohou být nasazena na různá zařízení jako jsou mobilní zařízení, tablety, televize, hodinky, obrazovky aut či 
 klasické počítače a to buďto v~podobě desktopové nebo webové aplikace. Cílem multiplatformního vývoje je tak dosáhnout jednotného 
 uživatelského zážitku bez nutnosti psát a udržovat oddělené kódy pro každou platformu. Nicméně, jak je vidno z~předchozího výčtu zařízení, 
-tak ne vždy má smysl multiplatformní přístup aplikovat. Tomu, kdy je vhodné aplikovat multiplatformní vývoj, je věnována následující kapitola.  
+tak ne vždy má smysl multiplatformní přístup aplikovat. Tomu, kdy je vhodné aplikovat multiplatformní vývoj, je věnována následující sekce.  
+\end{sloppypar}
+% Aktuálně největší uplatnění multiplatformního UI nabízí mobilní vývoj, kde je díky multiplatformním frameworkům možné vyvíjet
+% aplikace pro platformy Android a iOS současně. Je tomu tak z~důvodu, že mobilní vývoj je aktuálně jeden TODO také díky podobnostem majících 
+% na návrh multiplatformního UI vliv jako je například velikost obrazovky.
+
 
 \section{Uplatnění multiplatformního vývoje a sdíleného UI}
-Aktuálně největší uplatnění multiplatformního UI nabízí mobilní vývoj, kde je díky multiplatformním frameworkům možné vyvíjet
-aplikace pro platformy Android a iOS současně. Je tomu tak z~důvodu, že mobilní vývoj je aktuálně jeden TODO také díky podobnostem majících 
-na návrh multiplatformního UI vliv jako je například velikost obrazovky.
-
-I~přesto, že multiplatformní frameworky umožňují implementaci multiplatformním UI na většinu nejvíce používaných platforem jako je Android, iOS,
-Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z~pohledu UI mají ty platformy často jiné 
+I~přesto, že multiplatformní frameworky umožňují implementaci multiplatformního UI na většinu nejvíce používaných platforem jako je Android, iOS,
+Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z~pohledu UI mají tyto platformy často jiné 
 velikosti obrazovek, jiné možnosti ovládaní a proto, je často multiplatformní UI a často i veškerá logika implementována konkrétně pro danou platformu
 nebo typ zařízení. Je proto vždy nutné vědět jaký typ aplikace bude z~pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
 platformách bude daná aplikace implementována.
-
 Obecně lze tedy říci, že efektivita implementace multiplatformních aplikaci se může dle těchto omezeních a požadavků výrazně lišit.
 
 %I přesto, že tato práce je věnována především tvorbě UI, tak nesmí být opomenuta aplikační logika, které se za ním skrývá a má UI podstatný vliv.
