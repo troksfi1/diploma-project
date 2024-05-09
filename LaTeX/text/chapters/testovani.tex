@@ -1,12 +1,21 @@
 \chapter{Testování} \label{testsSection}
-Tato kapitola se bude věnovat především UI testování a to z~několika různých pohledů. 
+%Tato kapitola se bude věnovat především UI testování a to z~několika různých pohledů. 
 
-\section{Uživatelské rozhraní}
-UI testy se používají k~ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, 
-uživatelských interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+%\section{Typy UI testů}
 
-Mezi základní typy UI testy se řadí UI testy testující kritické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
-správnost fungování navigace v~dané aplikaci.
+Mezi základní dva druhy testování UI patří manuální a automatizované testovaní. Za účelem analýzy frameworku Compose Multiplatform
+se tato kapitola věnuje především UI testům, které tento framework přímo podporuje a tím jsou právě automatizované UI testy.
+Ty jsou dále rozdělený na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
+které simulují reálný průchod aplikací například uživatelem. Před samotným ukázáním způsobu implementace těchto testů se tato kapitola
+věnuje ještě samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k implementaci
+těchto testů použity.
+
+% \section{Uživatelské rozhraní}
+% UI testy se používají k~ověření, že uživatelské rozhraní aplikace funguje podle očekávání. To zahrnuje testování prvků uživatelského rozhraní, 
+% uživatelských interakcí a navigačních toků, aby se zajistilo plynulé uživatelské prostředí.
+
+% Mezi základní typy UI testy se řadí UI testy testující kritické uživatelské interakce na jedné obrazovce a dále například navigační testy testující
+% správnost fungování navigace v~dané aplikaci.
 
 
 % \section{Výkon aplikace}
@@ -23,100 +32,128 @@ správnost fungování navigace v~dané aplikaci.
 
 
 \section{Možnosti testování UI v~Compose Multiplatform}
-Od verze 1.6.0 Compose Multiplatform umožňuje testování UI na všech platformách. \cite{composeNews1.6.0}
-Testování aplikací založených na frameworku Compose Multiplatform je stejně tak jako tvorba samotného UI založena na Jetpack Compose a využívá 
-proto i stejných konceptů. Mezi tyto klíčové koncepty testovaní UI se řadí následující:
+Od verze 1.6.0 Compose Multiplatform umožňuje testování UI na všech podporovaných platformách. \cite{composeNews1.6.0}
+Testování aplikací založených na frameworku Compose Multiplatform je stejně jako tvorba samotného UI založeno na Jetpack Compose a využívá 
+proto i stejných konceptů. 
+
+\bigskip
+
+Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
-\subsection{Testování sémantiky}
-Testování UI je v Compose Multiplatform založené na testování 
+\subsection*{Sémantika}
+Jak již bylo zmíněno několikrát, tak UI frameworku Compose Multiplatform je založeno na stromové struktuře elementů a z toho důvodu 
+i samotné UI testy používají tuto strukturu k integraci s jednotlivými prvky této hierarchie. K rozlišení jednotlivý prvků tohoto 
+stromu se používají buďto samotné popisy jednotlivých elementů jako je například název tlačítka nebo lze taktéž využít popisků
+sloužících k přístupnosti (v kódu označovaných pomocí štítků \code{contentDescription}).
 
 
-\subsection{API rozhraní}
-Compose Multiplatform z~toto důvodů taktéž využívá tři hlavní principy jak testovat UI, které se v~Jetpack compose
-označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}. 
-K~tomu aby bylo možné UI komponenty testovat se používají funkce, které tyto komponenty na obrazovce detekují a následně další funkce které nad nalezenými 
-komponentami umožňují provést akce podobné těm, které provádí uživatel. Pro kontrolu správnosti provedení těchto akcí se používají takzvané tvrzení 
-(Assertions), které ověří zdali určité UI prvky mají požadované atributy.
+\subsection*{Testování rozhraní}
+K samotnému testovaní UI elementů se používají využívá tři hlavní principy, které se
+označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}.
 
-\textit{Finders} umožňují najít uzel nebo uzly ve strom UI struktuře pomocí štítků, vnořených textů, různých popisků a nebo pomocí \textit{Matchers}.
+V první fázi testovaní je potřeba samotné testované elementy vyhledat a k tomu slouží právě \textit{Finders}, které  umožňují najít
+ uzel nebo uzly ve stromové UI struktuře pomocí odpovídajícího sémantického stromu. Případně je dané elementy možné najít
+pomocí takzvaných \textit{Matchers}, které umožňují najít hledané UI komponenty například podle aktuálního stavu 
+(funkce \code{isEnabled()}, hasProgressBarRangeInfo() a další).
 
+Po nalezení potřebných komponent je možné přistoupit například k takzvaným \textit{Actions}, pomocí kterých je možné vykonávat akce, podobné
+těm, které vykonávají uživatelé (funkce \code{performClick(), performScrollTo()} a další).
 
-Pomocí \textit{Assertions}
+Pro kontrolu správnosti provedení těchto akcí se používají takzvaná tvrzení (\textit{Assertions}), které ověří zdali vybrané UI prvky
+mají požadované atributy. \cite{composeTesting}
 
-A~pomocí \textit{Actions} je možné simulovat uživatelské integrace jako jsou kliknutí nebo jiná gesta. \cite{composeTesting}
+\begin{sloppypar}
+\subsection*{Synchronizace}
+Dnešní asynchronní povaha mobilních aplikací a frameworků často ztěžuje psaní spolehlivých a opakovatelných testů. Testovací rámce
+musí v případě asynchronních operací čekat, než na ni aplikace zareaguje a až následně vykonávat příslušné testovací operace. 
+Takováto reakce testovacích rámců je v případě moderních testovacích rámců jako je Compose již běžná a automatická, ale přesto jsou zde
+situace při při kterých je synchronizaci testů s uživatelským rozhraním potřeba explicitně řídit.
 
-\subsection{Testování synchoronizace}
-Případě, že je například zavolána některá z funkcí z předchozího paragrafu pomocí ComposeTestRule, tak test je předem synchronizován a čeká dokud 
-se strom UI nebude ve stavu IDLE. 
-
-Obvykle tak není potřeba do synchronizace testů nikterak zasahovat avšak existují některé okrajové případy
+Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webové serveru. V takové situaci je v rámci testů možné 
+definovat funkce jako například \code{waitUntilNodeCount(matcher, count, timeoutMs)}, které pozdrží testovaní do doby než bude aplikace
+připravena k pokračovaní testů.
+\end{sloppypar}
 
 %\myparagraph{Testování interoperability}
 
 \section{Testovací případy}\label{testCases}
-Testovací případ (zkráceně TC - z~anglického \uv{test case}) je sada kroků nebo akcí, které jsou prováděny při testování softwarového produktu 
-s~cílem ověřit, zda se chová podle očekávání a splňuje požadavky. Každý testovací případ obvykle obsahuje následující prvky:
+Testovací případ (zkráceně TC - z~anglického \uv{test case}) je sada kroků nebo akcí, které jsou prováděny při testování softwarových produktů. 
+Cílem zadefinování testovací případů je ověřit, zda se testovaná aplikace chová podle očekávání a splňuje předem definované požadavky. 
+
+\bigskip
+
+Každý testovací případ obvykle obsahuje následující prvky:
 
 \begin{itemize}
-  \item \textbf{Popis:} Stručný popis toho, co testovací případ testuje a jaké jsou očekávané výsledky.
-  \item \textbf{Předpoklady:} Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
-  \item \textbf{Kroky:} Konkrétní kroky, které musí být provedeny k~provedení testu.
+  \item \textbf{Popis:} Stručný popis toho, co daný testovací případ testuje. % a jaké jsou očekávané výsledky.
+  %\item \textbf{Předpoklady:} Podmínky, které musí být splněny nebo konfigurace, která musí být provedena před spuštěním testu.
+  \item \textbf{Kroky:} Konkrétní kroky, které musí být k~provedení testu provedeny.
   \item \textbf{Očekávané výsledky:} Popis očekávaných výsledků testu po dokončení kroků.
-  \item \textbf{Aktuální výsledky:} Skutečné výsledky testu, které jsou porovnány s~očekávanými výsledky k~určení úspěšnosti testu.
+  %\item \textbf{Aktuální výsledky:} Skutečné výsledky testu, které jsou porovnány s~očekávanými výsledky k~určení úspěšnosti testu.
 \end{itemize}
+
+\medskip
 
 Na základě této struktury byly sepsány následující testovací případy:
 
 
 \myparagraph{TC1: Zobrazení aktuálních novinek}
+Zobrazení aktuálních novinek a jejich detailu.
 
 \begin{enumerate}
-  \item Kroky:
+  \item \textbf{Kroky:}
     \begin{enumerate}
       \item Navigace na stránku zobrazující aktuální novinky.
       \item Ověření, že systém zobrazil seznam aktuálních novinek.
       \item Kliknutí na konkrétní novinku.
       \item Ověření, že systém zobrazil detaily vybrané novinky.
     \end{enumerate}
-  \item Očekávaný výstup:
+  \item \textbf{Očekávaný výstup:}
     \begin{itemize}
-      \item Seznam aktuálních novinek je zobrazen.
-      \item Po kliknutí na konkrétní novinku jsou zobrazeny její detaily.
+      \item Seznam aktuálních novinek byl zobrazen.
+      \item Po kliknutí na konkrétní novinku byl zobrazen její detail.
     \end{itemize}
 \end{enumerate}
 
-\myparagraph{Testovací případ 2: Zobrazení aktuálních událostí}
+\myparagraph{TC2: Odkázání na zaplacení parkovacích poplatků}
+Zobrazení parkovacích zón a následné vybrání parkovací zóny s odkazem na zaplacení parkovacího poplatku.
 
 \begin{enumerate}
-  \item Kroky:
+  \item \textbf{Kroky:}
     \begin{enumerate}
-      \item Navigace na stránku zobrazující aktuální události.
-      \item Ověření, že systém zobrazil seznam aktuálních událostí.
-      \item Kliknutí na konkrétní událost.
-      \item Ověření, že systém zobrazil detaily vybrané události.
+      \item Navigace na stránku zobrazující parkovací zóny.
+      \item Kliknutí do vyhledávacího pole.
+      \item Zvolení požadované parkovací zóny.
+      \item Ověření, že systém zobrazil vybranou parkovací zónu.
+      \item Kliknutí na tlačítko \uv{zaplatit}.
+      \item Ověření, že systém uživatele přesměroval na platební portál města.
     \end{enumerate}
-  \item Očekávaný výstup:
+  \item \textbf{Očekávaný výstup:}
     \begin{itemize}
-      \item Seznam aktuálních událostí je zobrazen.
-      \item Po kliknutí na konkrétní událost jsou zobrazeny její detaily.
+      \item Seznam parkovacích zón byl zobrazen.
+      \item Dialogový panel byl zobrazen.
+      \item Uživatel byl přesměrován na platební portál města.
     \end{itemize}
 \end{enumerate}
 
-\myparagraph{Testovací případ 3: Filtrování zobrazených událostí podle data}
+\myparagraph{TC3: Kontrola stavu po zrušení akce výběru datového rozsahu}
+Zobrazení dialogového okna pro výběr datového rozsahu a následné zrušení prováděné akce.
 
 \begin{enumerate}
-  \item Kroky:
+  \item \textbf{Kroky:}
     \begin{enumerate}
       \item Navigace na stránku zobrazující události.
-      \item Ověření, že systém zobrazil seznam událostí.
-      \item Zvolení konkrétního data pro filtrování událostí.
-      \item Ověření, že systém zobrazil události pouze pro vybrané datum.
+      \item Ověření, že systém zobrazil filtrační možnosti.
+      \item Zvolení tlačítka pro výběr datového rozsahu.
+      \item Ověření, že systém zobrazil patřičné dialogové okno. 
+      \item Zvolení tlačítka zrušit pro zrušení akce výběru datového rozsahu.
+      \item Ověření stavu filtračních možností.
     \end{enumerate}
-  \item Očekávaný výstup:
+  \item \textbf{Očekávaný výstup:}
     \begin{itemize}
-      \item Seznam událostí je filtrován podle zvoleného data.
-      \item Události jsou rozděleny do kategorií podle typu události.
+      \item Systém zobrazí dialogové okno pro výběr datového rozsahu.
+      \item Filtrační možnosti zůstanou ve stejném stavu jako před provedou akcí.
     \end{itemize}
 \end{enumerate}
 
@@ -153,6 +190,10 @@ funkcionality a vzhledu jednotlivých komponent jako jsou tlačítka, textová p
 To zahrnuje ověření interakcí s komponentou, jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty v 
 různých situacích, jako je například změna orientace zařízení.
 
+\bigskip
+
+Pro ukázku metod používaných pro ověření správnosti zobrazení jednotlivých UI komponent slouží následující ukázka kódu \ref{lst:testImplementation}.
+
 \begin{listing}[H]
   \caption{Metody pro testování UI komponent}\label{lst:testImplementation}
   \begin{minted}{kotlin}
@@ -160,26 +201,28 @@ různých situacích, jako je například změna orientace zařízení.
 @Test
 fun check_properties_check_return() = runComposeUiTest {
   ...
-  //Asserts that the component was found and is part of the component tree.
+  //Ověří, že daná komponenta byla nalezena a je součástí stromu UI komponent.
   onNodeWithText("Závady").assertExists()
-  //Asserts that the current semantics node is displayed on screen.
+  //Ověří, že je daný uzel sémantického stromu zobrazen na obrazovce.
   onNodeWithText("Závady").assertIsDisplayed()
-  //Asserts that the layout of this node has height that is greater than 100 dp
+  //Ověří, že rozvržení daného uzle má výšku větší než 100 dp
   onNodeWithText("Závady").assertHeightIsAtLeast(100.dp)
 }
 \end{minted}
 \end{listing}
 
 \subsection{End-to-end testy}
-End-to-end (E2E) testy jsou typem softwarového testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele.
-Tyto testy prověřují integraci jednotlivých komponent aplikace a zajišťují, že aplikace pracuje korektně a očekávaným způsobem od začátku až do konce procesu.
+End-to-end (E2E) testy jsou typem testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele.
+Tyto testy prověřují integraci jednotlivých komponent aplikace a zajišťují, že aplikace pracuje korektně a očekávaným způsobem od začátku až 
+do konce vykonávaného procesu.
 
-V E2E testech je často využíván reálný prohlížeč nebo emulátor, aby se co nejvíce blížilo reálným uživatelským podmínkám. Testy mohou obsahovat různé 
-scénáře, jako je například registrace uživatele, přihlášení, provádění akcí v aplikaci a ověřování výsledků.
+Při E2E testování je často využíván emulátor nebo reálné zařízení, aby se testování co nejvíce blížilo reálným uživatelským podmínkám. 
+%Testy mohou obsahovat různé scénáře, jako je například registrace uživatele, přihlášení, provádění akcí v aplikaci a ověřování výsledků.
 
-Cílem E2E testů je zajistit, že aplikace funguje spolehlivě a správně napříč všemi vrstvami a komponentami a že uživatelé mohou dosáhnout svých cílů
- bez problémů.
+Cílem E2E testů je zajistit, že aplikace funguje spolehlivě a správně napříč všemi vrstvami a komponentami a že uživatelé mohou dosáhnout 
+svých cílů bez problémů.
 
+\bigskip
 Při implementaci těchto testů bylo postupováno na základě testovacích scénářů uvedených v sekci \textit{Testovací případy \ref{testCases}} a pro
 ukázku implementace byl zvolen test: \ref{lst:E2ETest}
 

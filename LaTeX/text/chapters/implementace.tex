@@ -157,7 +157,7 @@ a zbylé barvy jako například barvy pro výplň pozadí nebo pro tmavý režim
 Pro použití vybraných barev v~aplikaci bylo zapotřebí jednotlivé barvy nejprve zadefinovat následujícím způsobem:
 
 \begin{listing}[H]
-\caption{Zadefinování barev v~souboru \code{commonMain/.../presentation/theme/Color.kt}}\label{lst:Colors}
+\caption{Zadefinování barev}\label{lst:Colors}
 \begin{minted}{Kotlin}
 val md_theme_light_primary = Color(0xFFBC004C)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -711,30 +711,31 @@ actual class DatabaseDriverFactory {
 
 
 \section{Logika uživatelského rozhraní} \label{UILayerImpl}
-V~rámci této sekce je ukázáno jakým způsobem byla implementována logika chování UI navržená v~kapitole 
-\textit{Vrstvy architektury \ref{vrstvyArchitekturySection}}.
+V~rámci této sekce je ukázáno jakým způsobem byla implementována logika chování UI jejíž části byly navrženy v~kapitole 
+\textit{Vrstvy architektury \ref{vrstvyArchitekturySection}}. 
 
 
 %\textit{Vrstvy architektury \ref{vrstvyArchitekturySection} }, j
 
 \subsection{Stav uživatelského rozhraní} \label{stateHandlingImpl}
-Tato sekce slouží k~přiblížení toho, jak takzvaný \textit{UI State}, kterému byl věnován paragraf \textit{UI state}
-v~kapitole \textit{Vrstvy architektury \ref{vrstvyArchitekturySection} } je implementován v~rámci ukázkové aplikace.
+Tato sekce slouží k~přiblížení toho, jak je takzvaný \textit{UI State} (z dříve zmíněné kapitoly \ref{vrstvyArchitekturySection}) 
+implementován v~rámci ukázkové aplikace.
 
-Z~pohledu UI se jedná o~důležitou část aplikace o~jejíž aktualizaci se stará již zmíněný ViewModel \ref{ViewModelImpl} neboli ScreenModel v~rámci
+Z~pohledu UI se jedná o~důležitou část aplikace o~jejíž aktualizaci se stará později zmíněný ViewModel (viz ViewModel\ref{ViewModelImpl}) neboli ScreenModel v~rámci
 implementované aplikace. 
 Pro zachování stavu jednotlivých obrazovek byla použita datová třída, která v~sobě umožňuje uchovávat veškeré možné stavy dané obrazovky.
 Pro ukázku toho, jak byla taková datová třída implementována byla vybrána obrazovka událostí (viz výpis kódu \ref{lst:EventState}), která v~sobě 
 například uchovává informace typu jaké filtry událostí jsou aktuálně zvoleny, zdali je otevřeno dialogové okno pro výběr datového rozmezí 
 nebo zdali jsou aktuálně načítány nějaká data.
 \begin{listing}[H]
-\caption{Event State katalog}\label{lst:EventState}
+\caption{Implementace stavu obrazovky \textit{Události}}\label{lst:EventState}
 \begin{minted}{Kotlin}
   data class EventsState(
     val events: StateFlow<List<Event>> = MutableStateFlow(emptyList()),
     val selectedFilterOption: FilterOption = FilterOption.TODAY,
     val isDatePickerOpen: Boolean = false,
     val isFetchingEvents: Boolean = false,
+    val filteredEventCategories: List<EventCategory> = emptyList(),
     ...
   )
 \end{minted}
@@ -745,28 +746,26 @@ Takto zadefinované stavy je následně možné používat v~rámci jednotlivýc
 
 %být v~aplikaci použity například následujícím způsobem. Kde stav udržován 
 \begin{listing}[H]
-\caption{Události uživatelského rozhraní}\label{lst:StateImpl}
+\caption{Integrace stavu obrazovkou \textit{Události}}\label{lst:StateImpl}
 \begin{minted}{Kotlin}
-  val screenModel = getScreenModel<HomeScreenModel>()
+  val screenModel = getScreenModel<EventsScreenModel>()  // ViewModel
   val state by screenModel.state.collectAsState()
-
-  val news = state.news.collectAsState()
-  LazyColumn {
-      items(news.value) { news ->
-          NewsItem(news = news, onItemClick = {
-              navigator.push(NewsDetailScreen(news))
-          })
-      }
+  ...
+  FlowColumn {
+    state.filteredEventCategories.forEach {
+        EventLazyRow(it, state)
+    }
   }
 \end{minted}
 \end{listing}
 
-\subsection{UI Events} \label{eventHandlingImpl}
-V~rámci této kapitolo bude představeno jak implementovaná aplikace obsluhuje událsti přicházející z~uživatelského rozhraní.
+\subsection{UI události} \label{eventHandlingImpl}
+%V~rámci této sekce bude představeno jakým způsobem bylo přistoupeno k implementaci takzvaných \textit{UI Events}.
 
+Jak již bylo zmíněno, tak nejčastějším typem UI události jsou takzvané uživatelské události produkované uživatelem při interakci s aplikací.
+Tyto události jsou zpracovány aplikací pomocí metod, jako je například metoda \code{onClick()}, která je typickým příkladem pro UI komponenty. 
 
-V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z~UI elementů. V~jednotlivýmch j
-
+Tato metoda \code{onClick()} je možné uplatnit reprezentaci UI události v podobě datových objektů zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 
 \begin{listing}[H]
 \caption{Použití stavu v~aplikaci}\label{lst:EventsImpl}
@@ -779,15 +778,26 @@ V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh
 \end{minted}
 \end{listing}
 
+
+
+a mohou spustit různé akce, které by zároveň
+měli způsobit změny UI stavu.
+
+implementovaná aplikace obsluhuje události přicházející z~uživatelského rozhraní.
+
+
+V~rámci ViewModelů jsou obsluhovány události (viz kapitola \ref{UILayerNavrh}), které přichází z~UI elementů. V~jednotlivýmch j
+
 \subsection{ViewModel} \label{ViewModelImpl}
-TODO % odkaz na UI Layer
-V~rámci implementované aplikace byl pro každou obrazovku implementovám jeden ViewModel, který se stará o~logiku každé obrazovky zvlášť. Tato kapitola 
-bude proto shrhutím stěžejních částí jednotlichých ViewModelů tak 
+V~rámci implementované aplikace byl pro každou obrazovku implementován jeden ViewModel, který se stará o~logiku každé obrazovky zvlášť. 
+Tato kapitola bude proto shrnutím stěžejních částí z každého ViewModelů tak aby dávala vhodnou představenu o tom, jako funkci ViewModely
+v aplikaci mají.
+
+V~rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI na jejich základě 
+by vždy měli měnit stav aplikace. \cite{viewmodelEvents} V~tomto duchu jsou implementovany všechny ViewModely. Díky tomu je možné 
+zaručit, že stav uživatelského rozhraní nebude změněn v~případě 
 
 
-V~rámci implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI a na jejich základě by vždy měli
-měnit stav aplikace. V~tomto duchu jsou implementovany všechny ViewModely. Díky tomu je možné zaručit, že stav uživatelského rozhraní  nebude změněn
-v~případě 
 \begin{listing}[H]
 \caption{Implementace ViewModelu}\label{lst:ViewModelImpl}
 \begin{minted}{Kotlin}
@@ -812,23 +822,6 @@ v~případě
 
 , která ovlivnila implementaci ViewModelů bylo použití navigace Voyager, která poskytuje potřebná rozhraní k 
 
-
-
-\section{Řešení problémů spojených s~multiplatformním vývojem} % mozna presunou do zaveru
-Nedostatek knihoven
-Mezi jeden z~hlavních problému patří nedostatek vhodných multiplatformních knihoven a ten se projevil i v~případě implementace mapových podkladů
-do aplikace kde jak již bylo zmíněno byla nakonec zvolena implementace nativních mapových podkladů za použití expect a actual deklarací (viz paragraf \ref{expectActual}).
-
-Preview
-Další problémem bylo nefunkční náhled UI, což se sice na výsledném uživatelském rozhraní nikterak neprojevilo, ale celý proces tvorby UI to značně 
-prodloužilo.
-
-Špatná nebo téměř žádná dokumentace k~knihovnám třetích stran a v~případě co se týče Compose Multiplatfrom, tak zde je téměř kompletně spoléháno na
-identic. 
-Na druhou stranu Compose Multiplatform ještě není na všech platformách ve stabilní verzi a proto je možné, že po vydání stabilních verzí i pro jiné
-platformy se dokumentace od JetBrains rozříší.
-
-problémy s~IDE 
 
 
 %\subsection{Implementace mapových podkladů}

@@ -350,13 +350,13 @@ dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{arch-ui-udf.png}
-  \caption{Architektura UI vrstvy}
+  \caption{Architektura UI vrstvy Zdroj: \cite{imgDataFlow}}
   \label{fig:arch_ui_udf}
 \end{figure}
 
 \myparagraph{ViewModel}
 Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce, a to i při změnách konfigurace zařízení 
-(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s~daty, jako je načítání dat ze zdroje, 
+(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s~daty, jako je načítání dat z úložiště, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní. % (UI elementů) nebo stavu 
 
@@ -375,7 +375,7 @@ na obrázku \ref{fig:UI_function}, která zjednodušeně popisuje to, že na zá
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{ui-equals-function-of-state.png}
-  \caption{Reprezentace vztahu UI a stavu aplikace}
+  \caption{Reprezentace vztahu UI a stavu aplikace Zdroj: \cite{imgUIformula}}
   \label{fig:UI_function}
 \end{figure}
 
@@ -396,13 +396,12 @@ UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají 
 Jejich vhodné použití a umístění má vliv na celkový uživatelský zážitek a efektivnost aplikace.
 
 \myparagraph{UI Events}
-Nejčastějším typem UI událostí jsou takzvané uživatelské události, které jsou generovány interakcí uživatele s~uživatelským rozhraním aplikace. 
+Nejčastějším typem UI událostí jsou takzvané uživatelské události, které jsou generovány interakcí uživatele s~uživatelským rozhraním aplikace. \cite{UIEvents}
 Patří k~nim například kliknutí myší, dotyk na obrazovce, stisknutí klávesy nebo jakékoli jiné akce prováděné uživatelem, které vyvolávají reakci
-v~UI aplikace. Tyto události jsou zpracovány aplikací pomocí metod jako je například metoda \code{onClick()} a mohou spustit různé akce, které by zároveň
-měli způsobit změny UI stavu.
+v~UI aplikace.
 
 O~zpracování uživatelských událostí se většinou stará příslušný ViewModel, který nabízí veškeré funkce, které je pomocí uživatelského rozhraní možné volat.
-Nicméně některé typy uživatelských událostí může UI zpracovat přímo, takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
+Nicméně některé typy uživatelských událostí může UI zpracovat přímo. Takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
 informativní zprávy pomocí takzvaných \textit{Snackbars}.
 
 \subsection*{Doménová vrstva}
@@ -437,7 +436,7 @@ Pro persistenci těchto dat byla vybrána SQL databáze, která se stará poskyt
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{data_layer_diagram.png}
-  \caption{Architektura datové vrstvy}
+  \caption{Architektura datové vrstvy Zdroj: \cite{imgDataFlow}}
   \label{fig:arch_data_layer}
 \end{figure}
 
@@ -473,7 +472,7 @@ Tyto vrstvy jsou spolu propojeny následujícím způsobem.
 \begin{figure}[H]
   \centering
   \includegraphics[width=.8\textwidth]{arch_diagram.png}
-  \caption{Provázanost jednotlivých částí datové vrstvy}
+  \caption{Provázanost jednotlivých částí datové vrstvy Zdroj: \cite{imgDataDiagram}}
   \label{fig:arch_diagram}
 \end{figure}
 

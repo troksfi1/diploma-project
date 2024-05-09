@@ -33,6 +33,21 @@ Dále během fáze implementace nebylo možné využít například některé z 
 Běhen fáze návrhu byly obecně známy problémy s nefunkční anotací \textit{@Preview}, která nebyla dostupná a ani aktuálně nefunguje například pro 
 \textit{Composable} funkce s parametry. \cite{previewCompose} Důležité je taky zmínit, že 
 
+\section{Řešení problémů spojených s~multiplatformním vývojem} % mozna presunou do zaveru
+Nedostatek knihoven
+Mezi jeden z~hlavních problému patří nedostatek vhodných multiplatformních knihoven a ten se projevil i v~případě implementace mapových podkladů
+do aplikace kde jak již bylo zmíněno byla nakonec zvolena implementace nativních mapových podkladů za použití expect a actual deklarací (viz paragraf \ref{expectActual}).
+
+Preview
+Další problémem bylo nefunkční náhled UI, což se sice na výsledném uživatelském rozhraní nikterak neprojevilo, ale celý proces tvorby UI to značně 
+prodloužilo.
+
+Špatná nebo téměř žádná dokumentace k~knihovnám třetích stran a v~případě co se týče Compose Multiplatfrom, tak zde je téměř kompletně spoléháno na
+identic. 
+Na druhou stranu Compose Multiplatform ještě není na všech platformách ve stabilní verzi a proto je možné, že po vydání stabilních verzí i pro jiné
+platformy se dokumentace od JetBrains rozříší.
+
+problémy s~IDE 
 
 \section{Závěr o~použitelnosti frameworku}
 Jelikož je závěrečné hodnocení této nově nastupující technologie stěžejní částí práce, tak aby bylo toto hodnocení co 
