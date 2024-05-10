@@ -28,15 +28,15 @@ a nakonec porovnány s aktuálně používanými technologiemi z hlediska výkon
 
 \medskip
 
-Druhá kapitola se věnuje výběru a návrhu aplikace, která bude sloužit k otestovaní použitelnosti technologie Compose Multiplatform.
+Druhá kapitola se věnuje výběru a návrhu aplikace, která slouží k otestovaní použitelnosti technologie Compose Multiplatform.
 Při fázi návrhu je nejprve přistoupeno k vytyčení případů užití a následně jsou specifikovány funkční a nefunkční požadavky pro vybranou aplikaci.
-Pro aplikaci je navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně již práce přechází k detailnímu
+Pro aplikaci je navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně práce přechází k detailnímu
 návrhu samotného UI. To je nejprve navrženo pomocí takzvaných drátěných modelů a následně převedeno na takzvané mockup modely, které
-lépe vystihují výslednou podobu UI.
+lépe vystihují výslednou grafickou podobu UI.
 
 \medskip
 
-Kapitola implementace popisuje samotné založení multiplatformního projektu pomocí frameworku Compose Multiplatform
+Kapitola implementace popisuje založení multiplatformního projektu pomocí frameworku Compose Multiplatform
 a implementaci navrženého uživatelského rozhraní pomocí této technologie. Dále se tato kapitola věnuje kritickým UI komponentám
 jako je použitá navigace a následně také důležitým technologiím použitých pro správné fungování aplikační logiky. Závěr této kapitoly
 je pak věnován implementované logice uživatelského rozhraní.
@@ -51,7 +51,7 @@ multiplatformního UI, následně jsou tyto testy navrženy a implementovány.
 
 
 Poslední kapitola je věnována shrnutí celého procesu implementace a konkretizaci naskytlých problémů. Úplně poslední část této kapitoly se týká celkové evaluace
-vlastností frameworku Compose Multiplatform a závěrečnému zhodnocení použitelnosti toho frameworku v praxi.
+vlastností frameworku Compose Multiplatform a závěrečného zhodnocení použitelnosti toho frameworku v praxi.
 
 \newpage
 
@@ -79,8 +79,8 @@ tak ne vždy má smysl multiplatformní přístup aplikovat. Tomu, kdy je vhodn�
 
 \section{Uplatnění multiplatformního vývoje a sdíleného UI}
 I~přesto, že multiplatformní frameworky umožňují implementaci multiplatformního UI na většinu nejvíce používaných platforem jako je Android, iOS,
-Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak né vždy je vhodné těchto možností využít. Z~pohledu UI mají tyto platformy často jiné 
-velikosti obrazovek, jiné možnosti ovládaní a proto, je pravidelně multiplatformní UI a často i veškerá logika implementována konkrétně pro danou platformu
+Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak ne vždy je vhodné těchto možností využít. Z~pohledu UI mají tyto platformy často jiné 
+velikosti obrazovek nebo jiné možnosti ovládaní a proto, je v některých případech nutné implementovat UI a často i veškerou logiku pro konkrétní platformu
 nebo typ zařízení. Je proto vždy nutné vědět, jaký typ aplikace bude z~pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
 platformách bude daná aplikace implementována.
 Obecně lze tedy říci, že efektivita implementace multiplatformních aplikací se může dle těchto omezení a požadavků výrazně lišit.
@@ -92,7 +92,7 @@ Obecně lze tedy říci, že efektivita implementace multiplatformních aplikac�
 \section{Důvody multiplatformního vývoje a sdíleného UI}
 
 Mezi primární důvody vedoucí firmy a jednotlivce k~vývoji multiplatformních aplikací patří především
-snížení nákladů na vývoj a následně také na údržbu. Dále také jednodušší dosažení konzistentního vzhledu
+snížení nákladů na vývoj a následně také na údržbu. \cite{crossPlatformFrameworks} Dále také jednodušší dosažení konzistentního vzhledu
 na odlišných platformách nebo například možnost znovu používat komponenty UI na různých platformách.
 
 Mezi další důvody může například patřit možnost rychlejších aktualizací, jelikož nové funkce mohou být 

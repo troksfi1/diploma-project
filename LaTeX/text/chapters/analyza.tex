@@ -1,6 +1,6 @@
 \chapter{Analýza}
 Tato kapitola je zaměřena na představení aktuálně používaných multiplatformních frameworků a porovnání těchto frameworků
-s~technologií Compose Multiplatform. Kapitola dále shrnuje jejich podstatné rysy a následně slouží
+s~technologií Compose Multiplatform. Kapitola dále shrnuje jejich podstatné rysy a slouží
 k~jednoduššímu porovnání a vyhodnocení použitelnosti frameworku Compose Multiplatform. Zároveň je v~této kapitole detailněji
 rozebrán samotný Compose Multiplatform a to jak z~pohledu implementace uživatelského rozhraní, tak i z~pohledu implementace
 aplikační logiky, ke které využívá technologii Kotlin Multiplatform.
@@ -56,8 +56,8 @@ Aplikační logika v~React Native se píše v~jazyce JavaScript nebo TypeScript,
 což usnadňuje snadnou integraci s~existujícími webovými technologiemi. \cite{reactNativeFundamentals}
 
 \myparagraph{Rozsáhlá komunita} 
-React Native má rozsáhlou komunitu vývojářů, což vede k~bohatému ekosystému 
-třetích stran, včetně mnoha dostupných knihoven a modulů. \cite{reactNativeComunity}
+React Native má rozsáhlou komunitu vývojářů \cite{reactNativeComunity}, což vede k~bohatému ekosystému 
+třetích stran, které frameworku poskytují velké množství knihoven a modulů. 
 
 \myparagraph{Expo framework} 
 Pro ještě snazší start vývoje poskytuje React Native takzvaný Expo framework, který 
@@ -121,7 +121,7 @@ Pro lepší představu, jak dané komponenty vypadají, slouží následující 
 Na ukázce kódu \ref{lst:reactNativeJSX} jsou aplikovány některé z~nejpoužívanějších core komponent, které se při psaní React
 Native aplikací používají. \cite{reactNativeComponents} Jak již bylo zmíněno dříve, tak tyto komponenty jsou následně převedeny 
 na nativní komponenty pro každou platformu a to, jakým způsobem Fabric dané komponenty převádí, se dá rozdělit do následujících tří
-na sebe navazujících fází: \cite{reactNativeRenderCommitMount}
+na sebe navazujících fází. \cite{reactNativeRenderCommitMount}
  
 %Na této ukázce je zároveň vidět použití deklarativního zápisu, které bude podrobněji probráno v následující kapitole.
 
@@ -130,15 +130,15 @@ na sebe navazujících fází: \cite{reactNativeRenderCommitMount}
 \myparagraph{Render}
 Během této fáze se z~jednotlivých komponent (React Elementů) sestaví strom elementů v~JavaScriptu (viz levá část obrázku \ref{fig:react-native-render-pipeline}) a nad tímto stromem se 
 následně spustí rekurzivní redukce, při které dojde k~vytvoření nového stromu takzvaného React Shadow Tree (viz prostřední část obrázku \ref{fig:react-native-render-pipeline}).
-\cite{reactNativeRenderCommitMount} Ten se skládá z React Shadow Nodes, které reprezentují objekty v~C++, a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
+\cite{reactNativeRenderCommitMount} Ten se skládá z \textit{React Shadow Nodes}, které reprezentují objekty v~C++, a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
 
 \myparagraph{Commit}
-V~rámci této fáze je pro každý React Shadow Node vypočítána jeho pozice a velikost na koncovém zařízení, a díky tomu může renderovací systém
-přejít k~poslední fázi zvané Mount. \cite{reactNativeRenderCommitMount}
+V~rámci této fáze je pro každý \textit{React Shadow Node} vypočítána jeho pozice a velikost na koncovém zařízení, a díky tomu může renderovací systém
+přejít k~poslední fázi zvané \textit{Mount}. \cite{reactNativeRenderCommitMount}
 
 \myparagraph{Mount}
 Během této poslední fáze dojde k~transformaci \textit{React Shadow Tree} na \textit{Host View Tree} (viz pravá část obrázku \ref{fig:react-native-render-pipeline}) a to tak, že každý \textit{React Shadow Node}
-se transformuje na jeho ekvivalent v~nativní podobě. \cite{reactNativeRenderCommitMount} Čili například na platformě Android se $<ViewShadowNode>$ přetransformuje na android.view.ViewGroup. \cite{reactNativeRenderCommitMount}
+se transformuje na jeho ekvivalent v~nativní podobě. \cite{reactNativeRenderCommitMount} Čili například na platformě Android se \code{<ViewShadowNode>} přetransformuje na \code{android.view.ViewGroup}. \cite{reactNativeRenderCommitMount}
 
 \begin{figure}[H]
   \centering
@@ -168,8 +168,8 @@ i v případě, že už jde o~instrukce Intel x64 nebo ARM, případně do JavaS
 
 
 \myparagraph{Jeden zdrojový kód pro více platforem} 
-S~Flutterem mohou vývojáři psát jeden zdrojový kód pro obě platformy Android a iOS, což snižuje dobu vývoje a úsilí 
-vynakládané na údržbu. Flutter také rozšířil svou podporu pro cílení webových a desktopových aplikací, umožňující širší dosah s~minimálními změnami kódu. \cite{flutter}
+S~Flutterem mohou vývojáři psát jeden zdrojový kód pro obě mobilní platformy Android a iOS, což snižuje dobu vývoje a úsilí 
+vynakládané na údržbu. Flutter také rozšířil svou podporu na webové a desktopové aplikace čímž umožňuje širší dosah s~minimálními změnami kódu. \cite{flutter}
 
 \myparagraph{Rozsáhlá sada widgetů}
 Flutter poskytuje komplexní sadu přizpůsobitelných widgetů, které usnadňují vytváření složitých a vizuálně 
@@ -177,7 +177,7 @@ atraktivních uživatelských rozhraní. Tyto widgety zahrnují vše od základn
 pokročilé komponenty jako jsou grafy a animace. \cite{flutterWidgets2}
 
 \myparagraph{Programovací jazyk Dart}
-Aplikace vytvořené pomocí frameworku Flutter jsou psány v~jazyce Dart - moderním a objektově orientovaném programovacím jazyce 
+Aplikace vytvořené pomocí frameworku Flutter jsou psány v~jazyce Dart - moderním objektově orientovaném programovacím jazyce 
 vyvinutém společností Google. Dart je navržen pro optimální výkon a produktivitu, což ho činí vhodným pro mobilní a
 webový vývoj. \cite{dart}
 
@@ -188,29 +188,29 @@ renderuje pomocí vlastního renderovacího enginu. \cite{flutterRenderingModel}
 
 \subsection*{Architektura frameworku Flutter} 
 Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev. \cite{flutterArchOverview}
-První z nich, embedder, je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
-Každý embedder obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
-Engine je další vrstva starající se o~vykreslování grafiky, kdykoli, kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
-Framework je vrstva, která je používána vývojáři k~vytváření uživatelských rozhraní a definování chování aplikace. 
+První z nich, \textit{embedder}, je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
+Každý \textit{embedder} obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
+\textit{Engine} je další vrstva starající se o~vykreslování grafiky, kdykoli, kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
+\textit{Framework} je vrstva, která je používána vývojáři k~vytváření uživatelských rozhraní a definování chování aplikace. 
 Obsahuje hotové widgety, funkce pro manipulaci s~UI a další nástroje pro vývojáře. \cite{flutterArchOverview} 
 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\textwidth]{flutter_architectural_layers.png}
-  \caption{Flutter architectural layers Zdroj: \cite{flutterUI}}
+  \caption{Flutter - vrstvy architektur Zdroj: \cite{flutterUI}}
   \label{fig:flutter_architectural_layers}
 \end{figure}
 
-Mezi hierarchicky poslední a neméně důležitou část tohoto frameworku patří platformě specifické knihovny Material and Cupertino. Tyto knihovny
+Mezi hierarchicky poslední a neméně důležitou část tohoto frameworku patří platformě specifické knihovny \textit{Material} and \textit{Cupertino}. Tyto knihovny
 jsou následně využívány widgety k~implementaci konkrétního design systému. Díky tomu je možné uživateli navodit nativní pocit z~dané aplikace.
 
 \medskip
 
-Z~pohledu UI je důležitým prvkem právě Flutter framework, který zároveň definuje, jak spolu jednotlivé widgety interagují.
+Z~pohledu UI je důležitým prvkem právě \textit{Framework}, který zároveň definuje, jak spolu jednotlivé widgety interagují.
 
 Widget je ve Flutteru základní stavební blok pro tvorbu uživatelského rozhraní. \cite{flutterWidgets} V~následující ukázce kódu \ref{lst:flutterCode} je pro příklad použito několik 
-základních widgetů jako je \emph{Image} nebo \emph{Text}, taktéž layout widget zvaný \emph{Container} a \emph{Row} pro organizaci a 
+základních widgetů jako je \code{Image} nebo \code{Text}, taktéž layout widget zvaný \code{Container} a \code{Row} pro organizaci a 
 rozložení vnořených widgetů na obrazovce.
 
 \begin{listing}[H]
@@ -228,7 +228,8 @@ Container(
 \end{minted}
 \end{listing}
 
-Když Flutter potřebuje vykreslit tento blok, zavolá metodu \emph{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
+\newpage
+Když Flutter potřebuje vykreslit například blok z výpisu kódu \ref{lst:flutterCode}, zavolá metodu \code{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
 rozhraní na základě aktuálního stavu aplikace. \cite*{flutterArchOverview}
 
 Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (například kód \ref{lst:flutterCode}) do odpovídajícího stromu elementů viz obrázek \ref{fig:flutter_trees}, přičemž každý widget má přiřazený jeden element. Každý prvek pak představuje určitou instanci widgetu v~daném umístění stromové hierarchie. \cite*{flutterArchOverview}
@@ -237,7 +238,7 @@ Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (nap
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{flutter_trees.png}
-  \caption{Flutter build proces Zdroj: \cite{flutterArchOverview}}
+  \caption{Flutter - proces sestavování Zdroj: \cite{flutterArchOverview}}
   \label{fig:flutter_trees}
 \end{figure}
 
@@ -276,20 +277,21 @@ Poskytuje stabilní podporu od vývojářského týmu JetBrains.
 Jelikož je framework Compose Multiplatform z~velké části založen na frameworku Jetpack Compose \cite{composeMultiplatform}, tak v~této kapitole bude probírána
 právě architektura toho frameworku. 
 
-V~porovnání s~ostatními dříve zmíněnými frameworky slouží pouze tento k~tvorbě multiplatformního UI. Z~toho důvodu je převážně 
+V~porovnání s~ostatními dříve zmíněnými frameworky slouží tento framework pouze k~tvorbě multiplatformního UI. Z~toho důvodu je převážně 
 používán s~toolkitem Kotlin Multiplatform, který dané aplikaci poskytuje i multiplatformní aplikační logiku. \cite{KMP} Jelikož se jedná o~základní 
-komponentu, bez které by Compose Multiplatform nevznikl, je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
+komponentu, bez které by bylo použití Compose Multiplatform značně omezené, je tomuto toolkitu věnována celá kapitola \ref{kmpSection}.
 
 Pro lepší ukázku toho, z~jakých částí se typická multiplatformní mobilní aplikace skládá, slouží následující obrázek \ref{fig:composeIOS}, který
 vizualizuje propojenost frameworku Compose Multiplatform s~toolkitem Kotlin Multiplatform (KMP). Dále obrázek vizualizuje 
 vztah platformě specifických knihoven pro tvorbu UI jako je SwiftUI k~frameworku Compose Multiplatform.
+
 Compose Multiplatform lze nicméně použít i s~technologiemi pro tvorbu UI jako je UI kit pro platformu iOS nebo
-Android views pro platformu Android. Každopádně, od těchto technologií je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebe SwiftUI.  
+Android views pro platformu Android. Každopádně, od těchto technologií je postupně upouštěno a přechází se k~deklarativním frameworkům jako je Jetpack Compose nebo SwiftUI \cite{declarativeUIHistory}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.7\textwidth]{composeIOS.png}
-  \caption{Compose Multiplatform iOS Zdroj: \cite{imgComposeMultiplatfromiOS}}
+  \caption{Postavení frameworku Compose Multiplatform vůči ostatním technologiím \cite{imgComposeMultiplatfromiOS}}
   \label{fig:composeIOS}
 \end{figure}
 
@@ -298,7 +300,7 @@ Co se týče samotného UI kódu, tak ten se skládá z~jednotlivých funkcí oz
 textu na obrazovce. 
 
 \begin{listing}[H]
-\caption{Popis UI widgetů pomocí jazyka Kotlin}\label{lst:ComposeCode}
+\caption{Popis UI prvků pomocí jazyka Kotlin}\label{lst:ComposeCode}
 \begin{minted}{kotlin}
 @Composable
 fun MyComposable() {
@@ -357,7 +359,7 @@ jakými může být KMP na daných platformách implementován.
 \begin{figure}[H]
   \centering
   \includegraphics[width=.7\textwidth]{KMP_vrstvy.png}
-  \caption{Možnosti implementace KMP Zdroj: \cite{KMPUseCases}}
+  \caption{Možnosti implementace KMP Zdroj: \cite{KMPUseCases} (upraven)}
   \label{fig:KMP_vrstvy}
 \end{figure}
 
@@ -373,8 +375,8 @@ Společnost JetBrains ve svém článku z~konce roku 2023 zmiňuje, že existuje
 jich bylo pouze několik málo desítek. \cite{KMPstable}
 
 %Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
-Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají jeví jako zatím jedna z~nejslabších stránek KMP 
-(viz sekce \textit{Aktuální použití KMP v~praxi %\ref{kmpInPractise}
+Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají v praxi jeví jako zatím jedna z~nejslabších stránek KMP 
+(viz sekce \textit{Aktuální použití KMP v~praxi ref{kmpInPractise}
 }).
 
 V~případě, že žádná vhodná knihovna není k~dispozici, tak je zde stále možnost implementovat danou knihovnu nativně čehož je možné docílit díky funkcionalitě jazyka Kotlina
@@ -420,7 +422,7 @@ v~multiplatformním projektu založeném na KMP klíčové. Implementace kódu p
 velké části kódu a to i těchto platformě specifických, mohou být součástí kódu společného. Nesdílení tohoto kódu s~ostatními platformami
 by tak zapříčinilo duplikaci velké části kódu. 
 
-Aby se zdvojení zabránilo, je vhodné aplikovat dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které slouží 
+Aby se zdvojení zabránilo, je vhodné aplikovat dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které v rámci sestavovací technologie Gradle slouží 
 pro jakési seskupení kódů specifických pro konkrétní zařízení nebo platformy. Pro lepší představu o~tom, jak jsou jednotlivé
 \textit{source sets} definovány, slouží obrázek \ref{fig:dependson-tree-diagram},
 který vizualizuje celkem pět zadefinovaných \textit{source sets} a to konkrétně \code{commonMain}, \code{androidMain}, 
@@ -440,15 +442,15 @@ platformě specifické knihovny, čemuž se detailněji věnuje kapitola \textit
 \end{figure}
 
 Ze struktury těchto zdrojových sad zároveň vyplývá koncová struktura projektu, která ve většině případů obsahuje adresář pro sdílený kód (\code{commonMain}), 
-který smí obsahovat pouze kód a případné knihovny. Tyto knihovny a kódy jsou multiplatformní a pokrývají tak veškeré platformy používané v~projektu.
+který smí obsahovat pouze kód a případně knihovny, které je možné sdílet napříč všemi implementovanými platformami.
 
-Dále se adresáře mohou dělit podle vybrané platformy jako například \code{AndroidMain}, \code{iosMain}, které již mohou být závislé na pouze platformě specifický knihovnách.
+Dále se adresáře mohou dělit podle vybraných platforem například na \code{AndroidMain}, \code{iosMain}, které již mohou obsahovat platformě specifický kód a knihovny.
 
 \subsubsection*{Aktuální použití KMP v~praxi} \label{kmpInPractise}
 % Mezi další důvody patří taktéž lepší zastupitelnost jednotlivých členů týmu a to díky me
 
 I~přesto, že je KMP ve stabilní verzi teprve od listopadu 2023 \cite{KMPstable}, tak tuto technologii používá již několik světově 
-známých firem v~produkčním nasazení, jsou to například firmy Forbes či McDonald's. Forbes uvádí, že právě díky KMP dokáží sdílet až 80 \%
+známých firem v~produkčním nasazení, jsou to například firmy Forbes či McDonald's. Forbes uvádí, že díky KMP dokáží sdílet až 80 \%
 aplikační logiky napříč platformami Android a iOS. \cite{KMPinForbes} 
 Druhý ze jmenovaných McDonald's jako hlavní výhody uvádí jednodušší testování. \cite{KMPinMcDonalds}
 
@@ -480,7 +482,7 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{survey-results-q1-q2-22-light.jpg}
-  \caption{KMP průzkum Zdroj: \cite{imgSurvey}}
+  \caption{KMP průzkum Zdroj: \cite{imgSurvey} (upraven)}
   \label{fig:KMPSurvey}
 \end{figure}
 
@@ -491,7 +493,7 @@ V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky z 
 
 \subsection{Porovnání výkonu} \label{performanceSection}
 
-Mezi klíčové parametry, kvůli kterým většina firem upřednostňuje vývoj nativních aplikací, patří především jejich výkon. Z~toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů multiplatformních aplikací
+Mezi klíčové parametry, kvůli kterým firmy upřednostňují vývoj nativních aplikací, patří především jejich výkon. Z~toho důvodu se následující podkapitola věnuje právě porovnání výkonu a dalších parametrů multiplatformních aplikací
 s~nativními verzemi aplikací. 
 
 Pro testování byly použity toolkity pro tvorbu nativního UI pro platformu Android (Jetpack Compose) a iOS (SwiftUI)
@@ -528,7 +530,7 @@ pro iOS. \cite{flutterSize}
 \begin{figure}[H]
   \centering
   \includegraphics[width=.7\textwidth]{chart_app_sizes.png}
-  \caption{APK/IPA size in megabytes Zdroj: \cite{imgAndroidFlutterCompose}}
+  \caption{Porovnání velikosti testovaných aplikací Zdroj: \cite{imgAndroidFlutterCompose}}
   \label{fig:chart_app_sizes}
 \end{figure}
 
@@ -587,15 +589,18 @@ Flutter o~tolik nelišila od nativní aplikace (viz tabulka \ref{tab:app_launch_
 \section{Limitace Compose Multiplatform oproti nativnímu řešení} 
 % to se tyka KMP ne compose Multiplatform
 Jak již bylo zmíněno v~kapitole \textit{Kotlin Multiplatform \ref{kmpSection}}, tak jedním z~největších problému multiplatformního vývoje pomocí KMP je
-především nedostatečné množství knihoven. 
+především nedostatečné množství knihoven, ,případně jejich nedostatečná vyspělost. 
 
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o~něco lepší. Většina omezení, která jsou
 aktuálně spjata s~UI, se týká především plynulosti anebo použití nativně vypadajících komponent na platformě iOS.
-Ta v~její nativní podobě používá styl zvaný Cupertino, který frameworkem Compose Multiplatform není aktuálně oficiálně podporován. 
-Co se týče plynulosti UI na platformě iOS, se momentálně nejvíce řeší problém s~rychlostí vykreslování.
+Ta v~její nativní podobě používá styl zvaný \textit{Cupertino}, který frameworkem Compose Multiplatform 
+není aktuálně oficiálně podporován. Je však dostupný v podobě neoficiální knihovny \textit{Compose Cupertino} \cite{cupertinoCompoes}.
+
+Mezi další limitace se muže řadit i například velikost Compose Multiplatform aplikací na platformě iOS, které jsou dle
+předchozího porovnání několikrát větší než jejich nativní varianty.
 
 \bigskip
 
 Většina výše zmíněných problémů se již řeší a je zmíněna v~Kotlin Multiplatform vývojářském plánu pro rok 2024. \cite{KMPRoaddMap} Konkrétně
-se jedná o~veškeré zmíněné problémy kromě zařazení HarmonyOS mezi podporované platformy. % // todo 
-V~tomto plánu je mimo jiné uvedeno, že aktuální prioritou číslo jedna je změna frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}
+se jedná o~veškeré zmíněné problémy kromě nativního vzhledu pro iOS nebo zařazení HarmonyOS mezi podporované platformy. % // todo 
+V~tomto plánu je mimo jiné uvedeno, že aktuální prioritou číslo jedna je povýšení verze frameworku Compose Multiplatform na platformě iOS do verze Beta. \cite{KMPRoaddMap}

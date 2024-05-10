@@ -2,18 +2,17 @@
 V~rámci této kapitoly bude nejprve vybrána aplikace, která bude použita k~otestování použitelnosti frameworku Compose Multiplatform a následně
 bude tato aplikace navržena tak, aby splnila veškeré vytyčené cíle z~úvodní sekce \textit{Cíle práce \ref{goals}}.
 
-Po vybrání typu aplikace následuje sekce věnující se detekci případů užití. To je zejména vhodné specifikovat proto, aby bylo zřejmé jací 
+Po vybrání typu aplikace následuje sekce věnující se detekci případů užití. Ty je zejména vhodné specifikovat proto, aby bylo zřejmé jací 
 uživatelé budou danou aplikaci používat. Dalším aspektem je výběr platforem, pro které bude následně aplikace implementována. %pohledu na jakých zařízení případně platformách ji budou využívat. 
-Zároveň je vhodné skloubení případů užití s~grafickou podobou UI tak, aby nejčastějšímu uživateli bylo možné splnit cíle, s~co nejmenší dávkou úsilí. 
-To je pro správný návrh UI klíčové. 
+Zároveň bude hledáno vhodné skloubení případů užití s~grafickou podobou UI tak, aby nejčastějšímu uživateli bylo možné splnit cíle, s~co nejmenší dávkou úsilí. 
+To je totiž pro správný návrh UI klíčové. 
 %což obecně vede k intenzivnějšímu používaní a oblibě aplikace.
-
 
 Další fáze návrhu je věnována vytyčení funkčních požadavků, pomocí kterých je jasně specifikováno, jakými funkcionalitami by měla výsledná 
 aplikace disponovat. 
 
-Dále je v~rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. Sekce \textit{Návrh architektury} se tedy věnuje rozebrání používaných typů architektury pro mobilní zařízení a následnému detailnímu
-rozebrání jednotlivých vrstev vybrané architektury.
+Dále je v~rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. Sekce \textit{Návrh architektury} se tedy věnuje rozebrání aktuálně uplatňovaným principů při návrhu správně architektury pro mobilní zařízení a následnému detailnímu
+rozebrání jednotlivých vrstev navržené architektury.
 
 V~poslední části návrhu je přistoupeno k~samotnému návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných drátěných modelů. V dalším kroku je přistoupeno k návrhu design systému a nakonec k~návrhu konečné podoby UI včetně grafických prvků.
 
@@ -21,11 +20,9 @@ V~poslední části návrhu je přistoupeno k~samotnému návrhu uživatelského
 \section{Výběr aplikace}
 Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
 na různých platformách.
-Mezi další požadavky při výběru aplikace patřilo zaměření se na kritické problémy, které aktuálně multiplatformním vývojem prochází. 
-Mezi takové problémy patří například využití funkcí, které jsou silně spjaty s~hardwarem koncových zařízení. V aplikaci je to například použití jednotné navigace, fotoaparátu 
-nebo služeb lokalizace.
+Mezi další požadavky při výběru aplikace patřilo zaměření se na nějakou část UI, která je z pohledu multiplatformní implementace složitější a takovou část do aplikace naimplementovat.
 
-Z~těchto důvodů byla k~implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky, které plynou ze zadání.
+Z~těchto důvodů byla k~implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky plynoucí ze zadání.
 
 Tato aplikace by sloužila občanům k~získání informací o~aktuálních novinkách, pořádaných akcích nebo například nabízela možnost vyhledat a zaplatit parkovné.
 
@@ -111,7 +108,7 @@ Získání kontaktů na místní úřady nebo správní orgány.
 Možnost nahlášení závady na území města.
 
 \begin{enumerate}
-  \item Systém uživateli poskytne formulář k~vyplnění městských institucí.
+  \item Systém uživateli poskytne formulář k~vyplnění. % vázaný k nějaké z městských institucí.
   \item Uživatel vyplní název závady, nahraje fotografii závady, vyplní místo, kde se závada nachází, vybere kategorii závad do, které závada spadá a 
   záznam o~závadě odešle.
   \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o~jejím zaslání.
@@ -179,12 +176,19 @@ použity jako základ k~tvorbě UI testů.
 
 \section{Specifikace požadavků}
 Na základě případů užití sepsaných v~předchozí sekci, je nyní možné sepsat konkrétní požadavky na vybranou aplikaci.
-Pro konkretizaci těchto požadavků byla použita specifikace na základě funkčních a nefunkčních požadavků, která je součástí ISO/IEC/IEEE 29148:2018,
+Pro konkretizaci těchto požadavků byla použita specifikace na základě funkčních a nefunkčních požadavků, která je součástí \textit{ISO/IEC/IEEE 29148:2018}\cite{iso},
 jenž popisuje proces vývoje softwarových produktů.
 
 \subsection{Funkční požadavky}
-Funkční požadavky (zkráceně FR - z~anglického \uv{functional requirement}) definují konkrétní funkce a chování systému z~pohledu uživatele. Obecně se dá říci, že specifikují,
-co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. 
+Funkční požadavky (zkráceně FR - z~anglického \uv{functional requirement}) definují konkrétní funkce a chování systému z~pohledu uživatele. 
+Obecně se dá říci, že specifikují, co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. \cite{functionalReq}
+
+Pro jednodušší rozhodnutí o tom, jaká funkcionalita má být při realizaci systému implementována nejdříve a s co největším důrazem
+ na kvalitu provedení, je v rámci jednotlivých požadavků vhodné zmínit jakou prioritu mají a jak složité jsou na implementaci.
+
+Obě tyto hodnoty budou hodnoceny na stupnici 1 až 5, kde 5 je největší priorita (případně složitost) a 1 je nejmenší.
+
+
 %Funkční požadavky popisují očekávané výsledky a chování systému v různých situacích.
 
 %které zajistí, že bude aplikace pro občany měst či obcí 
