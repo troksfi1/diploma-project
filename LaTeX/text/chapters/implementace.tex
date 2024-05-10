@@ -22,7 +22,7 @@ podobný technologiím Ant nebo Maven, které byly vyvinuty pro zjednodušení p
 Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým je možné definovat sestavení a konfiguraci projektu pomocí srozumitelné
 a flexibilní syntaxe. Od verze 3.0 z~roku 2016 je možné psát Gradle skripty v~jazyce Kotlin DSL a od roku 2023 je Kotlin DSL primárním jazykem 
 pro jejich zápis. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v~jazyku se stejnou
-syntaxí jako je používaná pro ostatní části projektu. 
+syntaxí jako je ta, používaná pro ostatní části projektu. 
 
 %Kotlin DSL tak nahazuje dříve používaný Groovy DSL, který byl používaný kvůli 
 
@@ -86,7 +86,7 @@ kterých je do projektu přidána knihovna umožnující implementaci multiplatf
 \end{listing}
 
 Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
-například pomocí \textit{Composable} funkce, která je napsána v~rámci společné části aplikace.
+například pomocí \textit{Composable} funkce, která je předmětem společné části aplikace.
 
 Ve výpisu kódu \ref{lst:SharedIntegration} je to funkce \code{App()}, která je volána z~nativního Android kódu a stará se
 o~deklaraci veškerého multiplatformního UI.
@@ -112,12 +112,12 @@ o~deklaraci veškerého multiplatformního UI.
 %Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
 
 \myparagraph{Gradle version catalog}
-Gradle version catalog je obyčejný soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti v~rámci celého projektu. 
+Gradle version catalog je obyčejný soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti během celého projektu. 
 Místo ručního přidávání závislostí a pluginů do každého modulu zvlášť, je možné shromáždit veškeré závislosti v~tomto souboru a zadefinovat rovněž
 verzi, která má být pro tento modul použita napříč celým projektem. 
 
 Příklad toho, jak mohou být dříve zmíněné závislosti přepsány do version
-katalogu je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
+katalogu, je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
 
 \begin{listing}[H]
 \caption{Version katalog}\label{lst:VersionCalalog}
@@ -222,8 +222,8 @@ UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci j
 
 
 \subsection*{Typografie}
-Vybraný Material Design definuje celkem 15 stylů písma, kde každé z~nich má předem definovaný způsob použití. \cite{material3} 
-Jelikož se jedná o~styly písma přímo určené systémem Material Design, tak lze k~těmto stylům přistupovat přes
+Vybraný Material Design definuje celkem 15 stylů písma, kde každé z~nich má předem určený způsob použití. \cite{material3} 
+Jelikož se jedná o~styly písma přímo zvolené systémem Material Design, tak lze k~těmto stylům přistupovat přes
 \textit{Composable} funkci \code{MaterialTheme} z~balíčku \code{androidx.compose.material3} popsanou v~kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma - konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
 definovaném v~rámci sekce \textit{Design system \ref{designSystemSection}}.
@@ -245,11 +245,11 @@ používají takzvané \textit{Composable} funkce, které představují jednotli
 Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k~reprezentaci jednotlivých tlačítek (\code{Button()}), 
 textů (\code{Text()}) obrázků \code{Image()}, ale také celých souborů těchto prvků jako jsou například celé obrazovky.
 
-Mimo těchto funkcí je UI možné tvořit ještě pomocí takzvaných Layout funkcí mezi které se řadí například \code{Column}, která vnořené \textit{Composable}
+Mimo těchto funkcí je UI možné tvořit ještě pomocí takzvaných Layout funkcí, mezi které se řadí například \code{Column}, která vnořené \textit{Composable}
 funkce uspořádává do sloupce nebo \code{Row}, která vnořené elementy řadí naopak do řádku.
 
 Jelikož se tato sekce věnuje právě tvorbě UI jednotlivých obrazovek, na následujícím výpisu kódu \ref{lst:ConsumeUIState} je ukázáno, jak mohou
- být do sebe dříve zmíněné Composable funkce zanořeny čímž tvoří takzvaný sémantický strom, taktéž popsaný v~kapitole 
+ být do sebe dříve zmíněné Composable funkce zanořeny, čímž tvoří takzvaný sémantický strom, taktéž popsaný v~kapitole 
  \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}
 
 \begin{listing}[H]
@@ -293,14 +293,14 @@ drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrh
 stylizováno tak, aby odpovídalo navržené podobě UI z~kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
 
 \subsection{Domovská obrazovka}
-Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform a nebylo při jeho implementaci potřeba
-přistoupit k~nativnímu řešení ani na platformě iOS nebo desktop.
+Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform. Ani při jeho implementaci nebzlo potřeba
+přistoupit k~nativnímu řešení a to ani v případě platformy iOS nebo desktop.
 
 K~implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow} 
 (viz výpis kódu \ref{lst:EventLazyRowImpl}),
-která je založená na základní UI komponentě zvané \code{LazyRow}. Tato komponenta se se obvykle používá v~případech, že je na obrazovku potřeba efektivně 
+která je založená na základní UI komponentě zvané \code{LazyRow}. Tato komponenta se obvykle používá v~případech, že je na obrazovku potřeba efektivně 
 vykreslit velkého množství položek (kolekce položek), čož je přesně případ vykreslení událostí. Komponenta \code{LazyRow} totiž vykresluje pouze ty položky,
-které jsou aktuálně viditelné, čím nezpomaluje načítání obsahu a v~případně většího množství událostí a výrazně šetří zdroje potřebné k~vykreslení.
+které jsou aktuálně viditelné, čímž nezpomaluje načítání obsahu. V~případě většího množství událostí pracuje na podobném principu a výrazně tak šetří zdroje potřebné k~vykreslení.
 
 \begin{listing}[H]
 \caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
@@ -361,11 +361,11 @@ vykreslení překryvné vrstvy reprezentující rozmístění parkovacích zón.
 platformách dostupná, a proto bylo zapotřebí použít nativní způsob implementace. 
 
 \subsubsection*{Implementace mapových podkladů}
-Mapové podklady byly implementovány pouze pro platformu Android pro kterou existuje nativní knihovna \textit{Maps Compose} od společnosti Google, 
+Mapové podklady byly implementovány pouze pro platformu Android, pro kterou existuje nativní knihovna \textit{Maps Compose} od společnosti Google, 
 která poskytuje Jetpack Compose komponenty pro práci s~\text{(Google) Maps SDK}.
 
 K~integraci mapových podkladů do aplikace bylo využito UI komponenty \code{GoogleMap} (viz výpis kódu \ref{lst:GoogleMapview}) z balíčku 
-\code{com.google.maps.android.compose}, která umožňuje vložení mapových podkladů na platformě Android a k propojení této nativní části 
+\code{com.google.maps.android.compose}, která umožňuje vložení mapových podkladů na platformě Android. K propojení této nativní části 
 se zbytkem aplikace byla použita expect/actual deklarace.
 
 %Před tím něž bylo možné Google Maps v aplici použít bylo nutné 
@@ -415,7 +415,7 @@ používaly k~obarvení jednotlivých mapových prvků několik druhů barev a t
 Mapová data v~podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy, typy, popisy a umístění parkovacích zón byla 
 získána od města Příbrami. Poskytnutá data byla uvedena ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci a 
 distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z~toho důvodu byl k~jeho převedení do Kotlin objektů 
-použit stejný nástroj jako pro převod veškerých dat přicházejících s~z~informačních systémů města.
+použit stejný nástroj jako pro převod veškerých dat přicházejících z~informačních systémů města.
 
 Zobrazení parkovacích zón na mapě bylo implementováno pomocí \textit{Composable} funkce Polygon, která je poskytována v~rámci stejného balíčku 
 jako dříve zmíněná komponenta \code{GoogleMap}.
@@ -444,7 +444,7 @@ Poslední implementovanou komponentou v~rámci obrazovky \textit{Parkování} je
 %\section{Tvorba UI obecně}
 \section{Navigace}
 Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
-částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a intuitivně zlepšit jejich provádění akcí v~aplikaci. 
+částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a samovolně zlepšit jejich provádění akcí v~aplikaci. 
 
 \medskip
 
@@ -467,16 +467,16 @@ důležité technologie, na kterých je postavena aplikační logika aplikace.
 
 \subsubsection*{Voyager}
 Voyager je multiplatformní navigační knihovna, která umožňuje přecházet mezi různými obrazovkami a destinacemi v~multiplatformních
-aplikacích. \cite{voyager} Jejím hlavním cílem je poskytnout jednotné rozhraní především pro navigaci na mobilních platformách, jako 
+aplikacích. \cite{voyager} Jejím hlavním cílem je poskytnout jednotné rozhraní především pro navigaci na mobilních platformách jako 
 jsou Android a iOS. Voyager zároveň dokáže maximalizovat sdílený kód a snižovat duplikaci kódu.
 
 \medskip
 
 V~rámci implementované aplikace byla navigace Voyager použita především k~implementaci základní navigace mezi jednotlivými obrazovkami.
 Příkladem takové navigace jsou například veškeré možné přechody v~rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
-\textit{Stack API} jehož implementace funguje na principu zásobníku. S~tím, že pokud uživatel vstoupí na novou obrazovku 
+\textit{Stack API}, jehož implementace funguje na principu zásobníku. S~tím, že pokud uživatel vstoupí na novou obrazovku 
 (například přejde na stránku zobrazující detail vybrané události), tak je do tohoto zásobníku přidán odkaz na takzvaný \code{SnapshotState},
-který uchovává stav právě opuštěné obrazovky a je znovu obnoven v~případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
+který uchovává stav právě opuštěné obrazovky. Znovu obnoven je v~případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
 zásobník slouží k~tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v~zásobníku), když uživatel provede akci zpět
 například pomocí tlačítka zpět na platformě Android nebo jakéhokoliv tlačítka zpět implementovaného v~rámci aplikace. \textit{Stack API}
  zároveň umožňuje použití několika funkcí jako jsou například funkce \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed 
@@ -522,7 +522,7 @@ uspořádány v~rámci spodní navigační lišty (funkce \code{BottomNavigation
 \end{listing}
 
 \subsubsection*{Coil}
-Coil je knihovna pro načítání a zobrazování obrázků napsaná v~jazyce Kotlin, která byla původně napsaná pouze pro platformu Android avšak
+Coil je knihovna pro načítání a zobrazování obrázků napsaná v~jazyce Kotlin, která byla původně napsaná pouze pro platformu Android, avšak
 od verze 3.0.0 z~prosince roku 2023 existuje alpha verze podporující i platformy JVM, iOS, macOS, nebo Javascript.  
 
 \medskip
@@ -556,20 +556,20 @@ aplikaci použita k~načítání veškerých obrázků z~internetu, slouží ná
 \end{minted}
 \end{listing}
 
-Kromě těchto druhů navigace byla knihovna Voyager ještě použita k implementaci ViewModelů, které je možné díky použití této knihovny
-použít napříč všemi platformami. V rámci knihovny Voyager jsou tyto ViewModely nazývány jako \textit{ScreenModels} a stejně jako klasické
-ViewModely je díky nim například možné uchovat data i při změnách konfigurace (například otočení obrazovky). \cite{voyagerScreeNmodel}
+Kromě těchto druhů navigace byla knihovna Voyager ještě použita k implementaci ViewModelů, které je možné prostřednictvím integrace této knihovny
+použít napříč všemi platformami. V případě knihovny Voyager jsou tyto ViewModely nazývány jako \textit{ScreenModels} a podobně jako u klasických
+ViewModelů umožňují například uchovat data i při změnách konfigurace (například otočení obrazovky). \cite{voyagerScreeNmodel}
 
 \subsection{Vrstva aplikační logiky}
 
 %\subsubsection*{Kotlin}
 %\subsubsection*{Coroutines}
 \subsubsection*{Ktor}
-Ktor je open-source framework vytvořený společností JetBrains pro tvorbu jak serverových, tak klientských aplikací pomocí programovacího 
+Ktor je open-source framework vytvořený společností JetBrains pro tvorbu jak serverových, tak klientských aplikací prostřednictvím programovacího 
 jazyka Kotlin. Ktor byl vybrán především kvůli možnosti využití multiplatformního asynchronního HTTP klienta, pomocí kterého je možné zadávat 
 HTTP požadavky a zároveň zpracovávat případné odpovědi. 
 
-Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor možné použít na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
+Pro dotazování byl použit multiplatformní Engine CIO, jehož benefitem je možnost používat Ktor na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
 \begin{listing}[H]
 \caption{Konfigurace HTTP klienta}\label{lst:ktorConfig}
 \begin{minted}{Kotlin}
@@ -583,7 +583,7 @@ Pro dotazování byl použit multiplatformní Engine CIO, díky kterému je Ktor
 \end{minted}
 \end{listing}
 
-Po nakonfigurování HTTP klienta je již možné zasílat běžné HTTP dotazy pomocí metod \code{post}, \code{get}, \code{put} nebo \code{delete}.
+Po nakonfigurování HTTP klienta je již možné zasílat běžné HTTP dotazy skrze metodu \code{post}, \code{get}, \code{put} nebo \code{delete}.
 Na následující ukázce kódu \ref{lst:ktorRequest} je pomocí nakonfigurovaného klienta z~ukázky kódu \ref{lst:ktorConfig} zaslán HTTP požadavek
 na webový server města.
 
@@ -599,14 +599,14 @@ na webový server města.
 
 \subsubsection*{SQLDelight}
 SQLDelight je multiplatformní knihovna pro práci s~relačními databázemi v~aplikacích napsaných v~jazyce Kotlin. Jedná se o~moderní knihovnu, 
-která umožňuje vytváření a správu SQL dotazů pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+která umožňuje vytváření a správu SQL dotazů s pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
 
 \medskip
 
 Hlavní funkcionalitou knihovny SQLDelight je automatické generování Kotlin tříd a funkcí na základě definovaných SQL schémat. Díky tomu
-je možné psát SQL dotazy pomocí standardní SQL syntaxe a SQLDelight se postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které
+je možné psát SQL dotazy pomocí standardní SQL syntaxe. SQLDelight se postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které
 umožňují  snadný a bezpečný přístup k~databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
-štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}) pomocí kterého je vygenerována příslušná Kotlin funkce. 
+štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}), skrze který je vygenerována příslušná Kotlin funkce. 
 
 \begin{listing}[H]
 \caption{SQL dotaz pro získání všech novinek v~databázi}\label{lst:SQLDotaz}
@@ -668,21 +668,21 @@ actual class DatabaseDriverFactory {
 
 \subsubsection*{Koin}
 Koin je moderní framework pro vkládání závislostí (zkráceně DI - z~anglického \uv{dependency injection}). Jedná se o~lehkou a snadno 
-použitelnou alternativu ke knihovnám, jako je například Hilt pro platformu Android.
+použitelnou alternativu ke knihovnám jako je například Hilt pro platformu Android.
  %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
 
  \medskip
 
 Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
-jejich vytváření a to pomocí jednoduchých funkcí nebo takzvaných singletons případně factories. Ty jak název napovídá odkazují na 
-patřičné návrhové vzory na jejich základě se dané instance vytvářejí.
+jejich vytváření. Děje se tak prostřednictvím jednoduchých funkcí nebo takzvaných singletons - případně factories. Ty, jak název napovídá, odkazují na 
+patřičné návrhové vzory, na jejichž základě se dané instance vytvářejí.
 
 \bigskip
 
-V~rámci této aplikace byl Koin použit například pro vložení databázového ovladače (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect 
+Během této aplikace byl Koin použit například pro vložení databázového ovladače (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect 
 actual deklarací.
-Využití DI bylo v tomto případě vhodné použít především díky tomu, že převážná většina databázové logiky je napsána v~rámci sdílené 
-logiky a v~rámci nativní logiky byl tak implementován pouze nativní databázový ovladač. Ten musel být následně pro každou platformu vložen do 
+Využití DI bylo v tomto případě vhodné předevší proto, že převážná většina databázové logiky je napsána v sdílené 
+logice a v~rámci nativní logiky byl tak implementován pouze nativní databázový ovladač. Ten musel být následně pro každou platformu vložen do 
 společné třídy implementující Databázi (\code{DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory)}).
 
 Dalšími důležitými komponentami, které byly do aplikace vkládány pomocí DI byly ViewModely a celá třída úložiště, na které jsou ViewModely
@@ -715,7 +715,7 @@ závislé.
 
 
 \section{Logika uživatelského rozhraní} \label{UILayerImpl}
-V~rámci této sekce je ukázáno jakým způsobem byla implementována logika chování UI jejíž části byly navrženy v~kapitole 
+V této sekci je ukázáno, jakým způsobem byla implementována logika chování UI, jejíž části byly navrženy v~kapitole 
 \textit{Vrstvy architektury \ref{vrstvyArchitekturySection}}. 
 
 
@@ -723,14 +723,14 @@ V~rámci této sekce je ukázáno jakým způsobem byla implementována logika c
 
 \subsection{Stav uživatelského rozhraní} \label{stateHandlingImpl}
 Tato sekce slouží k~přiblížení toho, jak je takzvaný \textit{UI State} (z dříve zmíněné kapitoly \ref{vrstvyArchitekturySection}) 
-implementován v~rámci ukázkové aplikace.
+implementován v ukázkové aplikaci.
 
-Z~pohledu UI se jedná o~důležitou část aplikace o~jejíž aktualizaci se stará později zmíněný ViewModel (viz ViewModel\ref{ViewModelImpl}) neboli ScreenModel v~rámci
+Z~pohledu UI se jedná o~důležitou část aplikace, o~jejíž aktualizaci se stará později zmíněný ViewModel (viz ViewModel\ref{ViewModelImpl}) neboli ScreenModel v~rámci
 implementované aplikace. 
 Pro zachování stavu jednotlivých obrazovek byla použita datová třída, která v~sobě umožňuje uchovávat veškeré možné stavy dané obrazovky.
 Pro ukázku toho, jak byla taková datová třída implementována, byla vybrána obrazovka událostí (viz výpis kódu \ref{lst:EventState}), která v~sobě 
 například uchovává informace typu - jaké filtry událostí jsou aktuálně zvoleny, zdali je otevřeno dialogové okno pro výběr datového rozmezí 
-nebo zdali jsou aktuálně načítány nějaká data.
+nebo zdali jsou aktuálně načítána nějaká data.
 \begin{listing}[H]
 \caption{Implementace stavu obrazovky \textit{Události}}\label{lst:EventState}
 \begin{minted}{Kotlin}
@@ -766,11 +766,11 @@ Takto zadefinované stavy je následně možné používat v~rámci jednotlivýc
 \subsection{UI události} \label{eventHandlingImpl}
 %V~rámci této sekce bude představeno jakým způsobem bylo přistoupeno k implementaci takzvaných \textit{UI Events}.
 
-Jak již bylo zmíněno, tak nejčastějším typem UI události jsou takzvané uživatelské události produkované uživatelem při interakci s aplikací.
-Tyto události jsou zpracovány aplikací pomocí metod, jako je například metoda \code{onClick()}, která je často typickým příkladem toho, jak
+Jak již bylo zmíněno, tak nejčastějším typem UI události jsou takzvané uživatelské události, produkované uživatelem při interakci s aplikací.
+Tyto události jsou zpracovány aplikací pomocí metod jako je například metoda \code{onClick()}, která je často typickým příkladem toho, jak
 jednotlivé UI komponenty obsluhují patřičné uživatelské události. 
 
-V rámci takovýchto metod je pak vhodné uplatnit reprezentaci UI události například v podobě datových objektů 
+V přápadě takovýchto metod je pak vhodné uplatnit reprezentaci UI události například v podobě datových objektů 
 zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 
 \begin{listing}[H]
@@ -784,7 +784,7 @@ zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 \end{minted}
 \end{listing}
 
-Takto zadefinované objekty je již možné použít v rámci UI obrazovek například následujícím způsobem \ref{lst:EventsinUIImpl}.
+Takto zadefinované objekty je již možné použít u UI obrazovek například následujícím způsobem \ref{lst:EventsinUIImpl}.
 
 \begin{listing}[H]
 \caption{Použití stavu v~aplikaci}\label{lst:EventsinUIImpl}
@@ -798,7 +798,7 @@ Takto zadefinované objekty je již možné použít v rámci UI obrazovek např
 \end{minted}
 \end{listing}
 
-Na ukázce kódu \ref{lst:EventsinUIImpl} je zároveň vidět propojenost UI událostí s příslušným ViewModelem čemuž se více věnuje následující
+Na ukázce kódu \ref{lst:EventsinUIImpl} je zároveň vidět propojenost UI událostí s příslušným ViewModelem, čemuž se více věnuje následující
 sekce \textit{ViewModel}.
 
 
@@ -815,11 +815,11 @@ sekce \textit{ViewModel}.
 % v aplikaci mají.
 
 V~případě implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI na jejich základě 
-by vždy měli měnit stav aplikace. \cite{viewmodelEvents} V~tomto duchu jsou implementovany všechny ViewModely. Díky tomu je možné 
+by vždy měli měnit stav aplikace. TODO \cite{viewmodelEvents} V~tomto duchu jsou implementovány všechny ViewModely. Díky tomu je možné 
 zaručit, že stav uživatelského rozhraní nebude změněn například v~důsledku konfiguračních změn. 
 
 Co se implementace jednotlivých ViewModelů týče, tak vesměs všechny mají podobnou strukturu. K vytvoření instance ViewModelu (ScreenModelu)
-je zapotřebí dodat příslušnou instanci úložiště (například \code{RepositoryImpl}) a následně již je možné implementovat příslušné funkce
+je zapotřebí dodat příslušnou instanci úložiště (například \code{RepositoryImpl}) a následně je již možné implementovat příslušné funkce
 zpracovávající UI události (viz ukázka kódu \ref{lst:ViewModelImpl}). 
 
 
