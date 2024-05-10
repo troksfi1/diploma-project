@@ -191,7 +191,8 @@ co má systém dělat, jaké úkoly má provádět a jaké operace musí uživat
 %užitečná, efektivní a snadno použitelná.
 
 \myparagraph{FR1 Zobrazení aktualit a událostí}
-Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě včetně jejich detailních informací.
+Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě včetně jejich detailních informací jako jsou názvy jednotlivých
+událostí a novinek, časy vydání případně datová rozmezí konání událostí a příslušné popisy těchto událostí a novinek.
 
 \begin{itemize}
   \item \textit{Priorita: 5}
@@ -208,7 +209,8 @@ Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném měst
 % \end{itemize}
 
 \myparagraph{FR2 Filtorvání událostí}
-Systém bude filtrovat konané události v~daném městě podle data a kategorie události.
+Systém bude filtrovat konané události v~daném městě podle data jednotlivých udástí a tyto události zároveň přehledně rozřadí do patřičných
+kategorií jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce} \textit{Akce pro děti} a další.
 
 \begin{itemize}
   \item \textit{Priorita: 4}
@@ -225,7 +227,7 @@ dané sociální sítě nebo rovnou pomocí otevření profilu města v~aplikaci
 \end{itemize}
 
 \myparagraph{FR4 Zpracovávat nahlášené závady}
-Systém zpracuje a zašle uživatelem nahlášenou závadu do informačního systému města.
+Systém uživateli poskytne přehledný formulář pro zasílaní závady do informačního systému města a tuto závadu zároveň patřičně zpracuje.
 
 \begin{itemize}
   \item \textit{Priorita: 1}
@@ -233,7 +235,7 @@ Systém zpracuje a zašle uživatelem nahlášenou závadu do informačního sys
 \end{itemize}
 
 \myparagraph{FR5 Zobrazit kontakty na místní úřady}
-Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady a jejich pracovní dobu.
+Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady, jejich pracovní dobu a konkrétní otevírací hodiny pro každý z místních úřadů.
 
 \begin{itemize}
   \item \textit{Priorita: 2}
@@ -248,7 +250,7 @@ Pomocí systému bude možné zobrazit detailní informace o~parkovacích zóná
 \end{itemize}
 
 \myparagraph{FR7 Zobrazení dopravy na mapě města}
-Pomocí systému bude možné jednoduše a rychle zobrazit vytíženost silnice ve městě.
+Pomocí systému bude možné jednoduše a rychle zobrazit aktuální vytíženost silnic ve městě pomocí intuitivní překryvné vrstvy mapových podkladů.
 
 \begin{itemize}
   \item \textit{Priorita: 2}
@@ -304,32 +306,32 @@ byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
   
 
 \section{Architektura aplikace}
-Navržená architektura se z~velké části drží architektonických principů shrnutých v~Android dokumentaci. \cite{andDocArch}
+Navržená architektura se z~velké části drží architektonických principů shrnutých v~Android dokumentaci.
 
 %TODO %možné architektury pro vývoj mobilních aplikací
 
 \subsection*{Důležité principy}
 
 \myparagraph{Separation of concerns}
-Separation of concerns je princip návrhu softwaru, který popisuje důležitost oddělení různých funkcionalit do samostatných, dobře definovaných a izolovaných částí.
+Separation of concerns je princip návrhu softwaru, který popisuje důležitost oddělení různých funkcionalit do samostatných, dobře definovaných a izolovaných částí. \cite{sapSep}
 Hlavním cílem tohoto principu je zlepšit modularitu, udržitelnost, znovupoužitelnost a spravovatelnost kódu.
 
 Princip oddělení zájmů rozděluje systém na jednotlivé komponenty nebo moduly, přičemž každý z~nich se zabývá jednou konkrétní 
-oblastí funkcionality. Každá část systému má jasně definované rozhraní, které umožňuje interakci s~ostatními částmi. 
+oblastí funkcionality. Každá část systému má jasně definované rozhraní, které umožňuje interakci s~ostatními částmi. \cite{sapSep}
 Tímto způsobem lze snadněji spravovat a udržovat kód, protože změny v~jedné části systému nemusí mít nežádoucí dopady na ostatní části.
 
 Příklady oddělení zájmů zahrnují oddělení prezentační vrstvy od logiky aplikace (Model-View-Controller), oddělení datového přístupu od 
 podnikové logiky (Repository pattern) a oddělení různých vrstev aplikace (např. vrstva uživatelského rozhraní, aplikační logika, datová vrstva). 
 
 \myparagraph{Unidirectional Data Flow}
-Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. 
+Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. \cite{andDocArch}
 V~tomto přístupu data proudí v~jednom směru, což znamená, že existuje jasný a jednoznačný tok dat od zdroje až po jejich konečný cíl.
 Takovýto přístup například umožňuje efektivní aktualizaci uživatelského rozhraní v~reakci na změny dat a přispívá k~jednoduchosti, 
 předvídatelnosti a udržitelnosti softwarových aplikací.
 
 \myparagraph{Single source of truth}
-Princip Single Source of Truth (SSOT) je koncept v~softwarovém inženýrství, který zdůrazňuje, že v~aplikaci by měl existovat jediný 
-zdroj dat, který obsahuje aktuální a spolehlivé informace. Tento zdroj dat je považován za „pravdivý“ a slouží jako jediný zdroj, 
+Princip Single Source of Truth (SSOT) je koncept, který zdůrazňuje, že by v~aplikaci měl existovat jediný 
+zdroj dat, který obsahuje aktuální a spolehlivé informace. \cite{andDocArch} Tento zdroj dat je považován za „pravdivý“ a slouží jako jediný zdroj, 
 ze kterého mohou ostatní části aplikace čerpat informace. Tím se zajišťuje konzistence dat napříč aplikací a minimalizuje se riziko 
 konfliktů nebo chyb v~datech.
 
@@ -341,13 +343,12 @@ Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace
 
 
 \subsection*{Vrstvy architektury} \label{vrstvyArchitekturySection} 
-Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací.
-
-Ta se rozděluje do následujících tří vrstev:
+Na základě těchto principů vznikla níže popsaná architektura, která je aktuálně doporučovaná pro vývoj mobilních Android aplikací 
+a rozděluje se do následujících třech základních vrstev.
 
 \subsubsection*{UI vrstva} \label{UILayerNavrh}
-UI vrstva se stará o~zobrazení dat na obrazovce, která odpovídají aktuálnímu stavu aplikace. Zároveň kontroluje logiku, která
-se při změně těchto dat stará o~opětovné překreslení UI, aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
+UI vrstva se stará o~zobrazení dat na obrazovce, která odpovídají aktuálnímu stavu aplikace. \cite{andDocArch} Zároveň kontroluje logiku, která
+se při změně těchto dat stará o~opětovné překreslení UI tak, aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
 dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch_ui_udf} a následně detailněji popsány pod ním.
 
 \begin{figure}[H]
@@ -359,13 +360,13 @@ dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch
 
 \myparagraph{ViewModel}
 Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce a to i při změnách konfigurace zařízení 
-(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
+(například při otáčení obrazovky) \cite{viewModelOver}. ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní. % (UI elementů) nebo stavu 
 
 \myparagraph{UI state} \label{UIStateParagraph}
 UI state (stav uživatelského rozhraní) je část UI vrstvy, který popisuje aktuální stav a chování uživatelského 
-rozhraní v~daném okamžiku. Tento stav může zahrnovat různé informace jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
+rozhraní v~daném okamžiku \cite{andDocArch}. Tento stav může zahrnovat různé informace jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
  aktuální zobrazené obrazovky nebo panely, stav animací a další.
 
 UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v~UI stavu mohou být způsobeny uživatelskými
@@ -373,7 +374,8 @@ interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, 
 jako je získání dat ze serveru nebo jakoukoliv změnou interního stavu aplikace. 
 
 V~rámci frameworků, které k~tvorbě UI používají deklarativní způsob zápisu se často k~definice stavu a jeho vlivu na UI používá funkce 
-na obrázku \ref{fig:UI_function} Zjednodušeně popisuje výsledné uživatelské rozhraní, které je tvořeno na základě jeho stavu.
+na obrázku \ref{fig:UI_function}. Ta zjednodušeně popisuje výsledné uživatelské rozhraní, které je tvořeno na základě jeho stavu.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{ui-equals-function-of-state.png}
@@ -386,7 +388,7 @@ Důležité je udržovat UI stav v~souladu s~interním stavem aplikace a zajisti
 interakce a události v~aplikaci.
 
 \myparagraph{UI Elements}
-UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s~aplikací.
+UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s~aplikací. \cite{andDocArch}
 Tyto prvky zahrnují různé vizuální komponenty jako jsou tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd., díky nimž
 se zobrazují data reprezentující aktuální stav aplikace nebo je pomocí nich tento stav měněn.
 
@@ -407,8 +409,8 @@ Nicméně, některé typy uživatelských událostí může UI zpracovat přímo
 informativní zprávy pomocí takzvaných \textit{Snackbars}.
 
 \subsection*{Doménová vrstva}
-Doménová vrstva typicky obsahuje způsoby užití. Nicméně, pro menší aplikace jako je tato, může být vynechána. Často se tímto způsobem \uv{odlehčují} ViewModely,
-které by jinak obsahovaly příliš mnoho kódu, což by vedlo k~nepřehlednosti.
+Doménová vrstva typicky obsahuje způsoby užití. Nicméně, pro menší aplikace jako je tato, může být vynechána. \cite{domainLayerAnd} Často se tímto 
+způsobem \uv{odlehčují} ViewModely, které by jinak obsahovaly příliš mnoho kódu, což by vedlo k~nepřehlednosti.
 
 V~tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelovou vrstvu a mapovací funkce pro převod
 objektů datové vrstvy na objekty používané v~prezentační vrstvě a naopak.
@@ -422,16 +424,19 @@ Doménová vrstva by měla být nezávislá na technických aspektech aplikace a
 %he data layer that contains the business logic of your app and exposes application data.
 
 
-Datová vrstva se zabývá persistencí dat a komunikací s~datovými úložišti jako jsou
+Datová vrstva se stará o persistencí dat a komunikaci s~datovými úložišti jako jsou
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
-aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
+aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby. \cite{datalayer}
 
 K~tomu aby aplikace fungovala, jak bylo popsáno v~úvodu této kapitoly, je zapotřebí, aby datová vrstva této aplikace obsahovala mechanismy pro
  získání dat z~informačních systémů města a vhodně je kombinovala s daty uloženými v lokální databázi.
  
-Jelikož se data v~informačních systémech nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města), jak je tomu v~levé části obrázku \ref{fig:arch_data_layer}. 
+Jelikož se data v~informačních systémech města nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného 
+datového zdroje (IS města) způsobem zobrazeným v~levé části obrázku \ref{fig:arch_data_layer}. Získaná data jsou následně propojena s aplikací
+pomocí takzvaných \textit{Data access object}, jejichž princip je podrobněji popsán dále v této sekci.
 
-Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o poskytnutí dříve načtených dat v~případech, kdy aplikace nemá přístup k~internetu.
+Pro persistenci těchto dat byla vybrána SQL databáze založená na enginu SQLite, která se stará o poskytnutí dříve načtených dat 
+v~případech, kdy aplikace nemá přístup k~internetu.
 
 
 \begin{figure}[H]
@@ -448,15 +453,15 @@ Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o posk
 %   \label{fig:arch_data_layer_principle}
 % \end{figure}
 
-Mezi důležité prvky navržené pro implementaci datové vrstvy patří následující části:
+Následující výčet prvků má za úkol představit důležité komponenty datové vrstvy používané v rámci navržené aplikace.
 
-\myparagraph{DAOs}
-DAOs jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. Tyto objekty 
+\myparagraph{Data access object}
+Data access objects (zkráceně \textit{DAOs}) jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. \cite{oracleDAO} Tyto objekty 
 poskytují abstrakci nad konkrétními technologiemi datových úložišť a umožňují snadnou změnu úložišť bez vlivu na ostatní části aplikace.
 
-\myparagraph{DTOs}
-DTOs jsou objekty používané k~přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k~přenosu dat mezi datovou vrstvou a doménovou 
-vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci.
+\myparagraph{Data transfer object}
+Data transfer object (zkráceně \textit{DTO}) jsou objekty používané k~přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k~přenosu dat mezi datovou vrstvou a doménovou 
+vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci. \cite{DTO}
 
 \myparagraph{Datové entity}
 Datové entity představují strukturu a schéma dat uložených v~databázi nebo jiném datovém úložišti. Tyto entity obvykle přímo odrážejí
@@ -468,7 +473,7 @@ Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úlo�
 
 \bigskip
 
-Tyto vrstvy jsou pak spolu propojeny následujícím způsobem:
+Tyto části jsou pak spolu v rámci datové vrstvy propojeny následujícím způsobem:
 
 \begin{figure}[H]
   \centering

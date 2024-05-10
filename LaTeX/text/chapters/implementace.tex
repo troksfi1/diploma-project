@@ -814,11 +814,11 @@ sekce \textit{ViewModel}.
 % Tato kapitola bude proto shrnutím stěžejních částí z každého ViewModelů tak aby dávala vhodnou představenu o tom, jako funkci ViewModely
 % v aplikaci mají.
 
-V~případě implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI na jejich základě 
-by vždy měli měnit stav aplikace. TODO \cite{viewmodelEvents} V~tomto duchu jsou implementovány všechny ViewModely. Díky tomu je možné 
+V~případě implementované aplikace mají ViewModely jasně definovanou roli a to zpracovávat události přicházející z~UI a na jejich základě 
+by vždy měli měnit stav aplikace. \cite{viewmodelEvents} V~tomto duchu jsou implementovány všechny ViewModely. Díky tomu je možné 
 zaručit, že stav uživatelského rozhraní nebude změněn například v~důsledku konfiguračních změn. 
 
-Co se implementace jednotlivých ViewModelů týče, tak vesměs všechny mají podobnou strukturu. K vytvoření instance ViewModelu (ScreenModelu)
+Co se implementace jednotlivých ViewModelů týká, tak vesměs všechny mají podobnou strukturu. K vytvoření instance ViewModelu (ScreenModelu)
 je zapotřebí dodat příslušnou instanci úložiště (například \code{RepositoryImpl}) a následně je již možné implementovat příslušné funkce
 zpracovávající UI události (viz ukázka kódu \ref{lst:ViewModelImpl}). 
 

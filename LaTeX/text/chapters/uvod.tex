@@ -13,8 +13,8 @@
 
 %\section{Motivace}
 
-V rámci úvodní kapitoly se práce zabývá otázkou, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
-Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní uživatelské rozhraní (UI) aplikovat a na jakých zařízeních. 
+V rámci úvodní kapitoly se práce zabývá otázkami, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
+Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní uživatelské rozhraní (UI) aplikovat a na jakých konkrétních zařízeních. 
 
 %a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
 
@@ -22,23 +22,23 @@ Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní u
 
 %kdy multiplatformí vývoj nemá smysl (vyfocení závady)
 
-V rámci analýzy jsou následně detailně představeny aktuálně používané frameworky pro tvorbu multiplatformních aplikací včetně samotného
-frameworku Compose Multiplatform a jeho vazbě na technologii Kotlin Multiplatform. Obě tyto technologie jsou následně podrobně rozebrány
+V rámci analýzy jsou detailně představeny aktuálně používané frameworky pro tvorbu multiplatformních aplikací včetně samotného
+frameworku Compose Multiplatform a jeho vazby na technologii Kotlin Multiplatform. Obě tyto technologie jsou následně podrobně rozebrány
 a nakonec porovnány s aktuálně používanými technologiemi z hlediska výkonu a velikosti samotných aplikací.
 
 \medskip
 
-Druhá kapitola se věnuje výběru a následnému návrhu aplikace, která bude sloužit k otestovaní použitelnosti technologie Compose Multiplatform.
+Druhá kapitola se věnuje výběru a návrhu aplikace, která bude sloužit k otestovaní použitelnosti technologie Compose Multiplatform.
 Při fázi návrhu je nejprve přistoupeno k vytyčení případů užití a následně jsou specifikovány funkční a nefunkční požadavky pro vybranou aplikaci.
-Dále je pro aplikaci navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně již práce přechází k detailnímu
+Pro aplikaci je navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně již práce přechází k detailnímu
 návrhu samotného UI. To je nejprve navrženo pomocí takzvaných drátěných modelů a následně převedeno na takzvané mockup modely, které
 lépe vystihují výslednou podobu UI.
 
 \medskip
 
-Třetí kapitolou je kapitola implementace, která popisuje samotné založení multiplatformního projektu pomocí frameworku Compose Multiplatform
-a následnou implementaci navrženého uživatelského rozhraní pomocí této technologie. Dále se tato kapitola věnuje kritickým UI komponentám,
-jako je například použitá navigace a následně také důležitým technologiím použitých pro správné fungování aplikační logiky. Závěr této kapitoly
+Kapitola implementace popisuje samotné založení multiplatformního projektu pomocí frameworku Compose Multiplatform
+a implementaci navrženého uživatelského rozhraní pomocí této technologie. Dále se tato kapitola věnuje kritickým UI komponentám
+jako je použitá navigace a následně také důležitým technologiím použitých pro správné fungování aplikační logiky. Závěr této kapitoly
 je pak věnován implementované logice uživatelského rozhraní.
 
 \medskip
@@ -50,8 +50,8 @@ multiplatformního UI, následně jsou tyto testy navrženy a implementovány.
 \medskip
 
 
-Poslední kapitola je věnována shrnutí celého procesu implementace a vyzdvižení naskytlých problémů. Poslední částí je pak celková evaluace
-vlastností frameworku Compose Multiplatform a závěrečné zhodnocení použitelnosti toho frameworku v praxi.
+Poslední kapitola je věnována shrnutí celého procesu implementace a konkretizaci naskytlých problémů. Úplně poslední část této kapitoly se týká celkové evaluace
+vlastností frameworku Compose Multiplatform a závěrečnému zhodnocení použitelnosti toho frameworku v praxi.
 
 \newpage
 
@@ -92,7 +92,7 @@ Obecně lze tedy říci, že efektivita implementace multiplatformních aplikac�
 \section{Důvody multiplatformního vývoje a sdíleného UI}
 
 Mezi primární důvody vedoucí firmy a jednotlivce k~vývoji multiplatformních aplikací patří především
-snížení nákladů na vývoj a následně také na údržbu, jednodušší dosažení konzistentního vzhledu
+snížení nákladů na vývoj a následně také na údržbu. Dále také jednodušší dosažení konzistentního vzhledu
 na odlišných platformách nebo například možnost znovu používat komponenty UI na různých platformách.
 
 Mezi další důvody může například patřit možnost rychlejších aktualizací, jelikož nové funkce mohou být 
