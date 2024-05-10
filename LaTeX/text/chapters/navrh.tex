@@ -184,9 +184,9 @@ Funkční požadavky (zkráceně FR - z~anglického \uv{functional requirement})
 Obecně se dá říci, že specifikují, co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. \cite{functionalReq}
 
 Pro jednodušší rozhodnutí o tom, jaká funkcionalita má být při realizaci systému implementována nejdříve a s co největším důrazem
- na kvalitu provedení, je v rámci jednotlivých požadavků vhodné zmínit jakou prioritu mají a jak složité jsou na implementaci.
+ na kvalitu provedení, je u jednotlivých požadavků zmíněno, jakou prioritu mají a jak složité jsou na implementaci.
 
-Obě tyto hodnoty budou hodnoceny na stupnici 1 až 5, kde 5 je největší priorita (případně složitost) a 1 je nejmenší.
+Obě tyto hodnoty jsou hodnoceny na stupnici 1 až 5, kde 5 je největší priorita (případně složitost) a 1 je nejmenší.
 
 
 %Funkční požadavky popisují očekávané výsledky a chování systému v různých situacích.
@@ -195,8 +195,8 @@ Obě tyto hodnoty budou hodnoceny na stupnici 1 až 5, kde 5 je největší prio
 %užitečná, efektivní a snadno použitelná.
 
 \myparagraph{FR1 Zobrazení aktualit a událostí}
-Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě včetně jejich detailních informací jako jsou názvy jednotlivých
-událostí a novinek, časy vydání případně datová rozmezí konání událostí a příslušné popisy těchto událostí a novinek.
+Systém bude přehledně zobrazovat seznamy aktualit a událostí v~daném městě, včetně jejich detailních informací, jako jsou názvy jednotlivých
+událostí a novinek, časy vydání aktualit (případně datová rozmezí konání událostí) a příslušné popisy těchto událostí a novinek.
 
 \begin{itemize}
   \item \textit{Priorita: 5}
@@ -213,8 +213,8 @@ událostí a novinek, časy vydání případně datová rozmezí konání udál
 % \end{itemize}
 
 \myparagraph{FR2 Filtorvání událostí}
-Systém bude filtrovat konané události v~daném městě podle data jednotlivých udástí a tyto události zároveň přehledně rozřadí do patřičných
-kategorií jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce} \textit{Akce pro děti} a další.
+Systém bude filtrovat konané události v~daném městě podle data jednotlivých událostí a tyto události zároveň přehledně rozřadí do patřičných
+kategorií, jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce} \textit{Akce pro děti} a další.
 
 \begin{itemize}
   \item \textit{Priorita: 4}
@@ -231,11 +231,12 @@ dané sociální sítě nebo rovnou pomocí otevření profilu města v~aplikaci
 \end{itemize}
 
 \myparagraph{FR4 Zpracovávat nahlášené závady}
-Systém uživateli poskytne přehledný formulář pro zasílaní závady do informačního systému města a tuto závadu zároveň patřičně zpracuje.
+Systém uživateli poskytne přehledný formulář pro zaslání závady do informačního systému města, do kterého je 
+možné vepsat název, popis, druh závady a případně její fotografii. Tuto závadu zároveň patřičně zpracuje a zašle do IS města.
 
 \begin{itemize}
   \item \textit{Priorita: 1}
-  \item \textit{Složitost: 4}
+  \item \textit{Složitost: 3}
 \end{itemize}
 
 \myparagraph{FR5 Zobrazit kontakty na místní úřady}
@@ -246,11 +247,12 @@ Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady, 
   \item \textit{Složitost: 2}
 \end{itemize}
 
-\myparagraph{FR6 Správa parkovací zón}
-Pomocí systému bude možné zobrazit detailní informace o~parkovacích zónách jako je provozní doba nebo výše parkovacích poplatků a současně jednoduše zaplatit parkovací poplatky pro vybranou zónu.
+\myparagraph{FR6 Správa parkovacích zón}
+Pomocí systému bude možné zobrazit detailní informace o~parkovacích zónách jako je provozní doba nebo výše parkovacích 
+poplatků a současně tyto parkovací poplatky pro vybranou zónu zaplatit.
 \begin{itemize}
   \item \textit{Priorita: 3}
-  \item \textit{Složitost: 4}
+  \item \textit{Složitost: 5}
 \end{itemize}
 
 \myparagraph{FR7 Zobrazení dopravy na mapě města}
@@ -261,39 +263,18 @@ Pomocí systému bude možné jednoduše a rychle zobrazit aktuální vytíženo
   \item \textit{Složitost: 2}
 \end{itemize}
 
-\subsection{Nefunkční požadavky}
-Nefunkční požadavky (zkráceně FR - z~anglického \uv{Non-functional requirement}) se oproti funkčním požadavkům nezaměřují na funkčnost samotného produktu (\uv{co má systém dělat}),
-ale spíše na jeho vlastnosti (\uv{jaký má být}) z~pohledu
-výkonu, spolehlivosti, bezpečnosti, uživatelské přívětivosti a dalších aspektů, které nepřímo ovlivňují uživatelský zážitek a kvalitu systému. 
-Tyto požadavky jsou z~tohoto důvodu často spojeny s~technickými a provozními charakteristikami systému.
-
-\myparagraph{NFR Multiplatformnost}
-Systém by měl být dostupný alespoň na mobilních aplikacích.
-
-%aby tak aby uživatele měli potřebné informaci ihned po ruce
-
-%a pro zaruceni multiplatformnosti bude pouzit framework Compose Multiplatform a KMP
-
-\myparagraph{NFR1 Rozšiřitelnost}
-Systém by měl být rozšiřitelný na ostatní podporované platformy. % a nove funkce
-
-\myparagraph{NFR2 Offline dostupnost}
-Systém by měl správně fungovat i v~případě, že není připojen k~internetu.
-
-\myparagraph{NFR3 Přístupnost}
-Systém by měl být přizpůsoben širokému spektru lidí - například zrakově postiženým.
-
-
-\myparagraph{Pokrytí případů užití} 
+\section*{Pokrytí případů užití} 
 Pro ověření a názornou ukázku, že takto sepsané funkční požadavky pokrývají všechny případy užití, 
 byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
+
+\bigskip
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
   \hline
   %\multicolumn{9}{|c|}{Functional Requirements} \\ \hline
-       & F1     & F2     & F3     & F4     & F5     & F6     & F7  \\ \hline
+       & FR1     & FR2     & FR3     & FR4     & FR5     & FR6     & FR7  \\ \hline
   UC1  & $\ast$ &        &        &        &        &        &         \\ \hline
   UC2  & $\ast$ &        &        &        &        &        &         \\ \hline
   UC3  &        & $\ast$ &        &        &        &        &         \\ \hline
@@ -307,6 +288,29 @@ byla vytvořena následující tabulka pokrytí. \ref{table:tabulkaPokryti}
   \caption{Pokrytí případů užití funkčními požadavky aplikace}
   \label{table:tabulkaPokryti}
 \end{table}
+
+
+\subsection{Nefunkční požadavky}
+Nefunkční požadavky (zkráceně NFR - z~anglického \uv{Non-functional requirement}) se oproti funkčním požadavkům nezaměřují na funkčnost samotného produktu (\uv{co má systém dělat}),
+ale spíše na jeho vlastnosti (\uv{jaký má být}) z~pohledu
+výkonu, spolehlivosti, bezpečnosti, uživatelské přívětivosti a dalších aspektů, které nepřímo ovlivňují uživatelský zážitek a kvalitu systému. \cite{functionalReq}
+Tyto požadavky jsou z~tohoto důvodu často spojeny s~technickými a provozními charakteristikami systému.
+
+\myparagraph{NFR Multiplatformnost}
+Systém by měl být dostupný alespoň na mobilních platformách.
+
+%aby tak aby uživatele měli potřebné informaci ihned po ruce
+
+%a pro zaruceni multiplatformnosti bude pouzit framework Compose Multiplatform a KMP
+
+\myparagraph{NFR1 Rozšiřitelnost}
+Systém by měl být rozšiřitelný na ostatní podporované platformy. % a nove funkce
+
+\myparagraph{NFR2 Offline dostupnost}
+Systém by měl správně fungovat i v~případě, že není připojen k~internetu.
+
+\myparagraph{NFR3 Přístupnost}
+Systém by měl být přizpůsoben širokému spektru lidí - například zrakově postiženým.
   
 
 \section{Architektura aplikace}
@@ -320,7 +324,7 @@ Navržená architektura se z~velké části drží architektonických principů 
 Separation of concerns je princip návrhu softwaru, který popisuje důležitost oddělení různých funkcionalit do samostatných, dobře definovaných a izolovaných částí. \cite{sapSep}
 Hlavním cílem tohoto principu je zlepšit modularitu, udržitelnost, znovupoužitelnost a spravovatelnost kódu.
 
-Princip oddělení zájmů rozděluje systém na jednotlivé komponenty nebo moduly, přičemž každý z~nich se zabývá jednou konkrétní 
+Princip oddělení zájmů (odpovědností) rozděluje systém na jednotlivé komponenty nebo moduly, přičemž každý z~nich se zabývá jednou konkrétní 
 oblastí funkcionality. Každá část systému má jasně definované rozhraní, které umožňuje interakci s~ostatními částmi. \cite{sapSep}
 Tímto způsobem lze snadněji spravovat a udržovat kód, protože změny v~jedné části systému nemusí mít nežádoucí dopady na ostatní části.
 
@@ -330,6 +334,7 @@ podnikové logiky (Repository pattern) a oddělení různých vrstev aplikace (n
 \myparagraph{Unidirectional Data Flow}
 Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. \cite{andDocArch}
 V~tomto přístupu data proudí v~jednom směru, což znamená, že existuje jasný a jednoznačný tok dat od zdroje až po jejich konečný cíl.
+
 Takovýto přístup například umožňuje efektivní aktualizaci uživatelského rozhraní v~reakci na změny dat a přispívá k~jednoduchosti, 
 předvídatelnosti a udržitelnosti softwarových aplikací.
 
@@ -340,7 +345,9 @@ ze kterého mohou ostatní části aplikace čerpat informace. Tím se zajišťu
 konfliktů nebo chyb v~datech.
 
 Díky použití principu SSOT jsou data v~aplikaci konzistentní a snadněji spravovatelná, protože všechny komponenty a moduly aplikace pracují se stejnými 
-daty. To usnadňuje údržbu a vývoj aplikace, protože úpravy a aktualizace dat lze provádět centrálně. Z~hlediska kódu přispívá tento
+daty. To usnadňuje údržbu a vývoj aplikace, protože úpravy a aktualizace dat lze provádět centrálně. 
+
+Z~hlediska kódu přispívá tento
 princip k~jednoznačnosti a přehlednosti, protože vývojáři vědí, kde hledat relevantní data pro různé části aplikace.
 
 Cílem tohoto konceptu je zlepšit konzistenci, přehlednost a údržbu aplikace a poskytnout spolehlivý zdroj dat pro všechny části aplikace.
@@ -364,7 +371,7 @@ dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch
 
 \myparagraph{ViewModel}
 Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce a to i při změnách konfigurace zařízení 
-(například při otáčení obrazovky) \cite{viewModelOver}. ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
+(například při otočení obrazovky) \cite{viewModelOver}. ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní. % (UI elementů) nebo stavu 
 
@@ -420,19 +427,19 @@ V~tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objekt
 objektů datové vrstvy na objekty používané v~prezentační vrstvě a naopak.
 
 Doménová vrstva by měla být nezávislá na technických aspektech aplikace a měla by se zaměřovat pouze na reprezentaci a správu doménových
- konceptů a procesů. To zjednodušuje testování, údržbu, rozšiřitelnost aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
- vlivu na doménovou logiku.
+ konceptů a procesů.\cite{ssw} To zjednodušuje testování, údržbu, rozšiřitelnost aplikace a umožňuje snadnou změnu technologií nebo platformy bez 
+ vlivu na doménovou logiku. 
 
 \subsection*{Datová vrstva}
 %Datová vrstva se stará o správu dat, která mohou být aplikaci poskytnuta například uživatelem nebo nějakou externí službou.
 %he data layer that contains the business logic of your app and exposes application data.
 
 
-Datová vrstva se stará o persistencí dat a komunikaci s~datovými úložišti jako jsou
+Datová vrstva se stará o persistenci dat a komunikaci s~datovými úložišti jako jsou
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby. \cite{datalayer}
 
-K~tomu aby aplikace fungovala, jak bylo popsáno v~úvodu této kapitoly, je zapotřebí, aby datová vrstva této aplikace obsahovala mechanismy pro
+K~tomu aby aplikace fungovala, jak bylo popsáno v~úvodu této kapitoly, je zapotřebí, aby datová vrstva implementované aplikace obsahovala mechanismy pro
  získání dat z~informačních systémů města a vhodně je kombinovala s daty uloženými v lokální databázi.
  
 Jelikož se data v~informačních systémech města nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného 
@@ -463,9 +470,13 @@ Následující výčet prvků má za úkol představit důležité komponenty da
 Data access objects (zkráceně \textit{DAOs}) jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. \cite{oracleDAO} Tyto objekty 
 poskytují abstrakci nad konkrétními technologiemi datových úložišť a umožňují snadnou změnu úložišť bez vlivu na ostatní části aplikace.
 
+V rámci navržené aplikace jsou navržené pro přistup do lokální databáze. 
+
 \myparagraph{Data transfer object}
 Data transfer object (zkráceně \textit{DTO}) jsou objekty používané k~přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k~přenosu dat mezi datovou vrstvou a doménovou 
 vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci. \cite{DTO}
+Jak již bylo zmíněno dříve, tak DTOs jsou navrženy v procesu získávání dat z informačních systémů města a slouží k převodu XML dat, získaných
+ze serveru města.   
 
 \myparagraph{Datové entity}
 Datové entity představují strukturu a schéma dat uložených v~databázi nebo jiném datovém úložišti. Tyto entity obvykle přímo odrážejí
@@ -477,7 +488,7 @@ Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úlo�
 
 \bigskip
 
-Tyto části jsou pak spolu v rámci datové vrstvy propojeny následujícím způsobem:
+Poslední tři zmíněné části jsou pak v rámci navržené datové vrstvy propojeny následujícím způsobem:
 
 \begin{figure}[H]
   \centering
@@ -485,10 +496,6 @@ Tyto části jsou pak spolu v rámci datové vrstvy propojeny následujícím zp
   \caption{Provázanost jednotlivých částí datové vrstvy Zdroj: \cite{imgDataDiagram}}
   \label{fig:arch_diagram}
 \end{figure}
-
-\bigskip
-
-
 
 
 % \dirtree{%
@@ -538,37 +545,37 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
 
 \pagebreak
 \begin{minipage}[t]{0.45\textwidth}
-  \myparagraph{Obrazovka \textit{Domů}}
+  
+  \myparagraph{Obrazovka \textit{Domů}\medskip}
   %Jak již bylo zmíněno v úvodu této kapitoly, tak 
   Obrazovka \textit{Domů} (viz obrázek \ref{fig:wireframe1}) byla navržena tak, aby jakožto hlavní stránka celé aplikace obsahovala pro uživatele
   co nejpřínosnější informace a zároveň, aby sloužila jako určitý rozcestník na další obrazovky aplikace. Z~tohoto důvodu byla do horní části obrazovky
-  navržena tlačítka, která uživateli umožňují rychlý proklik na YouTube kanál města, nahlášení závady, zobrazení úředních hodin nebo stránku služeb města.
+  navržena tlačítka, která uživateli umožňují rychlý prostup na YouTube kanál města, nahlášení závady, zobrazení úředních hodin nebo stránku služeb města.
   
   %Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí
-
+  \smallskip
   Do střední části obrazovky byl navržen posuvný řádek obsahující nově přidané události a to především díky možnosti zobrazit
   veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídnout možnost danou událost otevřít a dohledat zbylé informace.
-  Akce poutají největší pozornost především svou vizuální reprezentací a převážná část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  Události tak na sebe poutají největší pozornost především svou vizuální reprezentací a převážná část informace je uživateli předána právě pomocí titulního obrázku, názvu
   a času konání.
   
+  \smallskip
+
   Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce. Ten lépe umožňuje 
   využít celou šíři obrazovky k~zobrazení delších titulků a textů, které jsou pro uživatele v~případě aktualit nejdůležitější.
   
-  %Mezi další UI prvky na domovské obrazovce patří 
-  
-  %V horní části se nachází sekce umožňující přidání vlastní 
-  
-  %další čast obrazovky je věnována popolárním udáslostem, které jsou vybráná na základě ...
   
   \bigskip
-  \myparagraph{Obrazovka \textit{Události}}
+  \myparagraph{Obrazovka \textit{Události}\medskip}
   V~rámci obrazovky \textit{Události} (viz obrázek \ref{fig:wireframe2}) je použit stejný systém pro zobrazení událostí - pomocí posuvného řádku, 
   stejný způsob je použit na obrazovce \textit{Domů}.
+  \smallskip
   
   Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou události rozděleny 
   do několika kategorií jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce}, \textit{Akce pro děti} nebo \textit{Přednášky}.
   
   V~horní části aplikace je pak uživateli dána možnost vybrat den, pro který chce zobrazit plánované události a případně si zvolit požadované rozmezí.
+  \smallskip
 
   To je možné navolit pomocí kalendáře, který se zobrazí po kliknutí na ikonu kalendáře v~pravé horní části obrazovky.
   
@@ -576,8 +583,6 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
   
   
   Aplikace byla navržena tak, aby uživatelé mohli jednoduše filtrovat zobrazované události primárně podle času.
-  
-  Filtrování podle kategorie bylo nejprve navrženo, ale následně od něho bylo upuštěno kvůli malému počtu kategorií.
   
 
  
@@ -599,35 +604,37 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
 \end{minipage}
 
 \begin{minipage}[t]{0.45\textwidth}
-  Ve finále byl zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
-
   Filtrování podle kategorie bylo nejprve navrženo, ale následně od něho bylo upuštěno kvůli malému počtu kategorií.
   
+  Ve finále byl tedy zvolen přístup, který vybrané události přiřadí do patřičné kategorie a zobrazí jen ty kategorie, které obsahují alespoň jednu událost.
 
-
-
-\myparagraph{Obrazovka \textit{Parkování}}
-
+\myparagraph{Obrazovka \textit{Parkování}\medskip}
 Obrazovka parkovaní (viz obrázek \ref{fig:wireframe3}) slouží uživateli dle dříve specifikovaných případů užití, především k~vyhledání parkovací zóny, 
-získání informací o~ceně parkování a případně k~platbě parkovacích poplatků. Z~toho důvodu byla hlavní část obrazovky věnována mapovému podkladu, 
+získání informací o~ceně parkování a případně k~platbě parkovacích poplatků. Z~těchto důvodů byla hlavní část obrazovky věnována mapovému podkladu, 
 který uživateli umožňuje snadné nalezení parkovací zóny v~mapě města. % jehož součástí je množina parkovacích zón.
 
+\smallskip
 % Aby bylo docíleno co nejjednodušší manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována právě mapovému
 % podkladu na němž jsou vyznačeny parkovací zóny. 
 
 Pro ještě snadnější hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávacího pole, které umožňuje vyhledat příslušnou parkovací zónu buďto podle čísla nebo názvu zóny. 
 
+\smallskip
+
 Dále zde byla implementována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v~případě, že uživatel vybere jednu
 z~nabízených parkovacích zón. Díky této implementaci se uživateli nezmenšuje prostor pro rychlé vyhledání parkovací zóny,
 které je hlavním cílem k~použití této obrazovky. 
-
+\smallskip
 Tato výsuvná karta uživateli zobrazí detailní informace k~vybrané parkovací zóně a umožní zaplatit parkovací poplatek pro vybranou parkovací zónu.
+
+\smallskip
 
 Poslední funkcí, kterou tato obrazovka nabízí je zobrazení aktuální dopravní situace ve městě, která je na mapě zobrazena spolu s~parkovacími zónami.
 
-\bigskip
-\myparagraph{Obrazovka \textit{více}}
-Poslední navrženou obrazovkou je obrazovka \textit{Více}, která obsahuje přehled veškerých méně podstatných částí aplikace.
+\medskip
+
+\myparagraph{Obrazovka \textit{více}\smallskip}
+Poslední navrženou obrazovkou je obrazovka \textit{Více} (viz obrázek \ref{fig:wireframe4}), která obsahuje přehled veškerých méně podstatných částí aplikace.
 
 %Jelikož je ale aplikace cílena pro široké spektrum lidí, byl zde navržena funkce, která umožňuje přidání vybraného prvku na domovskou obrazovku.
 
@@ -669,10 +676,12 @@ zajistí intuitivní ovládání aplikace na všech implementovaných platformá
 %uživatelského rozhraní a uživatelského zážitku napříč různými aplikacemi a platformami. 
 
 Design systém je obecně vzato sada předem definovaných pravidel, komponent, standardů a návrhových principů, které slouží k~vytváření a udržování 
-konzistentního a jednotného vizuálního stylu v~rámci celé aplikace. Takový systém zahrnuje různé prvky jako jsou barvy, typografie, ikony,
+konzistentního a jednotného vizuálního stylu v~rámci celé aplikace \cite{ds}. Takový systém zahrnuje různé prvky jako jsou barvy, typografie, ikony,
 způsoby rozložení UI nebo komponenty uživatelského rozhraní a umožňuje vývojářům a designérům efektivně spolupracovat a vytvářet aplikace s~jednotným 
-vzhledem. Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje především uživatelskou 
-zkušenost s~implementovanou aplikací. 
+vzhledem. 
+
+Cílem návrhu design systému je zajistit, aby všechny části aplikace měly jednotný vzhled a chování, což zlepšuje především uživatelskou 
+zkušenost s~danou aplikací. 
 %Designový systém zároveň často obsahuje sadu prvků UI, typografického stylu, barev, ikon a další informace, které 
 %pomáhají designérům a vývojářům při tvorbě aplikací.
 
@@ -680,20 +689,19 @@ zkušenost s~implementovanou aplikací.
 %systému přibližně odpovídal aktuálně používanému stylu města.
 
 %Jelikož město, které bylo vybráno pro implementaci aplikace nikde explicitně nedefinovalo používaný design systém,
-%byl proto vytvořen na základě. 
+%byl proto vytvořen na základě.  
 %TODO NEBO 
 
 V~rámci vybraného města Příbrami není takový systém nikde explicitně zadefinovaný, a proto byl odvozen z~designu webových stránek města.
 %pro navození maximálního pocitu jednoty s dosavadními informačními systémy města.
-
-Zároveň byl zkombinovaný s~aktuálně nejnovějším design systémem od společnosti Google zvaným \textit{Material Design 3}.
+Zároveň byl zkombinovaný s~aktuálně nejnovějším design systémem od společnosti Google zvaným \textit{Material Design 3} \cite{m3d}.
 %, který je vhodný nejen pro použití na mobilních platformách.
 
 S~ohledem na to, že aplikace je navrhována pro použití na mobilních zařízeních, tak je tomu uzpůsoben i návrh samotného design systému, který
 specifikuje především barvy, styly textů a prvky použitelné na mobilních platformách. Zbylé části mohou být případně v~budoucnu rozšířeny o~další prvky 
 používané na jiných platformách.
 
-Součástí návrhu je tak pár základních UI prvků, které budou použity v~rámci implementované aplikace a mohou být použity i případně dalšími 
+Součástí návrhu je tak několik základních UI prvků, které budou použity v~rámci implementované aplikace a mohou být použity i případně dalšími 
 aplikacemi města.
 
 Výsledek základní ukázky takto navrženého systému je k~vidění na obrázku \ref{fig:design_system}
@@ -709,29 +717,34 @@ Výsledek základní ukázky takto navrženého systému je k~vidění na obráz
 
 \subsection{Mockup modely} \label{navrhMockupModelu}
 Po zadefinování použitelných komponent v~předchozí sekci \textit{Design systém \ref{designSystemSection}} 
-je již samotný návrh grafické podoby UI zjednodušen na nezbytné minimum. Vytvořené mockup modely jsou totiž de facto výsledkem sloučení drátěných modelů
+je již samotný návrh grafické podoby uživatelského rozhraní zjednodušen na nezbytné minimum. Vytvořené mockup modely jsou totiž de facto výsledkem sloučení drátěných modelů
  s~navrženým design systémem.
 
 Při návrhu grafické podoby UI byla proto pozornost primárně soustředěna na význam jednotlivých UI komponent a na základě jejich významu byly
-přiřazovány například odpovídající barvy. Navržené UI se tímto přístupem snaží respektovat zásady správného UI návrhu dle Android dokumentace 
+přiřazovány například odpovídající barvy. 
+
+Navržené uživatelské rozhraní se tímto přístupem snaží respektovat zásady správného UI návrhu dle Android dokumentace 
 a to především z~pohledu přístupnosti, rozložení obsahu, druhu použitých UI komponent nebo vhodnosti použití barev z~hlediska sémantiky barev.
 
 %\pagebreak
 \begin{minipage}[t]{0.45\textwidth}
 
 \bigskip
-\myparagraph{Přístupnoust}
-Z~hlediska přístupnosti je UI aplikace navrženo tak, aby jednotlivé prvky UI měly vhodně zvolenou barvu z~pohledu
+\myparagraph{Přístupnoust\medskip}
+Z~hlediska přístupnosti je uživatelské rozhraní aplikace navrženo tak, aby jednotlivé prvky UI měly vhodně zvolenou barvu z~pohledu
 správného kontrastu vůči podkladu anebo z~pohledu dostatečné čitelnosti.
 
-Dále byla věnována pozornost správnému popisu jednotlivých UI komponent a správnému použití dle druhu komponent tak, aby bylo možné aplikaci používat i
-s~takzvanou TalkBack čtečkou, která umožňuje nevidomím nebo jinak zrakově postiženým lidem používat aplikaci například na základě hlasové odezvy.
+\smallskip
+
+Dále byla věnována pozornost správnému popisu jednotlivých UI komponent a správnému použití dle druhu komponenty tak, aby bylo možné aplikaci používat i
+s~takzvanou TalkBack čtečkou, která umožňuje nevidomým nebo jinak zrakově postiženým lidem používat aplikaci například na základě hlasové odezvy.
 
 \bigskip
-\myparagraph{Barvy}
+\myparagraph{Barvy\medskip}
 I~přesto, že základní barvy byly zvoleny již při navrhování design systému, během fáze návrhu mockup modelu byl kladen důraz na jejich 
-vhodné použítí a to především z~pohledu sémantiky barev nebo důležitosti barvených komponent.
+vhodné použití a to především z~pohledu sémantiky barev nebo důležitosti barvených komponent.
 
+\smallskip
 %je barva primárním, sekundárním  ternární navržené v rámci designs sytému
 
 Základní popisy barev použité při návrhu design systému byly odvozeny z~\textit{Material 3} design systému, v~rámci kterého mají jasně 
@@ -766,13 +779,17 @@ jsou zobrazované akce a nikoliv filtrační možnosti.
 \pagebreak
 
 \begin{minipage}[t]{0.45\textwidth}
-  \myparagraph{Rozložení}
+  \myparagraph{Rozložení\medskip}
   Co se rozložení UI komponent na obrazovky týká, tak zde bylo respektováno několik pravidel, jako například liniového zarovnání UI komponent tak,
-   aby nedocházelo k~narušení čitelnosti nebo dodržení minimální vzdálenosti od krajů obrazovky.
+   aby nedocházelo k~narušení čitelnosti nebo dodržení minimální vzdálenosti od krajů obrazovky při umísťování důležitých UI komponent.
   
+\smallskip
+
   Komponenty jako primární navigace nebo tlačítka, která slouží pro vykonávání důležitých akcí byla implementována na taková místa, 
   aby byla v~takzvané dosahové vzdálenosti.
   
+  \smallskip
+
   Pro obrázky byly voleny běžné poměry jako například 4:3, aby nedocházelo k~jejich zbytečnému ořezávání.
 \end{minipage}
 \hfill

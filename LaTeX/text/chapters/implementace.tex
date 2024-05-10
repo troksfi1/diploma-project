@@ -3,7 +3,7 @@
 
 \section{Založení Compose Multiplatform projektu}
 K~založení projektu byl použit nástroj \textit{Kotlin Multiplatform Wizard} od společnosti JetBrains, který slouží k~rychlému vytvoření projektu
-založeném na technologiích KMP. Tento nástroj se taktéž stará o~založení sestavovacího skriptu na technologii Gradle, který je následně možné 
+založeném na technologiích KMP. Tento nástroj se taktéž stará o~vytvoření sestavovacího skriptu založeného na technologii Gradle, který je následně možné 
 použít k~sestavení multiplatformních aplikací založených na KMP a frameworku Compose Multiplatform.
  
  
@@ -16,12 +16,11 @@ použít k~sestavení multiplatformních aplikací založených na KMP a framewo
 %
 
 \subsection{Gradle} \label{gradleChapter}
-Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. Je 
-podobný technologiím Ant nebo Maven, které byly vyvinuty pro zjednodušení procesu sestavení a nasazení softwaru.
-
+Gradle je open-source nástroj pro automatizaci sestavení a správu závislostí při vývoji softwaru. \cite{gradle}
+%Je podobný technologiím Ant nebo Maven, které byly vyvinuty pro zjednodušení procesu sestavení a nasazení softwaru.
 Gradle používá deklarativní doménově specifické jazyky (DSL), díky kterým je možné definovat sestavení a konfiguraci projektu pomocí srozumitelné
 a flexibilní syntaxe. Od verze 3.0 z~roku 2016 je možné psát Gradle skripty v~jazyce Kotlin DSL a od roku 2023 je Kotlin DSL primárním jazykem 
-pro jejich zápis. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v~jazyku se stejnou
+pro jejich zápis \cite{gradleKot}. To umožňuje vývojářům snadno konfigurovat sestavení a spravovat závislosti na knihovnách a modulech v~jazyku se stejnou
 syntaxí jako je ta, používaná pro ostatní části projektu. 
 
 %Kotlin DSL tak nahazuje dříve používaný Groovy DSL, který byl používaný kvůli 
@@ -43,9 +42,9 @@ Multiplatform plugin (viz výpis kódu \ref{lst:ComposePlugin}).
 Dále je zapotřebí vybrat platformy, pro které má být aplikace sestavována a podle nich vytvořit příslušné balíčky (viz sekce \textit{Kotlin Multiplatform \ref{projectStructure}}).
 V~případě implementované aplikace se jedná o~platformy \textit{Android}, \textit{iOS} a \textit{desktop}, které bylo nutné specifikovat v~projektovém 
 souboru \code{build.gradle.kts} (viz řádky 2 - 21 na výpisu kódu \ref{lst:LibIntegration}).
-Podle těchto platforem lze následně v~příslušném \code{build.gradle.kts} vytvořit takzvané \code{sourceSets}, díky kterým je možné
+Podle těchto platforem lze následně v~příslušném \code{build.gradle.kts} vytvořit takzvané \textit{sourceSets}, díky kterým je možné
 pro každou platformu implementovat platformě specifické závislosti. Tyto závislosti se následně vkládají do příslušných
-sourceSets podle toho, zdali se jedná o~multiplatformní (\code{commonMain}) nebo nativní závislost (\code{androidMain}, \code{iosMain}, atd.).
+\textit{sourceSets} podle toho, zdali se jedná o~multiplatformní (\code{commonMain}) nebo nativní závislost (\code{androidMain}, \code{iosMain}, atd.).
 
 Pro ukázku, jak taková multiplatformní závislost může vypadat, slouží řádky 23 - 28 na ukázce kódu \ref{lst:LibIntegration}, pomocí 
 kterých je do projektu přidána knihovna umožnující implementaci multiplatformní navigace.
@@ -85,9 +84,8 @@ kterých je do projektu přidána knihovna umožnující implementaci multiplatf
 \end{minted}
 \end{listing}
 
-Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace, která může být do nativního kódu přidána
-například pomocí \textit{Composable} funkce, která je předmětem společné části aplikace.
-
+Dále je potřeba do spouštěcích souborů každé platformy integrovat multiplatformní část aplikace. Ta může být do nativního kódu přidána
+například pomocí \textit{Composable} funkce, která je součástí společné části aplikace.
 Ve výpisu kódu \ref{lst:SharedIntegration} je to funkce \code{App()}, která je volána z~nativního Android kódu a stará se
 o~deklaraci veškerého multiplatformního UI.
 \begin{listing}[H]
@@ -166,8 +164,6 @@ val md_theme_light_onPrimaryContainer = Color(0xFF400015)
 ...
 val md_theme_dark_primary = Color(0xFFFFB2BE)
 val md_theme_dark_onPrimary = Color(0xFF660026)
-val md_theme_dark_primaryContainer = Color(0xFF900039)
-val md_theme_dark_onPrimaryContainer = Color(0xFFFFD9DE)
 ...
 \end{minted}
 \end{listing}
@@ -671,13 +667,10 @@ Koin je moderní framework pro vkládání závislostí (zkráceně DI - z~angli
 použitelnou alternativu ke knihovnám jako je například Hilt pro platformu Android.
  %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
 
- \medskip
-
 Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
 jejich vytváření. Děje se tak prostřednictvím jednoduchých funkcí nebo takzvaných singletons - případně factories. Ty, jak název napovídá, odkazují na 
 patřičné návrhové vzory, na jejichž základě se dané instance vytvářejí.
 
-\bigskip
 
 Během této aplikace byl Koin použit například pro vložení databázového ovladače (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect 
 actual deklarací.
