@@ -27,7 +27,7 @@ nebo služeb lokalizace.
 
 Z~těchto důvodů byla k~implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky, které plynou ze zadání.
 
-Tato aplikace by sloužila občanům k~získání informací o~aktuálních novinkách, pořádaných akcích nebo by jim například umožňovala vyhledat a zaplatit parkovné.
+Tato aplikace by sloužila občanům k~získání informací o~aktuálních novinkách, pořádaných akcích nebo například nabízela možnost vyhledat a zaplatit parkovné.
 
 \medskip
 
@@ -36,7 +36,7 @@ mobilních platformách, kterými jsou Android a iOS \cite{iosAndroid}.
 
 % TODO rozsirit uvodni popis aplikace provest analyzu co by takova apk mela obsahovat
 
-Pro potvrzení této hypotézy byli specifikovány následující případy užití.
+Pro potvrzení této hypotézy byly specifikovány následující případy užití.
 
 \section{Případy užití}
 Případy užití  (zkráceně UC - z~anglického \uv{use case}) jsou scénáře popisující, jakým způsobem by případní uživatelé aplikace mohli využívat určité funkce nebo
@@ -58,7 +58,7 @@ Každý případ užití obvykle obsahuje následující prvky:
 \myparagraph{Aktéři}
 Hlavními aktéry systému jsou především občané příslušného města, kteří budou aplikaci využívat za účelem splnění cílů 
 zmíněných v~rámci této kapitoly. 
-Dalším aktérem toto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data. 
+Dalším aktérem tohoto systému je informační systém (IS) města, který aplikaci poskytuje potřebná data. 
 
 \medskip
 \textit{Pozn. Následující případy užití jsou pro jednoduchost popsány pouze z~pohledu občanů města a z~toho důvodu 
@@ -91,8 +91,8 @@ aktivitách ve vybraném městě nebo obci.
 Filtrování zobrazených událostí na základě data konání jednotlivých událostí.
 
 \begin{enumerate}
-  \item Systém uživateli poskytne seznam událostí z~webových stránek města, divadel, kin a dalších informačních zdrojů, který 
-  je rozdělen na základě kategorií jako například kino, divadlo, hudba atd..
+  \item Systém uživateli poskytne seznam událostí z~webových stránek města, divadel, kin a dalších informačních zdrojů, které 
+  jsou rozděleny na základě kategorií jako například kino, divadlo, hudba atd..
   \item Uživatel si vybere konkrétní den nebo časový rozsah, pro který chce zobrazit konané události.
   \item Systém uživateli poskytne seznam událostí konaných ve vybraný den (případně vybraný časový rozsah) a tyto události zároveň
   rozdělí podle příslušných kategorií.
@@ -111,7 +111,7 @@ Získání kontaktů na místní úřady nebo správní orgány.
 Možnost nahlášení závady na území města.
 
 \begin{enumerate}
-  \item Systém uživateli poskytne formulář pro k~vyplnění městských institucí.
+  \item Systém uživateli poskytne formulář k~vyplnění městských institucí.
   \item Uživatel vyplní název závady, nahraje fotografii závady, vyplní místo, kde se závada nachází, vybere kategorii závad do, které závada spadá a 
   záznam o~závadě odešle.
   \item Systém závadu odešle příslušnému orgánu a uživateli vrátí informaci o~jejím zaslání.
@@ -171,7 +171,7 @@ obsahuje i typy uživatelů pracujících s~navrženou aplikací.
 
 Případy užití jsou klíčovým nástrojem pro pochopení potřeb uživatelů a návrhu funkcionalit aplikace tak, aby co nejlépe odpovídaly těmto potřebám. 
 Jsou také důležitým zdrojem pro testování a validaci funkčnosti aplikace, jelikož lze díky nim jednoduše ověřit, zda systém správně reaguje na očekávané 
-uživatelské interakce. Podrobněji se tomuto tématu věnuje poslední kapitola \textit{Testování \ref{testsSection}} v~rámci které byly případy užití
+uživatelské interakce. Podrobněji se tomuto tématu věnuje poslední kapitola \textit{Testování \ref{testsSection}} ,v~rámci které byly případy užití
 použity jako základ k~tvorbě UI testů.
 
 
@@ -179,7 +179,7 @@ použity jako základ k~tvorbě UI testů.
 
 \section{Specifikace požadavků}
 Na základě případů užití sepsaných v~předchozí sekci, je nyní možné sepsat konkrétní požadavky na vybranou aplikaci.
-Pro specifikaci těchto požadavků byla použita specifikace na základě funkčních a nefunkčních požadavků, která je součástí ISO/IEC/IEEE 29148:2018
+Pro konkretizaci těchto požadavků byla použita specifikace na základě funkčních a nefunkčních požadavků, která je součástí ISO/IEC/IEEE 29148:2018,
 jenž popisuje proces vývoje softwarových produktů.
 
 \subsection{Funkční požadavky}
@@ -215,9 +215,9 @@ Systém bude filtrovat konané události v~daném městě podle data a kategorie
   \item \textit{Složitost: 4}
 \end{itemize}
 
-\myparagraph{FR3 Propojení s~komunikační kanály města}
+\myparagraph{FR3 Propojení s~komunikačními kanály města}
 Systém poskytne uživateli propojení s~aktuálně používanými sociálními sítěmi města buďto v~podobě odkázání na webové stránky 
-dané sociální sítě nebo rovnou otevření profilu města v~aplikaci vybrané sociální sítě.  
+dané sociální sítě nebo rovnou pomocí otevření profilu města v~aplikaci vybrané sociální sítě.  
 
 \begin{itemize}
   \item \textit{Priorita: 3}
@@ -256,7 +256,7 @@ Pomocí systému bude možné jednoduše a rychle zobrazit vytíženost silnice 
 \end{itemize}
 
 \subsection{Nefunkční požadavky}
-Nefunkční požadavky (zkráceně FR - z~anglického \uv{Non-functional requirement}) se oproti funkčním požadavků nezaměřují na funkčnost samotného produktu (\uv{co má systém dělat}),
+Nefunkční požadavky (zkráceně FR - z~anglického \uv{Non-functional requirement}) se oproti funkčním požadavkům nezaměřují na funkčnost samotného produktu (\uv{co má systém dělat}),
 ale spíše na jeho vlastnosti (\uv{jaký má být}) z~pohledu
 výkonu, spolehlivosti, bezpečnosti, uživatelské přívětivosti a dalších aspektů, které nepřímo ovlivňují uživatelský zážitek a kvalitu systému. 
 Tyto požadavky jsou z~tohoto důvodu často spojeny s~technickými a provozními charakteristikami systému.
@@ -272,7 +272,7 @@ Systém by měl být dostupný alespoň na mobilních aplikacích.
 Systém by měl být rozšiřitelný na ostatní podporované platformy. % a nove funkce
 
 \myparagraph{NFR2 Offline dostupnost}
-Systém by měl být správně fungovat i v~případě, že není připojen k~internetu.
+Systém by měl správně fungovat i v~případě, že není připojen k~internetu.
 
 \myparagraph{NFR3 Přístupnost}
 Systém by měl být přizpůsoben širokému spektru lidí - například zrakově postiženým.
@@ -325,7 +325,7 @@ podnikové logiky (Repository pattern) a oddělení různých vrstev aplikace (n
 Unidirectional Data Flow (jednosměrný tok dat) je architektonický vzor, který popisuje způsob, jakým data cestují skrz aplikaci. 
 V~tomto přístupu data proudí v~jednom směru, což znamená, že existuje jasný a jednoznačný tok dat od zdroje až po jejich konečný cíl.
 Takovýto přístup například umožňuje efektivní aktualizaci uživatelského rozhraní v~reakci na změny dat a přispívá k~jednoduchosti, 
-předvídatelnosti a údržnosti softwarových aplikací.
+předvídatelnosti a udržitelnosti softwarových aplikací.
 
 \myparagraph{Single source of truth}
 Princip Single Source of Truth (SSOT) je koncept v~softwarovém inženýrství, který zdůrazňuje, že v~aplikaci by měl existovat jediný 
@@ -347,7 +347,7 @@ Ta se rozděluje do následujících tří vrstev:
 
 \subsubsection*{UI vrstva} \label{UILayerNavrh}
 UI vrstva se stará o~zobrazení dat na obrazovce, která odpovídají aktuálnímu stavu aplikace. Zároveň kontroluje logiku, která
-se při změně těchto dat stará o~opětovné překreslení UI, tak aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
+se při změně těchto dat stará o~opětovné překreslení UI, aby opět odpovídalo aktuálnímu stavu aplikace. Tohoto chování UI vrstva 
 dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch_ui_udf} a následně detailněji popsány pod ním.
 
 \begin{figure}[H]
@@ -358,23 +358,22 @@ dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch
 \end{figure}
 
 \myparagraph{ViewModel}
-Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce, a to i při změnách konfigurace zařízení 
-(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s~daty, jako je načítání dat z úložiště, 
+Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce a to i při změnách konfigurace zařízení 
+(například při otáčení obrazovky). ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní. % (UI elementů) nebo stavu 
 
 \myparagraph{UI state} \label{UIStateParagraph}
-UI state (stav uživatelského rozhraní) je částí UI vrstvy, který popisuje aktuální stav a chování uživatelského 
-rozhraní v~daném okamžiku. Tento stav může zahrnovat různé informace, jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
+UI state (stav uživatelského rozhraní) je část UI vrstvy, který popisuje aktuální stav a chování uživatelského 
+rozhraní v~daném okamžiku. Tento stav může zahrnovat různé informace jako jsou aktuální hodnoty vstupních polí, stav vybraných prvků,
  aktuální zobrazené obrazovky nebo panely, stav animací a další.
 
 UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v~UI stavu mohou být způsobeny uživatelskými
 interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, rolováním seznamu nebo mohou být vyvolány událostmi v~aplikaci v případech 
 jako je získání dat ze serveru nebo jakoukoliv změnou interního stavu aplikace. 
 
-V~rámci frameworků, které k~tvorbě UI používají deklarativní způsob zápisu, se často k~definice stavu a jeho vlivu na UI používá funkce 
-na obrázku \ref{fig:UI_function}, která zjednodušeně popisuje to, že na základě stavu je tvořeno výsledné uživatelské rozhraní.
-
+V~rámci frameworků, které k~tvorbě UI používají deklarativní způsob zápisu se často k~definice stavu a jeho vlivu na UI používá funkce 
+na obrázku \ref{fig:UI_function} Zjednodušeně popisuje výsledné uživatelské rozhraní, které je tvořeno na základě jeho stavu.
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth]{ui-equals-function-of-state.png}
@@ -388,11 +387,11 @@ interakce a události v~aplikaci.
 
 \myparagraph{UI Elements}
 UI elements neboli prvky uživatelského rozhraní jsou komponenty tvořící vizuální část aplikace a umožňují uživatelům interagovat s~aplikací.
-Tyto prvky zahrnují různé vizuální komponenty, jako jsou tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd., díky nimž
+Tyto prvky zahrnují různé vizuální komponenty jako jsou tlačítka, textová pole, seznamy, obrázky, ikony, přepínače, posuvníky atd., díky nimž
 se zobrazují data reprezentující aktuální stav aplikace nebo je pomocí nich tento stav měněn.
 
-UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob, jak s~aplikací komunikovat a manipulovat. Každý prvek má své 
-vlastnosti, jako jsou velikost, barva, text, stav atd., které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
+UI prvky jsou navrženy tak, aby poskytovaly uživatelům intuitivní způsob jak s~aplikací komunikovat a manipulovat. Každý prvek má své 
+vlastnosti jako je velikost, barva, text, stav atd., které lze nastavit a upravovat pomocí kódu. Tyto prvky jsou pak umístěny na obrazovce 
 podle určeného rozvržení (layout), které určuje jejich pozici a vzájemné uspořádání.
 
 UI prvky jsou základními stavebními bloky uživatelského rozhraní a hrají klíčovou roli při vytváření uživatelsky přívětivé a atraktivní aplikace. 
@@ -400,16 +399,16 @@ Jejich vhodné použití a umístění má vliv na celkový uživatelský záži
 
 \myparagraph{UI Events}
 Nejčastějším typem UI událostí jsou takzvané uživatelské události, které jsou generovány interakcí uživatele s~uživatelským rozhraním aplikace. \cite{UIEvents}
-Patří k~nim například kliknutí myší, dotyk na obrazovce, stisknutí klávesy nebo jakékoli jiné akce prováděné uživatelem, které vyvolávají reakci
+Patří k~nim například kliknutí myší, dotyk na obrazovce, stisknutí klávesy nebo jakékoliv jiné akce prováděné uživatelem, které vyvolávají reakci
 v~UI aplikaci.
 
 O~zpracování uživatelských událostí se většinou stará příslušný ViewModel, který nabízí veškeré funkce, které je pomocí uživatelského rozhraní možné volat.
-Nicméně některé typy uživatelských událostí může UI zpracovat přímo. Takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
+Nicméně, některé typy uživatelských událostí může UI zpracovat přímo. Takovými událostmi jsou například navigování na jinou obrazovku nebo zobrazení 
 informativní zprávy pomocí takzvaných \textit{Snackbars}.
 
 \subsection*{Doménová vrstva}
-Doménová vrstva typicky obsahuje způsoby užití, nicméně pro menší aplikace jako je tato, může být vynechána. Často se tímto způsobem \uv{odlehčují} ViewModely,
-které by jinak obsahovali příliš mnoho kódu, což by vedlo k~nepřehlednosti.
+Doménová vrstva typicky obsahuje způsoby užití. Nicméně, pro menší aplikace jako je tato, může být vynechána. Často se tímto způsobem \uv{odlehčují} ViewModely,
+které by jinak obsahovaly příliš mnoho kódu, což by vedlo k~nepřehlednosti.
 
 V~tomto projektu doménová vrstva zahrnuje deklarace výčtových typů, objektů pro datovou a modelovou vrstvu a mapovací funkce pro převod
 objektů datové vrstvy na objekty používané v~prezentační vrstvě a naopak.
@@ -427,10 +426,10 @@ Datová vrstva se zabývá persistencí dat a komunikací s~datovými úložišt
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby.
 
-K~tomu aby aplikace fungovala, tak jak bylo popsáno v~úvodu této kapitoly, je zapotřebí aby datová vrstva této aplikace obsahovala mechanismy pro
+K~tomu aby aplikace fungovala, jak bylo popsáno v~úvodu této kapitoly, je zapotřebí, aby datová vrstva této aplikace obsahovala mechanismy pro
  získání dat z~informačních systémů města a vhodně je kombinovala s daty uloženými v lokální databázi.
  
-Jelikož se data v~informačních systémech nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města), tak jak je tomu v~levé části obrázku \ref{fig:arch_data_layer}. 
+Jelikož se data v~informačních systémech nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného datového zdroje (IS města), jak je tomu v~levé části obrázku \ref{fig:arch_data_layer}. 
 
 Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o poskytnutí dříve načtených dat v~případech, kdy aplikace nemá přístup k~internetu.
 
@@ -449,7 +448,7 @@ Pro persistenci těchto dat byla vybrána SQL databáze, která se stará o posk
 %   \label{fig:arch_data_layer_principle}
 % \end{figure}
 
-Mezi důležité prvky datové navržené pro implementaci datové vrstvy patří následující části:
+Mezi důležité prvky navržené pro implementaci datové vrstvy patří následující části:
 
 \myparagraph{DAOs}
 DAOs jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. Tyto objekty 
@@ -465,7 +464,7 @@ strukturu tabulek v~relační databázi nebo dokumentů v~NoSQL databázi a posk
 
 \myparagraph{Datová úložiště}
 Datová úložiště jsou fyzická místa, kde jsou data uložena. Mohou to být relační databáze, NoSQL databáze, soubory na disku nebo externí API. 
-Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úložišti a aby byla data bezpečně uložena a získána.
+Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úložišti, a zároveň byla data bezpečně uložena a získána.
 
 \bigskip
 
@@ -533,18 +532,18 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
   \myparagraph{Obrazovka \textit{Domů}}
   %Jak již bylo zmíněno v úvodu této kapitoly, tak 
   Obrazovka \textit{Domů} (viz obrázek \ref{fig:wireframe1}) byla navržena tak, aby jakožto hlavní stránka celé aplikace obsahovala pro uživatele
-  co nejpřínosnější informace a zároveň, aby sloužila jako jakýsi rozcestník na další obrazovky aplikace. Z~tohoto důvodu byla do horní části obrazovky
+  co nejpřínosnější informace a zároveň, aby sloužila jako určitý rozcestník na další obrazovky aplikace. Z~tohoto důvodu byla do horní části obrazovky
   navržena tlačítka, která uživateli umožňují rychlý proklik na YouTube kanál města, nahlášení závady, zobrazení úředních hodin nebo stránku služeb města.
   
   %Na základně...byla pro události vybrána možnost zobrazení jednotlivých událostí
 
   Do střední části obrazovky byl navržen posuvný řádek obsahující nově přidané události a to především díky možnosti zobrazit
   veškeré potřebné události kompaktně na malém prostoru, ale přesto uživateli nabídnout možnost danou událost otevřít a dohledat zbylé informace.
-  Akce poutají největší pozornost především svou vizuální reprezentací a největší část informace je uživateli předána právě pomocí titulního obrázku, názvu
+  Akce poutají největší pozornost především svou vizuální reprezentací a převážná část informace je uživateli předána právě pomocí titulního obrázku, názvu
   a času konání.
   
-  Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce, který lépe umožňuje 
-  vyžít celou šíři obrazovky k~zobrazení delších titulků a textů, které jsou pro uživatele v~případě aktualit nejdůležitější.
+  Oproti tomu pro seznam novinek ve spodní části obrazovky bylo vybráno uspořádání novinek do posuvného sloupce. Ten lépe umožňuje 
+  využít celou šíři obrazovky k~zobrazení delších titulků a textů, které jsou pro uživatele v~případě aktualit nejdůležitější.
   
   %Mezi další UI prvky na domovské obrazovce patří 
   
@@ -554,8 +553,8 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
   
   \bigskip
   \myparagraph{Obrazovka \textit{Události}}
-  V~rámci obrazovky \textit{Události} (viz obrázek \ref{fig:wireframe2}) je použit stejný systém pro zobrazení událostí pomocí posuvného řádku 
-  jako je tomu na obrazovce \textit{Domů}.
+  V~rámci obrazovky \textit{Události} (viz obrázek \ref{fig:wireframe2}) je použit stejný systém pro zobrazení událostí - pomocí posuvného řádku, 
+  stejný způsob je použit na obrazovce \textit{Domů}.
   
   Oproti domovské stránce jsou zde však zobrazeny veškeré události, které se ve městě budou konat. Pro lepší přehled jsou události rozděleny 
   do několika kategorií jako například \textit{Kino}, \textit{Divadlo}, \textit{Celodenní akce}, \textit{Akce pro děti} nebo \textit{Přednášky}.
@@ -602,13 +601,12 @@ umístěny na domovskou obrazovku. Zbylé méně podstatné nebo prostorově ná
 
 Obrazovka parkovaní (viz obrázek \ref{fig:wireframe3}) slouží uživateli dle dříve specifikovaných případů užití, především k~vyhledání parkovací zóny, 
 získání informací o~ceně parkování a případně k~platbě parkovacích poplatků. Z~toho důvodu byla hlavní část obrazovky věnována mapovému podkladu, 
-který by uživateli umožňoval snadné nalezení parkovací zóny v~mapě města. % jehož součástí je množina parkovacích zón.
+který uživateli umožňuje snadné nalezení parkovací zóny v~mapě města. % jehož součástí je množina parkovacích zón.
 
 % Aby bylo docíleno co nejjednodušší manipulace s mapovými podklady byl prostor obrazovky navržen tak aby hlavní část byla věnována právě mapovému
 % podkladu na němž jsou vyznačeny parkovací zóny. 
 
-Pro ještě snadnější hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávací pole, které 
-uživateli umožňuje vyhledat příslušnou parkovací zónu buďto podle čísla nebo názvu zóny. 
+Pro ještě snadnější hledání parkovacích zón dává aplikace uživateli možnost vyhledání požadované parkovací zóny pomocí vyhledávacího pole, které umožňuje vyhledat příslušnou parkovací zónu buďto podle čísla nebo názvu zóny. 
 
 Dále zde byla implementována výsuvná karta ze spodní části obrazovky, která se zobrazí pouze v~případě, že uživatel vybere jednu
 z~nabízených parkovacích zón. Díky této implementaci se uživateli nezmenšuje prostor pro rychlé vyhledání parkovací zóny,
@@ -723,7 +721,7 @@ s~takzvanou TalkBack čtečkou, která umožňuje nevidomím nebo jinak zrakově
 \bigskip
 \myparagraph{Barvy}
 I~přesto, že základní barvy byly zvoleny již při navrhování design systému, během fáze návrhu mockup modelu byl kladen důraz na jejich 
-vhodné použít a to především z~pohledu sémantiky barev nebo důležitosti barvených komponent.
+vhodné použítí a to především z~pohledu sémantiky barev nebo důležitosti barvených komponent.
 
 %je barva primárním, sekundárním  ternární navržené v rámci designs sytému
 
