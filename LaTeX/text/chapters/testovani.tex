@@ -4,9 +4,9 @@
 %\section{Typy UI testů}
 
 Mezi základní dva druhy testování UI patří manuální a automatizované testovaní. Za účelem analýzy frameworku Compose Multiplatform
-se tato kapitola věnuje především UI testům, které tento framework přímo podporuje a tím jsou právě automatizované UI testy.
-Ty jsou dále rozdělený na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
-které simulují reálný průchod aplikací například uživatelem. Před samotným ukázáním způsobu implementace těchto testů se tato kapitola
+se tato kapitola věnuje především UI testům, které tento framework přímo podporuje, a tím jsou právě automatizované UI testy.
+Ty jsou dále rozděleny na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
+které simulují reálný průchod aplikací - například uživatelem. Před samotnou ukázkou způsobu implementace těchto testů, se tato kapitola
 věnuje ještě samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k implementaci
 těchto testů použity.
 
@@ -33,7 +33,7 @@ těchto testů použity.
 
 \section{Možnosti testování UI v~Compose Multiplatform}
 Od verze 1.6.0 Compose Multiplatform umožňuje testování UI na všech podporovaných platformách. \cite{composeNews1.6.0}
-Testování aplikací založených na frameworku Compose Multiplatform je stejně jako tvorba samotného UI založeno na Jetpack Compose a využívá 
+Testování aplikací založených na frameworku Compose Multiplatform je stejně jako tvorba samotného UI založeno na Jetpack Compose, a využívá 
 proto i stejných konceptů. 
 
 \bigskip
@@ -42,14 +42,14 @@ Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
 \subsection*{Sémantika}
-Jak již bylo zmíněno několikrát, tak UI frameworku Compose Multiplatform je založeno na stromové struktuře elementů a z toho důvodu 
-i samotné UI testy používají tuto strukturu k integraci s jednotlivými prvky této hierarchie. K rozlišení jednotlivý prvků tohoto 
+Jak již bylo zmíněno několikrát, tak UI frameworku Compose Multiplatform je založeno na stromové struktuře elementů, a z toho důvodu 
+i samotné UI testy používají tuto strukturu k integraci s jednotlivými prvky této hierarchie. K rozlišení jednotlivých prvků 
 stromu se používají buďto samotné popisy jednotlivých elementů jako je například název tlačítka nebo lze taktéž využít popisků
 sloužících k přístupnosti (v kódu označovaných pomocí štítků \code{contentDescription}).
 
 
 \subsection*{Testování rozhraní}
-K samotnému testovaní UI elementů se používají využívá tři hlavní principy, které se
+K samotnému testovaní UI elementů se používají tři hlavní principy, které se
 označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}.
 
 V první fázi testovaní je potřeba samotné testované elementy vyhledat a k tomu slouží právě \textit{Finders}, které  umožňují najít
@@ -57,7 +57,7 @@ V první fázi testovaní je potřeba samotné testované elementy vyhledat a k 
 pomocí takzvaných \textit{Matchers}, které umožňují najít hledané UI komponenty například podle aktuálního stavu 
 (funkce \code{isEnabled()}, hasProgressBarRangeInfo() a další).
 
-Po nalezení potřebných komponent je možné přistoupit například k takzvaným \textit{Actions}, pomocí kterých je možné vykonávat akce, podobné
+Po nalezení potřebných komponent je možné přistoupit například k takzvaným \textit{Actions}, prostřednictvím kterých je možné vykonávat akce podobné
 těm, které vykonávají uživatelé (funkce \code{performClick(), performScrollTo()} a další).
 
 Pro kontrolu správnosti provedení těchto akcí se používají takzvaná tvrzení (\textit{Assertions}), které ověří zdali vybrané UI prvky
@@ -67,19 +67,19 @@ mají požadované atributy. \cite{composeTesting}
 \subsection*{Synchronizace}
 Dnešní asynchronní povaha mobilních aplikací a frameworků často ztěžuje psaní spolehlivých a opakovatelných testů. Testovací rámce
 musí v případě asynchronních operací čekat, než na ni aplikace zareaguje a až následně vykonávat příslušné testovací operace. 
-Takováto reakce testovacích rámců je v případě moderních testovacích rámců jako je Compose již běžná a automatická, ale přesto jsou zde
-situace při při kterých je synchronizaci testů s uživatelským rozhraním potřeba explicitně řídit.
+Tyto reakce testovacích rámců, jsou v případě moderních testovacích rámců jako je v případě Compose, již běžná a automatická věc. Přesto jsou zde ale
+situace, při kterých je synchronizaci testů s uživatelským rozhraním potřeba explicitně řídit.
 
-Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webové serveru. V takové situaci je v rámci testů možné 
-definovat funkce jako například \code{waitUntilNodeCount(matcher, count, timeoutMs)}, které pozdrží testovaní do doby než bude aplikace
-připravena k pokračovaní testů.
+Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webového serveru. V takové situaci je v rámci testů možné 
+definovat funkce jako například \code{waitUntilNodeCount(matcher, count, timeoutMs)}, které pozdrží testovaní do doby, než bude aplikace
+připravena s pokračovaním testů.
 \end{sloppypar}
 
 %\myparagraph{Testování interoperability}
 
 \section{Testovací případy}\label{testCases}
 Testovací případ (zkráceně TC - z~anglického \uv{test case}) je sada kroků nebo akcí, které jsou prováděny při testování softwarových produktů. 
-Cílem zadefinování testovací případů je ověřit, zda se testovaná aplikace chová podle očekávání a splňuje předem definované požadavky. 
+Cílem zadefinování testovacích případů je ověřit, zda se testovaná aplikace chová podle očekávání a splňuje předem definované požadavky. 
 
 \bigskip
 
@@ -187,8 +187,8 @@ Před tím, než bylo přistoupeno k testování UI dle výše zmíněných scé
 funkcionality a vzhledu jednotlivých komponent jako jsou tlačítka, textová pole, seznamy, obrázky atd.
 
 Účelem těchto testů je zajistit, že každá komponenta aplikace funguje správně a že se zobrazuje v souladu s návrhem a specifikacemi. 
-To zahrnuje ověření interakcí s komponentou, jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty v 
-různých situacích, jako je například změna orientace zařízení.
+To zahrnuje ověření interakcí s komponentou jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty v 
+různých situacích jako je například změna orientace zařízení.
 
 \bigskip
 
