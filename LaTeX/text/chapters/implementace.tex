@@ -89,16 +89,16 @@ například pomocí \textit{Composable} funkce, která je součástí společné
 Ve výpisu kódu \ref{lst:SharedIntegration} je to funkce \code{App()}, která je volána z~nativního Android kódu a stará se
 o~deklaraci veškerého multiplatformního UI.
 \begin{listing}[H]
-  \caption{Lib integration}\label{lst:SharedIntegration}
+  \caption{Integrace sdílené aplikace do hlavní Android \textit{Activity}}\label{lst:SharedIntegration}
   \begin{minted}{Kotlin}
-    class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             App()
         }
     }
-  }
+}
 \end{minted}
 \end{listing}
 
@@ -110,9 +110,9 @@ o~deklaraci veškerého multiplatformního UI.
 %Jelikož časem projekt obsahuje je vhodné pro správu verzí použít takzvaný version katalog. 
 
 \myparagraph{Gradle version catalog}
-Gradle version catalog je obyčejný soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti během celého projektu. 
+Gradle version catalog je obyčejný soubor ve formátu TOML, který umožňuje snadněji přidávat a spravovat závislosti v rámci celého projektu. 
 Místo ručního přidávání závislostí a pluginů do každého modulu zvlášť, je možné shromáždit veškeré závislosti v~tomto souboru a zadefinovat rovněž
-verzi, která má být pro tento modul použita napříč celým projektem. 
+verzi, která má být pro tento modul použita napříč celým projektem. \cite{versionCatalog}
 
 Příklad toho, jak mohou být dříve zmíněné závislosti přepsány do version
 katalogu, je uveden ve výpisu kódu \ref{lst:VersionCalalog}.
@@ -195,7 +195,7 @@ Díky takto zadefinovaným motivům je následně možné obarvit veškeré komp
 V~aplikaci byla proto implementována \textit{Composable} funkce AppTheme (viz výpis kódu \ref{lst:colorsDef}), která je z~pohledu stromové struktury
 UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci je tak možné měnit barevné režimy i za běhu aplikace. 
 \begin{listing}[H]
-\caption{Definice barevných motivů}\label{lst:colorsDef}
+\caption{Aplikace barevných motivů}\label{lst:colorsDef}
 \begin{minted}{Kotlin}
   @Composable
   fun AppTheme(
@@ -220,9 +220,9 @@ UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci j
 \subsection*{Typografie}
 Vybraný Material Design definuje celkem 15 stylů písma, kde každé z~nich má předem určený způsob použití. \cite{material3} 
 Jelikož se jedná o~styly písma přímo zvolené systémem Material Design, tak lze k~těmto stylům přistupovat přes
-\textit{Composable} funkci \code{MaterialTheme} z~balíčku \code{androidx.compose.material3} popsanou v~kódu \ref{lst:colorsDef}.
+\textit{Composable} funkci \code{MaterialTheme} z~balíčku \code{androidx.compose.material3} popsanou ve výpisu~kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma - konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
-definovaném v~rámci sekce \textit{Design system \ref{designSystemSection}}.
+definovaných v~rámci sekce \textit{Design system \ref{designSystemSection}}.
 
 \begin{listing}[H]
 \caption{Ukázka použití stylu písma}\label{lst:typographyExample}

@@ -168,7 +168,7 @@
 \noindent{\thectufitfaculty\\
 \thectufitdepartment\\
 \thectufitsupervisorlabelcapital: \thectufitsupervisor\\
-\today}\end{titlepage}
+9. května 2024}\end{titlepage}
 \restoregeometry
 }
 %title page end
