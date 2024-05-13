@@ -216,14 +216,14 @@ UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci j
 \end{minted}
 \end{listing}
 
-
+\begin{sloppypar}
 \subsection*{Typografie}
 Vybraný Material Design definuje celkem 15 stylů písma, kde každé z~nich má předem určený způsob použití. \cite{material3} 
-Jelikož se jedná o~styly písma přímo zvolené systémem Material Design, tak lze k~těmto stylům přistupovat přes
+Jelikož se jedná o~styly písma přímo definované systémem Material Design, tak lze k~těmto stylům přistupovat přes
 \textit{Composable} funkci \code{MaterialTheme} z~balíčku \code{androidx.compose.material3} popsanou ve výpisu~kódu \ref{lst:colorsDef}.
 Na tomto příkladě je vidět implementace jednoho stylu písma - konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
 definovaných v~rámci sekce \textit{Design system \ref{designSystemSection}}.
-
+\end{sloppypar}
 \begin{listing}[H]
 \caption{Ukázka použití stylu písma}\label{lst:typographyExample}
 \begin{minted}{Kotlin}
@@ -236,16 +236,16 @@ Text(
 
 \section{Tvorba UI obrazovek}
 Jak již bylo zmíněno v~kapitole \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}, tak k~tvorbě UI se v~Compose Multiplatform 
-používají takzvané \textit{Composable} funkce, které představují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
+používají takzvané \textit{Composable} funkce, které reprezentují jednotlivé UI prvky zobrazované na obrazovce koncového zařízení. 
 
 Tyto \textit{Composable} funkce, které přestavují stavební bloky celého UI mohou sloužit k~reprezentaci jednotlivých tlačítek (\code{Button()}), 
 textů (\code{Text()}) obrázků \code{Image()}, ale také celých souborů těchto prvků jako jsou například celé obrazovky.
 
-Mimo těchto funkcí je UI možné tvořit ještě pomocí takzvaných Layout funkcí, mezi které se řadí například \code{Column}, která vnořené \textit{Composable}
-funkce uspořádává do sloupce nebo \code{Row}, která vnořené elementy řadí naopak do řádku.
+Mimo těchto funkcí je UI možné tvořit ještě pomocí takzvaných Layout funkcí, mezi které se řadí například \code{Column()}, která vnořené \textit{Composable}
+funkce uspořádává do sloupce nebo \code{Row()}, která vnořené elementy řadí naopak do řádku.
 
-Jelikož se tato sekce věnuje právě tvorbě UI jednotlivých obrazovek, na následujícím výpisu kódu \ref{lst:ConsumeUIState} je ukázáno, jak mohou
- být do sebe dříve zmíněné Composable funkce zanořeny, čímž tvoří takzvaný sémantický strom, taktéž popsaný v~kapitole 
+Jelikož se tato sekce věnuje tvorbě UI jednotlivých obrazovek, tak na následujícím výpisu kódu \ref{lst:ConsumeUIState} je ukázáno, jak mohou
+ být do sebe některé z dříve zmíněných Composable funkcí zanořeny, čímž tvoří takzvaný sémantický strom, taktéž popsaný v~kapitole 
  \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}
 
 \begin{listing}[H]
@@ -289,14 +289,14 @@ drátěných modelů (viz kapitola \textit{Tvorba drátových modelů \ref{navrh
 stylizováno tak, aby odpovídalo navržené podobě UI z~kapitoly \textit{Mockup modely \ref{navrhMockupModelu}}
 
 \subsection{Domovská obrazovka}
-Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform. Ani při jeho implementaci nebzlo potřeba
+Uživatelské rozhraní domovské obrazovky je kompletně implementováno pomocí frameworku Compose Multiplatform. Při jeho implementaci tak nebylo potřeba
 přistoupit k~nativnímu řešení a to ani v případě platformy iOS nebo desktop.
 
 K~implementaci posuvného řádku, který slouží pro zobrazení událostí byla použita vlastní \textit{Composable} komponenta zvaná \code{EventLazyRow} 
 (viz výpis kódu \ref{lst:EventLazyRowImpl}),
 která je založená na základní UI komponentě zvané \code{LazyRow}. Tato komponenta se obvykle používá v~případech, že je na obrazovku potřeba efektivně 
 vykreslit velkého množství položek (kolekce položek), čož je přesně případ vykreslení událostí. Komponenta \code{LazyRow} totiž vykresluje pouze ty položky,
-které jsou aktuálně viditelné, čímž nezpomaluje načítání obsahu. V~případě většího množství událostí pracuje na podobném principu a výrazně tak šetří zdroje potřebné k~vykreslení.
+které jsou aktuálně viditelné. Díky tomu nezpomaluje načítání obsahu a v~případě většího množství událostí tato vlastnost výrazně šetří zdroje potřebné k~vykreslení.
 
 \begin{listing}[H]
 \caption{Implementace posuvného řádku pomocí \code{LazyRow}}\label{lst:EventLazyRowImpl}
@@ -337,13 +337,13 @@ V~rámci obrazovky \textit{Události} je používána stejná komponenta pro zob
 
 %pro zobrazené událostí "EventLazyRow". 
 
-Každý z~nich obsahuje události z~jedné kategorie. Ty jsou předem připraveny ViewModelem, který při zavolaní nějaké z~filtrovacích
+Každá z~nich obsahuje události z~jedné kategorie. Ty jsou předem připraveny ViewModelem, který při zavolaní nějaké z~filtrovacích
 událostí nejprve vybere události, které spadají do vymezeného časového intervalu a následně u~nich zjistí, do jakých kategorií tyto
-události patří. Pro každou z těchto kategorii poté vytvoří jeden LazyRow, do kterého umístí příslušné události.
+události patří. Pro každou z těchto kategorii poté vytvoří jeden \code{EventLazyRow}, do kterého umístí příslušné události.
 
 % napsat to bez pohledu uzivatele
 Uživatel může filtrovat události buďto podle předem zvolených časových rozmezí jako je \textit{Dnes}, \textit{Zítra} nebo může zvolit vlastní 
-rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný \textit{DatePicker}, který umožňuje zvolit požadované časového rozmezí.
+rozmezí pomocí kliknutí na ikonu kalendáře. Po kliknutí na ikonu kalendáře se uživateli zobrazí takzvaný \code{DatePicker}, který umožňuje zvolit požadované časového rozmezí.
 
 K~volbě časových rozmezí \textit{Dnes} a \textit{Zítra} byly zvoleny takzvané \textit{Chips}, konkrétně \code{FilterChips}, které jsou 
 navrženy k~filtrování a uživatelé jsou na jejich použití zvyklí i z~jiných aplikací, které používají Material Design.
@@ -354,7 +354,8 @@ rozšíří a umožní tak zobrazit veškeré události pro vybrané datové roz
 \subsection{Obrazovka \textit{Parkování}} \label{parkingScreenImpl}
 Hlavní UI komponentou navrženou pro obrazovku \textit{Parkování} je komponenta sloužící k~zobrazení mapových podkladů, která by zároveň umožňovala 
 vykreslení překryvné vrstvy reprezentující rozmístění parkovacích zón. Taková knihovna, ale doposud nebyla pro použití na všech požadovaných 
-platformách dostupná, a proto bylo zapotřebí použít nativní způsob implementace. 
+platformách dostupná, a proto bylo zapotřebí použít nativní způsob implementace. Ten zároveň slouží jako ukázka toho, jak je pomocí 
+Compose Multiplatform možné kombinovat nativní části kódu s těmi společnými.
 
 \subsubsection*{Implementace mapových podkladů}
 Mapové podklady byly implementovány pouze pro platformu Android, pro kterou existuje nativní knihovna \textit{Maps Compose} od společnosti Google, 
@@ -369,7 +370,7 @@ se zbytkem aplikace byla použita expect/actual deklarace.
 %\myparagraph{Výběr mapových podkladů}
 %získání API je pro by mohli být učovány poplatky a z toho důvodu není přiloženo v kódu.  
 \begin{listing}[H]
-\caption{GoogleMap element}\label{lst:GoogleMapview}
+\caption{GoogleMap komponenta}\label{lst:GoogleMapview}
 \begin{minted}{Kotlin}
   GoogleMap(
     modifier = Modifier.fillMaxSize(),
@@ -387,7 +388,7 @@ se zbytkem aplikace byla použita expect/actual deklarace.
 Aby byla implementace motivů z~kapitoly \textit{Design systém \ref{designSystemImpl}} kompletní, bylo zapotřebí přizpůsobit i mapové podklady tak,
 aby se jejich motiv měnil v~závislosti na aktuálním motivu zařízení.
 
-Z~tohoto důvodu a mimo jiné pro zlepšení přehlednosti byly na mapové podklady implementovány určité styly (viz výpis kódu \ref{lst:MapStyle}) \cite{googleStyles}.
+Z~tohoto důvodu a také z důvodu zlepšení přehlednosti byly na mapové podklady implementovány určité styly (viz výpis kódu \ref{lst:MapStyle}) \cite{googleStyles}.
 Ty jednotlivým částem mapových podkladů přiřazují konkrétní barvy, díky čemuž bylo docíleno jednotnějšího vzhledu. Původní mapové podklady
 používaly k~obarvení jednotlivých mapových prvků několik druhů barev a to mělo za důsledek, že na něm byly vyznačené parkovací zóny hůře viditelné.
 
@@ -410,8 +411,8 @@ používaly k~obarvení jednotlivých mapových prvků několik druhů barev a t
 \myparagraph{Získaní a zpracování mapových dat}
 Mapová data v~podobě seznamu parkovacích zón a jejich podrobnostech jako jsou jednotlivé názvy, typy, popisy a umístění parkovacích zón byla 
 získána od města Příbrami. Poskytnutá data byla uvedena ve formátu Keyhole Markup Language (KML), který je primárně určen pro publikaci a 
-distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z~toho důvodu byl k~jeho převedení do Kotlin objektů 
-použit stejný nástroj jako pro převod veškerých dat přicházejících z~informačních systémů města.
+distribuci geografických dat. Tento formát ke svému zápisu používá syntaxi jazyka XML a z~toho důvodu byla k~jeho převedení do Kotlin objektů 
+použita stejná multiplatformní knihovna (\textit{XmlUtil}) jako pro převod veškerých dat přicházejících z~informačních systémů města.
 
 Zobrazení parkovacích zón na mapě bylo implementováno pomocí \textit{Composable} funkce Polygon, která je poskytována v~rámci stejného balíčku 
 jako dříve zmíněná komponenta \code{GoogleMap}.
@@ -431,7 +432,7 @@ Výsledné souřadnice $(\bar{x},\bar{y})$, jsou následně použity k~vycentrov
 Dále byla tato obrazovka rozšířena o~vyhledávací pole, které bylo již možné implementovat v~rámci společné části aplikace. 
 To dává uživateli možnost jednoduchého vyhledání parkovací zóny podle názvu nebo čísla parkovací zóny.
 
-Poslední implementovanou komponentou v~rámci obrazovky \textit{Parkování} je takzvaný \textit{Bottom sheet}, který je zobrazen v~případě, 
+Poslední implementovanou částí obrazovky \textit{Parkování} je takzvaný \textit{Bottom sheet}, který je zobrazen v~případě, 
 že uživatel vybere nebo vyhledá parkovací zónu, pro kterou si přeje zobrazit podrobné informace. Konkrétně byl pro implementaci vybrán 
 \code{BottomSheetScaffold}, který oproti jeho modálním variantám (např. \code{ModalBottomSheet}), umožňuje souběžnou integraci mezi tímto
  výsuvným panelem a mapovým podkladem.
@@ -439,14 +440,15 @@ Poslední implementovanou komponentou v~rámci obrazovky \textit{Parkování} je
 
 %\section{Tvorba UI obecně}
 \section{Navigace}
-Navigace je klíčovou součástí moderních aplikací uživatelského rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
-částmi aplikace. Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a samovolně zlepšit jejich provádění akcí v~aplikaci. 
+Navigace je klíčovou součástí uživatelských rozhraní, která uživatelům umožňuje pohybovat se mezi různými obrazovkami či 
+částmi aplikace. 
+%Hlavním cílem navigace je poskytnout uživatelům intuitivní a plynulý způsob průchodu obsahu a samovolně zlepšit jejich provádění akcí v~aplikaci. 
 
 \medskip
 
 Aktuálně však komponenta navigace ze sady knihoven Jetpack Compose není k~dispozici, a proto je potřeba zvolit nějakou alternativu poskytovanou
 třetí stranou. \cite{composeNav} Výčet aktuálně doporučených knihoven pro implementaci multiplatformní navigace je uveden v~oficiální Kotlin 
-multiplatform dokumentaci a zahrnuje například navigaci Voyager, Decompose nebo Appyx. 
+Multiplatform dokumentaci a zahrnuje například navigaci Voyager, Decompose nebo Appyx. 
 
 \medskip
 
@@ -464,26 +466,26 @@ důležité technologie, na kterých je postavena aplikační logika aplikace.
 \subsubsection*{Voyager}
 Voyager je multiplatformní navigační knihovna, která umožňuje přecházet mezi různými obrazovkami a destinacemi v~multiplatformních
 aplikacích. \cite{voyager} Jejím hlavním cílem je poskytnout jednotné rozhraní především pro navigaci na mobilních platformách jako 
-jsou Android a iOS. Voyager zároveň dokáže maximalizovat sdílený kód a snižovat duplikaci kódu.
+jsou Android a iOS. Díky využití navigace Voyager je zároveň možné maximalizovat sdílený kód a snižovat tak duplikaci kódu.
 
 \medskip
 
 V~rámci implementované aplikace byla navigace Voyager použita především k~implementaci základní navigace mezi jednotlivými obrazovkami.
-Příkladem takové navigace jsou například veškeré možné přechody v~rámci domovské obrazovky. Tato navigace vyžívá ke své funkci takzvané 
-\textit{Stack API}, jehož implementace funguje na principu zásobníku. S~tím, že pokud uživatel vstoupí na novou obrazovku 
+Příkladem takové navigace jsou veškeré možné přechody v~rámci domovské obrazovky. Při těchto přechodech navigace vyžívá ke své funkci takzvané 
+\textit{Stack API}, jehož implementace funguje na principu zásobníku. \cite{voyagerStack} S~tím, že pokud uživatel vstoupí na novou obrazovku 
 (například přejde na stránku zobrazující detail vybrané události), tak je do tohoto zásobníku přidán odkaz na takzvaný \code{SnapshotState},
 který uchovává stav právě opuštěné obrazovky. Znovu obnoven je v~případě, že se uživatel na tuto obrazovku znovu vrátí. Zároveň tento
 zásobník slouží k~tomu, aby navigace vždy věděla na jakou stránku se má vrátit (poslední v~zásobníku), když uživatel provede akci zpět
 například pomocí tlačítka zpět na platformě Android nebo jakéhokoliv tlačítka zpět implementovaného v~rámci aplikace. \textit{Stack API}
  zároveň umožňuje použití několika funkcí jako jsou například funkce \code{push}, \code{replace}, \code{replaceAll} používané pro průchod vpřed 
- nebo funkce \code{pop}, \code{popAll}, \code{popUntil} pro zpětný návrat. 
+ nebo funkce \code{pop}, \code{popAll}, \code{popUntil} pro zpětný návrat. \cite{voyagerStack}
 Díky této implementaci je možné procházené obrazovky do sebe libovolně zanořovat a v~případě, že je potřeba nějakým způsobem upravit
 stav předchozích stavů v~zásobníku, lze nad tímto zásobníkem zavolat některou z~dříve uvedených funkcí.
 
 \medskip
 
 Způsob navigace založený na \textit{Stack API} však není vhodný pro navigování mezi jednotlivými záložkami aplikace (lišta ve spodní 
-části obrazovky), a proto je tato část navigace implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje.
+části obrazovky), a proto je tato část navigace implementována pomocí takzvané \textit{Tab navigation}, kterou knihovna Voyager, taktéž poskytuje. \cite{voyagerTab}
 V~případě použití záložek se průchod obrazovkami nezapisuje do zásobníku, jako tomu bylo v~předchozím případě, ale místo toho poskytuje pouze vlastnost 
 \code{current}, díky které je možné nastavit nebo získat aktuální záložku. \cite{voyagerTabNav} 
 
@@ -517,17 +519,22 @@ uspořádány v~rámci spodní navigační lišty (funkce \code{BottomNavigation
 \end{minted}
 \end{listing}
 
+Kromě těchto druhů navigace byla knihovna Voyager ještě použita k implementaci ViewModelů, které je možné díky integraci této knihovny
+použít napříč všemi platformami. V případě knihovny Voyager jsou tyto ViewModely nazývány jako \textit{ScreenModels} a podobně jako u klasických
+ViewModelů umožňují například uchovat data i při změnách konfigurace (například otočení obrazovky). \cite{voyagerScreeNmodel}
+
+
 \subsubsection*{Coil}
 Coil je knihovna pro načítání a zobrazování obrázků napsaná v~jazyce Kotlin, která byla původně napsaná pouze pro platformu Android, avšak
-od verze 3.0.0 z~prosince roku 2023 existuje alpha verze podporující i platformy JVM, iOS, macOS, nebo Javascript.  
+od verze 3.0.0 z~prosince roku 2023 existuje alpha verze podporující i platformy JVM, iOS, macOS, nebo Javascript. \cite{coil3} 
 
 \medskip
 
 Knihovna poskytuje jednoduché API pro načítání obrázků
-z~různých zdrojů, včetně URL adres, souborů a zdrojů z~paměti. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
+z~různých zdrojů, včetně URL adres, souborů a zdrojů z~paměti \cite{coil}. Díky tomu je integrace obrázků do aplikace snadná a přizpůsobitelná potřebám projektu.
 Knihovna Coil dále nabízí automatické dohledávání velikosti obrázků na základě rozměrů zobrazení, což pomáhá optimalizovat paměť a výkon aplikace. Tato funkce 
 umožňuje načítat obrázky ve správné velikosti a snižuje zátěž na síťové spojení. Knihovna podporuje širokou škálu formátů obrázků, včetně PNG, 
-JPEG, GIF, SVG a WebP, což umožňuje pracovat s~různými typy obrázků bez nutnosti dalšího přizpůsobování.
+JPEG, GIF, SVG a WebP, což umožňuje pracovat s~různými typy obrázků bez nutnosti dalšího přizpůsobování \cite{coil}.
 
 Další výhodou knihovny Coil je možnost efektivního cachování obrázků, které pomáhá snižovat čas načítání a zlepšuje uživatelský zážitek.
 
@@ -541,7 +548,7 @@ aplikaci použita k~načítání veškerých obrázků z~internetu, slouží ná
 % TODO placeholder
 
 \begin{listing}[H]
-\caption{Composable funkce \code{AsyncImage}poskytovaná knihovnou}\label{lst:Coil3}
+\caption{Composable funkce \code{AsyncImage}poskytovaná knihovnou Coil}\label{lst:Coil3}
 \begin{minted}{Kotlin}
   AsyncImage(
     model = news.thumbnailUri,
@@ -551,21 +558,16 @@ aplikaci použita k~načítání veškerých obrázků z~internetu, slouží ná
   )
 \end{minted}
 \end{listing}
-
-Kromě těchto druhů navigace byla knihovna Voyager ještě použita k implementaci ViewModelů, které je možné prostřednictvím integrace této knihovny
-použít napříč všemi platformami. V případě knihovny Voyager jsou tyto ViewModely nazývány jako \textit{ScreenModels} a podobně jako u klasických
-ViewModelů umožňují například uchovat data i při změnách konfigurace (například otočení obrazovky). \cite{voyagerScreeNmodel}
-
 \subsection{Vrstva aplikační logiky}
 
 %\subsubsection*{Kotlin}
 %\subsubsection*{Coroutines}
 \subsubsection*{Ktor}
 Ktor je open-source framework vytvořený společností JetBrains pro tvorbu jak serverových, tak klientských aplikací prostřednictvím programovacího 
-jazyka Kotlin. Ktor byl vybrán především kvůli možnosti využití multiplatformního asynchronního HTTP klienta, pomocí kterého je možné zadávat 
+jazyka Kotlin \cite{ktor}. Ktor byl vybrán především kvůli možnosti využití multiplatformního asynchronního HTTP klienta, pomocí kterého je možné zadávat 
 HTTP požadavky a zároveň zpracovávat případné odpovědi. 
 
-Pro dotazování byl použit multiplatformní Engine CIO, jehož benefitem je možnost používat Ktor na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native.
+Pro dotazování byl použit multiplatformní Engine CIO, jehož benefitem je možnost používat Ktor na platformách Android, JVM a všech platformách, které podporuje Kotlin/Native \cite{ktorCIO}.
 \begin{listing}[H]
 \caption{Konfigurace HTTP klienta}\label{lst:ktorConfig}
 \begin{minted}{Kotlin}
@@ -581,10 +583,10 @@ Pro dotazování byl použit multiplatformní Engine CIO, jehož benefitem je mo
 
 Po nakonfigurování HTTP klienta je již možné zasílat běžné HTTP dotazy skrze metodu \code{post}, \code{get}, \code{put} nebo \code{delete}.
 Na následující ukázce kódu \ref{lst:ktorRequest} je pomocí nakonfigurovaného klienta z~ukázky kódu \ref{lst:ktorConfig} zaslán HTTP požadavek
-na webový server města.
+na webový server města získávající data o aktuálně pořádaných událostech.
 
 \begin{listing}[H]
-\caption{Zaslání požadavku}\label{lst:ktorRequest}
+\caption{Zaslání HTTP požadavku na server města}\label{lst:ktorRequest}
 \begin{minted}{Kotlin}
   suspend fun getEventsXml(): EventsXmlDto {
     val response: String = client.get("https://kalendar.pribram.eu/...").body()
@@ -595,17 +597,17 @@ na webový server města.
 
 \subsubsection*{SQLDelight}
 SQLDelight je multiplatformní knihovna pro práci s~relačními databázemi v~aplikacích napsaných v~jazyce Kotlin. Jedná se o~moderní knihovnu, 
-která umožňuje vytváření a správu SQL dotazů s pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin.
+která umožňuje vytváření a správu SQL dotazů s pomocí typově bezpečných prostředků poskytovaných jazykem Kotlin \cite{sqldelight}.
 
 \medskip
 
-Hlavní funkcionalitou knihovny SQLDelight je automatické generování Kotlin tříd a funkcí na základě definovaných SQL schémat. Díky tomu
-je možné psát SQL dotazy pomocí standardní SQL syntaxe. SQLDelight se postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které
+Hlavní funkcionalitou knihovny SQLDelight je automatické generování Kotlin tříd a funkcí na základě definovaných SQL schémat \cite{sqldelight}. Díky čemuž
+je možné psát SQL dotazy pomocí standardní SQL syntaxe. SQLDelight se následně postará o~vygenerování příslušných funkcí v~jazyce Kotlin, které
 umožňují  snadný a bezpečný přístup k~databázi. Jediným rozdílem oproti standardním SQL dotazům je označení jednotlivých SQL dotazů takzvaným 
-štítkem (viz \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}), skrze který je vygenerována příslušná Kotlin funkce. 
+štítkem (viz štítek \code{selectNewestEvents:} ve výpisu kódu \ref{lst:SQLDotaz}), skrze který je vygenerována příslušná Kotlin funkce. 
 
 \begin{listing}[H]
-\caption{SQL dotaz pro získání všech novinek v~databázi}\label{lst:SQLDotaz}
+\caption{SQL dotaz pro získání nejnovějších událostí v~databázi}\label{lst:SQLDotaz}
 \begin{minted}{SQL}
 selectNewestEvents:
 SELECT *
@@ -616,7 +618,7 @@ LIMIT 30;
 \end{listing}
 
 Vygenerované funkce (dotazy) lze následně nalézt ve složce \code{build/generated/sqldelight/...} a pro dotaz z~výpisu kódu \ref{lst:SQLDotaz}
-vypadá jeho zkrácená podoba následovně:
+vypadá jeho zkrácená podoba následovně.
 
 \begin{listing}[H]
 \caption{SQL vygenerovaný dotaz}\label{lst:SQLGeneratedDotaz}
@@ -644,7 +646,7 @@ public fun <T : Any> selectNewestEvents(mapper: (
 \end{minted}
 \end{listing}
 
-I~přesto, že se jedná o~multiplatformní knihovnu a většina kódu tak může být psána v~balíčku sdíleném mezi všemi platformami, je zde i 
+I~přesto, že se jedná o~multiplatformní knihovnu a většina kódu může být psána v~balíčku sdíleném mezi všemi platformami, je zde i 
 část z~následující ukázky kódu \ref{lst:DatabaseDriverFactory}, kterou je pro veškeré implementované platformy potřeba implementovat
 nativně. Konkrétně se jedná o~databázové ovladače, k~jejichž implementaci jsou 
 zapotřebí nativní knihovny a musí být proto implementovány v~balíčcích jednotlivých platforem.
