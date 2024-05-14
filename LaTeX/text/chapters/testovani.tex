@@ -3,11 +3,11 @@
 
 %\section{Typy UI testů}
 
-Mezi základní dva druhy testování UI patří manuální a automatizované testovaní. Za účelem analýzy frameworku Compose Multiplatform
-se tato kapitola věnuje především UI testům, které tento framework přímo podporuje, a tím jsou právě automatizované UI testy.
-Ty jsou dále rozděleny na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
+Mezi základní dva druhy testování UI patří manuální a automatizované testování \cite{testing}. Za účelem otestování frameworku Compose Multiplatform
+se tato kapitola věnuje především UI testům, které tento framework přímo podporuje, a těmi jsou právě automatizované UI testy \cite{testingUI}.
+Ty je dále možné rozdělit na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
 které simulují reálný průchod aplikací - například uživatelem. Před samotnou ukázkou způsobu implementace těchto testů, se tato kapitola
-věnuje ještě samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k implementaci
+věnuje samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k implementaci
 těchto testů použity.
 
 % \section{Uživatelské rozhraní}
@@ -42,32 +42,32 @@ Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
 \subsection*{Sémantika}
-Jak již bylo zmíněno několikrát, tak UI frameworku Compose Multiplatform je založeno na stromové struktuře elementů, a z toho důvodu 
-i samotné UI testy používají tuto strukturu k integraci s jednotlivými prvky této hierarchie. K rozlišení jednotlivých prvků 
-stromu se používají buďto samotné popisy jednotlivých elementů jako je například název tlačítka nebo lze taktéž využít popisků
-sloužících k přístupnosti (v kódu označovaných pomocí štítků \code{contentDescription}).
+Jak již bylo zmíněno několikrát, tak uživatelské rozhraní frameworku Compose Multiplatform je založeno na stromové struktuře elementů, a z toho důvodu 
+i samotné UI testy používají tuto strukturu k interakci s jednotlivými prvky této hierarchie. K rozlišení uzlů sémantického
+stromu se používají buďto popisy těchto elementů jako je například název tlačítka nebo lze taktéž využít popisků
+sloužících k přístupnosti (v kódu označovaných pomocí štítků \code{contentDescription}) \cite{testingUISeman}.
 
 
 \subsection*{Testování rozhraní}
 K samotnému testovaní UI elementů se používají tři hlavní principy, které se
-označují jako \textit{Finders}, \textit{Assertions} a \textit{Actions}.
+označují jako \textit{Finders}, \textit{Actions} a  \textit{Assertions} \cite{testingUIApis}.
 
-V první fázi testovaní je potřeba samotné testované elementy vyhledat a k tomu slouží právě \textit{Finders}, které  umožňují najít
+V první fázi testovaní je nejprve potřeba samotné testované elementy vyhledat. K tomu slouží právě \textit{Finders}, které  umožňují najít
  uzel nebo uzly ve stromové UI struktuře pomocí odpovídajícího sémantického stromu. Případně je dané elementy možné najít
 pomocí takzvaných \textit{Matchers}, které umožňují najít hledané UI komponenty například podle aktuálního stavu 
-(funkce \code{isEnabled()}, hasProgressBarRangeInfo() a další).
+(funkce \code{isEnabled()}, \code{hasProgressBarRangeInfo()} a další).
 
 Po nalezení potřebných komponent je možné přistoupit například k takzvaným \textit{Actions}, prostřednictvím kterých je možné vykonávat akce podobné
 těm, které vykonávají uživatelé (funkce \code{performClick(), performScrollTo()} a další).
 
 Pro kontrolu správnosti provedení těchto akcí se používají takzvaná tvrzení (\textit{Assertions}), které ověří zdali vybrané UI prvky
-mají požadované atributy. \cite{composeTesting}
+mají požadované atributy. \cite{testingUIApis}
 
 \begin{sloppypar}
 \subsection*{Synchronizace}
 Dnešní asynchronní povaha mobilních aplikací a frameworků často ztěžuje psaní spolehlivých a opakovatelných testů. Testovací rámce
 musí v případě asynchronních operací čekat, než na ni aplikace zareaguje a až následně vykonávat příslušné testovací operace. 
-Tyto reakce testovacích rámců, jsou v případě moderních testovacích rámců jako je v případě Compose, již běžná a automatická věc. Přesto jsou zde ale
+Tyto reakce testovacích rámců, jsou v případě moderních testovacích rámců jako je Compose, již běžná a automatická věc \cite{testingUISynchro}. Přesto jsou zde ale
 situace, při kterých je synchronizaci testů s uživatelským rozhraním potřeba explicitně řídit.
 
 Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webového serveru. V takové situaci je v rámci testů možné 
@@ -199,7 +199,7 @@ Pro ukázku metod používaných pro ověření správnosti zobrazení jednotliv
   \begin{minted}{kotlin}
 @OptIn(ExperimentalTestApi::class)
 @Test
-fun check_properties_check_return() = runComposeUiTest {
+fun check_properties_and_return() = runComposeUiTest {
   ...
   //Ověří, že daná komponenta byla nalezena a je součástí stromu UI komponent.
   onNodeWithText("Závady").assertExists()
@@ -212,7 +212,7 @@ fun check_properties_check_return() = runComposeUiTest {
 \end{listing}
 
 \subsection{End-to-end testy}
-End-to-end (E2E) testy jsou typem testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele.
+End-to-end (E2E) testy jsou typem testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele \cite{testingE2E}.
 Tyto testy prověřují integraci jednotlivých komponent aplikace a zajišťují, že aplikace pracuje korektně a očekávaným způsobem od začátku až 
 do konce vykonávaného procesu.
 
@@ -224,10 +224,10 @@ svých cílů bez problémů.
 
 \bigskip
 Při implementaci těchto testů bylo postupováno na základě testovacích scénářů uvedených v sekci \textit{Testovací případy \ref{testCases}} a pro
-ukázku implementace byl zvolen test: \ref{lst:E2ETest}
+ukázku implementace byl zvolen E2E test odpovídající třetímu testovacímu případu (viz výpis kódu  \ref{lst:E2ETest}). 
 
 \begin{listing}[H]
-  \caption{Implementace E2E testu}\label{lst:E2ETest}
+  \caption{Implementace E2E testu podle TC3}\label{lst:E2ETest}
   \begin{minted}{kotlin}
     fun nav_to_events_open_calendar_press_cancel_check_buttons_state() {
 

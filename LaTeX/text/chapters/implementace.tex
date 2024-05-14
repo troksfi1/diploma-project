@@ -221,7 +221,7 @@ UI předkem veškerých vykreslovaných UI komponent. Díky této implementaci j
 Vybraný Material Design definuje celkem 15 stylů písma, kde každé z~nich má předem určený způsob použití. \cite{material3} 
 Jelikož se jedná o~styly písma přímo definované systémem Material Design, tak lze k~těmto stylům přistupovat přes
 \textit{Composable} funkci \code{MaterialTheme} z~balíčku \code{androidx.compose.material3} popsanou ve výpisu~kódu \ref{lst:colorsDef}.
-Na tomto příkladě je vidět implementace jednoho stylu písma - konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
+Na ukázce \ref{lst:typographyExample} je vidět následná implementace jednoho stylu písma - konkrétně \textit{headlineMedium}, který je odvozen ze základních stylů písma 
 definovaných v~rámci sekce \textit{Design system \ref{designSystemSection}}.
 \end{sloppypar}
 \begin{listing}[H]
@@ -246,13 +246,13 @@ funkce uspořádává do sloupce nebo \code{Row()}, která vnořené elementy ř
 
 Jelikož se tato sekce věnuje tvorbě UI jednotlivých obrazovek, tak na následujícím výpisu kódu \ref{lst:ConsumeUIState} je ukázáno, jak mohou
  být do sebe některé z dříve zmíněných Composable funkcí zanořeny, čímž tvoří takzvaný sémantický strom, taktéž popsaný v~kapitole 
- \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}
+ \textit{Architektura frameworku Compose Multiplatform \ref{ComposeArch}}. Výsledek takto zapsaného UI je pak k vidění na obrázku \ref{fig:ProfileScreen}.
 
 \begin{listing}[H]
 \caption{Příklad tvorby UI pomocí frameworku Compose Multiplatform}\label{lst:ConsumeUIState}
 \begin{minted}{Kotlin}
   @Composable
-  fun HomeScreen {
+  fun ProfileScreen {
     // Přidá vnitřní okraj kolem celé zprávy
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
@@ -271,13 +271,20 @@ Jelikož se tato sekce věnuje tvorbě UI jednotlivých obrazovek, tak na násle
         Column {
             Text(text = msg.author)
             // Přidá vertikální mezeru bezi texty
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text(text = msg.body)
         }
     }
   }
 \end{minted}
 \end{listing}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.3\textwidth]{profile.png}
+  \caption{Ukázka podoby UI dle kód z ukázky \ref{lst:ConsumeUIState}}
+  \label{fig:ProfileScreen}
+\end{figure}
 
 %Zároveň 
 
@@ -665,26 +672,25 @@ actual class DatabaseDriverFactory {
 \end{listing}
 
 \subsubsection*{Koin}
-Koin je moderní framework pro vkládání závislostí (zkráceně DI - z~anglického \uv{dependency injection}). Jedná se o~lehkou a snadno 
+Koin je moderní framework pro vkládání závislostí (zkráceně DI - z~anglického \uv{dependency injection}) \cite{Koin}. Jedná se o~lehkou a snadno 
 použitelnou alternativu ke knihovnám jako je například Hilt pro platformu Android.
  %Koin se zaměřuje na jednoduchost použití a minimalismus, což usnadňuje vývoj aplikací a zároveň zlepšuje čitelnost a údržbu kódu.
 
-Hlavním principem Koinu je deklarativní přístup k~definici závislostí pomocí takzvaných modulů. V~modulu se specifikují veškeré závislosti a 
-jejich vytváření. Děje se tak prostřednictvím jednoduchých funkcí nebo takzvaných singletons - případně factories. Ty, jak název napovídá, odkazují na 
+Hlavním principem tohoto frameworku je deklarativní přístup k~definici závislostí pomocí takzvaných modulů \cite{Koin}. V~modulu se specifikují veškeré závislosti a 
+jejich vytváření. Děje se tak prostřednictvím jednoduchých funkcí nebo takzvaných singletons - případně factories \cite{KoinDef}. Ty, jak název napovídá, odkazují na 
 patřičné návrhové vzory, na jejichž základě se dané instance vytvářejí.
 
 
-Během této aplikace byl Koin použit například pro vložení databázového ovladače (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect 
-actual deklarací.
-Využití DI bylo v tomto případě vhodné předevší proto, že převážná většina databázové logiky je napsána v sdílené 
-logice a v~rámci nativní logiky byl tak implementován pouze nativní databázový ovladač. Ten musel být následně pro každou platformu vložen do 
-společné třídy implementující Databázi (\code{DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory)}).
+V rámci této aplikace byl Koin použit například pro vložení databázových ovladačů (viz ukázka kódu \ref{lst:KoinInit}), které museli být tvořeny za pomocí expect/actual deklarací.
+Využití DI bylo v tomto případě vhodné především proto, že převážná většina databázové logiky je součástí společné 
+logiky a v~rámci nativní logiky byl tak implementován pouze nativní databázový ovladač. Ten musel být následně pro každou platformu vložen do 
+společné třídy pracující s databází (\code{DatabaseDaoImpl(databaseDriverFactory: DatabaseDriverFactory)}).
 
 Dalšími důležitými komponentami, které byly do aplikace vkládány pomocí DI byly ViewModely a celá třída úložiště, na které jsou ViewModely
 závislé.
 
 \begin{listing}[H]
-\caption{DI databázového ovladače pomocí Koinu}\label{lst:KoinInit}
+\caption{DI databázového ovladače pomocí frameworku Koin}\label{lst:KoinInit}
 \begin{minted}{Kotlin}
   class MainActivity : ComponentActivity() {
 
@@ -710,7 +716,7 @@ závislé.
 
 
 \section{Logika uživatelského rozhraní} \label{UILayerImpl}
-V této sekci je ukázáno, jakým způsobem byla implementována logika chování UI, jejíž části byly navrženy v~kapitole 
+V následujících sekcích je ukázáno, jakým způsobem byla implementována logika chování UI, jejíž části byly navrženy v~kapitole 
 \textit{Vrstvy architektury \ref{vrstvyArchitekturySection}}. 
 
 
@@ -765,11 +771,11 @@ Jak již bylo zmíněno, tak nejčastějším typem UI události jsou takzvané 
 Tyto události jsou zpracovány aplikací pomocí metod jako je například metoda \code{onClick()}, která je často typickým příkladem toho, jak
 jednotlivé UI komponenty obsluhují patřičné uživatelské události. 
 
-V přápadě takovýchto metod je pak vhodné uplatnit reprezentaci UI události například v podobě datových objektů 
+V rámci takovýchto metod je pak vhodné implementovat reprezentaci UI události například v podobě datových objektů 
 zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 
 \begin{listing}[H]
-\caption{Použití stavu v~aplikaci}\label{lst:EventsImpl}
+\caption{Zadefinování stavových objektů v~aplikaci}\label{lst:EventsImpl}
 \begin{minted}{Kotlin}
   sealed interface EventsEvent {
     data object OnFilterTodayIsSelected : EventsEvent
@@ -779,7 +785,7 @@ zadefinovaných ve výpisu kódu \ref{lst:EventsImpl}.
 \end{minted}
 \end{listing}
 
-Takto zadefinované objekty je již možné použít u UI obrazovek například následujícím způsobem \ref{lst:EventsinUIImpl}.
+Takto zadefinované objekty je již možné použít v rámci UI obrazovek například následujícím způsobem \ref{lst:EventsinUIImpl}.
 
 \begin{listing}[H]
 \caption{Použití stavu v~aplikaci}\label{lst:EventsinUIImpl}
