@@ -14,13 +14,13 @@ aplikace disponovat.
 Dále je v~rámci této kapitoly navržena architektura aplikace, která je pro následné navržení a správné fungování UI nezbytná. Sekce \textit{Návrh architektury} se tedy věnuje rozebrání aktuálně uplatňovaným principů při návrhu správně architektury pro mobilní zařízení a následnému detailnímu
 rozebrání jednotlivých vrstev navržené architektury.
 
-V~poslední části návrhu je přistoupeno k~samotnému návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných drátěných modelů. V dalším kroku je přistoupeno k návrhu design systému a nakonec k~návrhu konečné podoby UI včetně grafických prvků.
+V~poslední části návrhu je přistoupeno k~samotnému návrhu uživatelského rozhraní aplikace a to nejprve za použití takzvaných drátěných modelů. V~dalším kroku je přistoupeno k~návrhu design systému a nakonec k~návrhu konečné podoby UI včetně grafických prvků.
 
 
 \section{Výběr aplikace}
 Základním požadavkem bylo vybrat takovou aplikaci, ve které by bylo možné použít velké množství různých komponent, jejichž funkčnost by následně mohla být otestována
 na různých platformách.
-Mezi další požadavky při výběru aplikace patřilo zaměření se na nějakou část UI, která je z pohledu multiplatformní implementace složitější a takovou část do aplikace naimplementovat.
+Mezi další požadavky při výběru aplikace patřilo zaměření se na nějakou část UI, která je z~pohledu multiplatformní implementace složitější a takovou část do aplikace naimplementovat.
 
 Z~těchto důvodů byla k~implementaci vybrána aplikace sloužící pro občany měst či obcí, která kombinuje veškeré funkční požadavky plynoucí ze zadání.
 
@@ -183,8 +183,8 @@ jenž popisuje proces vývoje softwarových produktů.
 Funkční požadavky (zkráceně FR - z~anglického \uv{functional requirement}) definují konkrétní funkce a chování systému z~pohledu uživatele. 
 Obecně se dá říci, že specifikují, co má systém dělat, jaké úkoly má provádět a jaké operace musí uživatelům umožňovat. \cite{functionalReq}
 
-Pro jednodušší rozhodnutí o tom, jaká funkcionalita má být při realizaci systému implementována nejdříve a s co největším důrazem
- na kvalitu provedení, je u jednotlivých požadavků zmíněno, jakou prioritu mají a jak složité jsou na implementaci.
+Pro jednodušší rozhodnutí o~tom, jaká funkcionalita má být při realizaci systému implementována nejdříve a s~co největším důrazem
+ na kvalitu provedení, je u~jednotlivých požadavků zmíněno, jakou prioritu mají a jak složité jsou na implementaci.
 
 Obě tyto hodnoty jsou hodnoceny na stupnici 1 až 5, kde 5 je největší priorita (případně složitost) a 1 je nejmenší.
 
@@ -240,7 +240,7 @@ možné vepsat název, popis, druh závady a případně její fotografii. Tuto 
 \end{itemize}
 
 \myparagraph{FR5 Zobrazit kontakty na místní úřady}
-Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady, jejich pracovní dobu a konkrétní otevírací hodiny pro každý z místních úřadů.
+Pomocí systému bude možné zobrazit aktuální kontakty na místní úřady, jejich pracovní dobu a konkrétní otevírací hodiny pro každý z~místních úřadů.
 
 \begin{itemize}
   \item \textit{Priorita: 2}
@@ -371,7 +371,7 @@ dociluje pomocí tří částí, které jsou zobrazeny na obrázku \ref{fig:arch
 
 \myparagraph{ViewModel}
 Hlavní účel ViewModelu je uchovávat a spravovat data potřebná pro zobrazení na obrazovce a to i při změnách konfigurace zařízení 
-(například při otočení obrazovky) \cite{viewModelOver}. ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z úložiště, 
+(například při otočení obrazovky) \cite{viewModelOver}. ViewModel také poskytuje metody a události pro interakci s~daty jako je načítání dat z~úložiště, 
 jejich aktualizace a předávání událostí od uživatele zpět do aplikace. Na základě těchto událostí například aktualizuje stav uživatelského
 rozhraní. % (UI elementů) nebo stavu 
 
@@ -381,7 +381,7 @@ rozhraní v~daném okamžiku \cite{andDocArch}. Tento stav může zahrnovat růz
  aktuální zobrazené obrazovky nebo panely, stav animací a další.
 
 UI state je důležitý pro udržování konzistence a interaktivity uživatelského rozhraní. Změny v~UI stavu mohou být způsobeny uživatelskými
-interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, rolováním seznamu nebo mohou být vyvolány událostmi v~aplikaci v případech 
+interakcemi jako například kliknutím na tlačítko, zadáním textu do pole, rolováním seznamu nebo mohou být vyvolány událostmi v~aplikaci v~případech 
 jako je získání dat ze serveru nebo jakoukoliv změnou interního stavu aplikace. 
 
 V~rámci frameworků, které k~tvorbě UI používají deklarativní způsob zápisu se často k~definice stavu a jeho vlivu na UI používá funkce 
@@ -435,18 +435,18 @@ Doménová vrstva by měla být nezávislá na technických aspektech aplikace a
 %he data layer that contains the business logic of your app and exposes application data.
 
 
-Datová vrstva se stará o persistenci dat a komunikaci s~datovými úložišti jako jsou
+Datová vrstva se stará o~persistenci dat a komunikaci s~datovými úložišti jako jsou
 databáze, soubory nebo vzdálené API. Jejím hlavním úkolem je poskytovat rozhraní mezi doménovou logikou aplikace a datovými zdroji, 
 aby bylo možné ukládat, načítat, aktualizovat a mazat data podle potřeby. \cite{datalayer}
 
 K~tomu aby aplikace fungovala, jak bylo popsáno v~úvodu této kapitoly, je zapotřebí, aby datová vrstva implementované aplikace obsahovala mechanismy pro
- získání dat z~informačních systémů města a vhodně je kombinovala s daty uloženými v lokální databázi.
+ získání dat z~informačních systémů města a vhodně je kombinovala s~daty uloženými v~lokální databázi.
  
 Jelikož se data v~informačních systémech města nachází ve formátu XML, byla proto navržena služba získávající tato data ze vzdáleného 
-datového zdroje (IS města) způsobem zobrazeným v~levé části obrázku \ref{fig:arch_data_layer}. Získaná data jsou následně propojena s aplikací
-pomocí takzvaných \textit{Data access object}, jejichž princip je podrobněji popsán dále v této sekci.
+datového zdroje (IS města) způsobem zobrazeným v~levé části obrázku \ref{fig:arch_data_layer}. Získaná data jsou následně propojena s~aplikací
+pomocí takzvaných \textit{Data access object}, jejichž princip je podrobněji popsán dále v~této sekci.
 
-Pro persistenci těchto dat byla vybrána SQL databáze založená na enginu SQLite, která se stará o poskytnutí dříve načtených dat 
+Pro persistenci těchto dat byla vybrána SQL databáze založená na enginu SQLite, která se stará o~poskytnutí dříve načtených dat 
 v~případech, kdy aplikace nemá přístup k~internetu.
 
 
@@ -464,18 +464,18 @@ v~případech, kdy aplikace nemá přístup k~internetu.
 %   \label{fig:arch_data_layer_principle}
 % \end{figure}
 
-Následující výčet prvků má za úkol představit důležité komponenty datové vrstvy používané v rámci navržené aplikace.
+Následující výčet prvků má za úkol představit důležité komponenty datové vrstvy používané v~rámci navržené aplikace.
 
 \myparagraph{Data access object}
 Data access objects (zkráceně \textit{DAOs}) jsou zodpovědné za přímý přístup k~datovým úložištím a provádění operací jako čtení, zápis, aktualizace a mazání dat. \cite{oracleDAO} Tyto objekty 
 poskytují abstrakci nad konkrétními technologiemi datových úložišť a umožňují snadnou změnu úložišť bez vlivu na ostatní části aplikace.
 
-V rámci navržené aplikace jsou navržené pro přistup do lokální databáze. 
+V~rámci navržené aplikace jsou navržené pro přistup do lokální databáze. 
 
 \myparagraph{Data transfer object}
 Data transfer object (zkráceně \textit{DTO}) jsou objekty používané k~přenosu dat mezi vrstvami aplikace. Tyto objekty slouží k~přenosu dat mezi datovou vrstvou a doménovou 
 vrstvou a často mapují datové entity na jednodušší objekty nebo struktury pro snadnější manipulaci. \cite{DTO}
-Jak již bylo zmíněno dříve, tak DTOs jsou navrženy v procesu získávání dat z informačních systémů města a slouží k převodu XML dat, získaných
+Jak již bylo zmíněno dříve, tak DTOs jsou navrženy v~procesu získávání dat z~informačních systémů města a slouží k~převodu XML dat, získaných
 ze serveru města.   
 
 \myparagraph{Datové entity}
@@ -488,7 +488,7 @@ Datová vrstva zajišťuje, aby bylo možné efektivně pracovat s~těmito úlo�
 
 \bigskip
 
-Poslední tři zmíněné části jsou pak v rámci navržené datové vrstvy propojeny následujícím způsobem:
+Poslední tři zmíněné části jsou pak v~rámci navržené datové vrstvy propojeny následujícím způsobem:
 
 \begin{figure}[H]
   \centering

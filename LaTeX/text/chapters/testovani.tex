@@ -7,7 +7,7 @@ Mezi základní dva druhy testování UI patří manuální a automatizované te
 se tato kapitola věnuje především UI testům, které tento framework přímo podporuje, a těmi jsou právě automatizované UI testy \cite{testingUI}.
 Ty je dále možné rozdělit na takzvané \textit{Unit} testy neboli testy jednotlivých UI komponent a takzvané \textit{End-to-End} testy, 
 které simulují reálný průchod aplikací - například uživatelem. Před samotnou ukázkou způsobu implementace těchto testů, se tato kapitola
-věnuje samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k implementaci
+věnuje samotným konceptům, na kterých jsou oba tyto typy testování postaveny a ukázce testovacích případů, které byly k~implementaci
 těchto testů použity.
 
 % \section{Uživatelské rozhraní}
@@ -42,22 +42,22 @@ Mezi tyto klíčové koncepty testovaní UI se řadí následující:
 
 
 \subsection*{Sémantika}
-Jak již bylo zmíněno několikrát, tak uživatelské rozhraní frameworku Compose Multiplatform je založeno na stromové struktuře elementů, a z toho důvodu 
-i samotné UI testy používají tuto strukturu k interakci s jednotlivými prvky této hierarchie. K rozlišení uzlů sémantického
+Jak již bylo zmíněno několikrát, tak uživatelské rozhraní frameworku Compose Multiplatform je založeno na stromové struktuře elementů, a z~toho důvodu 
+i samotné UI testy používají tuto strukturu k~interakci s~jednotlivými prvky této hierarchie. K~rozlišení uzlů sémantického
 stromu se používají buďto popisy těchto elementů jako je například název tlačítka nebo lze taktéž využít popisků
-sloužících k přístupnosti (v kódu označovaných pomocí štítků \code{contentDescription}) \cite{testingUISeman}.
+sloužících k~přístupnosti (v~kódu označovaných pomocí štítků \code{contentDescription}) \cite{testingUISeman}.
 
 
 \subsection*{Testování rozhraní}
-K samotnému testovaní UI elementů se používají tři hlavní principy, které se
+K~samotnému testovaní UI elementů se používají tři hlavní principy, které se
 označují jako \textit{Finders}, \textit{Actions} a  \textit{Assertions} \cite{testingUIApis}.
 
-V první fázi testovaní je nejprve potřeba samotné testované elementy vyhledat. K tomu slouží právě \textit{Finders}, které  umožňují najít
+V~první fázi testovaní je nejprve potřeba samotné testované elementy vyhledat. K~tomu slouží právě \textit{Finders}, které  umožňují najít
  uzel nebo uzly ve stromové UI struktuře pomocí odpovídajícího sémantického stromu. Případně je dané elementy možné najít
 pomocí takzvaných \textit{Matchers}, které umožňují najít hledané UI komponenty například podle aktuálního stavu 
 (funkce \code{isEnabled()}, \code{hasProgressBarRangeInfo()} a další).
 
-Po nalezení potřebných komponent je možné přistoupit například k takzvaným \textit{Actions}, prostřednictvím kterých je možné vykonávat akce podobné
+Po nalezení potřebných komponent je možné přistoupit například k~takzvaným \textit{Actions}, prostřednictvím kterých je možné vykonávat akce podobné
 těm, které vykonávají uživatelé (funkce \code{performClick(), performScrollTo()} a další).
 
 Pro kontrolu správnosti provedení těchto akcí se používají takzvaná tvrzení (\textit{Assertions}), které ověří zdali vybrané UI prvky
@@ -66,13 +66,13 @@ mají požadované atributy. \cite{testingUIApis}
 \begin{sloppypar}
 \subsection*{Synchronizace}
 Dnešní asynchronní povaha mobilních aplikací a frameworků často ztěžuje psaní spolehlivých a opakovatelných testů. Testovací rámce
-musí v případě asynchronních operací čekat, než na ni aplikace zareaguje a až následně vykonávat příslušné testovací operace. 
-Tyto reakce testovacích rámců, jsou v případě moderních testovacích rámců jako je Compose, již běžná a automatická věc \cite{testingUISynchro}. Přesto jsou zde ale
-situace, při kterých je synchronizaci testů s uživatelským rozhraním potřeba explicitně řídit.
+musí v~případě asynchronních operací čekat, než na ni aplikace zareaguje a až následně vykonávat příslušné testovací operace. 
+Tyto reakce testovacích rámců, jsou v~případě moderních testovacích rámců jako je Compose, již běžná a automatická věc \cite{testingUISynchro}. Přesto jsou zde ale
+situace, při kterých je synchronizaci testů s~uživatelským rozhraním potřeba explicitně řídit.
 
-Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webového serveru. V takové situaci je v rámci testů možné 
+Takovým příkladem může být například situace, kdy aplikace čeká na odpověď webového serveru. V~takové situaci je v~rámci testů možné 
 definovat funkce jako například \code{waitUntilNodeCount(matcher, count, timeoutMs)}, které pozdrží testovaní do doby, než bude aplikace
-připravena s pokračovaním testů.
+připravena s~pokračovaním testů.
 \end{sloppypar}
 
 %\myparagraph{Testování interoperability}
@@ -117,7 +117,7 @@ Zobrazení aktuálních novinek a jejich detailu.
 \end{enumerate}
 
 \myparagraph{TC2: Odkázání na zaplacení parkovacích poplatků}
-Zobrazení parkovacích zón a následné vybrání parkovací zóny s odkazem na zaplacení parkovacího poplatku.
+Zobrazení parkovacích zón a následné vybrání parkovací zóny s~odkazem na zaplacení parkovacího poplatku.
 
 \begin{enumerate}
   \item \textbf{Kroky:}
@@ -183,12 +183,12 @@ Zobrazení dialogového okna pro výběr datového rozsahu a následné zrušen�
 
 
 \subsection{Testy jednotlivých UI komponent}
-Před tím, než bylo přistoupeno k testování UI dle výše zmíněných scénářů, bylo nejprve implementováno několik testů pro ověření správné 
+Před tím, než bylo přistoupeno k~testování UI dle výše zmíněných scénářů, bylo nejprve implementováno několik testů pro ověření správné 
 funkcionality a vzhledu jednotlivých komponent jako jsou tlačítka, textová pole, seznamy, obrázky atd.
 
-Účelem těchto testů je zajistit, že každá komponenta aplikace funguje správně a že se zobrazuje v souladu s návrhem a specifikacemi. 
-To zahrnuje ověření interakcí s komponentou jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty v 
-různých situacích jako je například změna orientace zařízení.
+Účelem těchto testů je zajistit, že každá komponenta aplikace funguje správně a že se zobrazuje v~souladu s~návrhem a specifikacemi. 
+To zahrnuje ověření interakcí s~komponentou jako je klikání, vyplňování políček, posouvání seznamů atd., stejně jako ověření vzhledu komponenty
+v~různých situacích jako je například změna orientace zařízení.
 
 \bigskip
 
@@ -212,7 +212,7 @@ fun check_properties_and_return() = runComposeUiTest {
 \end{listing}
 
 \subsection{End-to-end testy}
-End-to-end (E2E) testy jsou typem testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z pohledu uživatele \cite{testingE2E}.
+End-to-end (E2E) testy jsou typem testování, který simuluje reálné uživatelské scénáře a ověřuje fungování celé aplikace z~pohledu uživatele \cite{testingE2E}.
 Tyto testy prověřují integraci jednotlivých komponent aplikace a zajišťují, že aplikace pracuje korektně a očekávaným způsobem od začátku až 
 do konce vykonávaného procesu.
 
@@ -223,7 +223,7 @@ Cílem E2E testů je zajistit, že aplikace funguje spolehlivě a správně nap�
 svých cílů bez problémů.
 
 \bigskip
-Při implementaci těchto testů bylo postupováno na základě testovacích scénářů uvedených v sekci \textit{Testovací případy \ref{testCases}} a pro
+Při implementaci těchto testů bylo postupováno na základě testovacích scénářů uvedených v~sekci \textit{Testovací případy \ref{testCases}} a pro
 ukázku implementace byl zvolen E2E test odpovídající třetímu testovacímu případu (viz výpis kódu  \ref{lst:E2ETest}). 
 
 \begin{listing}[H]

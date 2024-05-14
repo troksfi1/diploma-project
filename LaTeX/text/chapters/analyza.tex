@@ -5,11 +5,11 @@ k~jednoduššímu porovnání a vyhodnocení použitelnosti frameworku Compose M
 rozebrán samotný Compose Multiplatform a to jak z~pohledu implementace uživatelského rozhraní, tak i z~pohledu implementace
 aplikační logiky, ke které využívá technologii Kotlin Multiplatform.
 
-Po dokončení analýzy obou těchto technologií se práce zaměřuje na porovnání vybraných frameworků jednak z pohledu výkonu 
-(v porovnání s nativními aplikacemi), tak z pohledu jejich velikosti na koncových zařízeních.
+Po dokončení analýzy obou těchto technologií se práce zaměřuje na porovnání vybraných frameworků jednak z~pohledu výkonu 
+(v~porovnání s~nativními aplikacemi), tak z~pohledu jejich velikosti na koncových zařízeních.
 
 Konec této kapitoly je věnován limitacím frameworku Compose Multiplatform oproti nativním řešením, které přímo vyplývají 
-z~provedené analýzy.  
+z~provedené analýzy.
 
 
 \section{Přehled existujících frameworků}
@@ -130,7 +130,7 @@ na sebe navazujících fází. \cite{reactNativeRenderCommitMount}
 \myparagraph{Render}
 Během této fáze se z~jednotlivých komponent (React Elementů) sestaví strom elementů v~JavaScriptu (viz levá část obrázku \ref{fig:react-native-render-pipeline}) a nad tímto stromem se 
 následně spustí rekurzivní redukce, při které dojde k~vytvoření nového stromu takzvaného React Shadow Tree (viz prostřední část obrázku \ref{fig:react-native-render-pipeline}).
-\cite{reactNativeRenderCommitMount} Ten se skládá z \textit{React Shadow Nodes}, které reprezentují objekty v~C++, a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
+\cite{reactNativeRenderCommitMount} Ten se skládá z~\textit{React Shadow Nodes}, které reprezentují objekty v~C++, a tím přechází tato renderovací fáze do další fáze zvané commit.\cite{reactNativeRenderCommitMount}
 
 \myparagraph{Commit}
 V~rámci této fáze je pro každý \textit{React Shadow Node} vypočítána jeho pozice a velikost na koncovém zařízení, a díky tomu může renderovací systém
@@ -164,7 +164,7 @@ bloky Flutter aplikací představující vše od strukturálních prvků po styl
 Další z~významných funkcí Flutteru, která významně zrychluje vývojový proces a zvyšuje produktivitu je funkce \textit{Hot Reload}. 
 Během vývoje běží Flutter aplikace na virtuálním počítači (Dart VM), který díky této funkci umožňuje okamžitě vidět provedené změny
 v~kódu bez nutnosti úplné rekompilace aplikace. \cite{flutterHotReload} Teprve pro fázi vydání jsou Flutter aplikace kompilovány přímo do strojového kódu a to 
-i v případě, že už jde o~instrukce Intel x64 nebo ARM, případně do JavaScriptu, pokud jsou cíleny na web. \cite{flutterArchOverview}
+i v~případě, že už jde o~instrukce Intel x64 nebo ARM, případně do JavaScriptu, pokud jsou cíleny na web. \cite{flutterArchOverview}
 
 
 \myparagraph{Jeden zdrojový kód pro více platforem} 
@@ -188,7 +188,7 @@ renderuje pomocí vlastního renderovacího enginu. \cite{flutterRenderingModel}
 
 \subsection*{Architektura frameworku Flutter} 
 Jak je vidět na obrázku \ref{fig:flutter_architectural_layers}, tak architektura Flutteru je rozdělena do tří hlavních vrstev. \cite{flutterArchOverview}
-První z nich, \textit{embedder}, je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
+První z~nich, \textit{embedder}, je vrstva, která umožňuje integrovat Flutter do konkrétních platforem jako je Android, iOS, desktop nebo web. 
 Každý \textit{embedder} obsahuje platformě specifický kód, který je potřebný pro spuštění Flutteru na dané platformě.
 \textit{Engine} je další vrstva starající se o~vykreslování grafiky, kdykoli, kdy je potřeba vykreslit nový snímek. \cite{flutterArchOverview} 
 \textit{Framework} je vrstva, která je používána vývojáři k~vytváření uživatelských rozhraní a definování chování aplikace. 
@@ -229,7 +229,7 @@ Container(
 \end{listing}
 
 \newpage
-Když Flutter potřebuje vykreslit například blok z výpisu kódu \ref{lst:flutterCode}, zavolá metodu \code{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
+Když Flutter potřebuje vykreslit například blok z~výpisu kódu \ref{lst:flutterCode}, zavolá metodu \code{build()} a ta vrátí podstrom widgetů, které následně vykreslí uživatelské 
 rozhraní na základě aktuálního stavu aplikace. \cite*{flutterArchOverview}
 
 Během fáze sestavování překládá Flutter widgety vyjádřené v~kódu (například kód \ref{lst:flutterCode}) do odpovídajícího stromu elementů viz obrázek \ref{fig:flutter_trees}, přičemž každý widget má přiřazený jeden element. Každý prvek pak představuje určitou instanci widgetu v~daném umístění stromové hierarchie. \cite*{flutterArchOverview}
@@ -328,7 +328,7 @@ sémantického stromu a následující vnořené prvky jsou jeho potomky.
 \end{figure}
 
 \myparagraph{Layout}
-V této fázi se komponentám určí na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
+V~této fázi se komponentám určí na jakých pozicích se mají vykreslit a jakou mají mít šířku a výšku.
 Compose během této fáze prochází strom UI komponent tak, že nejprve změří velikost svých potomků (pokud existují) a následně se 
 na základě těchto měření rozhodne o~vlastní velikosti. Nakonec umístí každého potomka relativně ke své pozici.\cite{jetpackPhases}
 
@@ -375,7 +375,7 @@ Společnost JetBrains ve svém článku z~konce roku 2023 zmiňuje, že existuje
 jich bylo pouze několik málo desítek. \cite{KMPstable}
 
 %Jeho hlavním úkolem je sdílení kódu na mobilních platformách. 
-Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají v praxi jeví jako zatím jedna z~nejslabších stránek KMP 
+Právě počet a vyspělost těchto knihoven se podle společností, které již KMP používají v~praxi jeví jako zatím jedna z~nejslabších stránek KMP 
 (viz sekce \textit{Aktuální použití KMP v~praxi ref{kmpInPractise}
 }).
 
@@ -422,7 +422,7 @@ v~multiplatformním projektu založeném na KMP klíčové. Implementace kódu p
 velké části kódu a to i těchto platformě specifických, mohou být součástí kódu společného. Nesdílení tohoto kódu s~ostatními platformami
 by tak zapříčinilo duplikaci velké části kódu. 
 
-Aby se zdvojení zabránilo, je vhodné aplikovat dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které v rámci sestavovací technologie Gradle slouží 
+Aby se zdvojení zabránilo, je vhodné aplikovat dříve zmíněné hierarchické struktury a využít takzvané \textit{source sets}, které v~rámci sestavovací technologie Gradle slouží 
 pro jakési seskupení kódů specifických pro konkrétní zařízení nebo platformy. Pro lepší představu o~tom, jak jsou jednotlivé
 \textit{source sets} definovány, slouží obrázek \ref{fig:dependson-tree-diagram},
 který vizualizuje celkem pět zadefinovaných \textit{source sets} a to konkrétně \code{commonMain}, \code{androidMain}, 
@@ -488,7 +488,7 @@ mezi nejčastěji sdílené části aplikací patří datová a síťová vrstva
 
 \section{Porovnání vybraných multiplatformních frameworků}
 
-V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky z pohledu výkonu a velikosti jednotlivých aplikací.
+V~rámci této kapitoly budou porovnány vybrané multiplatformní frameworky z~pohledu výkonu a velikosti jednotlivých aplikací.
 
 
 \subsection{Porovnání výkonu} \label{performanceSection}
@@ -503,7 +503,7 @@ frameworkem zvaném Flutter. \cite{crossPlatformFrameworksStats}
 Mezi hlavní testované parametry patřil čas nastartování testované aplikace a její velikost.
 
 \subsection*{Ukázková aplikace}
-Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace s jednou obrazovkou, která 
+Pro porovnání důležitých parametrů byla pro test vytvořena jednoduchá aplikace s~jednou obrazovkou, která 
 načetla obrázky z~veřejného API a zobrazila je v~horizontálním seznamu. 
 Na každý obrázek šlo kliknout a zobrazit jeho přiblížení pod seznamem. 
 
@@ -517,7 +517,7 @@ Veškeré testy proběhly na zařízeních Pixel 4a a iPhone 12 Mini a byly opak
 \myparagraph{Velikost aplikace} 
 
 Na obrázku \ref{fig:chart_app_sizes} je vidět, že velikost aplikace založené na Compose Multiplatform, je identická
-s~velikostí nativní aplikace pro Android. Je tomu tak z důvodu, že výsledná aplikace pro Android neobsahuje kód 
+s~velikostí nativní aplikace pro Android. Je tomu tak z~důvodu, že výsledná aplikace pro Android neobsahuje kód 
 pro jiné platformy. \cite{imgAndroidFlutterCompose} Kdežto u~velikosti iOS aplikace je situace výrazně odlišná. Samotná aplikace pro iOS je v~porovnání
 s~její nativní aplikací o~23,1~MB větší. Tento rozdíl ve velikosti je způsoben především grafickou 2D knihovnou Skia,
 která je na platformě Android dostupná, kdežto na platformě iOS se nenachází. Knihovna proto musí být spolu s~aplikací dodána. \cite{imgAndroidFlutterCompose}
@@ -539,7 +539,7 @@ pro iOS. \cite{flutterSize}
 Při porovnání rychlosti spuštění Compose Multiplatform aplikace na platformě Android není mezi rychlostmi téměř žádný
 rozdíl, stejně tak jako tomu bylo při porovnání velikosti aplikací v~předchozí kapitole. O~něco delší dobu spuštění měla
 aplikace napsaná pomocí frameworku Flutter, která se spouštěla v~průměru o~221 ms déle než Compose Multiplatform aplikace. (viz tabulka \ref{tab:performance_comparison})
-Toto zpomalení je s největší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s~oficiální
+Toto zpomalení je s~největší pravděpodobností způsobeno dobou spuštění Flutter Enginu, což by korespondovalo s~oficiální
 Flutter dokumentací. \cite{flutterPerformance}
 U~posledního porovnání na platformě iOS se doba spuštění aplikací založených na Compose Multiplatform a frameworku 
 Flutter o~tolik nelišila od nativní aplikace (viz tabulka \ref{tab:app_launch_duration_ios}).
@@ -594,7 +594,7 @@ především nedostatečné množství knihoven, ,případně jejich nedostateč
 Co se týče UI, tak zde je situace díky možnosti využití Jetpack Compose o~něco lepší. Většina omezení, která jsou
 aktuálně spjata s~UI, se týká především plynulosti anebo použití nativně vypadajících komponent na platformě iOS.
 Ta v~její nativní podobě používá styl zvaný \textit{Cupertino}, který frameworkem Compose Multiplatform 
-není aktuálně oficiálně podporován. Je však dostupný v podobě neoficiální knihovny \textit{Compose Cupertino} \cite{cupertinoCompoes}.
+není aktuálně oficiálně podporován. Je však dostupný v~podobě neoficiální knihovny \textit{Compose Cupertino} \cite{cupertinoCompoes}.
 
 Mezi další limitace se muže řadit i například velikost Compose Multiplatform aplikací na platformě iOS, které jsou dle
 předchozího porovnání několikrát větší než jejich nativní varianty.

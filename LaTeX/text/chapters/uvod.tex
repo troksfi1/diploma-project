@@ -13,7 +13,7 @@
 
 %\section{Motivace}
 
-V rámci úvodní kapitoly se práce zabývá otázkami, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
+V~rámci úvodní kapitoly se práce zabývá otázkami, co to vlastně multiplatformní vývoj je, proč se jím zabývat a jakých zařízení se může týkat.
 Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní uživatelské rozhraní (UI) aplikovat a na jakých konkrétních zařízeních. 
 
 %a porovnání vazby s UI s logikou daného aplikace vůči multipaltfomovodsti.
@@ -22,15 +22,15 @@ Dále je probrána otázka, v~jakých případech se vyplatí multiplatformní u
 
 %kdy multiplatformí vývoj nemá smysl (vyfocení závady)
 
-V rámci analýzy jsou detailně představeny aktuálně používané frameworky pro tvorbu multiplatformních aplikací včetně samotného
+V~rámci analýzy jsou detailně představeny aktuálně používané frameworky pro tvorbu multiplatformních aplikací včetně samotného
 frameworku Compose Multiplatform a jeho vazby na technologii Kotlin Multiplatform. Obě tyto technologie jsou následně podrobně rozebrány
-a nakonec porovnány s aktuálně používanými technologiemi z hlediska výkonu a velikosti samotných aplikací.
+a nakonec porovnány s~aktuálně používanými technologiemi z~hlediska výkonu a velikosti samotných aplikací.
 
 \medskip
 
-Druhá kapitola se věnuje výběru a návrhu aplikace, která slouží k otestovaní použitelnosti technologie Compose Multiplatform.
-Při fázi návrhu je nejprve přistoupeno k vytyčení případů užití a následně jsou specifikovány funkční a nefunkční požadavky pro vybranou aplikaci.
-Pro aplikaci je navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně práce přechází k detailnímu
+Druhá kapitola se věnuje výběru a návrhu aplikace, která slouží k~otestovaní použitelnosti technologie Compose Multiplatform.
+Při fázi návrhu je nejprve přistoupeno k~vytyčení případů užití a následně jsou specifikovány funkční a nefunkční požadavky pro vybranou aplikaci.
+Pro aplikaci je navržena základní architektura, která nejlépe vyhovuje vytyčeným požadavkům a následně práce přechází k~detailnímu
 návrhu samotného UI. To je nejprve navrženo pomocí takzvaných drátěných modelů a následně převedeno na takzvané mockup modely, které
 lépe vystihují výslednou grafickou podobu UI.
 
@@ -43,7 +43,7 @@ je pak věnován implementované logice uživatelského rozhraní.
 
 \medskip
 
-Předposlední kapitolou je kapitola věnují se testovaní implementované aplikace, v rámci které jsou nejprve představeny možnosti testování
+Předposlední kapitolou je kapitola věnují se testovaní implementované aplikace, v~rámci které jsou nejprve představeny možnosti testování
 multiplatformního UI, následně jsou tyto testy navrženy a implementovány.
 
 
@@ -51,7 +51,7 @@ multiplatformního UI, následně jsou tyto testy navrženy a implementovány.
 
 
 Poslední kapitola je věnována shrnutí celého procesu implementace a konkretizaci naskytlých problémů. Úplně poslední část této kapitoly se týká celkové evaluace
-vlastností frameworku Compose Multiplatform a závěrečného zhodnocení použitelnosti toho frameworku v praxi.
+vlastností frameworku Compose Multiplatform a závěrečného zhodnocení použitelnosti toho frameworku v~praxi.
 
 \newpage
 
@@ -80,7 +80,7 @@ tak ne vždy má smysl multiplatformní přístup aplikovat. Tomu, kdy je vhodn�
 \section{Uplatnění multiplatformního vývoje a sdíleného UI}
 I~přesto, že multiplatformní frameworky umožňují implementaci multiplatformního UI na většinu nejvíce používaných platforem jako je Android, iOS,
 Android TV, tvOS, Wear OS, watchOS nebo Android Automotive, tak ne vždy je vhodné těchto možností využít. Z~pohledu UI mají tyto platformy často jiné 
-velikosti obrazovek nebo jiné možnosti ovládaní a proto, je v některých případech nutné implementovat UI a často i veškerou logiku pro konkrétní platformu
+velikosti obrazovek nebo jiné možnosti ovládaní a proto, je v~některých případech nutné implementovat UI a často i veškerou logiku pro konkrétní platformu
 nebo typ zařízení. Je proto vždy nutné vědět, jaký typ aplikace bude z~pohledu aplikační logiky implementován, jaké budou jeho způsoby užití a na jakých 
 platformách bude daná aplikace implementována.
 Obecně lze tedy říci, že efektivita implementace multiplatformních aplikací se může dle těchto omezení a požadavků výrazně lišit.

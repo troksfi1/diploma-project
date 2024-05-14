@@ -77,18 +77,18 @@ multiplatformními frameworky, ale kdyby bylo srovnání výkonu provedeno na ro
 naměřenými výsledky na platformě iOS byl mnohem výraznější.
 
 Co se oblasti optimalizace týká, tak zde má Compose Multiplatform ještě poměrně velké nedostatky a to zejména co se týká plynulosti
-provozu na platformě iOS. Pro tu je však Compose Multiplatform stále ve verzi Alfa a z toho důvodu se dá očekávat brzké zlepšení. \cite{KMPRoaddMap}
+provozu na platformě iOS. Pro tu je však Compose Multiplatform stále ve verzi Alfa a z~toho důvodu se dá očekávat brzké zlepšení. \cite{KMPRoaddMap}
 %a dá se tak očekávat, že tato oblast bude pro uspěšnost technologie Compose Multiplatform klíčová.
 
 \myparagraph{Optimalizace nástrojů pro vývoj} %DONE
 Pokud jde o~připravenost nástrojů pro vývoj, tak mezi hlavními šesti problémy, které dle posledního oficiálního výzkumu KMP
-provází, jsou celkem tři, které se optimalizace nástrojů pro vývoj týkají. Konkrétně šlo o problémy s nastavením sestavovaní, problémy s 
-vývojovým prostředím a o potíže co se rychlosti sestavování týká. \cite{imgSurvey}. Aktuálně nelze objektivně říci jaké problémy již byly 
-vyřešeny a jaké ne, ale v rámci procesu implementace této aplikace byly největší problémy detekovány právě u podpory vývojových prostředí.
+provází, jsou celkem tři, které se optimalizace nástrojů pro vývoj týkají. Konkrétně šlo o~problémy s~nastavením sestavovaní, problémy
+s~vývojovým prostředím a o~potíže co se rychlosti sestavování týká. \cite{imgSurvey}. Aktuálně nelze objektivně říci jaké problémy již byly 
+vyřešeny a jaké ne, ale v~rámci procesu implementace této aplikace byly největší problémy detekovány právě u~podpory vývojových prostředí.
 
-Z~testovaných prostředí se vývojové prostředí Android Studio jevilo z pohledu optimalizace lépe optimalizované než konkurenční vývojové 
-prostředí Fleet. Na druhou stranu z pohledu funkcí podporuje Fleet některé užitečné funkce jako například \textit{Preview} \cite{previewCompose}, které buďto
-Android Studio nepodporovalo nebo se u nich vyskytovali zásadní problémy, kvůli kterým je nebylo možné použít. Dalším příkladem může být 
+Z~testovaných prostředí se vývojové prostředí Android Studio jevilo z~pohledu optimalizace lépe optimalizované než konkurenční vývojové 
+prostředí Fleet. Na druhou stranu z~pohledu funkcí podporuje Fleet některé užitečné funkce jako například \textit{Preview} \cite{previewCompose}, které buďto
+Android Studio nepodporovalo nebo se u~nich vyskytovali zásadní problémy, kvůli kterým je nebylo možné použít. Dalším příkladem může být 
 například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter Icons}, které pro multiplatformní testy na platformě Android nebylo možné vůbec použít. \cite{gutter}
 
 % Nicméně při zmíněné rychlosti vývoje prostředí Fleet se tato situace může taktéž rychle změnit.
@@ -103,21 +103,21 @@ například spouštění jednotlivých testů pomocí takzvaných \textit{Gutter
 % I když v~průběhu implementace bylo zjištěno několik problémů (jaký?), zjištěné problémy byly nahlášeny a jsou v procesu nápravy.
 
 \myparagraph{Dokumentace}
-Z~pohledu dokumentace má Compose Multiplatform významné nedostatky, ale díky tomu, že je z velké části odvozen z frameworku Jetpack Compose,
+Z~pohledu dokumentace má Compose Multiplatform významné nedostatky, ale díky tomu, že je z~velké části odvozen z~frameworku Jetpack Compose,
 tak nejsou tyto nedostatky nakonec tak zásadní. Většina potřebných částí pro tvorbu uživatelského rozhraní je totiž dobře dokumentovaná 
-společností Google. Co se přidružené technologie KMP týká, tak ta v porovnání s ostatními technologiemi v oblasti dokumentace stejně jako Compose 
+společností Google. Co se přidružené technologie KMP týká, tak ta v~porovnání s~ostatními technologiemi v~oblasti dokumentace stejně jako Compose 
 Multiplatform zaostává i~přesto, že se již nachází ve stabilní verzi.
 
 \myparagraph{Náročnost implementace}
 %Co se týká náročnosti implementace aplikace, tak ta nebýt výše zmíněných problémů, tak implementace probíhala poměrně bezproblémově.
 Vyjma výše zmíněných problémů, celý proces implementace frameworku Compose Multiplatfom proběhl téměř bez kombinací. Tato bezproblémovost 
-a možnost postupné integrace do již stávajících aplikací, které aktuálně často přechází od imperativních způsobů zápisu UI k deklarativním způsobům \cite{declarativeUIHistory},
-může tomuto frameworku pomoct nabýt v budoucnu na popularitě. 
+a možnost postupné integrace do již stávajících aplikací, které aktuálně často přechází od imperativních způsobů zápisu UI k~deklarativním způsobům \cite{declarativeUIHistory},
+může tomuto frameworku pomoct nabýt v~budoucnu na popularitě. 
 
 \section*{Shrnutí}
 Při závěrečném hodnocení frameworku Compose Multiplatform se dá říci, že je aktulálně vhodným nástrojem pro vývoj multiplatformních 
 aplikací, které nevyžadují úplnou stabilitu použitých technologií, ale za to upřednostňují jednoduše použitelné technologie, které 
-poskytují poměrně rychlou možnost tvorby UI s budoucím výhledem co se stability týká.
+poskytují poměrně rychlou možnost tvorby UI s~budoucím výhledem co se stability týká.
 
 
 \section{Shrnutí dosažených výsledků}
@@ -128,12 +128,12 @@ aby pokryla případně změny ve struktuře města.
 
 \medskip
 
-A co se frameworku Compose Multiplatform týká, tak zde se podařilo na základě prakticky sestavené aplikace potvrdit, že je možné, 
+A~co se frameworku Compose Multiplatform týká, tak zde se podařilo na základě prakticky sestavené aplikace potvrdit, že je možné, 
 aby převážná většina kódu byla sdílena mezi vybranými platformami. Dále se podařilo docílit zvýšení množství sdíleného kódu oproti 
-dosavadním aplikacím používaných v praxi, čehož bylo možné dosáhnout především díky sdílení UI pomocí Compose Multiplatform,
+dosavadním aplikacím používaných v~praxi, čehož bylo možné dosáhnout především díky sdílení UI pomocí Compose Multiplatform,
 ale také díky využití většího množství multiplatformních KMP knihoven. 
 Zároveň je ale nutné zohlednit fakt, že rozsah zkušební aplikace nedosahuje 
-takových rozměrů jako aktuálně používané aplikace v praxi. 
+takových rozměrů jako aktuálně používané aplikace v~praxi. 
 
 Každopádně lze i tak konstatovat, že i v~současné fázi vývoje tohoto frameworku se podařilo navrhnout
 aplikaci, která funguje na více platformách a která z~pohledu UI splňuje veškeré stanovené požadavky, které mohou být pro aplikace 
@@ -144,7 +144,7 @@ menších rozměru dostačující.
 %\section{Zhodnocení splnění cílů práce}
 \section{Návrhy pro budoucí vývoj a výzkum}
 Z~pohledu aplikace jsou zde velké možnosti pro budoucí vývoj jako například propojení aplikace s~dalšími systémy města,
-implementace dalších UI testů a nebo celkové dokončení aplikaci tak, aby ji bylo možné použít v produkčním nasazení. Výsledkem by tak mohla 
+implementace dalších UI testů a nebo celkové dokončení aplikaci tak, aby ji bylo možné použít v~produkčním nasazení. Výsledkem by tak mohla 
 být obecně použitelná aplikace pro města, která by díky multiplatformním vlastnostem pokryla co největší množství zařízení a zároveň by 
 byla snadněji a levněji udržovatelná než nativní aplikace.
 
