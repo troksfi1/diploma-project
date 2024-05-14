@@ -27,26 +27,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 
 class ParkingScreen : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        //val screenmodel = getScreenModel<ParkingScreenModel>()
-
-        //val screenModel = getScreenModel<ParkingScreenModel>()
-        //val screenModel = getScreenModel<ParkingScreenModel>()
-        //val state by screenModel.state.collectAsState()
-
-        val navigator: Navigator = LocalNavigator.currentOrThrow
-        var text by remember { mutableStateOf("") }
+        var zoneNameSearched = ""
         var active by remember { mutableStateOf(false) }
-        var parkingZoneNames = remember {
-            mutableListOf(
+        val parkingZoneNames =
+            listOf(
                 "nám. T.G.M. [PB1]",
                 "Osvobození [PB2]",
                 "nám. 17. listopadu [PB3]",
@@ -63,7 +53,7 @@ class ParkingScreen : Screen {
                 "Parkoviště u nemocnice",
                 "Parkoviště u hřbitova",
             )
-        }
+
         var parkingZoneNamesToShow = parkingZoneNames
         var selectedRow by remember { mutableStateOf("") }
         val scrollState = rememberScrollState()
@@ -77,18 +67,20 @@ class ParkingScreen : Screen {
                 SearchBar(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    query = text,
+                    query = zoneNameSearched,
                     onQueryChange = {
-                        text = it
+                        zoneNameSearched = it
                         parkingZoneNamesToShow =
-                            parkingZoneNames.filter { zone -> zone.contains(text, true) }
+                            parkingZoneNames.filter { zone ->
+                                zone.contains(
+                                    zoneNameSearched,
+                                    true
+                                )
+                            }
                                 .toMutableList()
                     },
                     onSearch = {
                         active = false
-                        println("find zone $text")
-                        moveMap(text) //todo
-                        //state.searchedZoneName = text
                     },
                     active = active,
                     onActiveChange = {
@@ -102,8 +94,8 @@ class ParkingScreen : Screen {
                         if (active) {
                             Icon(
                                 modifier = Modifier.clickable {
-                                    if (text.isNotEmpty()) {
-                                        text = ""
+                                    if (zoneNameSearched.isNotEmpty()) {
+                                        zoneNameSearched = ""
                                     } else {
                                         active = false
                                     }
@@ -123,11 +115,8 @@ class ParkingScreen : Screen {
                                     .fillMaxWidth()
                                     .clickable {
                                         selectedRow = zoneName
-                                        text = zoneName
+                                        zoneNameSearched = zoneName
                                         active = false
-                                        println("find zone $text")
-                                        moveMap(text) //todo
-                                        //state.searchedZoneName = text
                                     }
                             ) {
                                 Row(
@@ -145,7 +134,7 @@ class ParkingScreen : Screen {
                         }
                     }
                 }
-                MapView()
+                MapView(zoneNameSearched)
             }
         }
     }

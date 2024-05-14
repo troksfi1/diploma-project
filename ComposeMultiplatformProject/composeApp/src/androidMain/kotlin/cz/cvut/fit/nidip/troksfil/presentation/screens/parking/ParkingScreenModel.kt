@@ -1,11 +1,14 @@
 package cz.cvut.fit.nidip.troksfil.presentation.screens.parking
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.google.android.gms.maps.model.LatLng
 import cz.cvut.fit.nidip.troksfil.data.remote.rss.dto.Document
 import cz.cvut.fit.nidip.troksfil.domain.util.htmlToTextUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import nl.adaptivity.xmlutil.XmlDeclMode
 import nl.adaptivity.xmlutil.core.XmlVersion
@@ -17,51 +20,50 @@ class ParkingScreenModel : ScreenModel {
     private val _state = MutableStateFlow(ParkingScreenState())
     val state = _state.asStateFlow()
 
-    /*    fun parseXml() {
-            val format = XML {
-                xmlVersion = XmlVersion.XML10
-                xmlDeclMode = XmlDeclMode.Charset
-                indentString = "    "
-            }
-
-            val parkingZonesKml = ParkingZonesKml.ALL_PARKING_ZONES
-
-            val document = format.decodeFromString<Document>(parkingZonesKml)
-
-            val parkingZones = mutableListOf<ParkingZone>()
-
-            document.Placemark.forEach { placemark ->
-                parkingZones.add(
-                    ParkingZone(
-                        name = placemark.name,
-                        paymentUrl = extractUrl(placemark.description),
-                        description = getZoneDescription(placemark.description),
-                        color = getColor(placemark.name),
-                        parkingSlotPolygons = listOf(placemark.Polygon.coordinates.parseCoordinates())
-                    )
-                )
-            }
-
-
-            _state.update { currentState ->
-                currentState.copy(
-                    parkingZones = parkingZones
-                )
-            }
-        }*/
-
+    private var zoneName = MutableStateFlow("")
 
     fun onEvent(event: ParkingScreenEvent) {
         when (event) {
+            is ParkingScreenEvent.OnParkingSearched -> {
+                screenModelScope.launch {
 
-            ParkingScreenEvent.OnParkingSearched -> {
+                    zoneName.update { event.text }
 
+                    _state.update { parkingScreenState ->
+                        parkingScreenState.copy(
+                            nameOfLastSelectedZone = event.text,
+                            lastSelectedZone = state.value.parkingZones.find { it.name == event.text },
+                            zoneSelected = true
+                        )
+                    }
+                }
             }
 
-            ParkingScreenEvent.OnParkingZoneClicked -> {
+            is ParkingScreenEvent.OnParkingZoneClicked -> {
+                screenModelScope.launch {
 
+                    _state.update { parkingScreenState ->
+                        parkingScreenState.copy(
+                            nameOfLastSelectedZone = event.name,
+                            lastSelectedZone = state.value.parkingZones.find { it.name == event.name },
+                            zoneSelected = true
+                        )
+                    }
+                }
+            }
+
+            ParkingScreenEvent.OnBottomSheetCloseClicked -> {
+                screenModelScope.launch {
+
+                    _state.update {
+                        it.copy(
+                            zoneSelected = true
+                        )
+                    }
+                }
             }
         }
+
     }
 
     fun parseXml(): MutableList<ParkingZone> {
@@ -89,7 +91,16 @@ class ParkingScreenModel : ScreenModel {
             )
         }
 
-        ParkingScreenState().parkingZones = listOf()
+        screenModelScope.launch {
+
+            _state.update { currentState ->
+                currentState.copy(
+                    parkingZones = parkingZones
+                )
+            }
+        }
+
+
 
         return parkingZones
     }
@@ -150,17 +161,4 @@ private fun String.parseCoordinates(): List<LatLng> {
 
     }
     return latLng
-}
-
-actual fun moveMap(zoneName: String) {
-    //_state
-    val parkingZones = ParkingScreenModel().parseXml()
-    val parkingZone = parkingZones.find { it.name == zoneName }
-
-    if (parkingZone != null) {
-        println(parkingZone.name)
-    }
-
-    //ParkingScreenEvent.OnParkingSearched(parkingSlot)
-
 }

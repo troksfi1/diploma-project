@@ -27,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -47,8 +46,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, MapsComposeExperimentalApi::class)
 @Composable
-@Preview
-actual fun MapView() {
+actual fun MapView(searchedZoneName: String) {
     val pribram = LatLng(49.6883308, 14.0090864)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(pribram, 10f)
@@ -124,7 +122,6 @@ actual fun MapView() {
                         .align(Alignment.CenterHorizontally),
                     onClick = {
                         uriHandler.openUri(url.trimIndent())
-                        //startActivity(browserIntent)
                     },
                     content = {
                         Text("Zaplatit")
@@ -143,8 +140,6 @@ actual fun MapView() {
                         MapStyle.JSON_DARK
                     } else MapStyle.JSON_LIGHT
                 )
-                /*latLngBoundsForCameraTarget = LatLngBounds(
-                    LatLng(49.7195186,13.9845228)) */
             ),
             cameraPositionState = cameraPositionState
         ) {

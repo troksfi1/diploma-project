@@ -4,7 +4,5 @@ import androidx.compose.runtime.Composable
 
 
 @Composable
-actual fun MapView() {
+actual fun MapView(searchedZoneName: String) {
 }
-
-actual fun moveMap(zoneName: String) {}
