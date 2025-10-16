@@ -14,6 +14,4 @@ je sdíleno napříč více platformami.
 4. Uveďte jaké jsou možnosti testování UI a následně i tyto testy implementujte
 5. Zhodnoťte použitelnost tohoto frameworku.
 
-![homepage](https://github.com/user-attachments/assets/2033fcc3-5247-4b6a-a827-efa51024ad0e)
-![event screen](https://github.com/user-attachments/assets/cfcfa914-615b-49d7-a26c-b35e0d9a50ef)
-![parkingscreen](https://github.com/user-attachments/assets/4a59a615-2bff-44eb-9788-c5ad0b6821cc)
+![screens](https://github.com/user-attachments/assets/e4ec086a-45b6-4528-8e3a-c749c7d2877d)
